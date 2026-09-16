@@ -1,0 +1,4713 @@
+[
+ {
+  "id": "a1-001",
+  "nr": 1,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich wohne in Wien.",
+  "words": [
+   "ja",
+   "byvat"
+  ],
+  "tokens": 4,
+  "w": "Ja bývam vo Viedni."
+ },
+ {
+  "id": "a1-002",
+  "nr": 2,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Sie arbeitet in Bratislava.",
+  "words": [
+   "ona",
+   "pracovat",
+   "v"
+  ],
+  "tokens": 4,
+  "w": "Ona pracuje v Bratislave."
+ },
+ {
+  "id": "a1-003",
+  "nr": 3,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Heute ist Montag.",
+  "words": [
+   "dnes",
+   "pondelok"
+  ],
+  "tokens": 3,
+  "w": "Dnes je pondelok."
+ },
+ {
+  "id": "a1-004",
+  "nr": 4,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Morgen gehe ich zur Arbeit.",
+  "words": [
+   "zajtra",
+   "ist",
+   "praca",
+   "do"
+  ],
+  "tokens": 4,
+  "w": "Zajtra idem do práce."
+ },
+ {
+  "id": "a1-005",
+  "nr": 5,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Morgens trinke ich Tee.",
+  "words": [
+   "rano",
+   "pit",
+   "caj"
+  ],
+  "tokens": 3,
+  "w": "Ráno pijem čaj."
+ },
+ {
+  "id": "a1-006",
+  "nr": 6,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Abends lese ich ein Buch.",
+  "words": [
+   "vecer",
+   "citat",
+   "kniha"
+  ],
+  "tokens": 3,
+  "w": "Večer čítam knihu."
+ },
+ {
+  "id": "a1-007",
+  "nr": 7,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe eine kleine Wohnung.",
+  "words": [
+   "mat",
+   "maly",
+   "byt-2",
+   "byt"
+  ],
+  "tokens": 3,
+  "w": "Mám malý byt."
+ },
+ {
+  "id": "a1-008",
+  "nr": 8,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das ist mein Haus.",
+  "words": [
+   "toto",
+   "moj",
+   "dom"
+  ],
+  "tokens": 4,
+  "w": "Toto je môj dom."
+ },
+ {
+  "id": "a1-009",
+  "nr": 9,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wo ist der Bahnhof?",
+  "words": [
+   "kde",
+   "stanica"
+  ],
+  "tokens": 3,
+  "w": "Kde je stanica?"
+ },
+ {
+  "id": "a1-010",
+  "nr": 10,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Bus ist dort.",
+  "words": [
+   "autobus",
+   "tam"
+  ],
+  "tokens": 3,
+  "w": "Autobus je tam."
+ },
+ {
+  "id": "a1-011",
+  "nr": 11,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Bitte eine Fahrkarte nach Bratislava.",
+  "words": [
+   "prosim",
+   "jeden",
+   "listok",
+   "do"
+  ],
+  "tokens": 5,
+  "w": "Prosím, jeden lístok do Bratislavy."
+ },
+ {
+  "id": "a1-012",
+  "nr": 12,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Zug hat Verspätung.",
+  "words": [
+   "vlak",
+   "mat",
+   "meskanie"
+  ],
+  "tokens": 3,
+  "w": "Vlak má meškanie."
+ },
+ {
+  "id": "a1-013",
+  "nr": 13,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Hotel ist nahe dem Zentrum.",
+  "words": [
+   "hotel",
+   "blizko"
+  ],
+  "tokens": 4,
+  "w": "Hotel je blízko centra."
+ },
+ {
+  "id": "a1-014",
+  "nr": 14,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Zimmer ist sehr sauber.",
+  "words": [
+   "izba",
+   "velmi",
+   "cisty"
+  ],
+  "tokens": 4,
+  "w": "Izba je veľmi čistá."
+ },
+ {
+  "id": "a1-015",
+  "nr": 15,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Das Fenster ist offen.",
+  "words": [
+   "okno",
+   "otvoreny",
+   "otvorene"
+  ],
+  "tokens": 3,
+  "w": "Okno je otvorené."
+ },
+ {
+  "id": "a1-016",
+  "nr": 16,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Schließ bitte die Tür.",
+  "words": [
+   "zatvorit",
+   "dvere",
+   "prosim"
+  ],
+  "tokens": 3,
+  "w": "Zatvor dvere, prosím."
+ },
+ {
+  "id": "a1-017",
+  "nr": 17,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Öffne das Fenster.",
+  "words": [
+   "otvorit",
+   "okno"
+  ],
+  "tokens": 2,
+  "w": "Otvor okno."
+ },
+ {
+  "id": "a1-018",
+  "nr": 18,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich sitze am Tisch.",
+  "words": [
+   "sediet",
+   "stol",
+   "pri"
+  ],
+  "tokens": 3,
+  "w": "Sedím pri stole."
+ },
+ {
+  "id": "a1-019",
+  "nr": 19,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Schlüssel liegt auf dem Tisch.",
+  "words": [
+   "kluc",
+   "stol",
+   "na"
+  ],
+  "tokens": 4,
+  "w": "Kľúč je na stole."
+ },
+ {
+  "id": "a1-020",
+  "nr": 20,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Die Küche ist links.",
+  "words": [
+   "kuchyna",
+   "vlavo"
+  ],
+  "tokens": 3,
+  "w": "Kuchyňa je vľavo."
+ },
+ {
+  "id": "a1-021",
+  "nr": 21,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Badezimmer ist rechts.",
+  "words": [
+   "kupelna",
+   "vpravo"
+  ],
+  "tokens": 3,
+  "w": "Kúpeľňa je vpravo."
+ },
+ {
+  "id": "a1-022",
+  "nr": 22,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Schlafzimmer ist oben.",
+  "words": [
+   "spalna",
+   "hore"
+  ],
+  "tokens": 3,
+  "w": "Spálňa je hore."
+ },
+ {
+  "id": "a1-023",
+  "nr": 23,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Garten ist hinter dem Haus.",
+  "words": [
+   "zahrada",
+   "za",
+   "dom"
+  ],
+  "tokens": 4,
+  "w": "Záhrada je za domom."
+ },
+ {
+  "id": "a1-024",
+  "nr": 24,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Mein Balkon ist klein.",
+  "words": [
+   "moj",
+   "balkon",
+   "maly"
+  ],
+  "tokens": 4,
+  "w": "Môj balkón je malý."
+ },
+ {
+  "id": "a1-025",
+  "nr": 25,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Kühlschrank ist voll.",
+  "words": [
+   "chladnicka"
+  ],
+  "tokens": 3,
+  "w": "Chladnička je plná."
+ },
+ {
+  "id": "a1-026",
+  "nr": 26,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Schalte die Lampe ein.",
+  "words": [
+   "zapnut"
+  ],
+  "tokens": 2,
+  "w": "Zapni lampu."
+ },
+ {
+  "id": "a1-027",
+  "nr": 27,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Schalte den Fernseher aus.",
+  "words": [
+   "vypnut",
+   "televizor"
+  ],
+  "tokens": 2,
+  "w": "Vypni televízor."
+ },
+ {
+  "id": "a1-028",
+  "nr": 28,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich brauche ein Ladegerät.",
+  "words": [
+   "potrebovat",
+   "nabijacka"
+  ],
+  "tokens": 2,
+  "w": "Potrebujem nabíjačku."
+ },
+ {
+  "id": "a1-029",
+  "nr": 29,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Handy ist neu.",
+  "words": [
+   "moj",
+   "mobil",
+   "novy"
+  ],
+  "tokens": 4,
+  "w": "Môj mobil je nový."
+ },
+ {
+  "id": "a1-030",
+  "nr": 30,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Computer steht auf dem Tisch.",
+  "words": [
+   "pocitac",
+   "stol",
+   "na"
+  ],
+  "tokens": 4,
+  "w": "Počítač je na stole."
+ },
+ {
+  "id": "a1-031",
+  "nr": 31,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Meine Familie ist groß.",
+  "words": [
+   "rodina",
+   "velky"
+  ],
+  "tokens": 4,
+  "w": "Moja rodina je veľká."
+ },
+ {
+  "id": "a1-032",
+  "nr": 32,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe einen Bruder.",
+  "words": [
+   "mat",
+   "brat"
+  ],
+  "tokens": 3,
+  "w": "Mám jedného brata."
+ },
+ {
+  "id": "a1-033",
+  "nr": 33,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Meine Schwester ist jung.",
+  "words": [
+   "sestra",
+   "mlady"
+  ],
+  "tokens": 4,
+  "w": "Moja sestra je mladá."
+ },
+ {
+  "id": "a1-034",
+  "nr": 34,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Vater arbeitet zu Hause.",
+  "words": [
+   "otec",
+   "pracovat",
+   "doma",
+   "moj"
+  ],
+  "tokens": 4,
+  "w": "Môj otec pracuje doma."
+ },
+ {
+  "id": "a1-035",
+  "nr": 35,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Meine Mutter kocht gut.",
+  "words": [
+   "mama",
+   "dobre",
+   "varit"
+  ],
+  "tokens": 4,
+  "w": "Moja mama dobre varí."
+ },
+ {
+  "id": "a1-036",
+  "nr": 36,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Großvater liest gern.",
+  "words": [
+   "stary-otec",
+   "citat",
+   "otec",
+   "stary"
+  ],
+  "tokens": 4,
+  "w": "Starý otec rád číta."
+ },
+ {
+  "id": "a1-037",
+  "nr": 37,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Großmutter backt einen Kuchen.",
+  "words": [
+   "stara-mama",
+   "piect",
+   "mama"
+  ],
+  "tokens": 4,
+  "w": "Stará mama pečie koláč."
+ },
+ {
+  "id": "a1-038",
+  "nr": 38,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Freund ist nett.",
+  "words": [
+   "priatel",
+   "mily",
+   "moj"
+  ],
+  "tokens": 4,
+  "w": "Môj priateľ je milý."
+ },
+ {
+  "id": "a1-039",
+  "nr": 39,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Meine Freundin ist sympathisch.",
+  "words": [
+   "priatelka",
+   "sympaticky"
+  ],
+  "tokens": 4,
+  "w": "Moja priateľka je sympatická."
+ },
+ {
+  "id": "a1-040",
+  "nr": 40,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Nachbar wohnt neben uns.",
+  "words": [
+   "sused",
+   "byvat",
+   "vedla",
+   "nas"
+  ],
+  "tokens": 4,
+  "w": "Sused býva vedľa nás."
+ },
+ {
+  "id": "a1-041",
+  "nr": 41,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe Hunger.",
+  "words": [
+   "hladny"
+  ],
+  "tokens": 2,
+  "w": "Som hladný."
+ },
+ {
+  "id": "a1-042",
+  "nr": 42,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe Durst.",
+  "words": [
+   "smadny"
+  ],
+  "tokens": 2,
+  "w": "Som smädný."
+ },
+ {
+  "id": "a1-043",
+  "nr": 43,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich möchte Wasser, bitte.",
+  "words": [
+   "chciet",
+   "voda",
+   "prosim"
+  ],
+  "tokens": 3,
+  "w": "Chcem vodu, prosím."
+ },
+ {
+  "id": "a1-044",
+  "nr": 44,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich trinke kaltes Wasser.",
+  "words": [
+   "pit",
+   "studeny",
+   "voda"
+  ],
+  "tokens": 3,
+  "w": "Pijem studenú vodu."
+ },
+ {
+  "id": "a1-045",
+  "nr": 45,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Kaffee ist heiß.",
+  "words": [
+   "kava",
+   "horuci"
+  ],
+  "tokens": 3,
+  "w": "Káva je horúca."
+ },
+ {
+  "id": "a1-046",
+  "nr": 46,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Tee ist warm.",
+  "words": [
+   "caj",
+   "teply"
+  ],
+  "tokens": 3,
+  "w": "Čaj je teplý."
+ },
+ {
+  "id": "a1-047",
+  "nr": 47,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Das Brot ist frisch.",
+  "words": [
+   "chlieb",
+   "cerstvy"
+  ],
+  "tokens": 3,
+  "w": "Chlieb je čerstvý."
+ },
+ {
+  "id": "a1-048",
+  "nr": 48,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich mag Käse.",
+  "words": [
+   "mat",
+   "syr"
+  ],
+  "tokens": 3,
+  "w": "Mám rád syr."
+ },
+ {
+  "id": "a1-049",
+  "nr": 49,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Heute esse ich Fisch.",
+  "words": [
+   "dnes",
+   "jest",
+   "ryba"
+  ],
+  "tokens": 3,
+  "w": "Dnes jem rybu."
+ },
+ {
+  "id": "a1-050",
+  "nr": 50,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Hühnchen ist mit Reis.",
+  "words": [
+   "kura",
+   "ryza",
+   "s"
+  ],
+  "tokens": 4,
+  "w": "Kura je s ryžou."
+ },
+ {
+  "id": "a1-051",
+  "nr": 51,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Die Suppe ist sehr gut.",
+  "words": [
+   "polievka",
+   "velmi",
+   "dobry"
+  ],
+  "tokens": 4,
+  "w": "Polievka je veľmi dobrá."
+ },
+ {
+  "id": "a1-052",
+  "nr": 52,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich bestelle einen Salat.",
+  "words": [
+   "objednat",
+   "salat"
+  ],
+  "tokens": 3,
+  "w": "Objednám si šalát."
+ },
+ {
+  "id": "a1-053",
+  "nr": 53,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich nehme ein Dessert.",
+  "words": [
+   "dat",
+   "dezert"
+  ],
+  "tokens": 3,
+  "w": "Dám si dezert."
+ },
+ {
+  "id": "a1-054",
+  "nr": 54,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ein Eis, bitte.",
+  "words": [
+   "zmrzlina",
+   "prosim"
+  ],
+  "tokens": 3,
+  "w": "Jednu zmrzlinu, prosím."
+ },
+ {
+  "id": "a1-055",
+  "nr": 55,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wie viel kostet die Rechnung?",
+  "words": [
+   "kolko",
+   "stat",
+   "ucet"
+  ],
+  "tokens": 3,
+  "w": "Koľko stojí účet?"
+ },
+ {
+  "id": "a1-056",
+  "nr": 56,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Kann ich mit Karte bezahlen?",
+  "words": [
+   "moct",
+   "platit",
+   "karta"
+  ],
+  "tokens": 3,
+  "w": "Môžem platiť kartou?"
+ },
+ {
+  "id": "a1-057",
+  "nr": 57,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe kein Bargeld.",
+  "words": [
+   "mat",
+   "hotovost"
+  ],
+  "tokens": 2,
+  "w": "Nemám hotovosť."
+ },
+ {
+  "id": "a1-058",
+  "nr": 58,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Das Geschäft ist geöffnet.",
+  "words": [
+   "obchod",
+   "otvoreny"
+  ],
+  "tokens": 3,
+  "w": "Obchod je otvorený."
+ },
+ {
+  "id": "a1-059",
+  "nr": 59,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Supermarkt ist geschlossen.",
+  "words": [
+   "supermarket",
+   "zatvoreny"
+  ],
+  "tokens": 3,
+  "w": "Supermarket je zatvorený."
+ },
+ {
+  "id": "a1-060",
+  "nr": 60,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Diese Jacke ist teuer.",
+  "words": [
+   "tato",
+   "drahy"
+  ],
+  "tokens": 4,
+  "w": "Táto bunda je drahá."
+ },
+ {
+  "id": "a1-061",
+  "nr": 61,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Diese Schuhe sind günstig.",
+  "words": [
+   "topanky",
+   "lacny"
+  ],
+  "tokens": 4,
+  "w": "Tieto topánky sú lacné."
+ },
+ {
+  "id": "a1-062",
+  "nr": 62,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich suche ein blaues Hemd.",
+  "words": [
+   "hladat",
+   "modry"
+  ],
+  "tokens": 3,
+  "w": "Hľadám modrú košeľu."
+ },
+ {
+  "id": "a1-063",
+  "nr": 63,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich möchte eine schwarze Hose.",
+  "words": [
+   "chciet",
+   "cierny"
+  ],
+  "tokens": 3,
+  "w": "Chcem čierne nohavice."
+ },
+ {
+  "id": "a1-064",
+  "nr": 64,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Haben Sie eine andere Größe?",
+  "words": [
+   "mat",
+   "velkost"
+  ],
+  "tokens": 3,
+  "w": "Máte inú veľkosť?"
+ },
+ {
+  "id": "a1-065",
+  "nr": 65,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Preis ist zu hoch.",
+  "words": [
+   "cena",
+   "prilis",
+   "vysoky"
+  ],
+  "tokens": 4,
+  "w": "Cena je príliš vysoká."
+ },
+ {
+  "id": "a1-066",
+  "nr": 66,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Heute ist schönes Wetter.",
+  "words": [
+   "dnes",
+   "pekny",
+   "pocasie"
+  ],
+  "tokens": 4,
+  "w": "Dnes je pekné počasie."
+ },
+ {
+  "id": "a1-067",
+  "nr": 67,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Draußen ist es kalt.",
+  "words": [
+   "vonku",
+   "zima"
+  ],
+  "tokens": 3,
+  "w": "Vonku je zima."
+ },
+ {
+  "id": "a1-068",
+  "nr": 68,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Sonne scheint.",
+  "words": [
+   "slnko"
+  ],
+  "tokens": 2,
+  "w": "Slnko svieti."
+ },
+ {
+  "id": "a1-069",
+  "nr": 69,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Es regnet den ganzen Tag.",
+  "words": [
+   "den",
+   "cely"
+  ],
+  "tokens": 3,
+  "w": "Prší celý deň."
+ },
+ {
+  "id": "a1-070",
+  "nr": 70,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ein starker Wind weht.",
+  "words": [
+   "vietor",
+   "silny"
+  ],
+  "tokens": 3,
+  "w": "Fúka silný vietor."
+ },
+ {
+  "id": "a1-071",
+  "nr": 71,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe blaue Augen.",
+  "words": [
+   "mat",
+   "modry"
+  ],
+  "tokens": 3,
+  "w": "Mám modré oči."
+ },
+ {
+  "id": "a1-072",
+  "nr": 72,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Kopf tut weh.",
+  "words": [
+   "hlava"
+  ],
+  "tokens": 3,
+  "w": "Bolí ma hlava."
+ },
+ {
+  "id": "a1-073",
+  "nr": 73,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Hals tut weh.",
+  "words": [
+   "hrdlo"
+  ],
+  "tokens": 3,
+  "w": "Bolí ma hrdlo."
+ },
+ {
+  "id": "a1-074",
+  "nr": 74,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich bin krank.",
+  "words": [
+   "chory"
+  ],
+  "tokens": 2,
+  "w": "Som chorý."
+ },
+ {
+  "id": "a1-075",
+  "nr": 75,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich habe Fieber.",
+  "words": [
+   "mat",
+   "horucka"
+  ],
+  "tokens": 2,
+  "w": "Mám horúčku."
+ },
+ {
+  "id": "a1-076",
+  "nr": 76,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich brauche einen Arzt.",
+  "words": [
+   "potrebovat",
+   "lekar"
+  ],
+  "tokens": 2,
+  "w": "Potrebujem lekára."
+ },
+ {
+  "id": "a1-077",
+  "nr": 77,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wo ist die Apotheke?",
+  "words": [
+   "kde",
+   "lekaren"
+  ],
+  "tokens": 3,
+  "w": "Kde je lekáreň?"
+ },
+ {
+  "id": "a1-078",
+  "nr": 78,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Rufen Sie einen Krankenwagen!",
+  "words": [
+   "sanitka"
+  ],
+  "tokens": 2,
+  "w": "Zavolajte sanitku!"
+ },
+ {
+  "id": "a1-079",
+  "nr": 79,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Helfen Sie mir bitte.",
+  "words": [
+   "pomoct",
+   "prosim"
+  ],
+  "tokens": 3,
+  "w": "Pomôžte mi, prosím."
+ },
+ {
+  "id": "a1-080",
+  "nr": 80,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Heute trainiere ich zu Hause.",
+  "words": [
+   "dnes",
+   "cvicit",
+   "doma"
+  ],
+  "tokens": 3,
+  "w": "Dnes cvičím doma."
+ },
+ {
+  "id": "a1-081",
+  "nr": 81,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich schwimme gern.",
+  "words": [
+   "plavat"
+  ],
+  "tokens": 2,
+  "w": "Rád plávam."
+ },
+ {
+  "id": "a1-082",
+  "nr": 82,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Jeden Tag gehe ich zu Fuß.",
+  "words": [
+   "kazdy",
+   "den",
+   "chodit"
+  ],
+  "tokens": 4,
+  "w": "Každý deň chodím pešo."
+ },
+ {
+  "id": "a1-083",
+  "nr": 83,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Am Samstag spielen wir Tennis.",
+  "words": [
+   "sobota",
+   "hrat",
+   "tenis",
+   "v"
+  ],
+  "tokens": 4,
+  "w": "V sobotu hráme tenis."
+ },
+ {
+  "id": "a1-084",
+  "nr": 84,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Am Sonntag erhole ich mich.",
+  "words": [
+   "nedela",
+   "oddychovat",
+   "v"
+  ],
+  "tokens": 3,
+  "w": "V nedeľu oddychujem."
+ },
+ {
+  "id": "a1-085",
+  "nr": 85,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Heute habe ich viel Arbeit.",
+  "words": [
+   "dnes",
+   "vela",
+   "praca"
+  ],
+  "tokens": 4,
+  "w": "Dnes mám veľa práce."
+ },
+ {
+  "id": "a1-086",
+  "nr": 86,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Morgen habe ich frei.",
+  "words": [
+   "zajtra",
+   "mat",
+   "volny"
+  ],
+  "tokens": 3,
+  "w": "Zajtra mám voľno."
+ },
+ {
+  "id": "a1-087",
+  "nr": 87,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Treffen beginnt um neun Uhr.",
+  "words": [
+   "zacat",
+   "o"
+  ],
+  "tokens": 4,
+  "w": "Stretnutie začína o deviatej."
+ },
+ {
+  "id": "a1-088",
+  "nr": 88,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Die Arbeit endet um fünf Uhr.",
+  "words": [
+   "praca",
+   "skoncit",
+   "o"
+  ],
+  "tokens": 4,
+  "w": "Práca končí o piatej."
+ },
+ {
+  "id": "a1-089",
+  "nr": 89,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich warte auf den Kollegen.",
+  "words": [
+   "cakat",
+   "kolega",
+   "na"
+  ],
+  "tokens": 3,
+  "w": "Čakám na kolegu."
+ },
+ {
+  "id": "a1-090",
+  "nr": 90,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich rufe meine Mutter an.",
+  "words": [
+   "volat",
+   "mama"
+  ],
+  "tokens": 3,
+  "w": "Volám svojej mame."
+ },
+ {
+  "id": "a1-091",
+  "nr": 91,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich schicke eine Nachricht.",
+  "words": [
+   "poslat",
+   "sprava"
+  ],
+  "tokens": 2,
+  "w": "Posielam správu."
+ },
+ {
+  "id": "a1-092",
+  "nr": 92,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich lese eine kurze E-Mail.",
+  "words": [
+   "citat",
+   "kratky"
+  ],
+  "tokens": 3,
+  "w": "Čítam krátky email."
+ },
+ {
+  "id": "a1-093",
+  "nr": 93,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich schreibe ein neues Wort.",
+  "words": [
+   "pisat",
+   "novy",
+   "slovo"
+  ],
+  "tokens": 3,
+  "w": "Píšem nové slovo."
+ },
+ {
+  "id": "a1-094",
+  "nr": 94,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich lerne Slowakisch.",
+  "words": [
+   "ucit-sa",
+   "po-slovensky",
+   "po",
+   "sa"
+  ],
+  "tokens": 4,
+  "w": "Učím sa po slovensky."
+ },
+ {
+  "id": "a1-095",
+  "nr": 95,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich spreche ein bisschen Slowakisch.",
+  "words": [
+   "hovorit",
+   "trochu",
+   "po-slovensky",
+   "po"
+  ],
+  "tokens": 4,
+  "w": "Hovorím trochu po slovensky."
+ },
+ {
+  "id": "a1-096",
+  "nr": 96,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich verstehe dieses Wort nicht.",
+  "words": [
+   "rozumiet",
+   "tento",
+   "slovo"
+  ],
+  "tokens": 3,
+  "w": "Nerozumiem tomuto slovu."
+ },
+ {
+  "id": "a1-097",
+  "nr": 97,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Können Sie langsam sprechen?",
+  "words": [
+   "moct",
+   "hovorit",
+   "pomaly"
+  ],
+  "tokens": 3,
+  "w": "Môžete hovoriť pomaly?"
+ },
+ {
+  "id": "a1-098",
+  "nr": 98,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wie heißen Sie?",
+  "words": [
+   "ako",
+   "volat",
+   "sa"
+  ],
+  "tokens": 3,
+  "w": "Ako sa voláte?"
+ },
+ {
+  "id": "a1-099",
+  "nr": 99,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Woher kommen Sie?",
+  "words": [
+   "odkial"
+  ],
+  "tokens": 2,
+  "w": "Odkiaľ ste?"
+ },
+ {
+  "id": "a1-100",
+  "nr": 100,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich komme aus Österreich.",
+  "words": [
+   "rakusko",
+   "z"
+  ],
+  "tokens": 3,
+  "w": "Som z Rakúska."
+ },
+ {
+  "id": "a2-001",
+  "nr": 1,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Wenn ich nach Hause komme, mache ich mir zuerst Tee.",
+  "words": [
+   "prist",
+   "doma",
+   "najprv",
+   "caj",
+   "ked"
+  ],
+  "tokens": 7,
+  "w": "Keď prídem domov, najprv si urobím čaj."
+ },
+ {
+  "id": "a2-002",
+  "nr": 2,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Gestern waren wir in der Stadt und haben ein Geschenk gekauft.",
+  "words": [
+   "vcera",
+   "mesto",
+   "kupit",
+   "a",
+   "v"
+  ],
+  "tokens": 9,
+  "w": "Včera sme boli v meste a kúpili sme darček."
+ },
+ {
+  "id": "a2-003",
+  "nr": 3,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn es morgen schön ist, machen wir gemeinsam einen Ausflug.",
+  "words": [
+   "ak",
+   "zajtra",
+   "spolu",
+   "vylet",
+   "na"
+  ],
+  "tokens": 8,
+  "w": "Ak bude zajtra pekne, pôjdeme spolu na výlet."
+ },
+ {
+  "id": "a2-004",
+  "nr": 4,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Weil der Bus Verspätung hatte, kam ich spät zur Arbeit.",
+  "words": [
+   "pretoze",
+   "autobus",
+   "prist",
+   "praca",
+   "neskoro",
+   "do"
+  ],
+  "tokens": 8,
+  "w": "Pretože autobus meškal, prišiel som do práce neskoro."
+ },
+ {
+  "id": "a2-005",
+  "nr": 5,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Bruder wohnt weit weg, aber wir telefonieren oft miteinander.",
+  "words": [
+   "brat",
+   "byvat",
+   "daleko",
+   "ale",
+   "casto",
+   "telefonovat",
+   "moj"
+  ],
+  "tokens": 8,
+  "w": "Môj brat býva ďaleko, ale často si telefonujeme."
+ },
+ {
+  "id": "a2-006",
+  "nr": 6,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Abends sehe ich gern einen Film und lese danach.",
+  "words": [
+   "vecer",
+   "pozerat",
+   "potom",
+   "citat",
+   "a",
+   "film"
+  ],
+  "tokens": 8,
+  "w": "Večer si rád pozriem film a potom čítam."
+ },
+ {
+  "id": "a2-007",
+  "nr": 7,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "In den Urlaub reisen wir mit dem Zug, weil das bequem ist.",
+  "words": [
+   "dovolenka",
+   "cestovat",
+   "vlak",
+   "pretoze",
+   "pohodlny",
+   "na"
+  ],
+  "tokens": 8,
+  "w": "Na dovolenku cestujeme vlakom, pretože je to pohodlné."
+ },
+ {
+  "id": "a2-008",
+  "nr": 8,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Ich muss mir die neuen Wörter vor dem morgigen Test merken.",
+  "words": [
+   "musiet",
+   "zapamatat-si",
+   "novy",
+   "slovo",
+   "pred"
+  ],
+  "tokens": 8,
+  "w": "Musím si zapamätať nové slová pred zajtrajším testom."
+ },
+ {
+  "id": "a2-009",
+  "nr": 9,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Wenn ich die Frage nicht verstehe, bitte ich den Lehrer um Hilfe.",
+  "words": [
+   "ked",
+   "rozumiet",
+   "otazka",
+   "ucitel",
+   "pomoc",
+   "o"
+  ],
+  "tokens": 7,
+  "w": "Keď nerozumiem otázke, poprosím učiteľa o pomoc."
+ },
+ {
+  "id": "a2-010",
+  "nr": 10,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Restaurant bestellten wir Suppe und ein Hauptgericht.",
+  "words": [
+   "restauracia",
+   "objednat",
+   "polievka",
+   "jedlo",
+   "a",
+   "v"
+  ],
+  "tokens": 9,
+  "w": "V reštaurácii sme si objednali polievku a hlavné jedlo."
+ },
+ {
+  "id": "a2-011",
+  "nr": 11,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Dieses Café ist kleiner, aber viel ruhiger.",
+  "words": [
+   "tato",
+   "ale",
+   "pokojny"
+  ],
+  "tokens": 7,
+  "w": "Táto kaviareň je menšia, ale oveľa pokojnejšia."
+ },
+ {
+  "id": "a2-012",
+  "nr": 12,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich möchte einen neuen Mantel kaufen, wenn er nicht zu teuer ist.",
+  "words": [
+   "chciet",
+   "kupit",
+   "novy",
+   "ak",
+   "prilis",
+   "drahy"
+  ],
+  "tokens": 9,
+  "w": "Chcem si kúpiť nový kabát, ak nebude príliš drahý."
+ },
+ {
+  "id": "a2-013",
+  "nr": 13,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Vor der Reise kontrolliere ich immer Pass und Fahrkarte.",
+  "words": [
+   "pred",
+   "cesta",
+   "vzdy",
+   "listok",
+   "a",
+   "pas"
+  ],
+  "tokens": 8,
+  "w": "Pred cestou si vždy skontrolujem pas a lístok."
+ },
+ {
+  "id": "a2-014",
+  "nr": 14,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Zum Flughafen müssen wir mindestens zwei Stunden vorher kommen.",
+  "words": [
+   "letisko",
+   "musiet",
+   "prist",
+   "aspon",
+   "hodina",
+   "na"
+  ],
+  "tokens": 8,
+  "w": "Na letisko musíme prísť aspoň dve hodiny vopred."
+ },
+ {
+  "id": "a2-015",
+  "nr": 15,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das Flugzeug flog später ab, deshalb warteten wir lange.",
+  "words": [
+   "lietadlo",
+   "odletiet",
+   "neskor",
+   "cakat",
+   "preto"
+  ],
+  "tokens": 7,
+  "w": "Lietadlo odletelo neskôr, preto sme dlho čakali."
+ },
+ {
+  "id": "a2-016",
+  "nr": 16,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Nach der Ankunft im Hotel packte ich sofort mein Gepäck aus.",
+  "words": [
+   "prichod",
+   "hotel",
+   "batozina",
+   "po",
+   "do"
+  ],
+  "tokens": 9,
+  "w": "Po príchode do hotela som si hneď vybalil batožinu."
+ },
+ {
+  "id": "a2-017",
+  "nr": 17,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das Zimmer hatte einen Balkon, von dem man das Meer sehen konnte.",
+  "words": [
+   "izba",
+   "balkon",
+   "vidiet",
+   "more",
+   "z"
+  ],
+  "tokens": 8,
+  "w": "Izba mala balkón, z ktorého bolo vidieť more."
+ },
+ {
+  "id": "a2-018",
+  "nr": 18,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Die Rezeptionistin zeigte uns, wo das Frühstück ist.",
+  "words": [
+   "ukazat",
+   "kde",
+   "ranajky"
+  ],
+  "tokens": 6,
+  "w": "Recepčná nám ukázala, kde sú raňajky."
+ },
+ {
+  "id": "a2-019",
+  "nr": 19,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn Sie ein Handtuch brauchen, rufen Sie an der Rezeption an.",
+  "words": [
+   "ak",
+   "potrebovat",
+   "volat",
+   "recepcia",
+   "na",
+   "uterak"
+  ],
+  "tokens": 6,
+  "w": "Ak potrebujete uterák, zavolajte na recepciu."
+ },
+ {
+  "id": "a2-020",
+  "nr": 20,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Stadtzentrum gibt es viele Geschäfte und Restaurants.",
+  "words": [
+   "mesto",
+   "vela",
+   "obchod",
+   "restauracia",
+   "a",
+   "v"
+  ],
+  "tokens": 8,
+  "w": "V centre mesta je veľa obchodov a reštaurácií."
+ },
+ {
+  "id": "a2-021",
+  "nr": 21,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Auf dem Markt kaufen wir frisches Obst und Gemüse.",
+  "words": [
+   "trh",
+   "kupovat",
+   "cerstvy",
+   "ovocie",
+   "zelenina",
+   "na",
+   "a"
+  ],
+  "tokens": 7,
+  "w": "Na trhu kupujeme čerstvé ovocie a zeleninu."
+ },
+ {
+  "id": "a2-022",
+  "nr": 22,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Verkäufer half mir, die richtige Größe zu finden.",
+  "words": [
+   "pomoct",
+   "najst",
+   "spravny",
+   "velkost"
+  ],
+  "tokens": 6,
+  "w": "Predavač mi pomohol nájsť správnu veľkosť."
+ },
+ {
+  "id": "a2-023",
+  "nr": 23,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich kann die Ware zurückgeben, wenn ich den Kassenbon habe.",
+  "words": [
+   "tovar",
+   "moct",
+   "vratit",
+   "ak",
+   "uctenka"
+  ],
+  "tokens": 6,
+  "w": "Tovar môžem vrátiť, ak mám účtenku."
+ },
+ {
+  "id": "a2-024",
+  "nr": 24,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Diese Marke ist teurer, aber das Produkt ist hochwertig.",
+  "words": [
+   "tato",
+   "znacka",
+   "ale",
+   "vyrobok"
+  ],
+  "tokens": 8,
+  "w": "Táto značka je drahšia, ale výrobok je kvalitný."
+ },
+ {
+  "id": "a2-025",
+  "nr": 25,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Manchmal bezahle ich bar, meistens aber mit Karte.",
+  "words": [
+   "niekedy",
+   "platit",
+   "hotovost",
+   "ale",
+   "karta"
+  ],
+  "tokens": 6,
+  "w": "Niekedy platím hotovosťou, ale väčšinou kartou."
+ },
+ {
+  "id": "a2-026",
+  "nr": 26,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Samstag putzen wir die Wohnung und waschen Kleidung.",
+  "words": [
+   "sobota",
+   "byt-2",
+   "oblecenie",
+   "a",
+   "v",
+   "byt"
+  ],
+  "tokens": 7,
+  "w": "V sobotu upratujeme byt a perieme oblečenie."
+ },
+ {
+  "id": "a2-027",
+  "nr": 27,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn ich Abendessen koche, höre ich oft Musik.",
+  "words": [
+   "ked",
+   "varit",
+   "vecer",
+   "casto",
+   "pocuvat",
+   "hudba"
+  ],
+  "tokens": 6,
+  "w": "Keď varím večeru, často počúvam hudbu."
+ },
+ {
+  "id": "a2-028",
+  "nr": 28,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Den Kuchen backe ich ungefähr vierzig Minuten.",
+  "words": [
+   "piect",
+   "asi",
+   "styridsat",
+   "minuta"
+  ],
+  "tokens": 5,
+  "w": "Koláč pečiem asi štyridsať minút."
+ },
+ {
+  "id": "a2-029",
+  "nr": 29,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Nach dem Essen geben wir die Teller in den Geschirrspüler.",
+  "words": [
+   "jedlo",
+   "dat",
+   "do",
+   "po"
+  ],
+  "tokens": 6,
+  "w": "Po jedle dáme taniere do umývačky."
+ },
+ {
+  "id": "a2-030",
+  "nr": 30,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn es kalt ist, schließe ich alle Fenster.",
+  "words": [
+   "ak",
+   "zatvorit",
+   "vsetko",
+   "okno"
+  ],
+  "tokens": 6,
+  "w": "Ak je chladno, zatvorím všetky okná."
+ },
+ {
+  "id": "a2-031",
+  "nr": 31,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Sommer verbringen wir viel Zeit draußen im Garten.",
+  "words": [
+   "leto",
+   "vela",
+   "vonku",
+   "zahrada",
+   "na",
+   "v"
+  ],
+  "tokens": 8,
+  "w": "V lete trávime veľa času vonku na záhrade."
+ },
+ {
+  "id": "a2-032",
+  "nr": 32,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Frühling ist es morgens kühl und nachmittags wärmer.",
+  "words": [
+   "jar",
+   "rano",
+   "teply",
+   "na",
+   "a"
+  ],
+  "tokens": 8,
+  "w": "Na jar býva ráno chladno a popoludní teplejšie."
+ },
+ {
+  "id": "a2-033",
+  "nr": 33,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Winter fahren wir oft in die Berge.",
+  "words": [
+   "zima",
+   "chodit",
+   "casto",
+   "hora",
+   "na",
+   "v"
+  ],
+  "tokens": 6,
+  "w": "V zime chodíme často na hory."
+ },
+ {
+  "id": "a2-034",
+  "nr": 34,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das Wetter änderte sich schnell und es begann zu regnen.",
+  "words": [
+   "pocasie",
+   "rychlo",
+   "zacat",
+   "a",
+   "sa"
+  ],
+  "tokens": 7,
+  "w": "Počasie sa rýchlo zmenilo a začalo pršať."
+ },
+ {
+  "id": "a2-035",
+  "nr": 35,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Himmel sind dunkle Wolken, wahrscheinlich kommt ein Gewitter.",
+  "words": [
+   "asi",
+   "burka",
+   "na"
+  ],
+  "tokens": 8,
+  "w": "Na oblohe sú tmavé mraky, asi bude búrka."
+ },
+ {
+  "id": "a2-036",
+  "nr": 36,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Morgen waren es zehn Grad, aber jetzt ist es wärmer.",
+  "words": [
+   "rano",
+   "desat",
+   "ale",
+   "teraz",
+   "teply"
+  ],
+  "tokens": 8,
+  "w": "Ráno bolo desať stupňov, ale teraz je teplejšie."
+ },
+ {
+  "id": "a2-037",
+  "nr": 37,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn ich müde bin, brauche ich mehr Schlaf.",
+  "words": [
+   "ked",
+   "unaveny",
+   "potrebovat",
+   "viac",
+   "spanok"
+  ],
+  "tokens": 6,
+  "w": "Keď som unavený, potrebujem viac spánku."
+ },
+ {
+  "id": "a2-038",
+  "nr": 38,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Arzt empfahl mir, regelmäßig zu trainieren und mehr zu gehen.",
+  "words": [
+   "lekar",
+   "cvicit",
+   "viac",
+   "chodit",
+   "a"
+  ],
+  "tokens": 8,
+  "w": "Lekár mi odporučil pravidelne cvičiť a viac chodiť."
+ },
+ {
+  "id": "a2-039",
+  "nr": 39,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Rücken tut weh, deshalb trainiere ich heute nicht.",
+  "words": [
+   "chrbat",
+   "dnes",
+   "cvicit",
+   "preto"
+  ],
+  "tokens": 6,
+  "w": "Bolí ma chrbát, preto dnes necvičím."
+ },
+ {
+  "id": "a2-040",
+  "nr": 40,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "In der Apotheke kaufte ich ein Medikament gegen Husten.",
+  "words": [
+   "lekaren",
+   "kupit",
+   "liek",
+   "kasel",
+   "v",
+   "proti"
+  ],
+  "tokens": 8,
+  "w": "V lekárni som si kúpil liek proti kašľu."
+ },
+ {
+  "id": "a2-041",
+  "nr": 41,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn Sie sich nicht gut fühlen, bleiben Sie zu Hause.",
+  "words": [
+   "ak",
+   "dobre",
+   "zostat",
+   "doma",
+   "sa"
+  ],
+  "tokens": 6,
+  "w": "Ak sa necítite dobre, zostaňte doma."
+ },
+ {
+  "id": "a2-042",
+  "nr": 42,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Nach der Operation muss der Patient einige Tage ruhen.",
+  "words": [
+   "operacia",
+   "musiet",
+   "den",
+   "oddychovat",
+   "po"
+  ],
+  "tokens": 7,
+  "w": "Po operácii musí pacient niekoľko dní oddychovať."
+ },
+ {
+  "id": "a2-043",
+  "nr": 43,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Gestern hatte ich Fieber, heute fühle ich mich besser.",
+  "words": [
+   "vcera",
+   "horucka",
+   "dnes",
+   "sa"
+  ],
+  "tokens": 8,
+  "w": "Včera som mal horúčku, dnes sa cítim lepšie."
+ },
+ {
+  "id": "a2-044",
+  "nr": 44,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Allergie ist im Frühling normalerweise schlimmer.",
+  "words": [
+   "alergia",
+   "jar",
+   "na"
+  ],
+  "tokens": 7,
+  "w": "Moja alergia je na jar zvyčajne horšia."
+ },
+ {
+  "id": "a2-045",
+  "nr": 45,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Zum Training nehme ich immer eine Flasche Wasser mit.",
+  "words": [
+   "vzdy",
+   "vziat",
+   "voda",
+   "na"
+  ],
+  "tokens": 7,
+  "w": "Na tréning si vždy beriem fľašu vody."
+ },
+ {
+  "id": "a2-046",
+  "nr": 46,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Jede Woche spielen wir Tennis mit Freunden.",
+  "words": [
+   "kazdy",
+   "tyzden",
+   "hrat",
+   "tenis",
+   "priatel",
+   "s"
+  ],
+  "tokens": 6,
+  "w": "Každý týždeň hráme tenis s priateľmi."
+ },
+ {
+  "id": "a2-047",
+  "nr": 47,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Gestern bin ich fünf Kilometer ohne Pause gelaufen.",
+  "words": [
+   "vcera",
+   "bezat",
+   "pat",
+   "bez"
+  ],
+  "tokens": 7,
+  "w": "Včera som bežal päť kilometrov bez prestávky."
+ },
+ {
+  "id": "a2-048",
+  "nr": 48,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Nach der Arbeit treffe ich mich manchmal mit Kollegen.",
+  "words": [
+   "praca",
+   "niekedy",
+   "stretnut-sa",
+   "kolega",
+   "sa",
+   "po",
+   "s"
+  ],
+  "tokens": 7,
+  "w": "Po práci sa niekedy stretnem s kolegami."
+ },
+ {
+  "id": "a2-049",
+  "nr": 49,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Kollege spricht Slowakisch und auch Englisch.",
+  "words": [
+   "kolega",
+   "hovorit",
+   "po-slovensky",
+   "po-anglicky",
+   "moj",
+   "po"
+  ],
+  "tokens": 8,
+  "w": "Môj kolega hovorí po slovensky aj po anglicky."
+ },
+ {
+  "id": "a2-050",
+  "nr": 50,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Chef sagte, dass die Besprechung morgen früh sein wird.",
+  "words": [
+   "sef",
+   "povedat",
+   "ze",
+   "zajtra",
+   "rano"
+  ],
+  "tokens": 7,
+  "w": "Šéf povedal, že stretnutie bude zajtra ráno."
+ },
+ {
+  "id": "a2-051",
+  "nr": 51,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Ich muss diese Aufgabe noch heute fertigstellen.",
+  "words": [
+   "musiet",
+   "dokoncit",
+   "tato",
+   "uloha",
+   "este",
+   "dnes"
+  ],
+  "tokens": 6,
+  "w": "Musím dokončiť túto úlohu ešte dnes."
+ },
+ {
+  "id": "a2-052",
+  "nr": 52,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Wenn ich eine Frage habe, schreibe ich der Kollegin eine Nachricht.",
+  "words": [
+   "ked",
+   "mat",
+   "otazka",
+   "kolegyna",
+   "sprava"
+  ],
+  "tokens": 6,
+  "w": "Keď mám otázku, napíšem kolegyni správu."
+ },
+ {
+  "id": "a2-053",
+  "nr": 53,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der neue Computer funktioniert schneller als der alte.",
+  "words": [
+   "novy",
+   "pocitac",
+   "stary",
+   "ako"
+  ],
+  "tokens": 7,
+  "w": "Nový počítač funguje rýchlejšie ako ten starý."
+ },
+ {
+  "id": "a2-054",
+  "nr": 54,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das Internet funktioniert heute nicht, also arbeite ich von zu Hause.",
+  "words": [
+   "dnes",
+   "takze",
+   "pracovat",
+   "dom",
+   "z"
+  ],
+  "tokens": 7,
+  "w": "Internet dnes nefunguje, takže pracujem z domu."
+ },
+ {
+  "id": "a2-055",
+  "nr": 55,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Schick mir die Datei, wenn sie fertig ist.",
+  "words": [
+   "poslat",
+   "subor",
+   "ked"
+  ],
+  "tokens": 6,
+  "w": "Pošli mi súbor, keď bude hotový."
+ },
+ {
+  "id": "a2-056",
+  "nr": 56,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Vor dem Absenden kontrolliere ich die Nachricht immer.",
+  "words": [
+   "pred",
+   "odoslat",
+   "vzdy",
+   "sprava"
+  ],
+  "tokens": 6,
+  "w": "Pred odoslaním si vždy skontrolujem správu."
+ },
+ {
+  "id": "a2-057",
+  "nr": 57,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Ich muss mein Passwort alle paar Monate ändern.",
+  "words": [
+   "heslo",
+   "musiet",
+   "mesiac",
+   "zmenit"
+  ],
+  "tokens": 7,
+  "w": "Heslo si musím zmeniť každých pár mesiacov."
+ },
+ {
+  "id": "a2-058",
+  "nr": 58,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Wenn ich keine Verbindung habe, kann ich nicht online arbeiten.",
+  "words": [
+   "ked",
+   "pripojenie",
+   "moct",
+   "pracovat"
+  ],
+  "tokens": 6,
+  "w": "Keď nemám pripojenie, nemôžem pracovať online."
+ },
+ {
+  "id": "a2-059",
+  "nr": 59,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "In der Schule lernten wir eine neue Grammatikregel.",
+  "words": [
+   "skola",
+   "ucit-sa",
+   "novy",
+   "v",
+   "sa"
+  ],
+  "tokens": 8,
+  "w": "V škole sme sa učili nové gramatické pravidlo."
+ },
+ {
+  "id": "a2-060",
+  "nr": 60,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Dieses Wort kann ich mir nicht gut merken.",
+  "words": [
+   "toto",
+   "slovo",
+   "vediet",
+   "dobre",
+   "zapamatat-si"
+  ],
+  "tokens": 6,
+  "w": "Toto slovo si neviem dobre zapamätať."
+ },
+ {
+  "id": "a2-061",
+  "nr": 61,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn ich auf Slowakisch lese, benutze ich ein Wörterbuch.",
+  "words": [
+   "ked",
+   "citat",
+   "po-slovensky",
+   "po"
+  ],
+  "tokens": 6,
+  "w": "Keď čítam po slovensky, používam slovník."
+ },
+ {
+  "id": "a2-062",
+  "nr": 62,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Die Lehrerin erklärte uns den Unterschied zwischen zwei Wörtern.",
+  "words": [
+   "ucitelka",
+   "medzi",
+   "slovo",
+   "rozdiel"
+  ],
+  "tokens": 7,
+  "w": "Učiteľka nám vysvetlila rozdiel medzi dvoma slovami."
+ },
+ {
+  "id": "a2-063",
+  "nr": 63,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Können Sie diesen Satz noch einmal langsamer sagen?",
+  "words": [
+   "moct",
+   "povedat",
+   "este",
+   "pomaly",
+   "tu"
+  ],
+  "tokens": 7,
+  "w": "Môžete tú vetu povedať ešte raz pomalšie?"
+ },
+ {
+  "id": "a2-064",
+  "nr": 64,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich verstehe den Großteil des Textes, aber nicht alle Wörter.",
+  "words": [
+   "rozumiet",
+   "ale",
+   "slovo",
+   "nie"
+  ],
+  "tokens": 7,
+  "w": "Rozumiem väčšine textu, ale nie všetkým slovám."
+ },
+ {
+  "id": "a2-065",
+  "nr": 65,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Manchmal schreibe ich kurze Notizen auf Slowakisch.",
+  "words": [
+   "niekedy",
+   "pisat",
+   "po-slovensky",
+   "po"
+  ],
+  "tokens": 7,
+  "w": "Niekedy si píšem krátke poznámky po slovensky."
+ },
+ {
+  "id": "a2-066",
+  "nr": 66,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich möchte flüssiger sprechen, deshalb übe ich jeden Tag.",
+  "words": [
+   "chciet",
+   "hovorit",
+   "kazdy",
+   "den",
+   "cvicit",
+   "preto"
+  ],
+  "tokens": 7,
+  "w": "Chcem hovoriť plynulejšie, preto každý deň cvičím."
+ },
+ {
+  "id": "a2-067",
+  "nr": 67,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn ich etwas nicht weiß, frage ich lieber nach.",
+  "words": [
+   "ked",
+   "nieco",
+   "vediet",
+   "pytat-sa",
+   "sa"
+  ],
+  "tokens": 6,
+  "w": "Keď niečo neviem, radšej sa opýtam."
+ },
+ {
+  "id": "a2-068",
+  "nr": 68,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Gestern besuchten wir die Großeltern auf dem Land.",
+  "words": [
+   "vcera",
+   "navstivit",
+   "dedina",
+   "na"
+  ],
+  "tokens": 7,
+  "w": "Včera sme navštívili starých rodičov na dedine."
+ },
+ {
+  "id": "a2-069",
+  "nr": 69,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Tante wohnt in einer kleinen Stadt nahe der Grenze.",
+  "words": [
+   "teta",
+   "byvat",
+   "maly",
+   "mesto",
+   "pri",
+   "hranica",
+   "v"
+  ],
+  "tokens": 8,
+  "w": "Moja teta býva v malom meste pri hranici."
+ },
+ {
+  "id": "a2-070",
+  "nr": 70,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Cousin studiert im Ausland und kommt selten nach Hause.",
+  "words": [
+   "bratranec",
+   "chodit",
+   "zriedka",
+   "a",
+   "v"
+  ],
+  "tokens": 8,
+  "w": "Bratranec študuje v zahraničí a domov chodí zriedka."
+ },
+ {
+  "id": "a2-071",
+  "nr": 71,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Die Nachbarn luden uns am Samstag zum Abendessen ein.",
+  "words": [
+   "sused",
+   "sobota",
+   "susedia",
+   "na",
+   "nas",
+   "v"
+  ],
+  "tokens": 7,
+  "w": "Susedia nás pozvali na večeru v sobotu."
+ },
+ {
+  "id": "a2-072",
+  "nr": 72,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn wir Besuch haben, bereiten wir mehr Essen zu.",
+  "words": [
+   "ked",
+   "mat",
+   "viac",
+   "jedlo"
+  ],
+  "tokens": 6,
+  "w": "Keď máme návštevu, pripravíme viac jedla."
+ },
+ {
+  "id": "a2-073",
+  "nr": 73,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Großvater arbeitet noch immer gern im Garten.",
+  "words": [
+   "stary-otec",
+   "pracovat",
+   "zahrada",
+   "moj",
+   "v",
+   "stary",
+   "otec"
+  ],
+  "tokens": 8,
+  "w": "Môj starý otec stále rád pracuje v záhrade."
+ },
+ {
+  "id": "a2-074",
+  "nr": 74,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Die Großmutter bringt uns immer selbstgemachten Kuchen.",
+  "words": [
+   "stara-mama",
+   "vzdy",
+   "priniest",
+   "mama",
+   "domaci"
+  ],
+  "tokens": 7,
+  "w": "Stará mama nám vždy prinesie domáci koláč."
+ },
+ {
+  "id": "a2-075",
+  "nr": 75,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Mit Freunden treffen wir uns vor allem am Wochenende.",
+  "words": [
+   "priatel",
+   "stretnut-sa",
+   "najma",
+   "sa",
+   "cez",
+   "s"
+  ],
+  "tokens": 7,
+  "w": "S priateľmi sa stretávame najmä cez víkend."
+ },
+ {
+  "id": "a2-076",
+  "nr": 76,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Obwohl es regnet, wollen wir einen kurzen Spaziergang machen.",
+  "words": [
+   "hoci",
+   "chciet",
+   "ist",
+   "kratky",
+   "na"
+  ],
+  "tokens": 7,
+  "w": "Hoci prší, chceme ísť na krátku prechádzku."
+ },
+ {
+  "id": "a2-077",
+  "nr": 77,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Nach dem Abendessen gingen wir am Fluss spazieren.",
+  "words": [
+   "vecer",
+   "rieka",
+   "po",
+   "sa"
+  ],
+  "tokens": 7,
+  "w": "Po večeri sme sa prešli popri rieke."
+ },
+ {
+  "id": "a2-078",
+  "nr": 78,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Ausflug war lang, aber die Aussicht war schön.",
+  "words": [
+   "vylet",
+   "dlhy",
+   "ale",
+   "pekny"
+  ],
+  "tokens": 7,
+  "w": "Výlet bol dlhý, ale výhľad bol krásny."
+ },
+ {
+  "id": "a2-079",
+  "nr": 79,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Den Gipfel erreichten wir erst am Nachmittag.",
+  "words": [
+   "prist",
+   "na"
+  ],
+  "tokens": 6,
+  "w": "Na vrchol sme prišli až popoludní."
+ },
+ {
+  "id": "a2-080",
+  "nr": 80,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Rückweg war leichter als der Weg hinauf.",
+  "words": [
+   "cesta",
+   "lahky",
+   "hore",
+   "spat"
+  ],
+  "tokens": 7,
+  "w": "Cesta späť bola ľahšia než cesta hore."
+ },
+ {
+  "id": "a2-081",
+  "nr": 81,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Meer blieben wir eine ganze Woche.",
+  "words": [
+   "pri",
+   "more",
+   "zostat",
+   "tyzden",
+   "cely"
+  ],
+  "tokens": 6,
+  "w": "Pri mori sme zostali celý týždeň."
+ },
+ {
+  "id": "a2-082",
+  "nr": 82,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Jeden Morgen schwammen wir noch vor dem Frühstück.",
+  "words": [
+   "kazdy",
+   "rano",
+   "plavat",
+   "pred",
+   "ranajky",
+   "este"
+  ],
+  "tokens": 7,
+  "w": "Každé ráno sme plávali ešte pred raňajkami."
+ },
+ {
+  "id": "a2-083",
+  "nr": 83,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Strand waren weniger Menschen als in der Stadt.",
+  "words": [
+   "menej",
+   "ludia",
+   "mesto",
+   "na",
+   "v"
+  ],
+  "tokens": 8,
+  "w": "Na pláži bolo menej ľudí než v meste."
+ },
+ {
+  "id": "a2-084",
+  "nr": 84,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Abends saßen wir draußen, bis es dunkel war.",
+  "words": [
+   "vecer",
+   "sediet",
+   "vonku",
+   "kym"
+  ],
+  "tokens": 7,
+  "w": "Večer sme sedeli vonku, kým nebola tma."
+ },
+ {
+  "id": "a2-085",
+  "nr": 85,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Urlaub versuche ich, das Handy weniger zu benutzen.",
+  "words": [
+   "dovolenka",
+   "skusit",
+   "menej",
+   "mobil",
+   "na",
+   "pouzivat",
+   "sa"
+  ],
+  "tokens": 7,
+  "w": "Na dovolenke sa snažím menej používať mobil."
+ },
+ {
+  "id": "a2-086",
+  "nr": 86,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Museum verbrachten wir fast zwei Stunden.",
+  "words": [
+   "skoro",
+   "dva",
+   "hodina",
+   "v"
+  ],
+  "tokens": 7,
+  "w": "V múzeu sme strávili skoro dve hodiny."
+ },
+ {
+  "id": "a2-087",
+  "nr": 87,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Diese Ausstellung gefiel mir besser als die vorige.",
+  "words": [
+   "tato",
+   "pacit-sa",
+   "viac",
+   "sa"
+  ],
+  "tokens": 8,
+  "w": "Táto výstava sa mi páčila viac než minulá."
+ },
+ {
+  "id": "a2-088",
+  "nr": 88,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Führer sprach langsam, sodass wir alles verstanden.",
+  "words": [
+   "hovorit",
+   "pomaly",
+   "takze",
+   "vsetko",
+   "rozumiet"
+  ],
+  "tokens": 7,
+  "w": "Sprievodca hovoril pomaly, takže sme všetkému rozumeli."
+ },
+ {
+  "id": "a2-089",
+  "nr": 89,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Vor der Reise las ich einige Informationen über die Stadt.",
+  "words": [
+   "pred",
+   "cesta",
+   "citat",
+   "mesto",
+   "o"
+  ],
+  "tokens": 9,
+  "w": "Pred cestou som si prečítal niekoľko informácií o meste."
+ },
+ {
+  "id": "a2-090",
+  "nr": 90,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Auf der Karte fand ich den kürzesten Weg zum Hotel.",
+  "words": [
+   "mapa",
+   "najst",
+   "cesta",
+   "hotel",
+   "na",
+   "k"
+  ],
+  "tokens": 8,
+  "w": "Na mape som našiel najkratšiu cestu k hotelu."
+ },
+ {
+  "id": "a2-091",
+  "nr": 91,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn wir es eilig haben, können wir mit dem Taxi fahren.",
+  "words": [
+   "ak",
+   "ponahlat-sa",
+   "moct",
+   "ist",
+   "taxik",
+   "sa"
+  ],
+  "tokens": 6,
+  "w": "Ak sa ponáhľame, môžeme ísť taxíkom."
+ },
+ {
+  "id": "a2-092",
+  "nr": 92,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Zug ist günstiger, obwohl die Fahrt länger dauert.",
+  "words": [
+   "vlak",
+   "lacny",
+   "hoci",
+   "cesta",
+   "dlhy",
+   "lacnejsi"
+  ],
+  "tokens": 7,
+  "w": "Vlak je lacnejší, hoci cesta trvá dlhšie."
+ },
+ {
+  "id": "a2-093",
+  "nr": 93,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Bahnhof warteten wir, bis unser Zug kam.",
+  "words": [
+   "stanica",
+   "cakat",
+   "kym",
+   "prist",
+   "nas",
+   "vlak",
+   "na"
+  ],
+  "tokens": 8,
+  "w": "Na stanici sme čakali, kým prišiel náš vlak."
+ },
+ {
+  "id": "a2-094",
+  "nr": 94,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Nach der Ankunft trafen wir uns sofort mit Freunden.",
+  "words": [
+   "prichod",
+   "stretnut-sa",
+   "priatel",
+   "sa",
+   "po",
+   "s"
+  ],
+  "tokens": 8,
+  "w": "Po príchode sme sa hneď stretli s priateľmi."
+ },
+ {
+  "id": "a2-095",
+  "nr": 95,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Es war schon spät, deshalb gingen wir direkt nach Hause.",
+  "words": [
+   "uz",
+   "neskoro",
+   "ist",
+   "rovno",
+   "preto"
+  ],
+  "tokens": 8,
+  "w": "Bolo už neskoro, preto sme išli rovno domov."
+ },
+ {
+  "id": "a2-096",
+  "nr": 96,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Sonntag wollen wir zu Hause bleiben und uns erholen.",
+  "words": [
+   "nedela",
+   "chciet",
+   "zostat",
+   "doma",
+   "oddychovat",
+   "a",
+   "v"
+  ],
+  "tokens": 7,
+  "w": "V nedeľu chceme zostať doma a oddychovať."
+ },
+ {
+  "id": "a2-097",
+  "nr": 97,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wenn Zeit ist, besuchen wir abends noch ein Café.",
+  "words": [
+   "ak",
+   "vecer",
+   "navstivit",
+   "este",
+   "jeden"
+  ],
+  "tokens": 8,
+  "w": "Ak bude čas, večer navštívime ešte jednu kaviareň."
+ },
+ {
+  "id": "a2-098",
+  "nr": 98,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich denke, dass dieser Plan ziemlich gut ist.",
+  "words": [
+   "mysliet",
+   "ze",
+   "tento",
+   "dobry"
+  ],
+  "tokens": 7,
+  "w": "Myslím, že tento plán je celkom dobrý."
+ },
+ {
+  "id": "a2-099",
+  "nr": 99,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Vielleicht ändern wir morgen das Programm je nach Wetter.",
+  "words": [
+   "mozno",
+   "zajtra",
+   "podla",
+   "pocasie"
+  ],
+  "tokens": 6,
+  "w": "Možno zajtra zmeníme program podľa počasia."
+ },
+ {
+  "id": "a2-100",
+  "nr": 100,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Schließlich wählten wir ein kleineres Hotel nahe dem Zentrum.",
+  "words": [
+   "vybrat-si",
+   "maly",
+   "hotel",
+   "pri",
+   "nakoniec"
+  ],
+  "tokens": 8,
+  "w": "Nakoniec sme si vybrali menší hotel pri centre."
+ },
+ {
+  "id": "b1-001",
+  "nr": 1,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Obwohl ich wenig Zeit hatte, entschied ich mich, die Aufgabe noch vor der Abreise fertigzustellen.",
+  "words": [
+   "hoci",
+   "malo",
+   "rozhodnut-sa",
+   "dokoncit",
+   "uloha",
+   "este",
+   "pred",
+   "sa"
+  ],
+  "tokens": 13,
+  "w": "Hoci som mal málo času, rozhodol som sa dokončiť úlohu ešte pred odchodom."
+ },
+ {
+  "id": "b1-002",
+  "nr": 2,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn sich die Situation verschlechtert, müssen wir entscheiden, was wir als Nächstes tun.",
+  "words": [
+   "ak",
+   "situacia",
+   "zhorsit",
+   "musiet",
+   "rozhodnut-sa",
+   "co",
+   "sa"
+  ],
+  "tokens": 11,
+  "w": "Ak sa situácia zhorší, budeme sa musieť rozhodnúť, čo urobíme ďalej."
+ },
+ {
+  "id": "b1-003",
+  "nr": 3,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Zuerst möchte ich alle Informationen überprüfen, erst danach treffe ich die endgültige Entscheidung.",
+  "words": [
+   "najprv",
+   "chciet",
+   "overit",
+   "vsetko",
+   "informacia",
+   "potom",
+   "rozhodnutie"
+  ],
+  "tokens": 11,
+  "w": "Najprv si chcem overiť všetky informácie, až potom urobím konečné rozhodnutie."
+ },
+ {
+  "id": "b1-004",
+  "nr": 4,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn wir die Ursache des Problems kennen, finden wir viel leichter eine geeignete Lösung.",
+  "words": [
+   "ked",
+   "poznat",
+   "pricina",
+   "problem",
+   "najst",
+   "vhodny",
+   "riesenie"
+  ],
+  "tokens": 9,
+  "w": "Keď poznáme príčinu problému, oveľa ľahšie nájdeme vhodné riešenie."
+ },
+ {
+  "id": "b1-005",
+  "nr": 5,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Diese Arbeitsweise hat Vorteile, bringt aber gleichzeitig auch einige Nachteile mit sich.",
+  "words": [
+   "tento",
+   "sposob",
+   "praca",
+   "vyhoda",
+   "ale",
+   "zaroven",
+   "nevyhoda"
+  ],
+  "tokens": 11,
+  "w": "Tento spôsob práce má výhody, ale zároveň prináša aj niekoľko nevýhod."
+ },
+ {
+  "id": "b1-006",
+  "nr": 6,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Meiner Meinung nach sollten wir uns stärker auf Qualität als auf Geschwindigkeit konzentrieren.",
+  "words": [
+   "podla",
+   "moj",
+   "nazor",
+   "viac",
+   "zamerat-sa",
+   "kvalita",
+   "na",
+   "sa"
+  ],
+  "tokens": 14,
+  "w": "Podľa môjho názoru by sme sa mali viac zamerať na kvalitu než na rýchlosť."
+ },
+ {
+  "id": "b1-007",
+  "nr": 7,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Trotz der anfänglichen Probleme ist es uns gelungen, das Projekt erfolgreich abzuschließen.",
+  "words": [
+   "napriek",
+   "problem",
+   "projekt",
+   "dokoncit",
+   "sa"
+  ],
+  "tokens": 9,
+  "w": "Napriek počiatočným problémom sa nám podarilo projekt úspešne dokončiť."
+ },
+ {
+  "id": "b1-008",
+  "nr": 8,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das Ergebnis hängt vor allem davon ab, wie gut wir uns auf die Aufgabe vorbereiten.",
+  "words": [
+   "vysledok",
+   "zavisiet",
+   "najma",
+   "ako",
+   "dobre",
+   "uloha",
+   "na",
+   "sa",
+   "od"
+  ],
+  "tokens": 11,
+  "w": "Výsledok závisí najmä od toho, ako dobre sa na úlohu pripravíme."
+ },
+ {
+  "id": "b1-009",
+  "nr": 9,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn wir das Ziel erreichen wollen, müssen wir schrittweise einige Arbeitsgewohnheiten ändern.",
+  "words": [
+   "ak",
+   "chciet",
+   "dosiahnut",
+   "ciel",
+   "musiet",
+   "postupne",
+   "pracovny",
+   "zmenit"
+  ],
+  "tokens": 10,
+  "w": "Ak chceme dosiahnuť cieľ, musíme postupne zmeniť niekoľko pracovných návykov."
+ },
+ {
+  "id": "b1-010",
+  "nr": 10,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Nach dem Treffen wurde mir klar, dass wir eine wichtige Frage überhaupt nicht gelöst hatten.",
+  "words": [
+   "uvedomit-si",
+   "ze",
+   "jeden",
+   "dolezity",
+   "otazka",
+   "vobec",
+   "riesit",
+   "po"
+  ],
+  "tokens": 12,
+  "w": "Po stretnutí som si uvedomil, že sme jednu dôležitú otázku vôbec nevyriešili."
+ },
+ {
+  "id": "b1-011",
+  "nr": 11,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Leiter betonte, dass jeder Mitarbeiter Verantwortung für seinen Teil des Projekts trägt.",
+  "words": [
+   "zdoraznit",
+   "ze",
+   "kazdy",
+   "zamestnanec",
+   "zodpovednost",
+   "projekt",
+   "za"
+  ],
+  "tokens": 11,
+  "w": "Vedúci zdôraznil, že každý zamestnanec nesie zodpovednosť za svoju časť projektu."
+ },
+ {
+  "id": "b1-012",
+  "nr": 12,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die neuen Regeln sollen sicherstellen, dass der gesamte Prozess einfacher und zuverlässiger wird.",
+  "words": [
+   "novy",
+   "zabezpecit",
+   "proces",
+   "jednoduchy",
+   "spolahlivy",
+   "a",
+   "cely"
+  ],
+  "tokens": 11,
+  "w": "Nové pravidlá majú zabezpečiť, aby bol celý proces jednoduchší a spoľahlivejší."
+ },
+ {
+  "id": "b1-013",
+  "nr": 13,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Bevor wir den Vorschlag veröffentlichen, müssen wir noch einige Angaben bestätigen.",
+  "words": [
+   "zverejnit",
+   "potrebovat",
+   "este",
+   "potvrdit",
+   "udaj"
+  ],
+  "tokens": 9,
+  "w": "Predtým než návrh zverejníme, potrebujeme ešte potvrdiť niekoľko údajov."
+ },
+ {
+  "id": "b1-014",
+  "nr": 14,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn das Budget begrenzt ist, müssen wir einige Aktivitäten aus dem Projekt streichen.",
+  "words": [
+   "ak",
+   "rozpocet",
+   "obmedzeny",
+   "musiet",
+   "projekt",
+   "z"
+  ],
+  "tokens": 11,
+  "w": "Ak bude rozpočet obmedzený, budeme musieť niektoré aktivity z projektu vynechať."
+ },
+ {
+  "id": "b1-015",
+  "nr": 15,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Leitung erwartet, dass das neue System die Effizienz erhöht und die Zahl der Fehler senkt.",
+  "words": [
+   "vedenie",
+   "ocakavat",
+   "novy",
+   "system",
+   "zvysit",
+   "znizit",
+   "chyba",
+   "a",
+   "ze"
+  ],
+  "tokens": 11,
+  "w": "Vedenie očakáva, že nový systém zvýši efektívnosť a zníži počet chýb."
+ },
+ {
+  "id": "b1-016",
+  "nr": 16,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "In der Besprechung befassten wir uns vor allem mit Problemen, die die tägliche Arbeit beeinflussen.",
+  "words": [
+   "zaoberat-sa",
+   "najma",
+   "problem",
+   "ovplyvnit",
+   "praca",
+   "na",
+   "sa"
+  ],
+  "tokens": 11,
+  "w": "Na porade sme sa zaoberali najmä problémami, ktoré ovplyvňujú každodennú prácu."
+ },
+ {
+  "id": "b1-017",
+  "nr": 17,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Gute Kommunikation kann deutlich zu besseren Beziehungen zwischen den einzelnen Abteilungen beitragen.",
+  "words": [
+   "dobry",
+   "moct",
+   "vyrazny",
+   "prispiet",
+   "vztah",
+   "medzi",
+   "oddelenie",
+   "k"
+  ],
+  "tokens": 11,
+  "w": "Dobrá komunikácia môže výrazne prispieť k lepším vzťahom medzi jednotlivými oddeleniami."
+ },
+ {
+  "id": "b1-018",
+  "nr": 18,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ein Fehler auftritt, versuchen wir sofort zu reagieren und seine Ursache zu finden.",
+  "words": [
+   "ked",
+   "chyba",
+   "reagovat",
+   "okamzite",
+   "najst",
+   "pricina",
+   "a",
+   "jej",
+   "sa"
+  ],
+  "tokens": 12,
+  "w": "Keď sa objaví chyba, snažíme sa reagovať okamžite a nájsť jej príčinu."
+ },
+ {
+  "id": "b1-019",
+  "nr": 19,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Nicht immer lässt sich ein Problem sofort lösen, deshalb ist Geduld wichtig.",
+  "words": [
+   "vzdy",
+   "mozny",
+   "problem",
+   "riesit",
+   "dolezity",
+   "nie",
+   "preto"
+  ],
+  "tokens": 11,
+  "w": "Nie vždy je možné problém vyriešiť hneď, preto je dôležitá trpezlivosť."
+ },
+ {
+  "id": "b1-020",
+  "nr": 20,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Langfristig ist es vorteilhafter, in Qualität zu investieren, als ständig Fehler zu reparieren.",
+  "words": [
+   "vyhodny",
+   "kvalita",
+   "chyba",
+   "z",
+   "do"
+  ],
+  "tokens": 12,
+  "w": "Z dlhodobého hľadiska je výhodnejšie investovať do kvality než stále opravovať chyby."
+ },
+ {
+  "id": "b1-021",
+  "nr": 21,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ein Kollege schlug eine Lösung vor, die Zeit und Geld sparen könnte.",
+  "words": [
+   "kolega",
+   "navrhnut",
+   "riesenie",
+   "moct",
+   "peniaze",
+   "usetrit"
+  ],
+  "tokens": 10,
+  "w": "Kolega navrhol riešenie, ktoré by mohlo ušetriť čas aj peniaze."
+ },
+ {
+  "id": "b1-022",
+  "nr": 22,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Seinen Vorschlag lehnten wir zunächst ab, später erkannten wir darin aber einen Vorteil.",
+  "words": [
+   "jeho",
+   "najprv",
+   "odmietnut",
+   "ale",
+   "neskor",
+   "vyhoda",
+   "v"
+  ],
+  "tokens": 12,
+  "w": "Jeho návrh sme najprv odmietli, ale neskôr sme v ňom videli výhodu."
+ },
+ {
+  "id": "b1-023",
+  "nr": 23,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Vor der Entscheidung sollten wir alle verfügbaren Möglichkeiten und möglichen Folgen beurteilen.",
+  "words": [
+   "pred",
+   "rozhodnutie",
+   "posudit",
+   "vsetko",
+   "dostupny",
+   "moznost",
+   "mozny",
+   "nasledok",
+   "a"
+  ],
+  "tokens": 12,
+  "w": "Pred rozhodnutím by sme mali posúdiť všetky dostupné možnosti a možné následky."
+ },
+ {
+  "id": "b1-024",
+  "nr": 24,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Vereinbarung gilt nur, wenn beide Seiten sie offiziell bestätigen.",
+  "words": [
+   "dohoda",
+   "iba",
+   "ak",
+   "potvrdit",
+   "platit"
+  ],
+  "tokens": 11,
+  "w": "Dohoda bude platiť iba vtedy, ak ju obe strany oficiálne potvrdia."
+ },
+ {
+  "id": "b1-025",
+  "nr": 25,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wir mussten die Frist verschieben, weil die Materiallieferung später kam als erwartet.",
+  "words": [
+   "termin",
+   "musiet",
+   "pretoze",
+   "prist",
+   "neskor",
+   "ocakavat"
+  ],
+  "tokens": 12,
+  "w": "Termín sme museli posunúť, pretože dodávka materiálu prišla neskôr, než sme očakávali."
+ },
+ {
+  "id": "b1-026",
+  "nr": 26,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Obwohl das Projekt anspruchsvoll war, sammelten wir dabei viele wertvolle Erfahrungen.",
+  "words": [
+   "hoci",
+   "projekt",
+   "ziskat",
+   "vela",
+   "skusenost",
+   "pri"
+  ],
+  "tokens": 11,
+  "w": "Hoci bol projekt náročný, získali sme pri ňom veľa cenných skúseností."
+ },
+ {
+  "id": "b1-027",
+  "nr": 27,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Erfolg des Projekts hängt nicht nur vom Budget, sondern auch von der Zusammenarbeit des ganzen Teams ab.",
+  "words": [
+   "uspech",
+   "projekt",
+   "zavisiet",
+   "len",
+   "rozpocet",
+   "ale",
+   "od"
+  ],
+  "tokens": 12,
+  "w": "Úspech projektu nezávisí len od rozpočtu, ale aj od spolupráce celého tímu."
+ },
+ {
+  "id": "b1-028",
+  "nr": 28,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn wir uns verbessern wollen, müssen wir Kritik annehmen und aus Fehlern lernen können.",
+  "words": [
+   "ak",
+   "chciet",
+   "zlepsit",
+   "musiet",
+   "vediet",
+   "chyba",
+   "a",
+   "z",
+   "sa",
+   "prijat"
+  ],
+  "tokens": 13,
+  "w": "Ak sa chceme zlepšovať, musíme vedieť prijať kritiku a poučiť sa z chýb."
+ },
+ {
+  "id": "b1-029",
+  "nr": 29,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Manche Entscheidungen erscheinen einfach, solange wir nicht alle Umstände kennen.",
+  "words": [
+   "rozhodnutie",
+   "zdat-sa",
+   "jednoduchy",
+   "kym",
+   "poznat",
+   "vsetko",
+   "sa"
+  ],
+  "tokens": 9,
+  "w": "Niektoré rozhodnutia sa zdajú jednoduché, kým nepoznáme všetky okolnosti."
+ },
+ {
+  "id": "b1-030",
+  "nr": 30,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Es ist wichtig zu erkennen, dass jede Veränderung eine gewisse Zeit braucht.",
+  "words": [
+   "dolezity",
+   "uvedomit-si",
+   "ze",
+   "kazdy",
+   "zmena",
+   "potrebovat"
+  ],
+  "tokens": 10,
+  "w": "Je dôležité uvedomiť si, že každá zmena potrebuje určitý čas."
+ },
+ {
+  "id": "b1-031",
+  "nr": 31,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Während der Diskussion äußerte jeder seine Meinung und erklärte die Gründe für seine Haltung.",
+  "words": [
+   "kazdy",
+   "vyjadrit",
+   "svoj",
+   "nazor",
+   "dovod",
+   "a",
+   "pocas"
+  ],
+  "tokens": 11,
+  "w": "Počas diskusie každý vyjadril svoj názor a vysvetlil dôvody svojho postoja."
+ },
+ {
+  "id": "b1-032",
+  "nr": 32,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Dieser Meinung stimme ich nicht ganz zu, obwohl ich verstehe, warum jemand sie vertreten kann.",
+  "words": [
+   "nazor",
+   "nesuhlasit",
+   "hoci",
+   "rozumiet",
+   "preco",
+   "niekto",
+   "moct",
+   "mat",
+   "s"
+  ],
+  "tokens": 12,
+  "w": "S týmto názorom úplne nesúhlasím, hoci rozumiem, prečo ho niekto môže mať."
+ },
+ {
+  "id": "b1-033",
+  "nr": 33,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn wir andere überzeugen wollen, reicht es nicht, nur zu behaupten, dass wir recht haben.",
+  "words": [
+   "ak",
+   "chciet",
+   "iba",
+   "tvrdit",
+   "ze",
+   "mat"
+  ],
+  "tokens": 10,
+  "w": "Ak chceme presvedčiť ostatných, nestačí iba tvrdiť, že máme pravdu."
+ },
+ {
+  "id": "b1-034",
+  "nr": 34,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Im Artikel führte der Autor mehrere Beispiele an, die sein Hauptargument stützen.",
+  "words": [
+   "uviest",
+   "jeho",
+   "hlavny",
+   "v"
+  ],
+  "tokens": 11,
+  "w": "V článku autor uviedol niekoľko príkladov, ktoré podporujú jeho hlavný argument."
+ },
+ {
+  "id": "b1-035",
+  "nr": 35,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Bericht enthält grundlegende Daten, aber eine Erklärung ihrer Bedeutung fehlt.",
+  "words": [
+   "sprava",
+   "obsahovat",
+   "udaj",
+   "ale",
+   "vyznam",
+   "chyba",
+   "v",
+   "udaje",
+   "ich"
+  ],
+  "tokens": 11,
+  "w": "Správa obsahuje základné údaje, ale chýba v nej vysvetlenie ich významu."
+ },
+ {
+  "id": "b1-036",
+  "nr": 36,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Vor der Veröffentlichung einer Information sollte man prüfen, ob sie aus einer zuverlässigen Quelle stammt.",
+  "words": [
+   "pred",
+   "zverejnit",
+   "informacia",
+   "dobry",
+   "overit",
+   "spolahlivy",
+   "dobre"
+  ],
+  "tokens": 11,
+  "w": "Pred zverejnením informácie je dobré overiť, či pochádza zo spoľahlivého zdroja."
+ },
+ {
+  "id": "b1-037",
+  "nr": 37,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Im Internet verbreiten sich schnell Meldungen, die nicht wahr sein müssen.",
+  "words": [
+   "rychlo",
+   "sprava",
+   "musiet",
+   "pravdivy",
+   "na",
+   "sa",
+   "byt"
+  ],
+  "tokens": 10,
+  "w": "Na internete sa rýchlo šíria správy, ktoré nemusia byť pravdivé."
+ },
+ {
+  "id": "b1-038",
+  "nr": 38,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ich einen Bericht lese, versuche ich Fakten von persönlichen Meinungen zu trennen.",
+  "words": [
+   "ked",
+   "citat",
+   "sprava",
+   "nazor",
+   "sa",
+   "od"
+  ],
+  "tokens": 10,
+  "w": "Keď čítam správu, snažím sa oddeliť fakty od osobných názorov."
+ },
+ {
+  "id": "b1-039",
+  "nr": 39,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Medien können stark beeinflussen, wie Menschen ein bestimmtes Ereignis wahrnehmen.",
+  "words": [
+   "moct",
+   "vyrazny",
+   "ovplyvnit",
+   "sposob",
+   "ludia",
+   "udalost"
+  ],
+  "tokens": 10,
+  "w": "Médiá môžu výrazne ovplyvniť spôsob, akým ľudia vnímajú určitú udalosť."
+ },
+ {
+  "id": "b1-040",
+  "nr": 40,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Eine kürzlich veröffentlichte Studie brachte Ergebnisse, die viele Fachleute überraschten.",
+  "words": [
+   "nedavno",
+   "zverejnit",
+   "vyskum",
+   "vysledok"
+  ],
+  "tokens": 9,
+  "w": "Nedávno zverejnený výskum priniesol výsledky, ktoré mnohých odborníkov prekvapili."
+ },
+ {
+  "id": "b1-041",
+  "nr": 41,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die technologische Entwicklung verändert allmählich, wie wir arbeiten, reisen und kommunizieren.",
+  "words": [
+   "vyvoj",
+   "technologia",
+   "postupne",
+   "sposob",
+   "pracovat",
+   "cestovat",
+   "a"
+  ],
+  "tokens": 10,
+  "w": "Vývoj technológie postupne mení spôsob, akým pracujeme, cestujeme a komunikujeme."
+ },
+ {
+  "id": "b1-042",
+  "nr": 42,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das neue Gerät ist zwar teurer, seine Nutzung ist aber wesentlich effizienter.",
+  "words": [
+   "novy",
+   "zariadenie",
+   "drahy",
+   "ale",
+   "jeho",
+   "efektivny"
+  ],
+  "tokens": 11,
+  "w": "Nové zariadenie je síce drahšie, ale jeho používanie je oveľa efektívnejšie."
+ },
+ {
+  "id": "b1-043",
+  "nr": 43,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn das System ausfällt, müssen wir eine Ersatzlösung vorbereitet haben.",
+  "words": [
+   "ak",
+   "system",
+   "musiet",
+   "mat",
+   "riesenie"
+  ],
+  "tokens": 9,
+  "w": "Ak systém prestane fungovať, musíme mať pripravené náhradné riešenie."
+ },
+ {
+  "id": "b1-044",
+  "nr": 44,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ein sicheres Passwort sollte ausreichend lang sein und nicht mehrfach verwendet werden.",
+  "words": [
+   "bezpecny",
+   "heslo",
+   "dostatocny",
+   "dlhy",
+   "pouzivat",
+   "a",
+   "malo",
+   "sa",
+   "byt"
+  ],
+  "tokens": 13,
+  "w": "Bezpečné heslo by malo byť dostatočne dlhé a nemalo by sa používať viackrát."
+ },
+ {
+  "id": "b1-045",
+  "nr": 45,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Bei der Arbeit mit Daten ist es notwendig, die Privatsphäre der Nutzer zu schützen.",
+  "words": [
+   "pri",
+   "praca",
+   "udaje",
+   "nevyhnutny",
+   "ochrana",
+   "s"
+  ],
+  "tokens": 9,
+  "w": "Pri práci s údajmi je nevyhnutné chrániť súkromie používateľov."
+ },
+ {
+  "id": "b1-046",
+  "nr": 46,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn die Verbindung ausfällt, bleiben manche Dienste vorübergehend nicht verfügbar.",
+  "words": [
+   "ked",
+   "pripojenie",
+   "zostat",
+   "dostupny"
+  ],
+  "tokens": 8,
+  "w": "Keď stratíme pripojenie, niektoré služby zostanú dočasne nedostupné."
+ },
+ {
+  "id": "b1-047",
+  "nr": 47,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Vor der Installation eines Programms sollte man prüfen, welche Berechtigungen die App verlangt.",
+  "words": [
+   "pred",
+   "skontrolovat",
+   "vyzadovat"
+  ],
+  "tokens": 10,
+  "w": "Pred inštaláciou programu si treba skontrolovať, aké povolenia aplikácia vyžaduje."
+ },
+ {
+  "id": "b1-048",
+  "nr": 48,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Technologie kann uns das Leben erleichtern, wenn wir sie verantwortungsvoll nutzen.",
+  "words": [
+   "technologia",
+   "moct",
+   "ak",
+   "pouzivat",
+   "zodpovedny",
+   "sposob"
+  ],
+  "tokens": 10,
+  "w": "Technológia nám môže uľahčiť život, ak ju používame zodpovedným spôsobom."
+ },
+ {
+  "id": "b1-049",
+  "nr": 49,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Immer mehr Menschen interessieren sich dafür, wie sie ihre persönlichen Daten schützen können.",
+  "words": [
+   "viac",
+   "ludia",
+   "zaujimat-sa",
+   "ako",
+   "udaje",
+   "sa",
+   "o"
+  ],
+  "tokens": 12,
+  "w": "Čoraz viac ľudí sa zaujíma o to, ako chrániť svoje osobné údaje."
+ },
+ {
+  "id": "b1-050",
+  "nr": 50,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das neue System ermöglicht Mitarbeitern, auch außerhalb des Büros sicher zu arbeiten.",
+  "words": [
+   "novy",
+   "system",
+   "umoznit",
+   "zamestnanec",
+   "pracovat",
+   "bezpecny"
+  ],
+  "tokens": 9,
+  "w": "Nový systém umožňuje zamestnancom pracovať bezpečne aj mimo kancelárie."
+ },
+ {
+  "id": "b1-051",
+  "nr": 51,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Bei der Auswahl eines Geräts verlassen wir uns nicht nur auf den Preis, sondern auch auf die Zuverlässigkeit.",
+  "words": [
+   "pri",
+   "vybrat",
+   "zariadenie",
+   "spoliehat-sa",
+   "iba",
+   "cena",
+   "ale",
+   "spolahlivy",
+   "na",
+   "sa"
+  ],
+  "tokens": 12,
+  "w": "Pri výbere zariadenia sa nespoliehame iba na cenu, ale aj na spoľahlivosť."
+ },
+ {
+  "id": "b1-052",
+  "nr": 52,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn wir den Energieverbrauch senken wollen, müssen wir einige Alltagsgewohnheiten ändern.",
+  "words": [
+   "ak",
+   "chciet",
+   "znizit",
+   "musiet",
+   "zmenit"
+  ],
+  "tokens": 10,
+  "w": "Ak chceme znížiť spotrebu energie, musíme zmeniť niektoré každodenné návyky."
+ },
+ {
+  "id": "b1-053",
+  "nr": 53,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Umweltschutz erfordert die Zusammenarbeit von Bürgern, Unternehmen und Regierung.",
+  "words": [
+   "ochrana",
+   "zivotne-prostredie",
+   "vyzadovat",
+   "obcan",
+   "vlada"
+  ],
+  "tokens": 10,
+  "w": "Ochrana životného prostredia si vyžaduje spoluprácu občanov, firiem aj vlády."
+ },
+ {
+  "id": "b1-054",
+  "nr": 54,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Nachhaltige Verkehrsmittel können Lärm und Verschmutzung in Städten verringern.",
+  "words": [
+   "udrzatelny",
+   "sposob",
+   "moct",
+   "znizit",
+   "mesto",
+   "v"
+  ],
+  "tokens": 10,
+  "w": "Udržateľný spôsob dopravy môže znížiť hluk aj znečistenie v mestách."
+ },
+ {
+  "id": "b1-055",
+  "nr": 55,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Stadt plant, das öffentliche Verkehrsnetz auszubauen, damit es für Bewohner besser erreichbar ist.",
+  "words": [
+   "mesto",
+   "rozsirit",
+   "siet",
+   "dostupny",
+   "pre"
+  ],
+  "tokens": 11,
+  "w": "Mesto plánuje rozšíriť sieť verejnej dopravy, aby bola dostupnejšia pre obyvateľov."
+ },
+ {
+  "id": "b1-056",
+  "nr": 56,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn der öffentliche Verkehr besser wird, werden weniger Menschen mit dem Auto fahren.",
+  "words": [
+   "ak",
+   "zlepsit",
+   "menej",
+   "ludia",
+   "jazdit",
+   "auto",
+   "sa"
+  ],
+  "tokens": 10,
+  "w": "Ak sa verejná doprava zlepší, menej ľudí bude jazdiť autom."
+ },
+ {
+  "id": "b1-057",
+  "nr": 57,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Regierung kündigte Maßnahmen an, die die Entwicklung neuer Technologien fördern sollen.",
+  "words": [
+   "vlada",
+   "oznamit",
+   "podporit",
+   "vyvoj",
+   "novy",
+   "technologia"
+  ],
+  "tokens": 9,
+  "w": "Vláda oznámila opatrenia, ktoré majú podporiť vývoj nových technológií."
+ },
+ {
+  "id": "b1-058",
+  "nr": 58,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Jeder Bürger hat das Recht, seine Meinung zu äußern, trägt aber zugleich Verantwortung für seine Worte.",
+  "words": [
+   "kazdy",
+   "obcan",
+   "pravo",
+   "vyjadrit",
+   "svoj",
+   "nazor",
+   "ale",
+   "zaroven",
+   "zodpovednost",
+   "slovo",
+   "za"
+  ],
+  "tokens": 14,
+  "w": "Každý občan má právo vyjadriť svoj názor, ale zároveň nesie zodpovednosť za svoje slová."
+ },
+ {
+  "id": "b1-059",
+  "nr": 59,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Meinungsfreiheit ist wichtig, bedeutet aber nicht, dass wir das Gesetz ignorieren dürfen.",
+  "words": [
+   "sloboda",
+   "dolezity",
+   "ze",
+   "moct",
+   "zakon"
+  ],
+  "tokens": 10,
+  "w": "Sloboda prejavu je dôležitá, no neznamená, že môžeme ignorovať zákon."
+ },
+ {
+  "id": "b1-060",
+  "nr": 60,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Vor Wahlen interessieren sich die Menschen stärker für die Programme der einzelnen Parteien.",
+  "words": [
+   "pred",
+   "volby",
+   "ludia",
+   "viac",
+   "zaujimat-sa",
+   "o",
+   "sa"
+  ],
+  "tokens": 10,
+  "w": "Pred voľbami sa ľudia viac zaujímajú o programy jednotlivých strán."
+ },
+ {
+  "id": "b1-061",
+  "nr": 61,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wirtschaftswachstum kann neue Arbeitsplätze schaffen, bringt aber auch weitere Herausforderungen.",
+  "words": [
+   "rast",
+   "moct",
+   "vytvorit",
+   "novy",
+   "pracovny",
+   "ale"
+  ],
+  "tokens": 12,
+  "w": "Ekonomický rast môže vytvoriť nové pracovné miesta, ale prináša aj ďalšie výzvy."
+ },
+ {
+  "id": "b1-062",
+  "nr": 62,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn die Nachfrage schneller steigt als das Angebot, steigen gewöhnlich die Preise.",
+  "words": [
+   "ked",
+   "dopyt",
+   "rast",
+   "rychly",
+   "ponuka",
+   "cena",
+   "zvysit",
+   "sa"
+  ],
+  "tokens": 10,
+  "w": "Keď dopyt rastie rýchlejšie než ponuka, ceny sa zvyčajne zvyšujú."
+ },
+ {
+  "id": "b1-063",
+  "nr": 63,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Starker Wettbewerb zwingt Unternehmen, Qualität zu verbessern und neue Lösungen zu suchen.",
+  "words": [
+   "konkurencia",
+   "kvalita",
+   "hladat",
+   "novy",
+   "riesenie",
+   "a"
+  ],
+  "tokens": 10,
+  "w": "Silná konkurencia núti firmy zlepšovať kvalitu a hľadať nové riešenia."
+ },
+ {
+  "id": "b1-064",
+  "nr": 64,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Gute Werbung kann das Interesse an einem Produkt steigern, garantiert aber nicht seine Qualität.",
+  "words": [
+   "dobry",
+   "reklama",
+   "moct",
+   "zvysit",
+   "vyrobok",
+   "ale",
+   "jeho",
+   "kvalita",
+   "o"
+  ],
+  "tokens": 11,
+  "w": "Dobrá reklama môže zvýšiť záujem o výrobok, ale nezaručí jeho kvalitu."
+ },
+ {
+  "id": "b1-065",
+  "nr": 65,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Eine Marke baut Kundenvertrauen vor allem durch langfristige Qualität und zuverlässigen Service auf.",
+  "words": [
+   "znacka",
+   "dovera",
+   "najma",
+   "kvalita",
+   "spolahlivy",
+   "a"
+  ],
+  "tokens": 11,
+  "w": "Značka si buduje dôveru zákazníkov najmä dlhodobou kvalitou a spoľahlivým servisom."
+ },
+ {
+  "id": "b1-066",
+  "nr": 66,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Vor der Vertragsunterzeichnung ist es vernünftig, alle Bedingungen sehr genau zu lesen.",
+  "words": [
+   "pred",
+   "zmluva",
+   "citat",
+   "vsetko",
+   "podmienka",
+   "velmi"
+  ],
+  "tokens": 11,
+  "w": "Pred podpisom zmluvy je rozumné prečítať si všetky podmienky veľmi pozorne."
+ },
+ {
+  "id": "b1-067",
+  "nr": 67,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ein Angebot zu vorteilhaft erscheint, lohnt es sich, alle Details zu überprüfen.",
+  "words": [
+   "ak",
+   "ponuka",
+   "prilis",
+   "vyhodny",
+   "overit",
+   "vsetko",
+   "sa"
+  ],
+  "tokens": 10,
+  "w": "Ak ponuka vyzerá príliš výhodne, oplatí sa overiť všetky podrobnosti."
+ },
+ {
+  "id": "b1-068",
+  "nr": 68,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Bei einem größeren Kauf vergleiche ich Preis, Garantie und Erfahrungen anderer Kunden.",
+  "words": [
+   "pri",
+   "cena",
+   "zaruka",
+   "skusenost",
+   "zakaznik"
+  ],
+  "tokens": 10,
+  "w": "Pri väčšom nákupe porovnávam cenu, záruku aj skúsenosti ostatných zákazníkov."
+ },
+ {
+  "id": "b1-069",
+  "nr": 69,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Kürzlich reklamierte ich ein Produkt, weil es schon nach wenigen Tagen kaputtging.",
+  "words": [
+   "nedavno",
+   "vyrobok",
+   "pretoze",
+   "pokazit-sa",
+   "uz",
+   "den",
+   "sa",
+   "po"
+  ],
+  "tokens": 11,
+  "w": "Nedávno som reklamoval výrobok, pretože sa pokazil už po niekoľkých dňoch."
+ },
+ {
+  "id": "b1-070",
+  "nr": 70,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Verkäufer erkannte das Problem an und bot mir sofort ein Ersatzgerät an.",
+  "words": [
+   "predajca",
+   "problem",
+   "uznat",
+   "okamzite",
+   "zariadenie",
+   "a"
+  ],
+  "tokens": 9,
+  "w": "Predajca problém uznal a okamžite mi ponúkol náhradné zariadenie."
+ },
+ {
+  "id": "b1-071",
+  "nr": 71,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ein Kunde unzufrieden ist, sollte er klar erklären, was er erwartet.",
+  "words": [
+   "ak",
+   "zakaznik",
+   "co",
+   "ocakavat",
+   "nie",
+   "spokojny",
+   "vysvetlit"
+  ],
+  "tokens": 11,
+  "w": "Ak zákazník nie je spokojný, mal by jasne vysvetliť, čo očakáva."
+ },
+ {
+  "id": "b1-072",
+  "nr": 72,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Beim Reisen versuche ich Orte zu meiden, die zu stark von Touristen überlaufen sind.",
+  "words": [
+   "pri",
+   "cestovat",
+   "vyhnut-sa",
+   "prilis",
+   "turista",
+   "sa"
+  ],
+  "tokens": 11,
+  "w": "Pri cestovaní sa snažím vyhnúť miestam, ktoré sú príliš preplnené turistami."
+ },
+ {
+  "id": "b1-073",
+  "nr": 73,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Zuerst informiere ich mich grundlegend und buche erst danach eine Unterkunft.",
+  "words": [
+   "najprv",
+   "informacia",
+   "potom",
+   "ubytovanie",
+   "a"
+  ],
+  "tokens": 11,
+  "w": "Najprv si zistím základné informácie a až potom si rezervujem ubytovanie."
+ },
+ {
+  "id": "b1-074",
+  "nr": 74,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Obwohl das Hotel weiter vom Zentrum entfernt war, bot es eine ruhigere Umgebung und einen besseren Preis.",
+  "words": [
+   "hoci",
+   "hotel",
+   "daleko",
+   "pokojny",
+   "prostredie",
+   "cena",
+   "a",
+   "od"
+  ],
+  "tokens": 12,
+  "w": "Hoci bol hotel ďalej od centra, ponúkal pokojnejšie prostredie a lepšiu cenu."
+ },
+ {
+  "id": "b1-075",
+  "nr": 75,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Während der Reise mussten wir den Plan ändern, weil sich das Wetter plötzlich verschlechterte.",
+  "words": [
+   "cesta",
+   "musiet",
+   "pretoze",
+   "zhorsit",
+   "pocasie",
+   "sa",
+   "pocas",
+   "zmenit"
+  ],
+  "tokens": 11,
+  "w": "Počas cesty sme museli zmeniť plán, pretože sa náhle zhoršilo počasie."
+ },
+ {
+  "id": "b1-076",
+  "nr": 76,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ich allein reise, achte ich stärker auf Details und passe mich leichter an die Situation an.",
+  "words": [
+   "ked",
+   "cestovat",
+   "sam",
+   "viac",
+   "vsimnut-si",
+   "prisposobit-sa",
+   "situacia",
+   "a",
+   "sa"
+  ],
+  "tokens": 12,
+  "w": "Keď cestujem sám, viac si všímam detaily a ľahšie sa prispôsobím situácii."
+ },
+ {
+  "id": "b1-077",
+  "nr": 77,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Auf eine längere Reise nehme ich nur Dinge mit, die ich wirklich brauche.",
+  "words": [
+   "dlhy",
+   "cesta",
+   "vziat",
+   "iba",
+   "skutocny",
+   "potrebovat",
+   "na"
+  ],
+  "tokens": 10,
+  "w": "Na dlhšiu cestu si beriem iba veci, ktoré skutočne potrebujem."
+ },
+ {
+  "id": "b1-078",
+  "nr": 78,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn der Zug Verspätung hat, nutze ich die Zeit meist zum Lesen oder Planen des nächsten Tages.",
+  "words": [
+   "ak",
+   "vlak",
+   "vyuzit",
+   "citat",
+   "alebo",
+   "den",
+   "na"
+  ],
+  "tokens": 12,
+  "w": "Ak vlak mešká, zvyčajne využijem čas na čítanie alebo plánovanie ďalšieho dňa."
+ },
+ {
+  "id": "b1-079",
+  "nr": 79,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Beim Besuch eines fremden Landes versuche ich, wenigstens einige grundlegende Wörter zu lernen.",
+  "words": [
+   "pri",
+   "ucit-sa",
+   "aspon",
+   "slovo",
+   "sa"
+  ],
+  "tokens": 11,
+  "w": "Pri návšteve cudzej krajiny sa snažím naučiť aspoň niekoľko základných slov."
+ },
+ {
+  "id": "b1-080",
+  "nr": 80,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Schon ein kurzes Gespräch in der lokalen Sprache kann eine angenehmere Atmosphäre schaffen.",
+  "words": [
+   "kratky",
+   "jazyk",
+   "moct",
+   "vytvorit",
+   "prijemny",
+   "v"
+  ],
+  "tokens": 10,
+  "w": "Aj krátky rozhovor v miestnom jazyku môže vytvoriť príjemnejšiu atmosféru."
+ },
+ {
+  "id": "b1-081",
+  "nr": 81,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ich etwas nicht verstehe, bitte ich lieber um eine Erklärung, als nur zu raten.",
+  "words": [
+   "ked",
+   "rozumiet",
+   "iba",
+   "o"
+  ],
+  "tokens": 12,
+  "w": "Keď niečomu nerozumiem, radšej požiadam o vysvetlenie, než by som iba hádal."
+ },
+ {
+  "id": "b1-082",
+  "nr": 82,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Beim Sprachenlernen ist Regelmäßigkeit wichtiger als lange, aber seltene Lerneinheiten.",
+  "words": [
+   "pri",
+   "ucit-sa",
+   "jazyk",
+   "dolezity",
+   "dlhy",
+   "ale",
+   "zriedka"
+  ],
+  "tokens": 11,
+  "w": "Pri učení jazyka je pravidelnosť dôležitejšia než dlhé, ale zriedkavé lekcie."
+ },
+ {
+  "id": "b1-083",
+  "nr": 83,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Neue Wörter merke ich mir besser, wenn ich sie in eigenen Sätzen verwende.",
+  "words": [
+   "novy",
+   "slovo",
+   "zapamatat-si",
+   "ked",
+   "pouzivat",
+   "ich"
+  ],
+  "tokens": 11,
+  "w": "Nové slová si lepšie zapamätám, keď ich používam vo vlastných vetách."
+ },
+ {
+  "id": "b1-084",
+  "nr": 84,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ich mich irre, versuche ich den Fehler zu verstehen, statt ihn nur zu korrigieren.",
+  "words": [
+   "ak",
+   "chyba",
+   "len",
+   "sa",
+   "namiesto"
+  ],
+  "tokens": 14,
+  "w": "Ak sa pomýlim, snažím sa pochopiť chybu namiesto toho, aby som ju len opravil."
+ },
+ {
+  "id": "b1-085",
+  "nr": 85,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Nach und nach bemerkte ich, dass ich auch ohne Übersetzung viel mehr verstehe.",
+  "words": [
+   "postupne",
+   "vsimnut-si",
+   "ze",
+   "rozumiet",
+   "viac",
+   "bez",
+   "prekladat"
+  ],
+  "tokens": 11,
+  "w": "Postupne som si všimol, že rozumiem oveľa viac aj bez prekladu."
+ },
+ {
+  "id": "b1-086",
+  "nr": 86,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Den größten Fortschritt machte ich, als ich begann, ohne Angst vor Fehlern zu sprechen.",
+  "words": [
+   "pokrok",
+   "dosiahnut",
+   "ked",
+   "zacat",
+   "hovorit",
+   "bez",
+   "chyba",
+   "z"
+  ],
+  "tokens": 13,
+  "w": "Najväčší pokrok som dosiahol vtedy, keď som začal hovoriť bez strachu z chýb."
+ },
+ {
+  "id": "b1-087",
+  "nr": 87,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Obwohl ich noch nicht fließend spreche, kann ich mich in den meisten Alltagssituationen verständigen.",
+  "words": [
+   "hoci",
+   "este",
+   "hovorit",
+   "dokazat",
+   "situacia",
+   "sa"
+  ],
+  "tokens": 11,
+  "w": "Hoci ešte nehovorím plynule, dokážem sa dohodnúť vo väčšine bežných situácií."
+ },
+ {
+  "id": "b1-088",
+  "nr": 88,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Im Gespräch versuche ich, mich auf die Bedeutung zu konzentrieren, nicht auf jeden einzelnen Grammatikfehler.",
+  "words": [
+   "pri",
+   "sustredit-sa",
+   "vyznam",
+   "nie",
+   "kazdy",
+   "chyba",
+   "na",
+   "sa"
+  ],
+  "tokens": 13,
+  "w": "Pri rozhovore sa snažím sústrediť na význam, nie na každú jednotlivú gramatickú chybu."
+ },
+ {
+  "id": "b1-089",
+  "nr": 89,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ich das genaue Wort nicht kenne, beschreibe ich den Gedanken auf einfachere Weise.",
+  "words": [
+   "ak",
+   "poznat",
+   "presne",
+   "slovo",
+   "jednoduchy",
+   "sposob"
+  ],
+  "tokens": 8,
+  "w": "Ak nepoznám presné slovo, opíšem myšlienku jednoduchším spôsobom."
+ },
+ {
+  "id": "b1-090",
+  "nr": 90,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Je mehr Slowakisch ich höre, desto natürlicher klingen für mich alltägliche Wortverbindungen.",
+  "words": [
+   "viac",
+   "pocuvat"
+  ],
+  "tokens": 11,
+  "w": "Čím viac počúvam slovenčinu, tým prirodzenejšie mi znejú bežné slovné spojenia."
+ },
+ {
+  "id": "b1-091",
+  "nr": 91,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Nach einigen Monaten gewann ich mehr Selbstvertrauen und hörte auf, Angst vor dem Sprechen zu haben.",
+  "words": [
+   "mesiac",
+   "ziskat",
+   "dovera",
+   "hovorit",
+   "a",
+   "sa",
+   "po"
+  ],
+  "tokens": 12,
+  "w": "Po niekoľkých mesiacoch som získal väčšiu dôveru a prestal sa báť hovoriť."
+ },
+ {
+  "id": "b1-092",
+  "nr": 92,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich denke, dass regelmäßiger Kontakt mit der Sprache wirksamer ist als gelegentliches intensives Lernen.",
+  "words": [
+   "mysliet",
+   "ze",
+   "jazyk",
+   "ucinny",
+   "ucit-sa",
+   "s"
+  ],
+  "tokens": 13,
+  "w": "Myslím si, že pravidelný kontakt s jazykom je účinnejší než občasné intenzívne učenie."
+ },
+ {
+  "id": "b1-093",
+  "nr": 93,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Jeder Mensch lernt anders, deshalb sollte man eine Methode finden, die funktioniert.",
+  "words": [
+   "kazdy",
+   "clovek",
+   "ucit-sa",
+   "sposob",
+   "najst",
+   "sa",
+   "preto"
+  ],
+  "tokens": 13,
+  "w": "Každý človek sa učí iným spôsobom, preto si treba nájsť metódu, ktorá funguje."
+ },
+ {
+  "id": "b1-094",
+  "nr": 94,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn wir uns ein realistisches Ziel setzen, behalten wir die Motivation leichter während des ganzen Prozesses.",
+  "words": [
+   "ak",
+   "stanovit",
+   "ciel",
+   "udrzat",
+   "proces",
+   "pocas"
+  ],
+  "tokens": 12,
+  "w": "Ak si stanovíme realistický cieľ, ľahšie si udržíme motiváciu počas celého procesu."
+ },
+ {
+  "id": "b1-095",
+  "nr": 95,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Es ist nicht notwendig, jedes Wort zu verstehen, um den Hauptsinn eines Textes zu erfassen.",
+  "words": [
+   "nevyhnutny",
+   "rozumiet",
+   "kazdy",
+   "slovo",
+   "zmysel",
+   "nie",
+   "hlavny"
+  ],
+  "tokens": 12,
+  "w": "Nie je nevyhnutné rozumieť každému slovu, aby sme pochopili hlavný zmysel textu."
+ },
+ {
+  "id": "b1-096",
+  "nr": 96,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenn ich neue Ausdrücke im Kontext lerne, merke ich sie mir viel leichter.",
+  "words": [
+   "ked",
+   "ucit-sa",
+   "novy",
+   "zapamatat-si",
+   "v",
+   "sa",
+   "ich"
+  ],
+  "tokens": 12,
+  "w": "Keď sa učím nové výrazy v kontexte, oveľa ľahšie si ich zapamätám."
+ },
+ {
+  "id": "b1-097",
+  "nr": 97,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich versuche jede Gelegenheit zu nutzen, bei der ich Slowakisch sprechen kann.",
+  "words": [
+   "vyuzivat",
+   "kazdy",
+   "prilezitost",
+   "pri",
+   "moct",
+   "hovorit",
+   "po-slovensky",
+   "sa",
+   "po"
+  ],
+  "tokens": 11,
+  "w": "Snažím sa využívať každú príležitosť, pri ktorej môžem hovoriť po slovensky."
+ },
+ {
+  "id": "b1-098",
+  "nr": 98,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Auch wenn ich einen Fehler mache, führe ich das Gespräch weiter und korrigiere ihn erst später.",
+  "words": [
+   "chyba",
+   "neskor",
+   "a",
+   "v",
+   "ked"
+  ],
+  "tokens": 12,
+  "w": "Aj keď urobím chybu, pokračujem v rozhovore a opravím ju až neskôr."
+ },
+ {
+  "id": "b1-099",
+  "nr": 99,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wichtig ist nicht nur, Regeln zu kennen, sondern sie auch praktisch anwenden zu können.",
+  "words": [
+   "dolezity",
+   "vediet",
+   "ale",
+   "dokazat",
+   "pouzit",
+   "v",
+   "ich"
+  ],
+  "tokens": 12,
+  "w": "Dôležité je nielen vedieť pravidlá, ale aj dokázať ich použiť v praxi."
+ },
+ {
+  "id": "b1-100",
+  "nr": 100,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Mit der Zeit merkte ich, dass kleine tägliche Schritte den größten Fortschritt bringen.",
+  "words": [
+   "uvedomit-si",
+   "ze",
+   "maly",
+   "kazdy",
+   "pokrok",
+   "po"
+  ],
+  "tokens": 12,
+  "w": "Po čase som si uvedomil, že malé každodenné kroky prinášajú najväčší pokrok."
+ }
+]

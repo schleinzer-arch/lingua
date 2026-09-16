@@ -1,0 +1,6224 @@
+[
+ {
+  "id": "it-000",
+  "nr": 1,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Hallo, wie geht es dir?",
+  "words": [
+   "ciao",
+   "come"
+  ],
+  "tokens": 3,
+  "w": "Ciao, come stai?"
+ },
+ {
+  "id": "it-001",
+  "nr": 2,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Guten Tag, mein Herr!",
+  "words": [
+   "buongiorno"
+  ],
+  "tokens": 2,
+  "w": "Buongiorno, signore!"
+ },
+ {
+  "id": "it-002",
+  "nr": 3,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Guten Abend, willkommen!",
+  "words": [
+   "buonasera"
+  ],
+  "tokens": 2,
+  "w": "Buonasera, benvenuti!"
+ },
+ {
+  "id": "it-003",
+  "nr": 4,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Auf Wiedersehen, bis bald!",
+  "words": [
+   "arrivederci",
+   "presto"
+  ],
+  "tokens": 3,
+  "w": "Arrivederci, a presto!"
+ },
+ {
+  "id": "it-004",
+  "nr": 5,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Vielen Dank!",
+  "words": [
+   "grazie",
+   "mille"
+  ],
+  "tokens": 2,
+  "w": "Grazie mille!"
+ },
+ {
+  "id": "it-005",
+  "nr": 6,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Bitte, nehmen Sie Platz.",
+  "words": [
+   "prego",
+   "si"
+  ],
+  "tokens": 3,
+  "w": "Prego, si accomodi."
+ },
+ {
+  "id": "it-006",
+  "nr": 7,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Entschuldigung, wo ist die Toilette?",
+  "words": [
+   "scusi",
+   "bagno"
+  ],
+  "tokens": 4,
+  "w": "Scusi, dov'è il bagno?"
+ },
+ {
+  "id": "it-007",
+  "nr": 8,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Entschuldige, kannst du das wiederholen?",
+  "words": [
+   "scusa"
+  ],
+  "tokens": 3,
+  "w": "Scusa, puoi ripetere?"
+ },
+ {
+  "id": "it-008",
+  "nr": 9,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ja, ich verstehe.",
+  "words": [
+   "si",
+   "capisco"
+  ],
+  "tokens": 2,
+  "w": "Sì, capisco."
+ },
+ {
+  "id": "it-009",
+  "nr": 10,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Nein, danke.",
+  "words": [
+   "no",
+   "grazie"
+  ],
+  "tokens": 2,
+  "w": "No, grazie."
+ },
+ {
+  "id": "it-010",
+  "nr": 11,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Freut mich, ich bin Marco.",
+  "words": [
+   "piacere"
+  ],
+  "tokens": 3,
+  "w": "Piacere, sono Marco."
+ },
+ {
+  "id": "it-011",
+  "nr": 12,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ja, jetzt verstehe ich.",
+  "words": [
+   "capisco",
+   "si",
+   "adesso"
+  ],
+  "tokens": 3,
+  "w": "Sì, ora capisco."
+ },
+ {
+  "id": "it-012",
+  "nr": 13,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich weiß nicht, wo der Bahnhof ist.",
+  "words": [
+   "non-so",
+   "li",
+   "stazione"
+  ],
+  "tokens": 5,
+  "w": "Non so dov'è la stazione."
+ },
+ {
+  "id": "it-013",
+  "nr": 14,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich bin zu Hause.",
+  "words": [
+   "essere",
+   "casa"
+  ],
+  "tokens": 3,
+  "w": "Sono a casa."
+ },
+ {
+  "id": "it-014",
+  "nr": 15,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe zwei Brüder.",
+  "words": [
+   "avere",
+   "due"
+  ],
+  "tokens": 3,
+  "w": "Ho due fratelli."
+ },
+ {
+  "id": "it-015",
+  "nr": 16,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Ich frühstücke.",
+  "words": [
+   "fare",
+   "colazione"
+  ],
+  "tokens": 2,
+  "w": "Faccio colazione."
+ },
+ {
+  "id": "it-016",
+  "nr": 17,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Ich gehe zur Arbeit.",
+  "words": [
+   "andare",
+   "lavoro"
+  ],
+  "tokens": 3,
+  "w": "Vado al lavoro."
+ },
+ {
+  "id": "it-017",
+  "nr": 18,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich komme morgen.",
+  "words": [
+   "venire",
+   "domani"
+  ],
+  "tokens": 2,
+  "w": "Vengo domani."
+ },
+ {
+  "id": "it-018",
+  "nr": 19,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich esse Nudeln.",
+  "words": [
+   "mangiare",
+   "li",
+   "pasta"
+  ],
+  "tokens": 3,
+  "w": "Mangio la pasta."
+ },
+ {
+  "id": "it-019",
+  "nr": 20,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich trinke Wasser.",
+  "words": [
+   "bere",
+   "l-acqua"
+  ],
+  "tokens": 2,
+  "w": "Bevo acqua."
+ },
+ {
+  "id": "it-020",
+  "nr": 21,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich spreche ein wenig Italienisch.",
+  "words": [
+   "parlare"
+  ],
+  "tokens": 4,
+  "w": "Parlo un po' d'italiano."
+ },
+ {
+  "id": "it-021",
+  "nr": 22,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich verstehe die Frage.",
+  "words": [
+   "capire",
+   "capisco",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Capisco la domanda."
+ },
+ {
+  "id": "it-022",
+  "nr": 23,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich möchte einen Kaffee.",
+  "words": [
+   "volere",
+   "caffe"
+  ],
+  "tokens": 3,
+  "w": "Voglio un caffè."
+ },
+ {
+  "id": "it-023",
+  "nr": 24,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Darf ich hereinkommen?",
+  "words": [
+   "potere",
+   "entrare"
+  ],
+  "tokens": 2,
+  "w": "Posso entrare?"
+ },
+ {
+  "id": "it-024",
+  "nr": 25,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich muss gehen.",
+  "words": [
+   "dovere",
+   "andare"
+  ],
+  "tokens": 2,
+  "w": "Devo andare."
+ },
+ {
+  "id": "it-025",
+  "nr": 26,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wer ist da?",
+  "words": [
+   "chi",
+   "e"
+  ],
+  "tokens": 2,
+  "w": "Chi è?"
+ },
+ {
+  "id": "it-026",
+  "nr": 27,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Was willst du?",
+  "words": [
+   "che-cosa"
+  ],
+  "tokens": 2,
+  "w": "Cosa vuoi?"
+ },
+ {
+  "id": "it-027",
+  "nr": 28,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wo wohnst du?",
+  "words": [
+   "dove"
+  ],
+  "tokens": 2,
+  "w": "Dove abiti?"
+ },
+ {
+  "id": "it-028",
+  "nr": 29,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Woher kommst du?",
+  "words": [
+   "da-dove",
+   "dove"
+  ],
+  "tokens": 3,
+  "w": "Da dove vieni?"
+ },
+ {
+  "id": "it-029",
+  "nr": 30,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wann fahren wir los?",
+  "words": [
+   "quando"
+  ],
+  "tokens": 2,
+  "w": "Quando partiamo?"
+ },
+ {
+  "id": "it-030",
+  "nr": 31,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Warum bist du hier?",
+  "words": [
+   "perche",
+   "sei",
+   "qui"
+  ],
+  "tokens": 3,
+  "w": "Perché sei qui?"
+ },
+ {
+  "id": "it-031",
+  "nr": 32,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wie sagt man das auf Italienisch?",
+  "words": [
+   "come",
+   "si"
+  ],
+  "tokens": 5,
+  "w": "Come si dice in italiano?"
+ },
+ {
+  "id": "it-032",
+  "nr": 33,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Was kostet das?",
+  "words": [
+   "quanto"
+  ],
+  "tokens": 2,
+  "w": "Quanto costa?"
+ },
+ {
+  "id": "it-033",
+  "nr": 34,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Welches ziehst du vor?",
+  "words": [
+   "quale"
+  ],
+  "tokens": 2,
+  "w": "Quale preferisci?"
+ },
+ {
+  "id": "it-034",
+  "nr": 35,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das ist gut.",
+  "words": [
+   "questo",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "Questo è buono."
+ },
+ {
+  "id": "it-035",
+  "nr": 36,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich warte hier.",
+  "words": [
+   "qui"
+  ],
+  "tokens": 2,
+  "w": "Aspetto qui."
+ },
+ {
+  "id": "it-036",
+  "nr": 37,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich spreche wenig Italienisch.",
+  "words": [
+   "molto"
+  ],
+  "tokens": 3,
+  "w": "Parlo poco italiano."
+ },
+ {
+  "id": "it-037",
+  "nr": 38,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Brot und Käse.",
+  "words": [
+   "e",
+   "pane",
+   "formaggio"
+  ],
+  "tokens": 3,
+  "w": "Pane e formaggio."
+ },
+ {
+  "id": "it-038",
+  "nr": 39,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Heute ist Montag.",
+  "words": [
+   "oggi",
+   "e",
+   "lunedi"
+  ],
+  "tokens": 3,
+  "w": "Oggi è lunedì."
+ },
+ {
+  "id": "it-039",
+  "nr": 40,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Morgen komme ich.",
+  "words": [
+   "domani"
+  ],
+  "tokens": 2,
+  "w": "Domani vengo."
+ },
+ {
+  "id": "it-040",
+  "nr": 41,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe einen Bruder.",
+  "words": [
+   "uno",
+   "fratello"
+  ],
+  "tokens": 3,
+  "w": "Ho un fratello."
+ },
+ {
+  "id": "it-041",
+  "nr": 42,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Zwei Kaffee, bitte.",
+  "words": [
+   "due",
+   "caffe"
+  ],
+  "tokens": 4,
+  "w": "Due caffè, per favore."
+ },
+ {
+  "id": "it-042",
+  "nr": 43,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Drei Tage.",
+  "words": [
+   "tre"
+  ],
+  "tokens": 2,
+  "w": "Tre giorni."
+ },
+ {
+  "id": "it-043",
+  "nr": 44,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Vier Stunden.",
+  "words": [
+   "quattro"
+  ],
+  "tokens": 2,
+  "w": "Quattro ore."
+ },
+ {
+  "id": "it-044",
+  "nr": 45,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Fünf Minuten.",
+  "words": [
+   "cinque"
+  ],
+  "tokens": 2,
+  "w": "Cinque minuti."
+ },
+ {
+  "id": "it-045",
+  "nr": 46,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Um sechs Uhr.",
+  "words": [
+   "sei"
+  ],
+  "tokens": 2,
+  "w": "Alle sei."
+ },
+ {
+  "id": "it-046",
+  "nr": 47,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Sieben Tage pro Woche.",
+  "words": [
+   "sette",
+   "settimana"
+  ],
+  "tokens": 4,
+  "w": "Sette giorni alla settimana."
+ },
+ {
+  "id": "it-047",
+  "nr": 48,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Acht Euro.",
+  "words": [
+   "otto",
+   "l-euro"
+  ],
+  "tokens": 2,
+  "w": "Otto euro."
+ },
+ {
+  "id": "it-048",
+  "nr": 49,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Neun Uhr morgens.",
+  "words": [
+   "nove",
+   "mattina"
+  ],
+  "tokens": 4,
+  "w": "Le nove di mattina."
+ },
+ {
+  "id": "it-049",
+  "nr": 50,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Zehn Minuten.",
+  "words": [
+   "dieci"
+  ],
+  "tokens": 2,
+  "w": "Dieci minuti."
+ },
+ {
+  "id": "it-050",
+  "nr": 51,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Ich habe eine große Familie.",
+  "words": [
+   "famiglia",
+   "grande"
+  ],
+  "tokens": 4,
+  "w": "Ho una grande famiglia."
+ },
+ {
+  "id": "it-051",
+  "nr": 52,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Meine Mutter ist Lehrerin.",
+  "words": [
+   "mamma",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Mia mamma è insegnante."
+ },
+ {
+  "id": "it-052",
+  "nr": 53,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Vater arbeitet in Rom.",
+  "words": [
+   "papa"
+  ],
+  "tokens": 5,
+  "w": "Mio papà lavora a Roma."
+ },
+ {
+  "id": "it-053",
+  "nr": 54,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Bruder lebt in Mailand.",
+  "words": [
+   "fratello"
+  ],
+  "tokens": 5,
+  "w": "Mio fratello vive a Milano."
+ },
+ {
+  "id": "it-054",
+  "nr": 55,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe eine Schwester.",
+  "words": [
+   "sorella"
+  ],
+  "tokens": 3,
+  "w": "Ho una sorella."
+ },
+ {
+  "id": "it-055",
+  "nr": 56,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Freund ist lustig.",
+  "words": [
+   "l-amico",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Il mio amico è divertente."
+ },
+ {
+  "id": "it-056",
+  "nr": 57,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Meine Freundin wohnt in der Nähe.",
+  "words": [
+   "l-amica",
+   "li",
+   "vicino"
+  ],
+  "tokens": 5,
+  "w": "La mia amica abita vicino."
+ },
+ {
+  "id": "it-057",
+  "nr": 58,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Jener Mann ist groß.",
+  "words": [
+   "l-uomo",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "Quell'uomo è alto."
+ },
+ {
+  "id": "it-058",
+  "nr": 59,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Diese Frau ist Ärztin.",
+  "words": [
+   "donna",
+   "questo",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Questa donna è medica."
+ },
+ {
+  "id": "it-059",
+  "nr": 60,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Dieses Kind ist niedlich.",
+  "words": [
+   "bambino",
+   "questo",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Questo bambino è carino."
+ },
+ {
+  "id": "it-060",
+  "nr": 61,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ein Wasser, bitte.",
+  "words": [
+   "l-acqua"
+  ],
+  "tokens": 3,
+  "w": "Un'acqua, per favore."
+ },
+ {
+  "id": "it-061",
+  "nr": 62,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe das Brot gekauft.",
+  "words": [
+   "pane"
+  ],
+  "tokens": 4,
+  "w": "Ho comprato il pane."
+ },
+ {
+  "id": "it-062",
+  "nr": 63,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Ich liebe Nudeln.",
+  "words": [
+   "pasta",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Adoro la pasta."
+ },
+ {
+  "id": "it-063",
+  "nr": 64,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Risotto mit Pilzen.",
+  "words": [
+   "riso",
+   "risotto",
+   "funghi"
+  ],
+  "tokens": 3,
+  "w": "Risotto ai funghi."
+ },
+ {
+  "id": "it-064",
+  "nr": 65,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich esse kein Fleisch.",
+  "words": [
+   "carne"
+  ],
+  "tokens": 3,
+  "w": "Non mangio carne."
+ },
+ {
+  "id": "it-065",
+  "nr": 66,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Heute esse ich Fisch.",
+  "words": [
+   "pesce",
+   "oggi"
+  ],
+  "tokens": 4,
+  "w": "Oggi mangio il pesce."
+ },
+ {
+  "id": "it-066",
+  "nr": 67,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Frisches Gemüse.",
+  "words": [
+   "verdura"
+  ],
+  "tokens": 2,
+  "w": "Verdura fresca."
+ },
+ {
+  "id": "it-067",
+  "nr": 68,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Frisches Obst der Saison.",
+  "words": [
+   "frutta"
+  ],
+  "tokens": 4,
+  "w": "Frutta fresca di stagione."
+ },
+ {
+  "id": "it-068",
+  "nr": 69,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Einen Kaffee, bitte.",
+  "words": [
+   "caffe"
+  ],
+  "tokens": 4,
+  "w": "Un caffè, per favore."
+ },
+ {
+  "id": "it-069",
+  "nr": 70,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Ich möchte einen Tee mit Zitrone.",
+  "words": [
+   "te",
+   "limone"
+  ],
+  "tokens": 5,
+  "w": "Voglio un tè al limone."
+ },
+ {
+  "id": "it-070",
+  "nr": 71,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Rot oder weiß?",
+  "words": [
+   "vino",
+   "rosso",
+   "bianco"
+  ],
+  "tokens": 3,
+  "w": "Rosso o bianco?"
+ },
+ {
+  "id": "it-071",
+  "nr": 72,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Kann ich die Speisekarte sehen?",
+  "words": [
+   "menu"
+  ],
+  "tokens": 4,
+  "w": "Posso vedere il menù?"
+ },
+ {
+  "id": "it-072",
+  "nr": 73,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Kann ich die Rechnung haben?",
+  "words": [
+   "conto",
+   "avere"
+  ],
+  "tokens": 4,
+  "w": "Posso avere il conto?"
+ },
+ {
+  "id": "it-073",
+  "nr": 74,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Einen Tisch für zwei, bitte.",
+  "words": [
+   "tavolo",
+   "due"
+  ],
+  "tokens": 6,
+  "w": "Un tavolo per due, per favore."
+ },
+ {
+  "id": "it-074",
+  "nr": 75,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Zug hat Verspätung.",
+  "words": [
+   "treno",
+   "e",
+   "ritardo"
+  ],
+  "tokens": 5,
+  "w": "Il treno è in ritardo."
+ },
+ {
+  "id": "it-075",
+  "nr": 76,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Bus Nummer fünf.",
+  "words": [
+   "l-autobus",
+   "cinque"
+  ],
+  "tokens": 3,
+  "w": "L'autobus numero cinque."
+ },
+ {
+  "id": "it-076",
+  "nr": 77,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Rufen Sie mir ein Taxi.",
+  "words": [
+   "taxi"
+  ],
+  "tokens": 4,
+  "w": "Mi chiami un taxi."
+ },
+ {
+  "id": "it-077",
+  "nr": 78,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Wo ist der Bahnhof?",
+  "words": [
+   "stazione",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Dov'è la stazione?"
+ },
+ {
+  "id": "it-078",
+  "nr": 79,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Flughafen ist weit weg.",
+  "words": [
+   "l-aeroporto",
+   "e",
+   "lontano"
+  ],
+  "tokens": 3,
+  "w": "L'aeroporto è lontano."
+ },
+ {
+  "id": "it-079",
+  "nr": 80,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Eine Fahrkarte nach Rom.",
+  "words": [
+   "biglietto"
+  ],
+  "tokens": 4,
+  "w": "Un biglietto per Roma."
+ },
+ {
+  "id": "it-080",
+  "nr": 81,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Biegen Sie rechts ab.",
+  "words": [
+   "a-destra"
+  ],
+  "tokens": 3,
+  "w": "Giri a destra."
+ },
+ {
+  "id": "it-081",
+  "nr": 82,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Biegen Sie links ab.",
+  "words": [
+   "a-sinistra"
+  ],
+  "tokens": 3,
+  "w": "Giri a sinistra."
+ },
+ {
+  "id": "it-082",
+  "nr": 83,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Gehen Sie immer geradeaus.",
+  "words": [
+   "dritto"
+  ],
+  "tokens": 3,
+  "w": "Vada sempre dritto."
+ },
+ {
+  "id": "it-083",
+  "nr": 84,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Es ist in der Nähe.",
+  "words": [
+   "vicino",
+   "e"
+  ],
+  "tokens": 2,
+  "w": "È vicino."
+ },
+ {
+  "id": "it-084",
+  "nr": 85,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ist es weit?",
+  "words": [
+   "lontano",
+   "e"
+  ],
+  "tokens": 2,
+  "w": "È lontano?"
+ },
+ {
+  "id": "it-085",
+  "nr": 86,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Mein Haus ist groß.",
+  "words": [
+   "casa",
+   "li",
+   "e",
+   "grande"
+  ],
+  "tokens": 5,
+  "w": "La mia casa è grande."
+ },
+ {
+  "id": "it-086",
+  "nr": 87,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Bad ist rechts.",
+  "words": [
+   "bagno",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Il bagno è a destra."
+ },
+ {
+  "id": "it-087",
+  "nr": 88,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ein Zimmer für zwei.",
+  "words": [
+   "camera",
+   "due"
+  ],
+  "tokens": 4,
+  "w": "Una camera per due."
+ },
+ {
+  "id": "it-088",
+  "nr": 89,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich möchte zahlen.",
+  "words": [
+   "pagare"
+  ],
+  "tokens": 2,
+  "w": "Voglio pagare."
+ },
+ {
+  "id": "it-089",
+  "nr": 90,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Jetzt gehe ich nach Hause.",
+  "words": [
+   "adesso",
+   "casa"
+  ],
+  "tokens": 4,
+  "w": "Adesso vado a casa."
+ },
+ {
+  "id": "it-090",
+  "nr": 91,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Zwanzig Jahre.",
+  "words": [
+   "venti"
+  ],
+  "tokens": 2,
+  "w": "Venti anni."
+ },
+ {
+  "id": "it-091",
+  "nr": 92,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Fünfzig Cent.",
+  "words": [
+   "cinquanta"
+  ],
+  "tokens": 2,
+  "w": "Cinquanta centesimi."
+ },
+ {
+  "id": "it-092",
+  "nr": 93,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Hundert Euro.",
+  "words": [
+   "cento",
+   "l-euro"
+  ],
+  "tokens": 2,
+  "w": "Cento euro."
+ },
+ {
+  "id": "it-093",
+  "nr": 94,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Tausend Kilometer.",
+  "words": [
+   "mille"
+  ],
+  "tokens": 2,
+  "w": "Mille chilometri."
+ },
+ {
+  "id": "it-094",
+  "nr": 95,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der erste Januar.",
+  "words": [
+   "primo",
+   "gennaio"
+  ],
+  "tokens": 3,
+  "w": "Il primo gennaio."
+ },
+ {
+  "id": "it-095",
+  "nr": 96,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der zweite Stock.",
+  "words": [
+   "secondo",
+   "piano"
+  ],
+  "tokens": 3,
+  "w": "Il secondo piano."
+ },
+ {
+  "id": "it-096",
+  "nr": 97,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Gestern war ich krank.",
+  "words": [
+   "ieri",
+   "malato"
+  ],
+  "tokens": 3,
+  "w": "Ieri ero malato."
+ },
+ {
+  "id": "it-097",
+  "nr": 98,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich rufe später an.",
+  "words": [
+   "dopo"
+  ],
+  "tokens": 2,
+  "w": "Chiamo dopo."
+ },
+ {
+  "id": "it-098",
+  "nr": 99,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Komm früher.",
+  "words": [
+   "prima"
+  ],
+  "tokens": 2,
+  "w": "Vieni prima."
+ },
+ {
+  "id": "it-099",
+  "nr": 100,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Morgens trinke ich Kaffee.",
+  "words": [
+   "mattina",
+   "li",
+   "caffe"
+  ],
+  "tokens": 5,
+  "w": "La mattina bevo il caffè."
+ },
+ {
+  "id": "it-100",
+  "nr": 101,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mittags gehen wir essen.",
+  "words": [
+   "mezzogiorno",
+   "mangiare"
+  ],
+  "tokens": 5,
+  "w": "A mezzogiorno andiamo a mangiare."
+ },
+ {
+  "id": "it-101",
+  "nr": 102,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Abends schauen wir einen Film.",
+  "words": [
+   "sera",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "La sera guardiamo un film."
+ },
+ {
+  "id": "it-102",
+  "nr": 103,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Nachts ist es still.",
+  "words": [
+   "notte",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Di notte è silenzioso."
+ },
+ {
+  "id": "it-103",
+  "nr": 104,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wie spät ist es?",
+  "words": [
+   "l-ora"
+  ],
+  "tokens": 3,
+  "w": "Che ore sono?"
+ },
+ {
+  "id": "it-104",
+  "nr": 105,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Fünf Minuten.",
+  "words": [
+   "minuto",
+   "cinque"
+  ],
+  "tokens": 2,
+  "w": "Cinque minuti."
+ },
+ {
+  "id": "it-105",
+  "nr": 106,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Jeden Tag.",
+  "words": [
+   "giorno"
+  ],
+  "tokens": 2,
+  "w": "Ogni giorno."
+ },
+ {
+  "id": "it-106",
+  "nr": 107,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Diese Woche.",
+  "words": [
+   "settimana",
+   "questo"
+  ],
+  "tokens": 2,
+  "w": "Questa settimana."
+ },
+ {
+  "id": "it-107",
+  "nr": 108,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Nächsten Monat.",
+  "words": [
+   "mese"
+  ],
+  "tokens": 3,
+  "w": "Il mese prossimo."
+ },
+ {
+  "id": "it-108",
+  "nr": 109,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Dieses Jahr.",
+  "words": [
+   "l-anno"
+  ],
+  "tokens": 1,
+  "w": "Quest'anno."
+ },
+ {
+  "id": "it-109",
+  "nr": 110,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Am Montag habe ich eine Besprechung.",
+  "words": [
+   "lunedi"
+  ],
+  "tokens": 4,
+  "w": "Lunedì ho una riunione."
+ },
+ {
+  "id": "it-110",
+  "nr": 111,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Sohn ist fünf Jahre alt.",
+  "words": [
+   "figlio",
+   "cinque"
+  ],
+  "tokens": 5,
+  "w": "Mio figlio ha cinque anni."
+ },
+ {
+  "id": "it-111",
+  "nr": 112,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Unsere Tochter geht zur Schule.",
+  "words": [
+   "figlia",
+   "scuola"
+  ],
+  "tokens": 5,
+  "w": "Nostra figlia va a scuola."
+ },
+ {
+  "id": "it-112",
+  "nr": 113,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Großvater erzählt Geschichten.",
+  "words": [
+   "nonno"
+  ],
+  "tokens": 4,
+  "w": "Il nonno racconta storie."
+ },
+ {
+  "id": "it-113",
+  "nr": 114,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Großmutter kocht ausgezeichnet.",
+  "words": [
+   "nonna",
+   "li",
+   "cucina",
+   "benissimo"
+  ],
+  "tokens": 4,
+  "w": "La nonna cucina benissimo."
+ },
+ {
+  "id": "it-114",
+  "nr": 115,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Onkel kommt am Wochenende.",
+  "words": [
+   "zio"
+  ],
+  "tokens": 5,
+  "w": "Lo zio viene nel weekend."
+ },
+ {
+  "id": "it-115",
+  "nr": 116,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Tante Marta ist fröhlich.",
+  "words": [
+   "zia",
+   "li",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "La zia Marta è allegra."
+ },
+ {
+  "id": "it-116",
+  "nr": 117,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Mein Cousin ist Arzt.",
+  "words": [
+   "cugino",
+   "e",
+   "medico"
+  ],
+  "tokens": 4,
+  "w": "Mio cugino è medico."
+ },
+ {
+  "id": "it-117",
+  "nr": 118,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Cousine lebt im Ausland.",
+  "words": [
+   "cugina",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "La cugina vive all'estero."
+ },
+ {
+  "id": "it-118",
+  "nr": 119,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Mein Mann kocht ausgezeichnet.",
+  "words": [
+   "marito",
+   "cucina",
+   "benissimo"
+  ],
+  "tokens": 4,
+  "w": "Mio marito cucina benissimo."
+ },
+ {
+  "id": "it-119",
+  "nr": 120,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Meine Frau arbeitet im Krankenhaus.",
+  "words": [
+   "moglie",
+   "l-ospedale"
+  ],
+  "tokens": 5,
+  "w": "Mia moglie lavora in ospedale."
+ },
+ {
+  "id": "it-120",
+  "nr": 121,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Nachbar ist sehr nett.",
+  "words": [
+   "vicino2",
+   "vicino",
+   "e",
+   "molto",
+   "gentile"
+  ],
+  "tokens": 5,
+  "w": "Il vicino è molto gentile."
+ },
+ {
+  "id": "it-121",
+  "nr": 122,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Nachbarin hat uns geholfen.",
+  "words": [
+   "vicina",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "La vicina ci ha aiutato."
+ },
+ {
+  "id": "it-122",
+  "nr": 123,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Kollege ist Pole.",
+  "words": [
+   "collega",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Il mio collega è polacco."
+ },
+ {
+  "id": "it-123",
+  "nr": 124,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Der Chef ist spät gekommen.",
+  "words": [
+   "capo",
+   "e",
+   "tardi"
+  ],
+  "tokens": 5,
+  "w": "Il capo è arrivato tardi."
+ },
+ {
+  "id": "it-124",
+  "nr": 125,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Jener Junge spielt Fußball.",
+  "words": [
+   "ragazzo"
+  ],
+  "tokens": 5,
+  "w": "Quel ragazzo gioca a calcio."
+ },
+ {
+  "id": "it-125",
+  "nr": 126,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Das Mädchen singt gut.",
+  "words": [
+   "ragazza",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "La ragazza canta bene."
+ },
+ {
+  "id": "it-126",
+  "nr": 127,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Mein Großvater ist alt, aber gesund.",
+  "words": [
+   "vecchio",
+   "nonno",
+   "e",
+   "salute"
+  ],
+  "tokens": 8,
+  "w": "Il mio nonno è vecchio ma in salute."
+ },
+ {
+  "id": "it-127",
+  "nr": 128,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Er ist noch jung.",
+  "words": [
+   "giovane",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "È ancora giovane."
+ },
+ {
+  "id": "it-128",
+  "nr": 129,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Schwiegermutter besucht uns am Samstag.",
+  "words": [
+   "suocera",
+   "li",
+   "sabato"
+  ],
+  "tokens": 5,
+  "w": "La suocera ci visita sabato."
+ },
+ {
+  "id": "it-129",
+  "nr": 130,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Schwiegervater liest gern.",
+  "words": [
+   "suocero"
+  ],
+  "tokens": 4,
+  "w": "Il suocero legge volentieri."
+ },
+ {
+  "id": "it-130",
+  "nr": 131,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das italienische Essen ist sehr gut.",
+  "words": [
+   "cibo",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Il cibo italiano è buonissimo."
+ },
+ {
+  "id": "it-131",
+  "nr": 132,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Zwei Bier, bitte.",
+  "words": [
+   "birra",
+   "due"
+  ],
+  "tokens": 4,
+  "w": "Due birre, per favore."
+ },
+ {
+  "id": "it-132",
+  "nr": 133,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Einen Orangensaft.",
+  "words": [
+   "succo"
+  ],
+  "tokens": 3,
+  "w": "Un succo d'arancia."
+ },
+ {
+  "id": "it-133",
+  "nr": 134,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Hähnchen mit Kartoffeln.",
+  "words": [
+   "pollo",
+   "patate"
+  ],
+  "tokens": 3,
+  "w": "Pollo con patate."
+ },
+ {
+  "id": "it-134",
+  "nr": 135,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Einen Teller Suppe.",
+  "words": [
+   "minestra"
+  ],
+  "tokens": 4,
+  "w": "Un piatto di minestra."
+ },
+ {
+  "id": "it-135",
+  "nr": 136,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Einen gemischten Salat.",
+  "words": [
+   "l-insalata"
+  ],
+  "tokens": 2,
+  "w": "Un'insalata mista."
+ },
+ {
+  "id": "it-136",
+  "nr": 137,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ofenkartoffeln.",
+  "words": [
+   "patate"
+  ],
+  "tokens": 3,
+  "w": "Patate al forno."
+ },
+ {
+  "id": "it-137",
+  "nr": 138,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Einen Apfel am Tag.",
+  "words": [
+   "mela",
+   "giorno"
+  ],
+  "tokens": 4,
+  "w": "Una mela al giorno."
+ },
+ {
+  "id": "it-138",
+  "nr": 139,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Banane ist gesund.",
+  "words": [
+   "banana",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "La banana fa bene."
+ },
+ {
+  "id": "it-139",
+  "nr": 140,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Brötchen mit Käse.",
+  "words": [
+   "formaggio"
+  ],
+  "tokens": 4,
+  "w": "Panino con il formaggio."
+ },
+ {
+  "id": "it-140",
+  "nr": 141,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ein hartes Ei.",
+  "words": [
+   "l-uovo"
+  ],
+  "tokens": 3,
+  "w": "Un uovo sodo."
+ },
+ {
+  "id": "it-141",
+  "nr": 142,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Brot mit Butter.",
+  "words": [
+   "burro",
+   "pane"
+  ],
+  "tokens": 4,
+  "w": "Pane con il burro."
+ },
+ {
+  "id": "it-142",
+  "nr": 143,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Reich mir bitte das Salz.",
+  "words": [
+   "sale"
+  ],
+  "tokens": 5,
+  "w": "Passami il sale, per favore."
+ },
+ {
+  "id": "it-143",
+  "nr": 144,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Kaffee ohne Zucker.",
+  "words": [
+   "zucchero",
+   "caffe"
+  ],
+  "tokens": 3,
+  "w": "Caffè senza zucchero."
+ },
+ {
+  "id": "it-144",
+  "nr": 145,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Herr Ober, bitte!",
+  "words": [
+   "cameriere"
+  ],
+  "tokens": 3,
+  "w": "Cameriere, per favore!"
+ },
+ {
+  "id": "it-145",
+  "nr": 146,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe eine Reservierung für acht Uhr.",
+  "words": [
+   "prenotazione",
+   "otto"
+  ],
+  "tokens": 6,
+  "w": "Ho una prenotazione per le otto."
+ },
+ {
+  "id": "it-146",
+  "nr": 147,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich bin Vegetarier.",
+  "words": [
+   "vegetariano"
+  ],
+  "tokens": 2,
+  "w": "Sono vegetariano."
+ },
+ {
+  "id": "it-147",
+  "nr": 148,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich bin allergisch gegen Nüsse.",
+  "words": [
+   "allergico"
+  ],
+  "tokens": 4,
+  "w": "Sono allergico alle noci."
+ },
+ {
+  "id": "it-148",
+  "nr": 149,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Dieses Gericht ist köstlich!",
+  "words": [
+   "delizioso",
+   "questo",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Questo piatto è delizioso!"
+ },
+ {
+  "id": "it-149",
+  "nr": 150,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Es ist zu heiß.",
+  "words": [
+   "caldo",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "È troppo caldo."
+ },
+ {
+  "id": "it-150",
+  "nr": 151,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Die Suppe ist kalt.",
+  "words": [
+   "freddo",
+   "li",
+   "minestra",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "La minestra è fredda."
+ },
+ {
+  "id": "it-151",
+  "nr": 152,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Nehmen Sie eine Nachspeise?",
+  "words": [
+   "dessert"
+  ],
+  "tokens": 3,
+  "w": "Prendete il dessert?"
+ },
+ {
+  "id": "it-152",
+  "nr": 153,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Schokoladenkuchen.",
+  "words": [
+   "torta"
+  ],
+  "tokens": 3,
+  "w": "Torta al cioccolato."
+ },
+ {
+  "id": "it-153",
+  "nr": 154,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Zwei Kugeln Eis.",
+  "words": [
+   "gelato",
+   "due"
+  ],
+  "tokens": 4,
+  "w": "Due palline di gelato."
+ },
+ {
+  "id": "it-154",
+  "nr": 155,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ein Glas Wasser.",
+  "words": [
+   "bicchiere"
+  ],
+  "tokens": 3,
+  "w": "Un bicchiere d'acqua."
+ },
+ {
+  "id": "it-155",
+  "nr": 156,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Eine Flasche Wein.",
+  "words": [
+   "bottiglia",
+   "vino"
+  ],
+  "tokens": 4,
+  "w": "Una bottiglia di vino."
+ },
+ {
+  "id": "it-156",
+  "nr": 157,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ein stilles Wasser, bitte.",
+  "words": [
+   "l-acqua-naturale"
+  ],
+  "tokens": 4,
+  "w": "Un'acqua naturale, per favore."
+ },
+ {
+  "id": "it-157",
+  "nr": 158,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich bevorzuge Sprudelwasser.",
+  "words": [
+   "l-acqua-frizzante"
+  ],
+  "tokens": 3,
+  "w": "Preferisco l'acqua frizzante."
+ },
+ {
+  "id": "it-158",
+  "nr": 159,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich trinke ein Glas Milch.",
+  "words": [
+   "latte",
+   "bicchiere"
+  ],
+  "tokens": 5,
+  "w": "Bevo un bicchiere di latte."
+ },
+ {
+  "id": "it-159",
+  "nr": 160,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Einen frisch gepressten Orangensaft, bitte.",
+  "words": [
+   "spremuta"
+  ],
+  "tokens": 5,
+  "w": "Una spremuta d'arancia, per favore."
+ },
+ {
+  "id": "it-160",
+  "nr": 161,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich hätte gern ein kaltes Getränk.",
+  "words": [
+   "bibita"
+  ],
+  "tokens": 4,
+  "w": "Vorrei una bibita fredda."
+ },
+ {
+  "id": "it-161",
+  "nr": 162,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Ein Glas Rotwein.",
+  "words": [
+   "vino-rosso",
+   "bicchiere",
+   "vino",
+   "rosso"
+  ],
+  "tokens": 5,
+  "w": "Un bicchiere di vino rosso."
+ },
+ {
+  "id": "it-162",
+  "nr": 163,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich habe ein neues Auto.",
+  "words": [
+   "l-auto"
+  ],
+  "tokens": 4,
+  "w": "Ho una macchina nuova."
+ },
+ {
+  "id": "it-163",
+  "nr": 164,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Das Flugzeug fliegt um acht Uhr ab.",
+  "words": [
+   "l-aereo",
+   "otto"
+  ],
+  "tokens": 4,
+  "w": "L'aereo parte alle otto."
+ },
+ {
+  "id": "it-164",
+  "nr": 165,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wir reisen mit dem Schiff.",
+  "words": [
+   "nave"
+  ],
+  "tokens": 3,
+  "w": "Viaggiamo in nave."
+ },
+ {
+  "id": "it-165",
+  "nr": 166,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich fahre mit dem Fahrrad.",
+  "words": [
+   "bicicletta"
+  ],
+  "tokens": 3,
+  "w": "Vado in bicicletta."
+ },
+ {
+  "id": "it-166",
+  "nr": 167,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Wo ist die nächste Haltestelle?",
+  "words": [
+   "fermata",
+   "li",
+   "vicina"
+  ],
+  "tokens": 5,
+  "w": "Dov'è la fermata più vicina?"
+ },
+ {
+  "id": "it-167",
+  "nr": 168,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich brauche den Reisepass.",
+  "words": [
+   "passaporto"
+  ],
+  "tokens": 4,
+  "w": "Ho bisogno del passaporto."
+ },
+ {
+  "id": "it-168",
+  "nr": 169,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Brauche ich ein Visum?",
+  "words": [
+   "visto"
+  ],
+  "tokens": 4,
+  "w": "Ho bisogno del visto?"
+ },
+ {
+  "id": "it-169",
+  "nr": 170,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich suche ein Hotel.",
+  "words": [
+   "l-albergo"
+  ],
+  "tokens": 3,
+  "w": "Cerco un albergo."
+ },
+ {
+  "id": "it-170",
+  "nr": 171,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich checke an der Rezeption ein.",
+  "words": [
+   "reception"
+  ],
+  "tokens": 6,
+  "w": "Faccio il check-in alla reception."
+ },
+ {
+  "id": "it-171",
+  "nr": 172,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Haben Sie einen Stadtplan?",
+  "words": [
+   "mappa"
+  ],
+  "tokens": 5,
+  "w": "Ha una mappa della città?"
+ },
+ {
+  "id": "it-172",
+  "nr": 173,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wie lautet Ihre Adresse?",
+  "words": [
+   "l-indirizzo",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Qual è il suo indirizzo?"
+ },
+ {
+  "id": "it-173",
+  "nr": 174,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "In welcher Straße?",
+  "words": [
+   "strada",
+   "quale"
+  ],
+  "tokens": 3,
+  "w": "In quale strada?"
+ },
+ {
+  "id": "it-174",
+  "nr": 175,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Piazza Navona.",
+  "words": [
+   "piazza"
+  ],
+  "tokens": 2,
+  "w": "Piazza Navona."
+ },
+ {
+  "id": "it-175",
+  "nr": 176,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Geh über die Brücke.",
+  "words": [
+   "ponte"
+  ],
+  "tokens": 3,
+  "w": "Passa sul ponte."
+ },
+ {
+  "id": "it-176",
+  "nr": 177,
+  "level": "A1",
+  "reqLevel": "B1",
+  "de": "Der Tiber ist ein großer Fluss.",
+  "words": [
+   "fiume",
+   "e",
+   "grande"
+  ],
+  "tokens": 6,
+  "w": "Il Tevere è un grande fiume."
+ },
+ {
+  "id": "it-177",
+  "nr": 178,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wann fährt der Zug ab?",
+  "words": [
+   "partenza",
+   "quando",
+   "treno"
+  ],
+  "tokens": 4,
+  "w": "Quando parte il treno?"
+ },
+ {
+  "id": "it-178",
+  "nr": 179,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich komme um 14:00 Uhr an.",
+  "words": [
+   "l-arrivo"
+  ],
+  "tokens": 4,
+  "w": "Arrivo alle 14:00."
+ },
+ {
+  "id": "it-179",
+  "nr": 180,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Zug hat Verspätung.",
+  "words": [
+   "ritardo",
+   "treno",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Il treno è in ritardo."
+ },
+ {
+  "id": "it-180",
+  "nr": 181,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich brauche Benzin.",
+  "words": [
+   "benzina"
+  ],
+  "tokens": 4,
+  "w": "Ho bisogno di benzina."
+ },
+ {
+  "id": "it-181",
+  "nr": 182,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wo ist der Parkplatz?",
+  "words": [
+   "parcheggio"
+  ],
+  "tokens": 3,
+  "w": "Dov'è il parcheggio?"
+ },
+ {
+  "id": "it-182",
+  "nr": 183,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wir sind auf der Autobahn.",
+  "words": [
+   "l-autostrada"
+  ],
+  "tokens": 3,
+  "w": "Siamo in autostrada."
+ },
+ {
+  "id": "it-183",
+  "nr": 184,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Halten Sie an der Ampel.",
+  "words": [
+   "semaforo",
+   "si"
+  ],
+  "tokens": 4,
+  "w": "Si fermi al semaforo."
+ },
+ {
+  "id": "it-184",
+  "nr": 185,
+  "level": "A1",
+  "reqLevel": "A2",
+  "de": "Wir müssen durch den Zoll.",
+  "words": [
+   "dogana",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "Dobbiamo passare la dogana."
+ },
+ {
+  "id": "it-185",
+  "nr": 186,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Mein Gepäck ist schwer.",
+  "words": [
+   "bagaglio",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Il mio bagaglio è pesante."
+ },
+ {
+  "id": "it-186",
+  "nr": 187,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Ich reise sehr gern.",
+  "words": [
+   "viaggio"
+  ],
+  "tokens": 2,
+  "w": "Adoro viaggiare."
+ },
+ {
+  "id": "it-187",
+  "nr": 188,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wir fahren in den Urlaub.",
+  "words": [
+   "vacanze"
+  ],
+  "tokens": 3,
+  "w": "Andiamo in vacanza."
+ },
+ {
+  "id": "it-188",
+  "nr": 189,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Der Tourismus ist wichtig.",
+  "words": [
+   "turismo",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il turismo è importante."
+ },
+ {
+  "id": "it-189",
+  "nr": 190,
+  "level": "A1",
+  "reqLevel": "A1",
+  "de": "Wir planen einen Ausflug.",
+  "words": [
+   "gita"
+  ],
+  "tokens": 3,
+  "w": "Pianifichiamo una gita."
+ },
+ {
+  "id": "it-190",
+  "nr": 191,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich suche eine Wohnung im Zentrum.",
+  "words": [
+   "l-appartamento"
+  ],
+  "tokens": 5,
+  "w": "Cerco un appartamento in centro."
+ },
+ {
+  "id": "it-191",
+  "nr": 192,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe zwei Zimmer.",
+  "words": [
+   "stanza",
+   "due"
+  ],
+  "tokens": 3,
+  "w": "Ho due stanze."
+ },
+ {
+  "id": "it-192",
+  "nr": 193,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich koche in der Küche.",
+  "words": [
+   "cucina"
+  ],
+  "tokens": 3,
+  "w": "Cucino in cucina."
+ },
+ {
+  "id": "it-193",
+  "nr": 194,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wo ist die Toilette?",
+  "words": [
+   "toilette",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Dov'è la toilette?"
+ },
+ {
+  "id": "it-194",
+  "nr": 195,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das Schlafzimmer ist ruhig.",
+  "words": [
+   "camera-da-letto",
+   "li",
+   "camera",
+   "letto",
+   "e"
+  ],
+  "tokens": 6,
+  "w": "La camera da letto è silenziosa."
+ },
+ {
+  "id": "it-195",
+  "nr": 196,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wir sitzen im Wohnzimmer.",
+  "words": [
+   "salotto"
+  ],
+  "tokens": 4,
+  "w": "Siamo seduti in salotto."
+ },
+ {
+  "id": "it-196",
+  "nr": 197,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wir haben einen schönen Balkon.",
+  "words": [
+   "balcone"
+  ],
+  "tokens": 4,
+  "w": "Abbiamo un bel balcone."
+ },
+ {
+  "id": "it-197",
+  "nr": 198,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Garten ist voller Blumen.",
+  "words": [
+   "giardino",
+   "e"
+  ],
+  "tokens": 6,
+  "w": "Il giardino è pieno di fiori."
+ },
+ {
+  "id": "it-198",
+  "nr": 199,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mach bitte die Tür zu.",
+  "words": [
+   "porta",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "Chiudi la porta, per favore."
+ },
+ {
+  "id": "it-199",
+  "nr": 200,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mach das Fenster auf.",
+  "words": [
+   "finestra",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Apri la finestra."
+ },
+ {
+  "id": "it-200",
+  "nr": 201,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe den Schlüssel vergessen.",
+  "words": [
+   "chiave",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "Ho dimenticato la chiave."
+ },
+ {
+  "id": "it-201",
+  "nr": 202,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wie hoch ist die Miete?",
+  "words": [
+   "l-affitto",
+   "quanto",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "Quanto è l'affitto?"
+ },
+ {
+  "id": "it-202",
+  "nr": 203,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich wohne im dritten Stock.",
+  "words": [
+   "piano"
+  ],
+  "tokens": 4,
+  "w": "Abito al terzo piano."
+ },
+ {
+  "id": "it-203",
+  "nr": 204,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Aufzug funktioniert nicht.",
+  "words": [
+   "l-ascensore"
+  ],
+  "tokens": 3,
+  "w": "L'ascensore non funziona."
+ },
+ {
+  "id": "it-204",
+  "nr": 205,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich gehe die Treppe hinauf.",
+  "words": [
+   "scale"
+  ],
+  "tokens": 3,
+  "w": "Salgo le scale."
+ },
+ {
+  "id": "it-205",
+  "nr": 206,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Die Nachbarn sind laut.",
+  "words": [
+   "vicini"
+  ],
+  "tokens": 4,
+  "w": "I vicini sono rumorosi."
+ },
+ {
+  "id": "it-206",
+  "nr": 207,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich gehe ins Bett.",
+  "words": [
+   "letto"
+  ],
+  "tokens": 3,
+  "w": "Vado a letto."
+ },
+ {
+  "id": "it-207",
+  "nr": 208,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Setz dich auf den Stuhl.",
+  "words": [
+   "sedia"
+  ],
+  "tokens": 3,
+  "w": "Siediti sulla sedia."
+ },
+ {
+  "id": "it-208",
+  "nr": 209,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das Sofa steht im Wohnzimmer.",
+  "words": [
+   "divano",
+   "e",
+   "salotto"
+  ],
+  "tokens": 5,
+  "w": "Il divano è in salotto."
+ },
+ {
+  "id": "it-209",
+  "nr": 210,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Die Kleider sind im Schrank.",
+  "words": [
+   "l-armadio",
+   "vestiti"
+  ],
+  "tokens": 4,
+  "w": "I vestiti sono nell'armadio."
+ },
+ {
+  "id": "it-210",
+  "nr": 211,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mach die Lampe an.",
+  "words": [
+   "lampada",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Accendi la lampada."
+ },
+ {
+  "id": "it-211",
+  "nr": 212,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Die Waschmaschine ist voll.",
+  "words": [
+   "lavatrice",
+   "li",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "La lavatrice è piena."
+ },
+ {
+  "id": "it-212",
+  "nr": 213,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Stell die Milch in den Kühlschrank.",
+  "words": [
+   "frigorifero",
+   "latte"
+  ],
+  "tokens": 5,
+  "w": "Metti il latte nel frigo."
+ },
+ {
+  "id": "it-213",
+  "nr": 214,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich koche auf dem Herd.",
+  "words": [
+   "fornelli"
+  ],
+  "tokens": 3,
+  "w": "Cucino sui fornelli."
+ },
+ {
+  "id": "it-214",
+  "nr": 215,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wir schauen fern.",
+  "words": [
+   "televisione",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Guardiamo la televisione."
+ },
+ {
+  "id": "it-215",
+  "nr": 216,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Ein gesunder Körper.",
+  "words": [
+   "corpo",
+   "sano"
+  ],
+  "tokens": 3,
+  "w": "Un corpo sano."
+ },
+ {
+  "id": "it-216",
+  "nr": 217,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe Kopfschmerzen.",
+  "words": [
+   "testa",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "Mi fa male la testa."
+ },
+ {
+  "id": "it-217",
+  "nr": 218,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wasch dir das Gesicht.",
+  "words": [
+   "viso"
+  ],
+  "tokens": 3,
+  "w": "Lavati il viso."
+ },
+ {
+  "id": "it-218",
+  "nr": 219,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Er hat blaue Augen.",
+  "words": [
+   "occhi"
+  ],
+  "tokens": 4,
+  "w": "Ha gli occhi azzurri."
+ },
+ {
+  "id": "it-219",
+  "nr": 220,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Ohr tut weh.",
+  "words": [
+   "orecchie"
+  ],
+  "tokens": 4,
+  "w": "Mi fa male l'orecchio."
+ },
+ {
+  "id": "it-220",
+  "nr": 221,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mir läuft die Nase.",
+  "words": [
+   "naso"
+  ],
+  "tokens": 5,
+  "w": "Ho il naso che cola."
+ },
+ {
+  "id": "it-221",
+  "nr": 222,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Machen Sie den Mund auf.",
+  "words": [
+   "bocca",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Apra la bocca."
+ },
+ {
+  "id": "it-222",
+  "nr": 223,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ein Zahn tut mir weh.",
+  "words": [
+   "denti"
+  ],
+  "tokens": 5,
+  "w": "Mi fa male un dente."
+ },
+ {
+  "id": "it-223",
+  "nr": 224,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe Halsschmerzen.",
+  "words": [
+   "gola"
+  ],
+  "tokens": 4,
+  "w": "Ho mal di gola."
+ },
+ {
+  "id": "it-224",
+  "nr": 225,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Schulter tut weh.",
+  "words": [
+   "spalla",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "Mi fa male la spalla."
+ },
+ {
+  "id": "it-225",
+  "nr": 226,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Arm tut weh.",
+  "words": [
+   "braccio"
+  ],
+  "tokens": 5,
+  "w": "Mi fa male il braccio."
+ },
+ {
+  "id": "it-226",
+  "nr": 227,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe mich in den Finger geschnitten.",
+  "words": [
+   "dito"
+  ],
+  "tokens": 5,
+  "w": "Mi sono tagliato il dito."
+ },
+ {
+  "id": "it-227",
+  "nr": 228,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe Bauchschmerzen.",
+  "words": [
+   "pancia"
+  ],
+  "tokens": 4,
+  "w": "Ho mal di pancia."
+ },
+ {
+  "id": "it-228",
+  "nr": 229,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe Rückenschmerzen.",
+  "words": [
+   "schiena"
+  ],
+  "tokens": 4,
+  "w": "Ho mal di schiena."
+ },
+ {
+  "id": "it-229",
+  "nr": 230,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Bein tut weh.",
+  "words": [
+   "gamba",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "Mi fa male la gamba."
+ },
+ {
+  "id": "it-230",
+  "nr": 231,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich weiß die Antwort nicht.",
+  "words": [
+   "sapere",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "Non so la risposta."
+ },
+ {
+  "id": "it-231",
+  "nr": 232,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich kenne Rom.",
+  "words": [
+   "conoscere"
+  ],
+  "tokens": 2,
+  "w": "Conosco Roma."
+ },
+ {
+  "id": "it-232",
+  "nr": 233,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich nehme den Zug.",
+  "words": [
+   "prendere",
+   "treno"
+  ],
+  "tokens": 3,
+  "w": "Prendo il treno."
+ },
+ {
+  "id": "it-233",
+  "nr": 234,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Geben Sie mir bitte die Speisekarte?",
+  "words": [
+   "dare",
+   "menu"
+  ],
+  "tokens": 6,
+  "w": "Mi dà il menù, per favore?"
+ },
+ {
+  "id": "it-234",
+  "nr": 235,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich frage nach Auskunft.",
+  "words": [
+   "chiedere"
+  ],
+  "tokens": 2,
+  "w": "Chiedo informazioni."
+ },
+ {
+  "id": "it-235",
+  "nr": 236,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich suche ein Restaurant.",
+  "words": [
+   "cercare"
+  ],
+  "tokens": 3,
+  "w": "Cerco un ristorante."
+ },
+ {
+  "id": "it-236",
+  "nr": 237,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich finde den Schlüssel nicht.",
+  "words": [
+   "trovare",
+   "li",
+   "chiave"
+  ],
+  "tokens": 4,
+  "w": "Non trovo la chiave."
+ },
+ {
+  "id": "it-237",
+  "nr": 238,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich warte auf den Bus.",
+  "words": [
+   "aspettare"
+  ],
+  "tokens": 2,
+  "w": "Aspetto l'autobus."
+ },
+ {
+  "id": "it-238",
+  "nr": 239,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich kaufe das Brot.",
+  "words": [
+   "comprare",
+   "pane"
+  ],
+  "tokens": 3,
+  "w": "Compro il pane."
+ },
+ {
+  "id": "it-239",
+  "nr": 240,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich möchte bestellen.",
+  "words": [
+   "ordinare"
+  ],
+  "tokens": 2,
+  "w": "Vorrei ordinare."
+ },
+ {
+  "id": "it-240",
+  "nr": 241,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Guten Nachmittag allerseits.",
+  "words": [
+   "buon-pomeriggio"
+  ],
+  "tokens": 4,
+  "w": "Buon pomeriggio a tutti."
+ },
+ {
+  "id": "it-241",
+  "nr": 242,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Gute Nacht, träum was Schönes.",
+  "words": [
+   "buonanotte"
+  ],
+  "tokens": 3,
+  "w": "Buonanotte, sogni d'oro."
+ },
+ {
+  "id": "it-242",
+  "nr": 243,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Bis bald, mein Freund.",
+  "words": [
+   "a-presto",
+   "presto",
+   "l-amico"
+  ],
+  "tokens": 4,
+  "w": "A presto, amico mio."
+ },
+ {
+  "id": "it-243",
+  "nr": 244,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Vielen Dank für die Hilfe.",
+  "words": [
+   "grazie-mille",
+   "grazie",
+   "mille"
+  ],
+  "tokens": 4,
+  "w": "Grazie mille per l'aiuto."
+ },
+ {
+  "id": "it-244",
+  "nr": 245,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Es tut mir leid wegen der Verspätung.",
+  "words": [
+   "mi-dispiace",
+   "ritardo"
+  ],
+  "tokens": 5,
+  "w": "Mi dispiace per il ritardo."
+ },
+ {
+  "id": "it-245",
+  "nr": 246,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Vielleicht komme ich morgen.",
+  "words": [
+   "forse",
+   "domani"
+  ],
+  "tokens": 3,
+  "w": "Forse vengo domani."
+ },
+ {
+  "id": "it-246",
+  "nr": 247,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Sicher, sehr gern.",
+  "words": [
+   "certo",
+   "piacere"
+  ],
+  "tokens": 3,
+  "w": "Certo, con piacere."
+ },
+ {
+  "id": "it-247",
+  "nr": 248,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Hier ist Ihr Schlüssel.",
+  "words": [
+   "eccolo",
+   "li",
+   "chiave"
+  ],
+  "tokens": 4,
+  "w": "Eccola, la sua chiave."
+ },
+ {
+  "id": "it-248",
+  "nr": 249,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich fühle mich ausgezeichnet.",
+  "words": [
+   "benissimo"
+  ],
+  "tokens": 3,
+  "w": "Mi sento benissimo."
+ },
+ {
+  "id": "it-249",
+  "nr": 250,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Heute fühle ich mich nicht gut.",
+  "words": [
+   "non-molto-bene",
+   "oggi"
+  ],
+  "tokens": 5,
+  "w": "Oggi non mi sento bene."
+ },
+ {
+  "id": "it-250",
+  "nr": 251,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Willkommen in Rom!",
+  "words": [
+   "benvenuto"
+  ],
+  "tokens": 3,
+  "w": "Benvenuto a Roma!"
+ },
+ {
+  "id": "it-251",
+  "nr": 252,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Gesundheit! — Danke.",
+  "words": [
+   "salute",
+   "grazie"
+  ],
+  "tokens": 2,
+  "w": "Salute! — Grazie."
+ },
+ {
+  "id": "it-252",
+  "nr": 253,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Gute Reise und komm bald zurück.",
+  "words": [
+   "buon-viaggio",
+   "viaggio",
+   "e",
+   "presto"
+  ],
+  "tokens": 5,
+  "w": "Buon viaggio e torna presto."
+ },
+ {
+  "id": "it-253",
+  "nr": 254,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Viel Glück für die Prüfung!",
+  "words": [
+   "in-bocca-al-lupo",
+   "bocca"
+  ],
+  "tokens": 6,
+  "w": "In bocca al lupo per l'esame!"
+ },
+ {
+  "id": "it-254",
+  "nr": 255,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich habe das Wort vergessen.",
+  "words": [
+   "ho-dimenticato",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "Ho dimenticato la parola."
+ },
+ {
+  "id": "it-255",
+  "nr": 256,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wie viele Personen?",
+  "words": [
+   "quanti"
+  ],
+  "tokens": 2,
+  "w": "Quante persone?"
+ },
+ {
+  "id": "it-256",
+  "nr": 257,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das dort ist der Bahnhof.",
+  "words": [
+   "quello",
+   "e",
+   "li",
+   "stazione"
+  ],
+  "tokens": 4,
+  "w": "Quella è la stazione."
+ },
+ {
+  "id": "it-257",
+  "nr": 258,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Das Bad ist dort.",
+  "words": [
+   "li",
+   "bagno",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il bagno è là."
+ },
+ {
+  "id": "it-258",
+  "nr": 259,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich schlafe acht Stunden.",
+  "words": [
+   "dormire",
+   "otto"
+  ],
+  "tokens": 3,
+  "w": "Dormo otto ore."
+ },
+ {
+  "id": "it-259",
+  "nr": 260,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Ich arbeite in Wien.",
+  "words": [
+   "lavorare",
+   "lavoro"
+  ],
+  "tokens": 3,
+  "w": "Lavoro a Vienna."
+ },
+ {
+  "id": "it-260",
+  "nr": 261,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich wohne in der Nähe des Zentrums.",
+  "words": [
+   "abitare",
+   "vicino"
+  ],
+  "tokens": 4,
+  "w": "Abito vicino al centro."
+ },
+ {
+  "id": "it-261",
+  "nr": 262,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich lebe in Österreich.",
+  "words": [
+   "vivere"
+  ],
+  "tokens": 3,
+  "w": "Vivo in Austria."
+ },
+ {
+  "id": "it-262",
+  "nr": 263,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich lese ein Buch.",
+  "words": [
+   "leggere"
+  ],
+  "tokens": 3,
+  "w": "Leggo un libro."
+ },
+ {
+  "id": "it-263",
+  "nr": 264,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich schreibe eine Nachricht.",
+  "words": [
+   "scrivere"
+  ],
+  "tokens": 3,
+  "w": "Scrivo un messaggio."
+ },
+ {
+  "id": "it-264",
+  "nr": 265,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich höre Musik.",
+  "words": [
+   "ascoltare",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Ascolto la musica."
+ },
+ {
+  "id": "it-265",
+  "nr": 266,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich schaue einen Film.",
+  "words": [
+   "guardare"
+  ],
+  "tokens": 3,
+  "w": "Guardo un film."
+ },
+ {
+  "id": "it-266",
+  "nr": 267,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich öffne das Fenster.",
+  "words": [
+   "aprire",
+   "li",
+   "finestra"
+  ],
+  "tokens": 3,
+  "w": "Apro la finestra."
+ },
+ {
+  "id": "it-267",
+  "nr": 268,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich schließe die Tür.",
+  "words": [
+   "chiudere",
+   "li",
+   "porta"
+  ],
+  "tokens": 3,
+  "w": "Chiudo la porta."
+ },
+ {
+  "id": "it-268",
+  "nr": 269,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Darf ich hereinkommen?",
+  "words": [
+   "entrare"
+  ],
+  "tokens": 2,
+  "w": "Posso entrare?"
+ },
+ {
+  "id": "it-269",
+  "nr": 270,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich gehe mit Freunden aus.",
+  "words": [
+   "uscire"
+  ],
+  "tokens": 4,
+  "w": "Esco con gli amici."
+ },
+ {
+  "id": "it-270",
+  "nr": 271,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich liebe es zu reisen.",
+  "words": [
+   "amare"
+  ],
+  "tokens": 2,
+  "w": "Amo viaggiare."
+ },
+ {
+  "id": "it-271",
+  "nr": 272,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Mittwoch komme ich.",
+  "words": [
+   "mercoledi"
+  ],
+  "tokens": 2,
+  "w": "Mercoledì vengo."
+ },
+ {
+  "id": "it-272",
+  "nr": 273,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Freitag gehen wir aus.",
+  "words": [
+   "venerdi"
+  ],
+  "tokens": 2,
+  "w": "Venerdì usciamo."
+ },
+ {
+  "id": "it-273",
+  "nr": 274,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Samstag ruhe ich mich aus.",
+  "words": [
+   "sabato"
+  ],
+  "tokens": 3,
+  "w": "Sabato mi riposo."
+ },
+ {
+  "id": "it-274",
+  "nr": 275,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Sonntag sind wir zu Hause.",
+  "words": [
+   "domenica",
+   "casa"
+  ],
+  "tokens": 4,
+  "w": "Domenica siamo a casa."
+ },
+ {
+  "id": "it-275",
+  "nr": 276,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Januar ist es kalt.",
+  "words": [
+   "gennaio",
+   "freddo"
+  ],
+  "tokens": 4,
+  "w": "A gennaio fa freddo."
+ },
+ {
+  "id": "it-276",
+  "nr": 277,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Juli fahren wir in den Urlaub.",
+  "words": [
+   "luglio"
+  ],
+  "tokens": 5,
+  "w": "A luglio andiamo in vacanza."
+ },
+ {
+  "id": "it-277",
+  "nr": 278,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Dezember ist Weihnachten.",
+  "words": [
+   "dicembre",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "A dicembre è Natale."
+ },
+ {
+  "id": "it-278",
+  "nr": 279,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Es ist elf Uhr.",
+  "words": [
+   "undici"
+  ],
+  "tokens": 3,
+  "w": "Sono le undici."
+ },
+ {
+  "id": "it-279",
+  "nr": 280,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Es ist zwölf Uhr.",
+  "words": [
+   "dodici"
+  ],
+  "tokens": 3,
+  "w": "Sono le dodici."
+ },
+ {
+  "id": "it-280",
+  "nr": 281,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Ich habe dreizehn Euro.",
+  "words": [
+   "tredici",
+   "l-euro"
+  ],
+  "tokens": 3,
+  "w": "Ho tredici euro."
+ },
+ {
+  "id": "it-281",
+  "nr": 282,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Vierzehn Tage.",
+  "words": [
+   "quattordici"
+  ],
+  "tokens": 2,
+  "w": "Quattordici giorni."
+ },
+ {
+  "id": "it-282",
+  "nr": 283,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Fünfzehn Minuten.",
+  "words": [
+   "quindici"
+  ],
+  "tokens": 2,
+  "w": "Quindici minuti."
+ },
+ {
+  "id": "it-283",
+  "nr": 284,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich bin sechzehn Jahre alt.",
+  "words": [
+   "sedici"
+  ],
+  "tokens": 3,
+  "w": "Ho sedici anni."
+ },
+ {
+  "id": "it-284",
+  "nr": 285,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Siebzehn Personen.",
+  "words": [
+   "diciassette"
+  ],
+  "tokens": 2,
+  "w": "Diciassette persone."
+ },
+ {
+  "id": "it-285",
+  "nr": 286,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Achtzehn Euro.",
+  "words": [
+   "diciotto",
+   "l-euro"
+  ],
+  "tokens": 2,
+  "w": "Diciotto euro."
+ },
+ {
+  "id": "it-286",
+  "nr": 287,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Neunzehn Kilometer.",
+  "words": [
+   "diciannove"
+  ],
+  "tokens": 2,
+  "w": "Diciannove chilometri."
+ },
+ {
+  "id": "it-287",
+  "nr": 288,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Dreißig Minuten.",
+  "words": [
+   "trenta"
+  ],
+  "tokens": 2,
+  "w": "Trenta minuti."
+ },
+ {
+  "id": "it-288",
+  "nr": 289,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Vierzig Euro.",
+  "words": [
+   "quaranta",
+   "l-euro"
+  ],
+  "tokens": 2,
+  "w": "Quaranta euro."
+ },
+ {
+  "id": "it-289",
+  "nr": 290,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Sechzig Sekunden.",
+  "words": [
+   "sessanta"
+  ],
+  "tokens": 2,
+  "w": "Sessanta secondi."
+ },
+ {
+  "id": "it-290",
+  "nr": 291,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Siebzig Kilometer.",
+  "words": [
+   "settanta"
+  ],
+  "tokens": 2,
+  "w": "Settanta chilometri."
+ },
+ {
+  "id": "it-291",
+  "nr": 292,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Achtzig Euro.",
+  "words": [
+   "ottanta",
+   "l-euro"
+  ],
+  "tokens": 2,
+  "w": "Ottanta euro."
+ },
+ {
+  "id": "it-292",
+  "nr": 293,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Neunzig Minuten.",
+  "words": [
+   "novanta"
+  ],
+  "tokens": 2,
+  "w": "Novanta minuti."
+ },
+ {
+  "id": "it-293",
+  "nr": 294,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Am Dienstag arbeite ich.",
+  "words": [
+   "martedi",
+   "lavoro"
+  ],
+  "tokens": 2,
+  "w": "Martedì lavoro."
+ },
+ {
+  "id": "it-294",
+  "nr": 295,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Donnerstag fahren wir ab.",
+  "words": [
+   "giovedi"
+  ],
+  "tokens": 2,
+  "w": "Giovedì partiamo."
+ },
+ {
+  "id": "it-295",
+  "nr": 296,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Februar ist es kalt.",
+  "words": [
+   "febbraio",
+   "freddo"
+  ],
+  "tokens": 4,
+  "w": "A febbraio fa freddo."
+ },
+ {
+  "id": "it-296",
+  "nr": 297,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im März kommt der Frühling.",
+  "words": [
+   "marzo",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "A marzo arriva la primavera."
+ },
+ {
+  "id": "it-297",
+  "nr": 298,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im April regnet es oft.",
+  "words": [
+   "aprile"
+  ],
+  "tokens": 4,
+  "w": "Ad aprile piove spesso."
+ },
+ {
+  "id": "it-298",
+  "nr": 299,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Mai wird es wärmer.",
+  "words": [
+   "maggio",
+   "caldo"
+  ],
+  "tokens": 5,
+  "w": "A maggio fa più caldo."
+ },
+ {
+  "id": "it-299",
+  "nr": 300,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Juni beginnt der Sommer.",
+  "words": [
+   "giugno"
+  ],
+  "tokens": 4,
+  "w": "A giugno inizia l'estate."
+ },
+ {
+  "id": "it-300",
+  "nr": 301,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im August sind wir im Urlaub.",
+  "words": [
+   "agosto"
+  ],
+  "tokens": 5,
+  "w": "Ad agosto siamo in vacanza."
+ },
+ {
+  "id": "it-301",
+  "nr": 302,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Im September gehe ich wieder arbeiten.",
+  "words": [
+   "settembre",
+   "lavoro"
+  ],
+  "tokens": 5,
+  "w": "A settembre torno al lavoro."
+ },
+ {
+  "id": "it-302",
+  "nr": 303,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im Oktober werden die Tage kürzer.",
+  "words": [
+   "ottobre"
+  ],
+  "tokens": 7,
+  "w": "A ottobre le giornate sono più corte."
+ },
+ {
+  "id": "it-303",
+  "nr": 304,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Im November wird es kühl.",
+  "words": [
+   "novembre"
+  ],
+  "tokens": 4,
+  "w": "A novembre fa fresco."
+ },
+ {
+  "id": "it-304",
+  "nr": 305,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Heute Morgen bin ich müde.",
+  "words": [
+   "stamattina"
+  ],
+  "tokens": 3,
+  "w": "Stamattina sono stanco."
+ },
+ {
+  "id": "it-305",
+  "nr": 306,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Heute Abend gehen wir ins Restaurant.",
+  "words": [
+   "stasera"
+  ],
+  "tokens": 4,
+  "w": "Stasera andiamo al ristorante."
+ },
+ {
+  "id": "it-306",
+  "nr": 307,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Morgen stehe ich früh auf.",
+  "words": [
+   "presto",
+   "domani"
+  ],
+  "tokens": 4,
+  "w": "Domani mi alzo presto."
+ },
+ {
+  "id": "it-307",
+  "nr": 308,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Es ist schon spät.",
+  "words": [
+   "tardi",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "È già tardi."
+ },
+ {
+  "id": "it-308",
+  "nr": 309,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Der Schwiegersohn arbeitet in Wien.",
+  "words": [
+   "genero"
+  ],
+  "tokens": 5,
+  "w": "Il genero lavora a Vienna."
+ },
+ {
+  "id": "it-309",
+  "nr": 310,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Die Schwiegertochter ist sehr nett.",
+  "words": [
+   "nuora",
+   "li",
+   "e",
+   "molto",
+   "gentile"
+  ],
+  "tokens": 5,
+  "w": "La nuora è molto gentile."
+ },
+ {
+  "id": "it-310",
+  "nr": 311,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Sie haben Zwillinge.",
+  "words": [
+   "gemelli"
+  ],
+  "tokens": 3,
+  "w": "Hanno dei gemelli."
+ },
+ {
+  "id": "it-311",
+  "nr": 312,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich bin Einzelkind.",
+  "words": [
+   "figlio-unico",
+   "figlio"
+  ],
+  "tokens": 3,
+  "w": "Sono figlio unico."
+ },
+ {
+  "id": "it-312",
+  "nr": 313,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Er ist geschieden.",
+  "words": [
+   "divorziato",
+   "e"
+  ],
+  "tokens": 2,
+  "w": "È divorziato."
+ },
+ {
+  "id": "it-313",
+  "nr": 314,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich bin Single.",
+  "words": [
+   "single"
+  ],
+  "tokens": 2,
+  "w": "Sono single."
+ },
+ {
+  "id": "it-314",
+  "nr": 315,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wir sind seit fünf Jahren verheiratet.",
+  "words": [
+   "sposato",
+   "cinque"
+  ],
+  "tokens": 5,
+  "w": "Siamo sposati da cinque anni."
+ },
+ {
+  "id": "it-315",
+  "nr": 316,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Er ist ein sehr netter Mensch.",
+  "words": [
+   "gentile",
+   "e",
+   "persona",
+   "molto"
+  ],
+  "tokens": 5,
+  "w": "È una persona molto gentile."
+ },
+ {
+  "id": "it-316",
+  "nr": 317,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Kollegin ist sympathisch.",
+  "words": [
+   "simpatico",
+   "li",
+   "collega",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "La mia collega è simpatica."
+ },
+ {
+  "id": "it-317",
+  "nr": 318,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Er wurde als Kind adoptiert.",
+  "words": [
+   "adottato",
+   "e",
+   "bambino"
+  ],
+  "tokens": 5,
+  "w": "È stato adottato da bambino."
+ },
+ {
+  "id": "it-318",
+  "nr": 319,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Eltern leben in Wien.",
+  "words": [
+   "genitori"
+  ],
+  "tokens": 6,
+  "w": "I miei genitori vivono a Vienna."
+ },
+ {
+  "id": "it-319",
+  "nr": 320,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Mutter heißt Anna.",
+  "words": [
+   "madre",
+   "si"
+  ],
+  "tokens": 5,
+  "w": "Mia madre si chiama Anna."
+ },
+ {
+  "id": "it-320",
+  "nr": 321,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Vater arbeitet viel.",
+  "words": [
+   "padre",
+   "molto"
+  ],
+  "tokens": 4,
+  "w": "Mio padre lavora molto."
+ },
+ {
+  "id": "it-321",
+  "nr": 322,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ein Elternteil wartet draußen.",
+  "words": [
+   "genitore"
+  ],
+  "tokens": 4,
+  "w": "Un genitore aspetta fuori."
+ },
+ {
+  "id": "it-322",
+  "nr": 323,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Verwandten leben in Italien.",
+  "words": [
+   "parenti"
+  ],
+  "tokens": 6,
+  "w": "I miei parenti vivono in Italia."
+ },
+ {
+  "id": "it-323",
+  "nr": 324,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Nichte ist zehn Jahre alt.",
+  "words": [
+   "nipote",
+   "dieci"
+  ],
+  "tokens": 5,
+  "w": "Mia nipote ha dieci anni."
+ },
+ {
+  "id": "it-324",
+  "nr": 325,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Großeltern wohnen auf dem Land.",
+  "words": [
+   "nonni"
+  ],
+  "tokens": 6,
+  "w": "I miei nonni abitano in campagna."
+ },
+ {
+  "id": "it-325",
+  "nr": 326,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Verlobter ist Italiener.",
+  "words": [
+   "fidanzato",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Il mio fidanzato è italiano."
+ },
+ {
+  "id": "it-326",
+  "nr": 327,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Verlobte spricht Deutsch.",
+  "words": [
+   "fidanzata",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "La mia fidanzata parla tedesco."
+ },
+ {
+  "id": "it-327",
+  "nr": 328,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Lebensgefährte kocht gut.",
+  "words": [
+   "compagno",
+   "cucina"
+  ],
+  "tokens": 5,
+  "w": "Il mio compagno cucina bene."
+ },
+ {
+  "id": "it-328",
+  "nr": 329,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Meine Lebensgefährtin reist gern.",
+  "words": [
+   "compagna",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "La mia compagna ama viaggiare."
+ },
+ {
+  "id": "it-329",
+  "nr": 330,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Mein Partner kommt mit mir.",
+  "words": [
+   "partner"
+  ],
+  "tokens": 6,
+  "w": "Il mio partner viene con me."
+ },
+ {
+  "id": "it-330",
+  "nr": 331,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Sie sind ein sympathisches Paar.",
+  "words": [
+   "coppia"
+  ],
+  "tokens": 4,
+  "w": "Sono una coppia simpatica."
+ },
+ {
+  "id": "it-331",
+  "nr": 332,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Sie ist ein netter Mensch.",
+  "words": [
+   "persona",
+   "e",
+   "gentile"
+  ],
+  "tokens": 4,
+  "w": "È una persona gentile."
+ },
+ {
+  "id": "it-332",
+  "nr": 333,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Sie ist eine Bekannte von mir.",
+  "words": [
+   "conoscente",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "È una mia conoscente."
+ },
+ {
+  "id": "it-333",
+  "nr": 334,
+  "level": "A2",
+  "reqLevel": "B1",
+  "de": "Ich arbeite am Computer.",
+  "words": [
+   "computer",
+   "lavoro"
+  ],
+  "tokens": 3,
+  "w": "Lavoro al computer."
+ },
+ {
+  "id": "it-334",
+  "nr": 335,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Wo ist mein Handy?",
+  "words": [
+   "cellulare"
+  ],
+  "tokens": 4,
+  "w": "Dov'è il mio cellulare?"
+ },
+ {
+  "id": "it-335",
+  "nr": 336,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich brauche das Ladekabel.",
+  "words": [
+   "caricatore"
+  ],
+  "tokens": 4,
+  "w": "Ho bisogno del caricatore."
+ },
+ {
+  "id": "it-336",
+  "nr": 337,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Bring den Müll hinaus.",
+  "words": [
+   "spazzatura",
+   "porta",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "Porta fuori la spazzatura."
+ },
+ {
+  "id": "it-337",
+  "nr": 338,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Am Samstag putze ich.",
+  "words": [
+   "pulizie",
+   "sabato"
+  ],
+  "tokens": 4,
+  "w": "Sabato faccio le pulizie."
+ },
+ {
+  "id": "it-338",
+  "nr": 339,
+  "level": "A2",
+  "reqLevel": "A2",
+  "de": "Ich spüle das Geschirr.",
+  "words": [
+   "lavare-i-piatti"
+  ],
+  "tokens": 3,
+  "w": "Lavo i piatti."
+ },
+ {
+  "id": "it-339",
+  "nr": 340,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich gehe einkaufen.",
+  "words": [
+   "spesa",
+   "fare",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "Vado a fare la spesa."
+ },
+ {
+  "id": "it-340",
+  "nr": 341,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich gehe zur Arbeit.",
+  "words": [
+   "lavoro"
+  ],
+  "tokens": 3,
+  "w": "Vado al lavoro."
+ },
+ {
+  "id": "it-341",
+  "nr": 342,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Kinder gehen zur Schule.",
+  "words": [
+   "scuola"
+  ],
+  "tokens": 5,
+  "w": "I bambini vanno a scuola."
+ },
+ {
+  "id": "it-342",
+  "nr": 343,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich gehe ins Krankenhaus.",
+  "words": [
+   "l-ospedale"
+  ],
+  "tokens": 2,
+  "w": "Vado all'ospedale."
+ },
+ {
+  "id": "it-343",
+  "nr": 344,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wo ist die Apotheke?",
+  "words": [
+   "farmacia",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Dov'è la farmacia?"
+ },
+ {
+  "id": "it-344",
+  "nr": 345,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich gehe zur Post.",
+  "words": [
+   "l-ufficio-postale"
+  ],
+  "tokens": 3,
+  "w": "Vado all'ufficio postale."
+ },
+ {
+  "id": "it-345",
+  "nr": 346,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wo ist die nächste Bank?",
+  "words": [
+   "banca",
+   "li",
+   "vicina"
+  ],
+  "tokens": 5,
+  "w": "Dov'è la banca più vicina?"
+ },
+ {
+  "id": "it-346",
+  "nr": 347,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Heute scheint die Sonne.",
+  "words": [
+   "sole",
+   "oggi"
+  ],
+  "tokens": 4,
+  "w": "Oggi c'è il sole."
+ },
+ {
+  "id": "it-347",
+  "nr": 348,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Heute regnet es viel.",
+  "words": [
+   "pioggia",
+   "oggi"
+  ],
+  "tokens": 4,
+  "w": "Oggi c'è molta pioggia."
+ },
+ {
+  "id": "it-348",
+  "nr": 349,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "In den Bergen liegt Schnee.",
+  "words": [
+   "neve",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "In montagna c'è la neve."
+ },
+ {
+  "id": "it-349",
+  "nr": 350,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Es ist sehr windig.",
+  "words": [
+   "vento",
+   "molto"
+  ],
+  "tokens": 3,
+  "w": "C'è molto vento."
+ },
+ {
+  "id": "it-350",
+  "nr": 351,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Heute ist es bewölkt.",
+  "words": [
+   "nuvoloso",
+   "oggi",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "Oggi è nuvoloso."
+ },
+ {
+  "id": "it-351",
+  "nr": 352,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Es ist ein schöner Tag.",
+  "words": [
+   "bello",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "È una bella giornata."
+ },
+ {
+  "id": "it-352",
+  "nr": 353,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Heute ist das Wetter schlecht.",
+  "words": [
+   "brutto",
+   "oggi",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "Oggi il tempo è brutto."
+ },
+ {
+  "id": "it-353",
+  "nr": 354,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das Zimmer ist groß.",
+  "words": [
+   "grande",
+   "li",
+   "camera",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "La camera è grande."
+ },
+ {
+  "id": "it-354",
+  "nr": 355,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Tisch ist klein.",
+  "words": [
+   "piccolo",
+   "tavolo",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il tavolo è piccolo."
+ },
+ {
+  "id": "it-355",
+  "nr": 356,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Diese Übung ist leicht.",
+  "words": [
+   "facile",
+   "questo",
+   "l-esercizio",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Questo esercizio è facile."
+ },
+ {
+  "id": "it-356",
+  "nr": 357,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Italienisch ist nicht schwer.",
+  "words": [
+   "difficile",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "L'italiano non è difficile."
+ },
+ {
+  "id": "it-357",
+  "nr": 358,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Zug ist schnell.",
+  "words": [
+   "veloce",
+   "treno",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il treno è veloce."
+ },
+ {
+  "id": "it-358",
+  "nr": 359,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Bus ist langsam.",
+  "words": [
+   "lento",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "L'autobus è lento."
+ },
+ {
+  "id": "it-359",
+  "nr": 360,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Wein ist rot.",
+  "words": [
+   "rosso",
+   "vino",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il vino è rosso."
+ },
+ {
+  "id": "it-360",
+  "nr": 361,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das Auto ist weiß.",
+  "words": [
+   "bianco",
+   "li",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "La macchina è bianca."
+ },
+ {
+  "id": "it-361",
+  "nr": 362,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wo ist das Geschäft?",
+  "words": [
+   "negozio"
+  ],
+  "tokens": 3,
+  "w": "Dov'è il negozio?"
+ },
+ {
+  "id": "it-362",
+  "nr": 363,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich gehe in den Supermarkt.",
+  "words": [
+   "supermercato"
+  ],
+  "tokens": 3,
+  "w": "Vado al supermercato."
+ },
+ {
+  "id": "it-363",
+  "nr": 364,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wie hoch ist der Preis?",
+  "words": [
+   "prezzo",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Qual è il prezzo?"
+ },
+ {
+  "id": "it-364",
+  "nr": 365,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Es ist sehr günstig.",
+  "words": [
+   "economico",
+   "e",
+   "molto"
+  ],
+  "tokens": 3,
+  "w": "È molto economico."
+ },
+ {
+  "id": "it-365",
+  "nr": 366,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Es ist zu teuer.",
+  "words": [
+   "caro",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "È troppo caro."
+ },
+ {
+  "id": "it-366",
+  "nr": 367,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Gibt es einen Rabatt?",
+  "words": [
+   "sconto",
+   "uno"
+  ],
+  "tokens": 3,
+  "w": "C'è uno sconto?"
+ },
+ {
+  "id": "it-367",
+  "nr": 368,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Es ist Ausverkauf!",
+  "words": [
+   "saldi"
+  ],
+  "tokens": 4,
+  "w": "Ci sono i saldi!"
+ },
+ {
+  "id": "it-368",
+  "nr": 369,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich zahle an der Kasse.",
+  "words": [
+   "cassa"
+  ],
+  "tokens": 3,
+  "w": "Pago alla cassa."
+ },
+ {
+  "id": "it-369",
+  "nr": 370,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Kann ich den Kassenbon haben?",
+  "words": [
+   "scontrino",
+   "avere"
+  ],
+  "tokens": 4,
+  "w": "Posso avere lo scontrino?"
+ },
+ {
+  "id": "it-370",
+  "nr": 371,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich zahle bar.",
+  "words": [
+   "contanti"
+  ],
+  "tokens": 3,
+  "w": "Pago in contanti."
+ },
+ {
+  "id": "it-371",
+  "nr": 372,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Kann ich mit Karte zahlen?",
+  "words": [
+   "carta-di-credito",
+   "pagare",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "Posso pagare con la carta?"
+ },
+ {
+  "id": "it-372",
+  "nr": 373,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Zwanzig Euro.",
+  "words": [
+   "l-euro",
+   "venti"
+  ],
+  "tokens": 2,
+  "w": "Venti euro."
+ },
+ {
+  "id": "it-373",
+  "nr": 374,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Fünfzig Cent.",
+  "words": [
+   "centesimo",
+   "cinquanta"
+  ],
+  "tokens": 2,
+  "w": "Cinquanta centesimi."
+ },
+ {
+  "id": "it-374",
+  "nr": 375,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe nur Münzen.",
+  "words": [
+   "moneta"
+  ],
+  "tokens": 3,
+  "w": "Ho solo monete."
+ },
+ {
+  "id": "it-375",
+  "nr": 376,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe einen Fünfzigeuroschein.",
+  "words": [
+   "banconota",
+   "cinquanta"
+  ],
+  "tokens": 5,
+  "w": "Ho una banconota da cinquanta."
+ },
+ {
+  "id": "it-376",
+  "nr": 377,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wo ist der Geldautomat?",
+  "words": [
+   "bancomat"
+  ],
+  "tokens": 3,
+  "w": "Dov'è il bancomat?"
+ },
+ {
+  "id": "it-377",
+  "nr": 378,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wo kann ich Geld wechseln?",
+  "words": [
+   "cambio",
+   "dove"
+  ],
+  "tokens": 5,
+  "w": "Dove posso cambiare i soldi?"
+ },
+ {
+  "id": "it-378",
+  "nr": 379,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich kaufe neue Kleidung.",
+  "words": [
+   "vestiti"
+  ],
+  "tokens": 4,
+  "w": "Compro dei vestiti nuovi."
+ },
+ {
+  "id": "it-379",
+  "nr": 380,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Welche Größe tragen Sie?",
+  "words": [
+   "taglia",
+   "porta"
+  ],
+  "tokens": 3,
+  "w": "Che taglia porta?"
+ },
+ {
+  "id": "it-380",
+  "nr": 381,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wo ist die Umkleidekabine?",
+  "words": [
+   "camerino"
+  ],
+  "tokens": 3,
+  "w": "Dov'è il camerino?"
+ },
+ {
+  "id": "it-381",
+  "nr": 382,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Diese Schuhe sind bequem.",
+  "words": [
+   "scarpe"
+  ],
+  "tokens": 4,
+  "w": "Queste scarpe sono comode."
+ },
+ {
+  "id": "it-382",
+  "nr": 383,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wir gehen ins Einkaufszentrum.",
+  "words": [
+   "centro-commerciale"
+  ],
+  "tokens": 4,
+  "w": "Andiamo al centro commerciale."
+ },
+ {
+  "id": "it-383",
+  "nr": 384,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Auf dem Markt gibt es frisches Obst.",
+  "words": [
+   "mercato",
+   "frutta"
+  ],
+  "tokens": 5,
+  "w": "Al mercato c'è frutta fresca."
+ },
+ {
+  "id": "it-384",
+  "nr": 385,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich möchte etwas zurückgeben.",
+  "words": [
+   "reso",
+   "fare"
+  ],
+  "tokens": 4,
+  "w": "Vorrei fare un reso."
+ },
+ {
+  "id": "it-385",
+  "nr": 386,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wie lange gilt die Garantie?",
+  "words": [
+   "garanzia",
+   "quanto",
+   "li"
+  ],
+  "tokens": 4,
+  "w": "Quanto dura la garanzia?"
+ },
+ {
+  "id": "it-386",
+  "nr": 387,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich suche ein Geschenk für einen Freund.",
+  "words": [
+   "regalo",
+   "l-amico"
+  ],
+  "tokens": 6,
+  "w": "Cerco un regalo per un amico."
+ },
+ {
+  "id": "it-387",
+  "nr": 388,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Kann ich eine Tüte haben?",
+  "words": [
+   "sacchetto",
+   "avere"
+  ],
+  "tokens": 4,
+  "w": "Posso avere un sacchetto?"
+ },
+ {
+  "id": "it-388",
+  "nr": 389,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe die Einkaufsliste geschrieben.",
+  "words": [
+   "lista-della-spesa",
+   "li",
+   "spesa"
+  ],
+  "tokens": 6,
+  "w": "Ho scritto la lista della spesa."
+ },
+ {
+  "id": "it-389",
+  "nr": 390,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Kundin wartet an der Kasse.",
+  "words": [
+   "cliente",
+   "li",
+   "cassa"
+  ],
+  "tokens": 5,
+  "w": "La cliente aspetta alla cassa."
+ },
+ {
+  "id": "it-390",
+  "nr": 391,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Verkäuferin hat mir geholfen.",
+  "words": [
+   "commesso",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "La commessa mi ha aiutato."
+ },
+ {
+  "id": "it-391",
+  "nr": 392,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das Geschäft ist geöffnet.",
+  "words": [
+   "aperto",
+   "negozio",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il negozio è aperto."
+ },
+ {
+  "id": "it-392",
+  "nr": 393,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das Geschäft ist geschlossen.",
+  "words": [
+   "chiuso",
+   "negozio",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il negozio è chiuso."
+ },
+ {
+  "id": "it-393",
+  "nr": 394,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wie sind die Öffnungszeiten?",
+  "words": [
+   "orari-di-apertura"
+  ],
+  "tokens": 6,
+  "w": "Quali sono gli orari di apertura?"
+ },
+ {
+  "id": "it-394",
+  "nr": 395,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich möchte Geld sparen.",
+  "words": [
+   "risparmiare"
+  ],
+  "tokens": 3,
+  "w": "Voglio risparmiare denaro."
+ },
+ {
+  "id": "it-395",
+  "nr": 396,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Kannst du mir zehn Euro leihen?",
+  "words": [
+   "prestare",
+   "dieci",
+   "l-euro"
+  ],
+  "tokens": 4,
+  "w": "Puoi prestarmi dieci euro?"
+ },
+ {
+  "id": "it-396",
+  "nr": 397,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe Schulden.",
+  "words": [
+   "debito"
+  ],
+  "tokens": 3,
+  "w": "Ho un debito."
+ },
+ {
+  "id": "it-397",
+  "nr": 398,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Schick mir die Bestätigung.",
+  "words": [
+   "conferma",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Mandami la conferma."
+ },
+ {
+  "id": "it-398",
+  "nr": 399,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich möchte eine Bestellung aufgeben.",
+  "words": [
+   "l-ordine",
+   "fare"
+  ],
+  "tokens": 4,
+  "w": "Voglio fare un ordine."
+ },
+ {
+  "id": "it-399",
+  "nr": 400,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich bevorzuge Weißwein.",
+  "words": [
+   "vino-bianco",
+   "vino",
+   "bianco"
+  ],
+  "tokens": 4,
+  "w": "Preferisco il vino bianco."
+ },
+ {
+  "id": "it-400",
+  "nr": 401,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Zwei Gläser Prosecco.",
+  "words": [
+   "prosecco",
+   "due"
+  ],
+  "tokens": 4,
+  "w": "Due bicchieri di prosecco."
+ },
+ {
+  "id": "it-401",
+  "nr": 402,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das Frühstück ist inbegriffen.",
+  "words": [
+   "colazione",
+   "li",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "La colazione è inclusa."
+ },
+ {
+  "id": "it-402",
+  "nr": 403,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wir essen um zwölf zu Mittag.",
+  "words": [
+   "pranzo",
+   "dodici"
+  ],
+  "tokens": 3,
+  "w": "Pranziamo alle dodici."
+ },
+ {
+  "id": "it-403",
+  "nr": 404,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Das Abendessen ist um acht.",
+  "words": [
+   "cena",
+   "li",
+   "e",
+   "otto"
+  ],
+  "tokens": 5,
+  "w": "La cena è alle otto."
+ },
+ {
+  "id": "it-404",
+  "nr": 405,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wir nehmen eine Vorspeise.",
+  "words": [
+   "l-antipasto"
+  ],
+  "tokens": 3,
+  "w": "Prendiamo un antipasto."
+ },
+ {
+  "id": "it-405",
+  "nr": 406,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Als ersten Gang nehme ich Pasta.",
+  "words": [
+   "primo2",
+   "come",
+   "primo",
+   "li",
+   "pasta"
+  ],
+  "tokens": 5,
+  "w": "Come primo prendo la pasta."
+ },
+ {
+  "id": "it-406",
+  "nr": 407,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Als zweiten Gang nehme ich Fisch.",
+  "words": [
+   "secondo2",
+   "come",
+   "secondo",
+   "pesce"
+  ],
+  "tokens": 5,
+  "w": "Come secondo prendo il pesce."
+ },
+ {
+  "id": "it-407",
+  "nr": 408,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern eine Gemüsebeilage.",
+  "words": [
+   "contorno"
+  ],
+  "tokens": 5,
+  "w": "Vorrei un contorno di verdure."
+ },
+ {
+  "id": "it-408",
+  "nr": 409,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Tomate ist frisch.",
+  "words": [
+   "pomodoro",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "Il pomodoro è fresco."
+ },
+ {
+  "id": "it-409",
+  "nr": 410,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ohne Zwiebel, bitte.",
+  "words": [
+   "cipolla"
+  ],
+  "tokens": 4,
+  "w": "Senza cipolla, per favore."
+ },
+ {
+  "id": "it-410",
+  "nr": 411,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich mag Knoblauch.",
+  "words": [
+   "l-aglio"
+  ],
+  "tokens": 3,
+  "w": "Mi piace l'aglio."
+ },
+ {
+  "id": "it-411",
+  "nr": 412,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich schneide eine Karotte.",
+  "words": [
+   "carota"
+  ],
+  "tokens": 3,
+  "w": "Taglio una carota."
+ },
+ {
+  "id": "it-412",
+  "nr": 413,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Zucchini sind gegrillt.",
+  "words": [
+   "zucchina"
+  ],
+  "tokens": 4,
+  "w": "Le zucchine sono grigliate."
+ },
+ {
+  "id": "it-413",
+  "nr": 414,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Aubergine ist aus dem Ofen.",
+  "words": [
+   "melanzana",
+   "li",
+   "e"
+  ],
+  "tokens": 5,
+  "w": "La melanzana è al forno."
+ },
+ {
+  "id": "it-414",
+  "nr": 415,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern gegrillte Paprika.",
+  "words": [
+   "peperone"
+  ],
+  "tokens": 4,
+  "w": "Vorrei i peperoni grigliati."
+ },
+ {
+  "id": "it-415",
+  "nr": 416,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich mag Pasta mit Pilzen.",
+  "words": [
+   "funghi",
+   "li",
+   "pasta"
+  ],
+  "tokens": 6,
+  "w": "Mi piace la pasta ai funghi."
+ },
+ {
+  "id": "it-416",
+  "nr": 417,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich esse eine Orange.",
+  "words": [
+   "l-arancia"
+  ],
+  "tokens": 2,
+  "w": "Mangio un'arancia."
+ },
+ {
+  "id": "it-417",
+  "nr": 418,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern etwas Zitrone.",
+  "words": [
+   "limone"
+  ],
+  "tokens": 3,
+  "w": "Vorrei del limone."
+ },
+ {
+  "id": "it-418",
+  "nr": 419,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Birne ist süß.",
+  "words": [
+   "pera",
+   "li",
+   "e"
+  ],
+  "tokens": 4,
+  "w": "La pera è dolce."
+ },
+ {
+  "id": "it-419",
+  "nr": 420,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich liebe Erdbeeren.",
+  "words": [
+   "fragola"
+  ],
+  "tokens": 3,
+  "w": "Adoro le fragole."
+ },
+ {
+  "id": "it-420",
+  "nr": 421,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Trauben sind sehr süß.",
+  "words": [
+   "l-uva",
+   "e",
+   "molto"
+  ],
+  "tokens": 4,
+  "w": "L'uva è molto dolce."
+ },
+ {
+  "id": "it-421",
+  "nr": 422,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ein Brötchen mit Schinken.",
+  "words": [
+   "prosciutto"
+  ],
+  "tokens": 4,
+  "w": "Un panino con prosciutto."
+ },
+ {
+  "id": "it-422",
+  "nr": 423,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Pizza mit Salami.",
+  "words": [
+   "salame"
+  ],
+  "tokens": 3,
+  "w": "Pizza con salame."
+ },
+ {
+  "id": "it-423",
+  "nr": 424,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Tomate und Mozzarella.",
+  "words": [
+   "mozzarella",
+   "pomodoro",
+   "e"
+  ],
+  "tokens": 3,
+  "w": "Pomodoro e mozzarella."
+ },
+ {
+  "id": "it-424",
+  "nr": 425,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ein wenig Parmesan, bitte.",
+  "words": [
+   "parmigiano"
+  ],
+  "tokens": 6,
+  "w": "Un po' di parmigiano, per favore."
+ },
+ {
+  "id": "it-425",
+  "nr": 426,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich gebe Olivenöl dazu.",
+  "words": [
+   "l-olio-d-oliva"
+  ],
+  "tokens": 3,
+  "w": "Aggiungo olio d'oliva."
+ },
+ {
+  "id": "it-426",
+  "nr": 427,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wenig Essig, bitte.",
+  "words": [
+   "l-aceto",
+   "molto"
+  ],
+  "tokens": 4,
+  "w": "Poco aceto, per favore."
+ },
+ {
+  "id": "it-427",
+  "nr": 428,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Möchtest du etwas Pfeffer?",
+  "words": [
+   "pepe"
+  ],
+  "tokens": 5,
+  "w": "Vuoi un po' di pepe?"
+ },
+ {
+  "id": "it-428",
+  "nr": 429,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich nehme Spaghetti mit Tomatensauce.",
+  "words": [
+   "spaghetti",
+   "pomodoro"
+  ],
+  "tokens": 5,
+  "w": "Prendo gli spaghetti al pomodoro."
+ },
+ {
+  "id": "it-429",
+  "nr": 430,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Penne sind bissfest.",
+  "words": [
+   "penne"
+  ],
+  "tokens": 5,
+  "w": "Le penne sono al dente."
+ },
+ {
+  "id": "it-430",
+  "nr": 431,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern Rigatoni all'Amatriciana.",
+  "words": [
+   "rigatoni"
+  ],
+  "tokens": 4,
+  "w": "Vorrei i rigatoni all'amatriciana."
+ },
+ {
+  "id": "it-431",
+  "nr": 432,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Tagliatelle mit Ragù sind ausgezeichnet.",
+  "words": [
+   "tagliatelle"
+  ],
+  "tokens": 6,
+  "w": "Le tagliatelle al ragù sono ottime."
+ },
+ {
+  "id": "it-432",
+  "nr": 433,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich nehme Fettuccine mit Pilzen.",
+  "words": [
+   "fettuccine",
+   "funghi"
+  ],
+  "tokens": 5,
+  "w": "Prendo le fettuccine ai funghi."
+ },
+ {
+  "id": "it-433",
+  "nr": 434,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Linguine mit Venusmuscheln sind typisch.",
+  "words": [
+   "linguine"
+  ],
+  "tokens": 6,
+  "w": "Le linguine alle vongole sono tipiche."
+ },
+ {
+  "id": "it-434",
+  "nr": 435,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Farfalle sind mit Pesto.",
+  "words": [
+   "farfalle"
+  ],
+  "tokens": 6,
+  "w": "Le farfalle sono con il pesto."
+ },
+ {
+  "id": "it-435",
+  "nr": 436,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Fusilli eignen sich gut für Nudelsalat.",
+  "words": [
+   "fusilli",
+   "pasta"
+  ],
+  "tokens": 8,
+  "w": "I fusilli sono perfetti per l'insalata di pasta."
+ },
+ {
+  "id": "it-436",
+  "nr": 437,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Orecchiette sind typisch für Apulien.",
+  "words": [
+   "orecchiette"
+  ],
+  "tokens": 6,
+  "w": "Le orecchiette sono tipiche della Puglia."
+ },
+ {
+  "id": "it-437",
+  "nr": 438,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern Ravioli mit Ricotta und Spinat.",
+  "words": [
+   "ravioli",
+   "e"
+  ],
+  "tokens": 6,
+  "w": "Vorrei i ravioli ricotta e spinaci."
+ },
+ {
+  "id": "it-438",
+  "nr": 439,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich nehme Tortellini in der Brühe.",
+  "words": [
+   "tortellini"
+  ],
+  "tokens": 5,
+  "w": "Prendo i tortellini in brodo."
+ },
+ {
+  "id": "it-439",
+  "nr": 440,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Gnocchi mit Tomatensauce sind gut.",
+  "words": [
+   "gnocchi",
+   "pomodoro"
+  ],
+  "tokens": 6,
+  "w": "Gli gnocchi al pomodoro sono buoni."
+ },
+ {
+  "id": "it-440",
+  "nr": 441,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Heute essen wir Lasagne.",
+  "words": [
+   "lasagne",
+   "oggi"
+  ],
+  "tokens": 4,
+  "w": "Oggi mangiamo le lasagne."
+ },
+ {
+  "id": "it-441",
+  "nr": 442,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Hier machen sie frische Pasta.",
+  "words": [
+   "pasta-fresca",
+   "qui",
+   "li",
+   "pasta"
+  ],
+  "tokens": 5,
+  "w": "Qui fanno la pasta fresca."
+ },
+ {
+  "id": "it-442",
+  "nr": 443,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Trockene Pasta kaufe ich im Supermarkt.",
+  "words": [
+   "pasta-secca",
+   "li",
+   "pasta",
+   "supermercato"
+  ],
+  "tokens": 6,
+  "w": "Compro la pasta secca al supermercato."
+ },
+ {
+  "id": "it-443",
+  "nr": 444,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern Pasta mit Tomatensauce.",
+  "words": [
+   "al-pomodoro",
+   "li",
+   "pasta",
+   "pomodoro"
+  ],
+  "tokens": 5,
+  "w": "Vorrei la pasta al pomodoro."
+ },
+ {
+  "id": "it-444",
+  "nr": 445,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich nehme Spaghetti Carbonara.",
+  "words": [
+   "alla-carbonara",
+   "spaghetti"
+  ],
+  "tokens": 5,
+  "w": "Prendo gli spaghetti alla carbonara."
+ },
+ {
+  "id": "it-445",
+  "nr": 446,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Rigatoni all'Amatriciana sind scharf.",
+  "words": [
+   "all-amatriciana",
+   "rigatoni"
+  ],
+  "tokens": 5,
+  "w": "I rigatoni all'amatriciana sono piccanti."
+ },
+ {
+  "id": "it-446",
+  "nr": 447,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern eine Cacio e Pepe.",
+  "words": [
+   "cacio-e-pepe",
+   "e",
+   "pepe"
+  ],
+  "tokens": 5,
+  "w": "Vorrei una cacio e pepe."
+ },
+ {
+  "id": "it-447",
+  "nr": 448,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Tagliatelle mit Ragù, bitte.",
+  "words": [
+   "al-ragu",
+   "tagliatelle"
+  ],
+  "tokens": 5,
+  "w": "Tagliatelle al ragù, per favore."
+ },
+ {
+  "id": "it-448",
+  "nr": 449,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich nehme Trofie mit Pesto.",
+  "words": [
+   "al-pesto"
+  ],
+  "tokens": 5,
+  "w": "Prendo le trofie al pesto."
+ },
+ {
+  "id": "it-449",
+  "nr": 450,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Linguine mit Venusmuscheln, bitte.",
+  "words": [
+   "alle-vongole",
+   "linguine"
+  ],
+  "tokens": 5,
+  "w": "Linguine alle vongole, per favore."
+ },
+ {
+  "id": "it-450",
+  "nr": 451,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Eine Pizza Margherita, bitte.",
+  "words": [
+   "pizza-margherita"
+  ],
+  "tokens": 5,
+  "w": "Una pizza margherita, per favore."
+ },
+ {
+  "id": "it-451",
+  "nr": 452,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wir nehmen eine Focaccia.",
+  "words": [
+   "focaccia"
+  ],
+  "tokens": 3,
+  "w": "Prendiamo una focaccia."
+ },
+ {
+  "id": "it-452",
+  "nr": 453,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Eine Bruschetta mit Tomate.",
+  "words": [
+   "bruschetta",
+   "pomodoro"
+  ],
+  "tokens": 4,
+  "w": "Una bruschetta al pomodoro."
+ },
+ {
+  "id": "it-453",
+  "nr": 454,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern ein Risotto mit Pilzen.",
+  "words": [
+   "risotto",
+   "funghi"
+  ],
+  "tokens": 5,
+  "w": "Vorrei un risotto ai funghi."
+ },
+ {
+  "id": "it-454",
+  "nr": 455,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Polenta ist sehr heiß.",
+  "words": [
+   "polenta",
+   "li",
+   "e",
+   "molto"
+  ],
+  "tokens": 5,
+  "w": "La polenta è molto calda."
+ },
+ {
+  "id": "it-455",
+  "nr": 456,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich liebe Auberginenauflauf.",
+  "words": [
+   "parmigiana-di-melanzane",
+   "li"
+  ],
+  "tokens": 5,
+  "w": "Adoro la parmigiana di melanzane."
+ },
+ {
+  "id": "it-456",
+  "nr": 457,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich nehme eine Caprese.",
+  "words": [
+   "caprese"
+  ],
+  "tokens": 3,
+  "w": "Prendo una caprese."
+ },
+ {
+  "id": "it-457",
+  "nr": 458,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Heute gibt es Minestrone.",
+  "words": [
+   "minestrone",
+   "oggi"
+  ],
+  "tokens": 4,
+  "w": "Oggi c'è il minestrone."
+ },
+ {
+  "id": "it-458",
+  "nr": 459,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wir nehmen ein Tiramisù zum Teilen.",
+  "words": [
+   "tiramisu"
+  ],
+  "tokens": 5,
+  "w": "Prendiamo un tiramisù da dividere."
+ },
+ {
+  "id": "it-459",
+  "nr": 460,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Die Panna cotta ist die Nachspeise des Tages.",
+  "words": [
+   "panna-cotta",
+   "li",
+   "e",
+   "dessert",
+   "giorno"
+  ],
+  "tokens": 8,
+  "w": "La panna cotta è il dessert del giorno."
+ },
+ {
+  "id": "it-460",
+  "nr": 461,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich hätte gern ein sizilianisches Cannolo.",
+  "words": [
+   "cannolo"
+  ],
+  "tokens": 4,
+  "w": "Vorrei un cannolo siciliano."
+ },
+ {
+  "id": "it-461",
+  "nr": 462,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich nehme einen Arancino.",
+  "words": [
+   "l-arancino"
+  ],
+  "tokens": 3,
+  "w": "Prendo un arancino."
+ },
+ {
+  "id": "it-462",
+  "nr": 463,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe Probleme mit dem Knie.",
+  "words": [
+   "ginocchio"
+  ],
+  "tokens": 4,
+  "w": "Ho problemi al ginocchio."
+ },
+ {
+  "id": "it-463",
+  "nr": 464,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe ein gesundes Herz.",
+  "words": [
+   "cuore",
+   "sano"
+  ],
+  "tokens": 4,
+  "w": "Ho il cuore sano."
+ },
+ {
+  "id": "it-464",
+  "nr": 465,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Rauchen schadet der Lunge.",
+  "words": [
+   "polmoni"
+  ],
+  "tokens": 6,
+  "w": "Il fumo fa male ai polmoni."
+ },
+ {
+  "id": "it-465",
+  "nr": 466,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich fühle mich krank.",
+  "words": [
+   "malato"
+  ],
+  "tokens": 3,
+  "w": "Mi sento malato."
+ },
+ {
+  "id": "it-466",
+  "nr": 467,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich bin gesund.",
+  "words": [
+   "sano"
+  ],
+  "tokens": 2,
+  "w": "Sono sano."
+ },
+ {
+  "id": "it-467",
+  "nr": 468,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe Fieber.",
+  "words": [
+   "febbre",
+   "li"
+  ],
+  "tokens": 3,
+  "w": "Ho la febbre."
+ },
+ {
+  "id": "it-468",
+  "nr": 469,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe starken Husten.",
+  "words": [
+   "tosse"
+  ],
+  "tokens": 4,
+  "w": "Ho una forte tosse."
+ },
+ {
+  "id": "it-469",
+  "nr": 470,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe Schnupfen.",
+  "words": [
+   "raffreddore"
+  ],
+  "tokens": 3,
+  "w": "Ho il raffreddore."
+ },
+ {
+  "id": "it-470",
+  "nr": 471,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe Schmerzen.",
+  "words": [
+   "dolore"
+  ],
+  "tokens": 3,
+  "w": "Ho un dolore."
+ },
+ {
+  "id": "it-471",
+  "nr": 472,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich brauche ein Medikament.",
+  "words": [
+   "medicina"
+  ],
+  "tokens": 5,
+  "w": "Ho bisogno di una medicina."
+ },
+ {
+  "id": "it-472",
+  "nr": 473,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich gehe zum Arzt.",
+  "words": [
+   "medico"
+  ],
+  "tokens": 3,
+  "w": "Vado dal medico."
+ },
+ {
+  "id": "it-473",
+  "nr": 474,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Wo ist die Notaufnahme?",
+  "words": [
+   "pronto-soccorso"
+  ],
+  "tokens": 4,
+  "w": "Dov'è il pronto soccorso?"
+ },
+ {
+  "id": "it-474",
+  "nr": 475,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Rufen Sie einen Krankenwagen!",
+  "words": [
+   "l-ambulanza"
+  ],
+  "tokens": 2,
+  "w": "Chiamate un'ambulanza!"
+ },
+ {
+  "id": "it-475",
+  "nr": 476,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe eine Pollenallergie.",
+  "words": [
+   "l-allergia"
+  ],
+  "tokens": 4,
+  "w": "Ho un'allergia al polline."
+ },
+ {
+  "id": "it-476",
+  "nr": 477,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich brauche eine Operation.",
+  "words": [
+   "l-operazione"
+  ],
+  "tokens": 4,
+  "w": "Ho bisogno di un'operazione."
+ },
+ {
+  "id": "it-477",
+  "nr": 478,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Der Arzt hat mir ein Rezept gegeben.",
+  "words": [
+   "ricetta",
+   "medico"
+  ],
+  "tokens": 7,
+  "w": "Il medico mi ha dato una ricetta."
+ },
+ {
+  "id": "it-478",
+  "nr": 479,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe eine Krankenversicherung.",
+  "words": [
+   "l-assicurazione"
+  ],
+  "tokens": 3,
+  "w": "Ho un'assicurazione sanitaria."
+ },
+ {
+  "id": "it-479",
+  "nr": 480,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich bin sehr müde.",
+  "words": [
+   "stanchezza",
+   "molto"
+  ],
+  "tokens": 3,
+  "w": "Sono molto stanco."
+ },
+ {
+  "id": "it-480",
+  "nr": 481,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe viel Stress.",
+  "words": [
+   "stress",
+   "molto"
+  ],
+  "tokens": 3,
+  "w": "Ho molto stress."
+ },
+ {
+  "id": "it-481",
+  "nr": 482,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich muss mehr schlafen.",
+  "words": [
+   "sonno",
+   "dormire"
+  ],
+  "tokens": 6,
+  "w": "Ho bisogno di dormire di più."
+ },
+ {
+  "id": "it-482",
+  "nr": 483,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich mache jeden Tag Sport.",
+  "words": [
+   "l-esercizio",
+   "giorno"
+  ],
+  "tokens": 4,
+  "w": "Faccio esercizio ogni giorno."
+ },
+ {
+  "id": "it-483",
+  "nr": 484,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich bin auf Diät.",
+  "words": [
+   "dieta"
+  ],
+  "tokens": 3,
+  "w": "Sono a dieta."
+ },
+ {
+  "id": "it-484",
+  "nr": 485,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich möchte abnehmen.",
+  "words": [
+   "peso"
+  ],
+  "tokens": 3,
+  "w": "Voglio perdere peso."
+ },
+ {
+  "id": "it-485",
+  "nr": 486,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Blutuntersuchung.",
+  "words": [
+   "sangue"
+  ],
+  "tokens": 3,
+  "w": "Analisi del sangue."
+ },
+ {
+  "id": "it-486",
+  "nr": 487,
+  "level": "B1",
+  "reqLevel": "B1",
+  "de": "Ich habe eine Wunde.",
+  "words": [
+   "ferita"
+  ],
+  "tokens": 3,
+  "w": "Ho una ferita."
+ }
+]

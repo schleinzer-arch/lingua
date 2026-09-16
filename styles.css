@@ -1,0 +1,372 @@
+/* ============================================================
+   Slovenčina — Majolika
+   Kobaltblau nach der Keramik aus Modra, Ocker als Signalfarbe.
+   ============================================================ */
+
+:root{
+  --ground:#FBF9F4;
+  --surface:#FFFFFF;
+  --tint:#EDF2FA;
+  --tint-2:#F2F0EA;
+
+  --ink:#16202E;
+  --ink-2:#55606E;
+  --ink-3:#8C94A1;
+  --ink-4:#B7BDC7;
+
+  --cobalt:#1E4FA3;
+  --cobalt-soft:#7FA3C9;
+  --cobalt-wash:#DFE6F1;
+
+  --ochre:#C8892B;
+  --ochre-wash:#FBF3E4;
+  --ochre-ink:#8A6420;
+
+  --good:#2E7D52;
+  --bad:#C0392B;
+  --bad-wash:#FCEFED;
+
+  --line:#E9E5DC;
+
+  --r-s:10px;
+  --r-m:16px;
+  --r-l:22px;
+  --r-xl:28px;
+
+  --pad:20px;
+
+  --font:ui-rounded,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{-webkit-text-size-adjust:100%;height:100%;}
+
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--font);
+  line-height:1.5;
+  overscroll-behavior:none;
+  height:100%;
+  -webkit-font-smoothing:antialiased;
+}
+
+::-webkit-scrollbar{display:none;}
+
+button{font-family:inherit;border:none;background:none;color:inherit;cursor:pointer;}
+input{font-family:inherit;}
+
+/* ---------- Grundgerüst ---------- */
+#app{
+  display:flex;flex-direction:column;
+  height:100dvh;max-width:520px;margin:0 auto;
+  background:var(--ground);position:relative;overflow:hidden;
+}
+.safe-top{height:env(safe-area-inset-top);flex:none;background:var(--ground);}
+.view{flex:1;overflow-y:auto;overflow-x:hidden;}
+.view-pad{padding:0 var(--pad);}
+.bottom{flex:none;padding:0 var(--pad) calc(18px + env(safe-area-inset-bottom));}
+
+.fade{animation:fade .22s ease both;}
+@keyframes fade{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+.pop{animation:pop .26s cubic-bezier(.2,.9,.3,1.3) both;}
+@keyframes pop{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:none;}}
+
+/* ---------- Typografie ---------- */
+.display{font-size:56px;font-weight:680;letter-spacing:-.035em;line-height:.96;}
+.title{font-size:26px;font-weight:660;letter-spacing:-.022em;}
+.head{font-size:19px;font-weight:640;letter-spacing:-.015em;}
+.body{font-size:15px;}
+.small{font-size:13.5px;color:var(--ink-2);}
+.muted{font-size:13px;color:var(--ink-3);}
+.tiny{font-size:11.5px;color:var(--ink-3);}
+.num{font-variant-numeric:tabular-nums;}
+
+/* ---------- Knöpfe ---------- */
+.btn{
+  display:block;width:100%;padding:17px;border-radius:var(--r-m);
+  background:var(--cobalt);color:#fff;font-size:16.5px;font-weight:620;
+  text-align:center;transition:transform .12s,opacity .12s;
+}
+.btn:active{transform:scale(.985);}
+.btn[disabled]{opacity:.4;}
+.btn-soft{
+  display:block;width:100%;padding:15px;border-radius:var(--r-m);
+  background:var(--tint-2);color:var(--ink-2);font-size:15px;font-weight:600;text-align:center;
+}
+.btn-line{
+  display:block;width:100%;padding:15px;border-radius:var(--r-m);
+  border:1.5px solid var(--line);background:var(--surface);
+  color:var(--ink);font-size:15px;font-weight:560;text-align:center;
+}
+.btn-danger{
+  display:block;width:100%;padding:16px;border-radius:var(--r-m);
+  border:1.5px solid rgba(192,57,43,.28);background:var(--bad-wash);
+  color:var(--bad);font-size:15px;font-weight:620;text-align:center;
+}
+.btn-row{display:flex;gap:10px;}
+.btn-row>*{flex:1;}
+.btn-row>.wide{flex:2;}
+
+/* ---------- Karten & Flächen ---------- */
+.card{background:var(--surface);border-radius:var(--r-l);padding:18px;}
+.panel{background:var(--tint);border-radius:var(--r-l);padding:18px;}
+.rule{height:1px;background:var(--line);}
+
+.chip{
+  display:inline-block;font-size:11.5px;font-weight:560;
+  padding:3px 10px;border-radius:99px;background:var(--tint);color:var(--cobalt);
+  white-space:nowrap;
+}
+.chip.ochre{background:var(--ochre-wash);color:var(--ochre-ink);}
+.chip.plain{background:var(--tint-2);color:var(--ink-3);}
+
+.dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--cobalt);}
+.dot.soft{background:var(--cobalt-soft);}
+.dot.ochre{background:var(--ochre);}
+
+/* ---------- Kopfzeile Session ---------- */
+.sess-top{display:flex;align-items:center;gap:13px;padding:14px var(--pad) 10px;flex:none;}
+.sess-x{font-size:20px;line-height:1;color:var(--ink-4);padding:4px 2px;}
+.track{flex:1;height:5px;border-radius:99px;background:var(--cobalt-wash);overflow:hidden;}
+.track i{display:block;height:100%;border-radius:99px;background:var(--cobalt);
+  transition:width .35s cubic-bezier(.3,.8,.3,1);}
+
+/* ---------- Start ---------- */
+.hero{padding:34px var(--pad) 0;}
+.plan{margin:26px var(--pad) 0;}
+.plan-row{display:flex;align-items:center;gap:12px;padding:7px 0;font-size:15px;}
+.streak{text-align:center;padding:14px 0 4px;}
+
+/* ---------- Vokabelkarte ---------- */
+.wordcard{
+  background:var(--surface);border-radius:var(--r-xl);padding:30px 22px;
+  text-align:center;position:relative;min-height:236px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.word{font-size:44px;font-weight:660;letter-spacing:-.03em;line-height:1.1;}
+.word.long{font-size:32px;}
+.word .dia{color:var(--cobalt);}
+.gloss{font-size:21px;color:var(--ink-2);margin-top:6px;}
+.speak{
+  position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+}
+.speak.on{border-color:var(--cobalt);background:var(--tint);}
+.boxdots{display:flex;gap:5px;justify-content:center;margin-top:16px;}
+.boxdots i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block;}
+.boxdots i.f{background:var(--cobalt);}
+
+/* ---------- Optionen ---------- */
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{
+  display:block;width:100%;text-align:left;padding:15px 17px;border-radius:var(--r-m);
+  background:var(--surface);border:1.5px solid var(--line);font-size:15.5px;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.opt:active{background:var(--tint);}
+.opt.right{background:rgba(46,125,82,.08);border-color:var(--good);color:var(--good);font-weight:620;}
+.opt.wrong{background:var(--bad-wash);border-color:var(--bad);color:var(--bad);}
+.opt.dim{color:var(--ink-4);}
+.opt-in{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+
+/* ---------- Wortbausteine ---------- */
+.prompt{font-size:22px;font-weight:560;line-height:1.35;}
+.slots{
+  margin-top:20px;background:var(--tint-2);border-radius:var(--r-m);
+  padding:14px;min-height:62px;display:flex;gap:7px;flex-wrap:wrap;align-content:flex-start;
+}
+.slots.right{background:rgba(46,125,82,.08);}
+.slots.wrong{background:var(--bad-wash);}
+.slot{
+  background:var(--cobalt);color:#fff;font-size:15.5px;
+  padding:9px 13px;border-radius:var(--r-s);
+}
+.bank{display:flex;gap:7px;flex-wrap:wrap;}
+.bankword{
+  background:var(--surface);border:1.5px solid var(--line);
+  font-size:15.5px;padding:9px 13px;border-radius:var(--r-s);
+}
+.bankword.used{opacity:.32;}
+
+/* ---------- Eingabe ---------- */
+.field{
+  width:100%;padding:15px 17px;border-radius:var(--r-m);
+  border:1.5px solid var(--line);background:var(--surface);
+  font-size:17px;color:var(--ink);
+}
+.field:focus{outline:none;border-color:var(--cobalt);}
+.field.right{border-color:var(--good);background:rgba(46,125,82,.06);}
+.field.wrong{border-color:var(--bad);background:var(--bad-wash);}
+
+/* ---------- Sprechen ---------- */
+.mic{
+  width:92px;height:92px;border-radius:50%;background:var(--cobalt);
+  display:flex;align-items:center;justify-content:center;margin:0 auto;
+  transition:transform .15s;
+}
+.mic:active{transform:scale(.95);}
+.mic.live{background:var(--ochre);animation:pulse 1.3s ease-in-out infinite;}
+.mic[disabled]{background:var(--ink-4);}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,137,43,.42);}
+                 50%{box-shadow:0 0 0 17px rgba(200,137,43,0);}}
+.heard{font-size:19px;text-align:center;min-height:26px;color:var(--ink-2);}
+
+/* ---------- Rückmeldung ---------- */
+.fb{border-radius:var(--r-m);padding:15px 16px;}
+.fb.good{background:rgba(46,125,82,.08);}
+.fb.warn{background:var(--ochre-wash);}
+.fb.bad{background:var(--bad-wash);}
+.fb-t{font-size:14.5px;font-weight:620;margin-bottom:3px;}
+.fb.good .fb-t{color:var(--good);}
+.fb.warn .fb-t{color:var(--ochre-ink);}
+.fb.bad .fb-t{color:var(--bad);}
+.fb-d{font-size:13.5px;color:var(--ink-2);line-height:1.5;}
+.fb-d b{color:var(--ink);font-weight:620;}
+
+/* ---------- Ring ---------- */
+.ring{position:relative;flex:none;}
+.ring svg{transform:rotate(-90deg);display:block;}
+.ring-in{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;}
+
+/* ---------- Listen ---------- */
+.row{
+  display:flex;align-items:center;gap:13px;padding:13px 0;
+  border-bottom:1px solid var(--line);
+}
+.row:last-child{border-bottom:none;}
+.row-main{flex:1;min-width:0;}
+.row-sk{font-size:15.5px;font-weight:600;}
+.row-de{font-size:13.5px;color:var(--ink-2);margin-top:1px;}
+
+.tile{
+  background:var(--surface);border-radius:var(--r-m);padding:14px;
+  display:flex;flex-direction:column;gap:5px;text-align:left;width:100%;
+}
+.tile-bar{height:3px;background:var(--line);border-radius:99px;overflow:hidden;}
+.tile-bar i{display:block;height:100%;background:var(--cobalt);border-radius:99px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* ---------- Navigation ---------- */
+.nav{
+  flex:none;display:flex;background:var(--surface);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav button{
+  flex:1;padding:11px 0 13px;display:flex;flex-direction:column;
+  align-items:center;gap:4px;color:var(--ink-4);font-size:10.5px;
+}
+.nav button.on{color:var(--cobalt);font-weight:620;}
+
+.appbar{display:flex;align-items:center;justify-content:space-between;padding:20px var(--pad) 0;}
+.iconbtn{width:38px;height:38px;border-radius:50%;background:var(--surface);
+  display:flex;align-items:center;justify-content:center;}
+
+/* ---------- Ergebnis ---------- */
+.result{text-align:center;padding:44px var(--pad);}
+.result-mark{font-size:58px;line-height:1;margin-bottom:16px;}
+.result-pct{font-size:44px;font-weight:680;letter-spacing:-.03em;}
+
+/* ---------- Bibliothek ---------- */
+.seg{display:flex;gap:5px;background:var(--tint-2);border-radius:99px;padding:4px;}
+.seg button{flex:1;padding:9px;border-radius:99px;font-size:13.5px;color:var(--ink-2);}
+.seg button.on{background:var(--surface);color:var(--cobalt);font-weight:620;}
+
+.acc{background:var(--surface);border-radius:var(--r-m);margin-bottom:9px;overflow:hidden;}
+.acc-h{padding:15px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;}
+.acc-b{padding:0 16px 16px;border-top:1px solid var(--line);}
+.gtable{width:100%;border-collapse:collapse;margin-top:12px;}
+.gtable td{padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px;}
+.gtable td:last-child{text-align:right;font-weight:620;}
+.gtable tr:last-child td{border-bottom:none;}
+.tipbox{margin-top:12px;background:var(--ochre-wash);border-left:3px solid var(--ochre);
+  border-radius:var(--r-s);padding:11px 13px;font-size:13px;color:var(--ochre-ink);}
+
+.search{
+  width:100%;padding:13px 16px;border-radius:var(--r-m);
+  border:1.5px solid var(--line);background:var(--surface);font-size:15px;
+}
+.search:focus{outline:none;border-color:var(--cobalt);}
+
+/* ---------- Profil ---------- */
+.stat-row{display:flex;gap:9px;flex-wrap:wrap;}
+.stat{background:var(--surface);border-radius:var(--r-m);padding:13px 15px;flex:1;min-width:92px;}
+.stat b{display:block;font-size:22px;font-weight:680;letter-spacing:-.02em;}
+.heat{display:flex;flex-wrap:wrap;gap:5px;}
+.heat i{width:23px;height:23px;border-radius:7px;background:var(--line);display:block;}
+.heat i.q1{background:var(--cobalt-wash);}
+.heat i.q2{background:var(--cobalt-soft);}
+.heat i.q3{background:var(--cobalt);}
+.heat i.today{box-shadow:0 0 0 2px var(--ochre);}
+
+.sheet-bg{position:absolute;inset:0;background:rgba(22,32,46,.4);z-index:40;}
+.sheet{
+  position:absolute;left:0;right:0;bottom:0;z-index:41;background:var(--surface);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;max-height:82%;overflow-y:auto;
+  padding-bottom:calc(26px + env(safe-area-inset-bottom));
+  animation:up .26s cubic-bezier(.2,.8,.3,1) both;
+}
+@keyframes up{from{transform:translateY(100%);}to{transform:none;}}
+.sheet-grip{width:38px;height:4px;border-radius:99px;background:var(--line);margin:12px auto 6px;}
+
+.spacer{height:26px;}
+.center{text-align:center;}
+.flexcol{display:flex;flex-direction:column;justify-content:center;flex:1;}
+
+/* ---------- Überspringen ---------- */
+.skip{
+  width:26px;height:26px;border-radius:50%;flex:none;
+  display:flex;align-items:center;justify-content:center;color:var(--ink-4);
+}
+.skip:active{color:var(--cobalt);background:var(--tint);}
+
+/* ---------- Schalter ---------- */
+.toggle{
+  width:50px;height:30px;border-radius:99px;background:var(--line);
+  flex:none;padding:3px;display:flex;transition:background .18s;
+}
+.toggle i{
+  width:24px;height:24px;border-radius:50%;background:var(--surface);
+  display:block;transition:transform .18s;
+  box-shadow:0 1px 3px rgba(0,0,0,.18);
+}
+.toggle.on{background:var(--cobalt);}
+.toggle.on i{transform:translateX(20px);}
+
+/* ---------- Zweitrangiger Knopf ---------- */
+.btn-quiet{
+  display:block;width:100%;padding:14px;border-radius:var(--r-m);margin-top:8px;
+  background:transparent;border:1.5px solid var(--cobalt-wash);
+  color:var(--cobalt);font-size:15px;font-weight:600;text-align:center;
+}
+.btn-quiet:active{background:var(--tint);}
+
+/* ---------- Paare zuordnen ---------- */
+.pairgrid{display:flex;gap:10px;}
+.paircol{flex:1;display:flex;flex-direction:column;gap:9px;}
+.pairbtn{
+  padding:14px 10px;border-radius:var(--r-m);background:var(--surface);
+  border:1.5px solid var(--line);font-size:14.5px;text-align:center;
+  transition:background .15s,border-color .15s,opacity .2s;
+}
+.pairbtn.sel{border-color:var(--cobalt);background:var(--tint);color:var(--cobalt);font-weight:620;}
+.pairbtn.done{opacity:.28;border-style:dashed;}
+.pairbtn.miss{border-color:var(--bad);background:var(--bad-wash);color:var(--bad);}
+
+/* ---------- Übungsmodus ---------- */
+.drillscore{display:flex;gap:9px;font-size:13px;font-weight:620;flex:none;}
+.drillscore .dg{color:var(--good);}
+.drillscore .dr{color:var(--bad);}
+
+/* ---------- Sprachwechsel ---------- */
+.langswitch{display:flex;justify-content:flex-end;padding:14px var(--pad) 0;}
+.langswitch button{
+  display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:99px;
+  background:rgba(22,32,46,.045);color:var(--ink-3);font-size:14px;
+}
+.langswitch button:active{background:var(--tint);color:var(--cobalt);}
+.langswitch b{font-weight:600;}
+.langswitch .flag{font-size:14px;}
+.langswitch .chev{font-size:13px;opacity:.6;}

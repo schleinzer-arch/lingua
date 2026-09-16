@@ -1,0 +1,586 @@
+[
+ {
+  "id": "personliche-furworter",
+  "nr": 1,
+  "title": "Persönliche Fürwörter",
+  "description": "ich, du, er, sie...",
+  "level": "A1",
+  "table": [
+   [
+    "Ich",
+    "ja"
+   ],
+   [
+    "Du",
+    "ty"
+   ],
+   [
+    "Er",
+    "on"
+   ],
+   [
+    "Sie (f)",
+    "ona"
+   ],
+   [
+    "Es",
+    "ono"
+   ],
+   [
+    "Wir",
+    "my"
+   ],
+   [
+    "Ihr",
+    "vy"
+   ],
+   [
+    "Sie (formal)",
+    "Vy"
+   ],
+   [
+    "Sie (pl)",
+    "oni/ony"
+   ]
+  ],
+  "tip": "Das formelle Vy wird großgeschrieben — wie das deutsche Sie."
+ },
+ {
+  "id": "verb-byt-sein",
+  "nr": 2,
+  "title": "Verb byť — sein",
+  "description": "Ich bin, du bist...",
+  "level": "A1",
+  "table": [
+   [
+    "Ich bin",
+    "ja som"
+   ],
+   [
+    "Du bist",
+    "ty si"
+   ],
+   [
+    "Er/Sie ist",
+    "on/ona je"
+   ],
+   [
+    "Wir sind",
+    "my sme"
+   ],
+   [
+    "Ihr seid",
+    "vy ste"
+   ],
+   [
+    "Sie sind",
+    "oni sú"
+   ]
+  ],
+  "tip": "som klingt wie englisch some — ich BIN etwas."
+ },
+ {
+  "id": "verb-mat-haben",
+  "nr": 3,
+  "title": "Verb mať — haben",
+  "description": "Ich habe, du hast...",
+  "level": "A1",
+  "table": [
+   [
+    "Ich habe",
+    "ja mám"
+   ],
+   [
+    "Du hast",
+    "ty máš"
+   ],
+   [
+    "Er/Sie hat",
+    "on/ona má"
+   ],
+   [
+    "Wir haben",
+    "my máme"
+   ],
+   [
+    "Ihr habt",
+    "vy máte"
+   ],
+   [
+    "Sie haben",
+    "oni majú"
+   ]
+  ],
+  "tip": "mám = ich habe. Sehr häufig im Alltag!"
+ },
+ {
+  "id": "verb-ist-gehen",
+  "nr": 4,
+  "title": "Verb ísť — gehen",
+  "description": "Ich gehe, du gehst...",
+  "level": "A1",
+  "table": [
+   [
+    "Ich gehe",
+    "ja idem"
+   ],
+   [
+    "Du gehst",
+    "ty ideš"
+   ],
+   [
+    "Er/Sie geht",
+    "on/ona ide"
+   ],
+   [
+    "Wir gehen",
+    "my ideme"
+   ],
+   [
+    "Ihr geht",
+    "vy idete"
+   ],
+   [
+    "Sie gehen",
+    "oni idú"
+   ]
+  ],
+  "tip": "Idem domov = Ich gehe nach Hause."
+ },
+ {
+  "id": "verb-hovorit-sprechen",
+  "nr": 5,
+  "title": "Verb hovoriť — sprechen",
+  "description": "Ich spreche, du sprichst...",
+  "level": "A1",
+  "table": [
+   [
+    "Ich spreche",
+    "ja hovorím"
+   ],
+   [
+    "Du sprichst",
+    "ty hovoríš"
+   ],
+   [
+    "Er/Sie spricht",
+    "on/ona hovorí"
+   ],
+   [
+    "Wir sprechen",
+    "my hovoríme"
+   ],
+   [
+    "Ihr sprecht",
+    "vy hovoríte"
+   ],
+   [
+    "Sie sprechen",
+    "oni hovoria"
+   ]
+  ],
+  "tip": "Hovoríte po nemecky? = Sprechen Sie Deutsch?"
+ },
+ {
+  "id": "verb-jest-essen",
+  "nr": 6,
+  "title": "Verb jesť — essen",
+  "description": "Ich esse, du isst...",
+  "level": "A1",
+  "table": [
+   [
+    "Ich esse",
+    "ja jem"
+   ],
+   [
+    "Du isst",
+    "ty ješ"
+   ],
+   [
+    "Er/Sie isst",
+    "on/ona je"
+   ],
+   [
+    "Wir essen",
+    "my jeme"
+   ],
+   [
+    "Ihr esst",
+    "vy jete"
+   ],
+   [
+    "Sie essen",
+    "oni jedia"
+   ]
+  ],
+  "tip": "Achtung: je bedeutet sowohl er isst als auch er ist!"
+ },
+ {
+  "id": "verneinung",
+  "nr": 7,
+  "title": "Verneinung",
+  "description": "Wie man Nein sagt",
+  "level": "A1",
+  "table": [
+   [
+    "Ich habe",
+    "Mám"
+   ],
+   [
+    "Ich habe nicht",
+    "Nemám"
+   ],
+   [
+    "Ich gehe",
+    "Idem"
+   ],
+   [
+    "Ich gehe nicht",
+    "Nejdem"
+   ],
+   [
+    "Ich bin",
+    "Som"
+   ],
+   [
+    "Ich bin nicht",
+    "Nie som"
+   ],
+   [
+    "Ich spreche",
+    "Hovorím"
+   ],
+   [
+    "Ich spreche nicht",
+    "Nehovorím"
+   ]
+  ],
+  "tip": "Verneinung = ne- vor das Verb setzen. Einfach!"
+ },
+ {
+  "id": "frageworter",
+  "nr": 8,
+  "title": "Fragewörter",
+  "description": "Wo? Wann? Wer? Wie?",
+  "level": "A1",
+  "table": [
+   [
+    "Wer?",
+    "Kto?"
+   ],
+   [
+    "Was?",
+    "Čo?"
+   ],
+   [
+    "Wo?",
+    "Kde?"
+   ],
+   [
+    "Wohin?",
+    "Kam?"
+   ],
+   [
+    "Wann?",
+    "Kedy?"
+   ],
+   [
+    "Wie?",
+    "Ako?"
+   ],
+   [
+    "Wie viel?",
+    "Koľko?"
+   ],
+   [
+    "Warum?",
+    "Prečo?"
+   ],
+   [
+    "Welche/r/s?",
+    "Ktorý/á/é?"
+   ]
+  ],
+  "tip": "Kde = Wo (Ort), Kam = Wohin (Richtung). Wichtiger Unterschied!"
+ },
+ {
+  "id": "possessivpronomen",
+  "nr": 9,
+  "title": "Possessivpronomen",
+  "description": "mein, dein, sein...",
+  "level": "A1",
+  "table": [
+   [
+    "mein (m)",
+    "môj"
+   ],
+   [
+    "mein (f)",
+    "moja"
+   ],
+   [
+    "mein (n)",
+    "moje"
+   ],
+   [
+    "dein (m)",
+    "tvoj"
+   ],
+   [
+    "dein (f)",
+    "tvoja"
+   ],
+   [
+    "sein/ihr (m)",
+    "jeho/jej"
+   ],
+   [
+    "unser",
+    "náš/naša"
+   ],
+   [
+    "euer",
+    "váš/vaša"
+   ]
+  ],
+  "tip": "Das Possessivpronomen richtet sich nach dem Geschlecht des Substantivs."
+ },
+ {
+  "id": "adjektive-grundformen",
+  "nr": 10,
+  "title": "Adjektive — Grundformen",
+  "description": "groß, klein, gut, schlecht...",
+  "level": "A1",
+  "table": [
+   [
+    "groß",
+    "veľký/á/é"
+   ],
+   [
+    "klein",
+    "malý/á/é"
+   ],
+   [
+    "gut",
+    "dobrý/á/é"
+   ],
+   [
+    "schlecht",
+    "zlý/á/é"
+   ],
+   [
+    "schön",
+    "pekný/á/é"
+   ],
+   [
+    "neu",
+    "nový/á/é"
+   ],
+   [
+    "alt",
+    "starý/á/é"
+   ],
+   [
+    "schnell",
+    "rýchly/á/é"
+   ],
+   [
+    "langsam",
+    "pomalý/á/é"
+   ],
+   [
+    "teuer",
+    "drahý/á/é"
+   ]
+  ],
+  "tip": "Adjektive ändern ihre Endung je nach Geschlecht: -ý (m), -á (f), -é (n)."
+ },
+ {
+  "id": "plural-mehrzahl",
+  "nr": 11,
+  "title": "Plural — Mehrzahl",
+  "description": "Wie man Mehrzahl bildet",
+  "level": "A2",
+  "table": [
+   [
+    "Haus — Häuser",
+    "dom — domy"
+   ],
+   [
+    "Auto — Autos",
+    "auto — autá"
+   ],
+   [
+    "Mann — Männer",
+    "muž — muži"
+   ],
+   [
+    "Frau — Frauen",
+    "žena — ženy"
+   ],
+   [
+    "Kind — Kinder",
+    "dieťa — deti"
+   ],
+   [
+    "Tag — Tage",
+    "deň — dni"
+   ],
+   [
+    "Stadt — Städte",
+    "mesto — mestá"
+   ]
+  ],
+  "tip": "Die häufigste Pluralendung ist -y oder -i. Es gibt aber viele Ausnahmen!"
+ },
+ {
+  "id": "uhrzeiten",
+  "nr": 12,
+  "title": "Uhrzeiten",
+  "description": "Wie spät ist es?",
+  "level": "A2",
+  "table": [
+   [
+    "Wie spät ist es?",
+    "Koľko je hodín?"
+   ],
+   [
+    "Es ist 1 Uhr",
+    "Je jedna hodina"
+   ],
+   [
+    "Es ist 2 Uhr",
+    "Sú dve hodiny"
+   ],
+   [
+    "Es ist 5 Uhr",
+    "Je päť hodín"
+   ],
+   [
+    "Um 8 Uhr",
+    "O ôsmej"
+   ],
+   [
+    "halb 3",
+    "pol tretej"
+   ],
+   [
+    "Viertel nach 4",
+    "štvrt na päť"
+   ],
+   [
+    "Mittag",
+    "poludnie"
+   ],
+   [
+    "Mitternacht",
+    "polnoc"
+   ]
+  ],
+  "tip": "pol tretej = halb drei (wörtlich: Hälfte des dritten). Etwas gewöhnungsbedürftig!"
+ },
+ {
+  "id": "kasus-einfuhrung",
+  "nr": 13,
+  "title": "Kasus — Einführung",
+  "description": "Nominativ & Akkusativ",
+  "level": "A2",
+  "table": [
+   [
+    "Wer/Was? (Nom.)",
+    "Nominatív"
+   ],
+   [
+    "der Mann",
+    "muž"
+   ],
+   [
+    "Wen/Was? (Akk.)",
+    "Akuzatív"
+   ],
+   [
+    "den Mann (sehen)",
+    "muža (vidieť)"
+   ],
+   [
+    "die Frau (Nom.)",
+    "zеna"
+   ],
+   [
+    "die Frau (Akk.)",
+    "zеnu (vidieť)"
+   ],
+   [
+    "das Kind (Nom.)",
+    "dieťa"
+   ],
+   [
+    "das Kind (Akk.)",
+    "dieťa (vidieť)"
+   ]
+  ],
+  "tip": "Im Slowakischen gibt es 6 Fälle. Nominativ und Akkusativ sind der Einstieg."
+ },
+ {
+  "id": "zahlen-1-20",
+  "nr": 14,
+  "title": "Zahlen 1–20",
+  "description": "Slowakische Zahlen",
+  "level": "A1",
+  "table": [
+   [
+    "1",
+    "jeden"
+   ],
+   [
+    "2",
+    "dva"
+   ],
+   [
+    "3",
+    "tri"
+   ],
+   [
+    "4",
+    "štyri"
+   ],
+   [
+    "5",
+    "päť"
+   ],
+   [
+    "6",
+    "šesť"
+   ],
+   [
+    "7",
+    "sedem"
+   ],
+   [
+    "8",
+    "osem"
+   ],
+   [
+    "9",
+    "deväť"
+   ],
+   [
+    "10",
+    "desať"
+   ],
+   [
+    "11",
+    "jednásť"
+   ],
+   [
+    "15",
+    "pätnsť"
+   ],
+   [
+    "20",
+    "dvadsať"
+   ]
+  ],
+  "tip": "Ab 11 endet die Zahl auf -násť (entspricht dem deutschen -zehn)."
+ }
+]

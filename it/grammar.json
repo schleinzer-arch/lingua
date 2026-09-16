@@ -1,0 +1,644 @@
+[
+ {
+  "id": "pronomi-personali",
+  "nr": 1,
+  "level": "A1",
+  "title": "Persönliche Fürwörter",
+  "description": "ich, du, er, sie …",
+  "table": [
+   [
+    "ich",
+    "io"
+   ],
+   [
+    "du",
+    "tu"
+   ],
+   [
+    "er",
+    "lui"
+   ],
+   [
+    "sie",
+    "lei"
+   ],
+   [
+    "Sie (formell)",
+    "Lei"
+   ],
+   [
+    "wir",
+    "noi"
+   ],
+   [
+    "ihr",
+    "voi"
+   ],
+   [
+    "sie (Plural)",
+    "loro"
+   ]
+  ],
+  "tip": "Im Italienischen lässt man das Fürwort meist weg — die Verbendung sagt schon, wer gemeint ist. Man sagt einfach Sono a casa, nicht Io sono a casa."
+ },
+ {
+  "id": "essere",
+  "nr": 2,
+  "level": "A1",
+  "title": "essere — sein",
+  "description": "unregelmäßig, das wichtigste Verb",
+  "table": [
+   [
+    "ich bin",
+    "sono"
+   ],
+   [
+    "du bist",
+    "sei"
+   ],
+   [
+    "er/sie ist",
+    "è"
+   ],
+   [
+    "wir sind",
+    "siamo"
+   ],
+   [
+    "ihr seid",
+    "siete"
+   ],
+   [
+    "sie sind",
+    "sono"
+   ]
+  ],
+  "tip": "sono heißt sowohl ich bin als auch sie sind. Welches gemeint ist, ergibt der Zusammenhang."
+ },
+ {
+  "id": "avere",
+  "nr": 3,
+  "level": "A1",
+  "title": "avere — haben",
+  "description": "ebenfalls unregelmäßig",
+  "table": [
+   [
+    "ich habe",
+    "ho"
+   ],
+   [
+    "du hast",
+    "hai"
+   ],
+   [
+    "er/sie hat",
+    "ha"
+   ],
+   [
+    "wir haben",
+    "abbiamo"
+   ],
+   [
+    "ihr habt",
+    "avete"
+   ],
+   [
+    "sie haben",
+    "hanno"
+   ]
+  ],
+  "tip": "Das h wird nie gesprochen. ho klingt wie o, hanno wie anno."
+ },
+ {
+  "id": "articolo-determinativo",
+  "nr": 4,
+  "level": "A1",
+  "title": "Bestimmter Artikel",
+  "description": "der, die, das",
+  "table": [
+   [
+    "männlich",
+    "il treno"
+   ],
+   [
+    "männlich vor s+Konsonant, z, ps, gn",
+    "lo studente"
+   ],
+   [
+    "männlich vor Vokal",
+    "l'amico"
+   ],
+   [
+    "weiblich",
+    "la casa"
+   ],
+   [
+    "weiblich vor Vokal",
+    "l'acqua"
+   ],
+   [
+    "männlich Plural",
+    "i treni"
+   ],
+   [
+    "männlich Plural (lo/l')",
+    "gli studenti"
+   ],
+   [
+    "weiblich Plural",
+    "le case"
+   ]
+  ],
+  "tip": "Deshalb steht in der Wortliste der Artikel immer dabei — er verrät das Geschlecht, das man sonst raten müsste."
+ },
+ {
+  "id": "articolo-indeterminativo",
+  "nr": 5,
+  "level": "A1",
+  "title": "Unbestimmter Artikel",
+  "description": "ein, eine",
+  "table": [
+   [
+    "männlich",
+    "un treno"
+   ],
+   [
+    "männlich vor s+Konsonant, z",
+    "uno studente"
+   ],
+   [
+    "weiblich",
+    "una casa"
+   ],
+   [
+    "weiblich vor Vokal",
+    "un'amica"
+   ]
+  ],
+  "tip": "un steht ohne Apostroph, un' nur vor weiblichen Wörtern mit Vokal: un amico, aber un'amica."
+ },
+ {
+  "id": "verbi-are",
+  "nr": 6,
+  "level": "A1",
+  "title": "Verben auf -are",
+  "description": "die größte Gruppe, hier parlare",
+  "table": [
+   [
+    "ich spreche",
+    "parlo"
+   ],
+   [
+    "du sprichst",
+    "parli"
+   ],
+   [
+    "er/sie spricht",
+    "parla"
+   ],
+   [
+    "wir sprechen",
+    "parliamo"
+   ],
+   [
+    "ihr sprecht",
+    "parlate"
+   ],
+   [
+    "sie sprechen",
+    "parlano"
+   ]
+  ],
+  "tip": "Nach diesem Muster gehen Hunderte Verben: mangiare, lavorare, abitare, comprare."
+ },
+ {
+  "id": "verbi-ere",
+  "nr": 7,
+  "level": "A1",
+  "title": "Verben auf -ere",
+  "description": "zweite Gruppe, hier prendere",
+  "table": [
+   [
+    "ich nehme",
+    "prendo"
+   ],
+   [
+    "du nimmst",
+    "prendi"
+   ],
+   [
+    "er/sie nimmt",
+    "prende"
+   ],
+   [
+    "wir nehmen",
+    "prendiamo"
+   ],
+   [
+    "ihr nehmt",
+    "prendete"
+   ],
+   [
+    "sie nehmen",
+    "prendono"
+   ]
+  ],
+  "tip": "Die Endungen gleichen denen auf -are, nur in der dritten Person und im ihr steht e statt a."
+ },
+ {
+  "id": "verbi-ire",
+  "nr": 8,
+  "level": "A2",
+  "title": "Verben auf -ire",
+  "description": "dritte Gruppe, zwei Muster",
+  "table": [
+   [
+    "ich schlafe",
+    "dormo"
+   ],
+   [
+    "du schläfst",
+    "dormi"
+   ],
+   [
+    "er/sie schläft",
+    "dorme"
+   ],
+   [
+    "wir schlafen",
+    "dormiamo"
+   ],
+   [
+    "ihr schlaft",
+    "dormite"
+   ],
+   [
+    "sie schlafen",
+    "dormono"
+   ],
+   [
+    "ich verstehe",
+    "capisco"
+   ],
+   [
+    "du verstehst",
+    "capisci"
+   ],
+   [
+    "er/sie versteht",
+    "capisce"
+   ],
+   [
+    "sie verstehen",
+    "capiscono"
+   ]
+  ],
+  "tip": "Viele Verben auf -ire schieben ein -isc- ein: capire, finire, preferire. Das muss man sich pro Verb merken."
+ },
+ {
+  "id": "negazione",
+  "nr": 9,
+  "level": "A1",
+  "title": "Verneinung",
+  "description": "non vor dem Verb",
+  "table": [
+   [
+    "Ich verstehe",
+    "Capisco"
+   ],
+   [
+    "Ich verstehe nicht",
+    "Non capisco"
+   ],
+   [
+    "Ich bin",
+    "Sono"
+   ],
+   [
+    "Ich bin nicht",
+    "Non sono"
+   ],
+   [
+    "Ich habe",
+    "Ho"
+   ],
+   [
+    "Ich habe nicht",
+    "Non ho"
+   ],
+   [
+    "Ich weiß nicht",
+    "Non so"
+   ],
+   [
+    "Niemand kommt",
+    "Non viene nessuno"
+   ]
+  ],
+  "tip": "non steht immer direkt vor dem Verb. Anders als im Deutschen ist die doppelte Verneinung richtig: non ho niente heißt ich habe nichts."
+ },
+ {
+  "id": "interrogativi",
+  "nr": 10,
+  "level": "A1",
+  "title": "Fragewörter",
+  "description": "wer, was, wo, wann",
+  "table": [
+   [
+    "Wer?",
+    "Chi?"
+   ],
+   [
+    "Was?",
+    "Che cosa? / Cosa?"
+   ],
+   [
+    "Wo?",
+    "Dove?"
+   ],
+   [
+    "Woher?",
+    "Da dove?"
+   ],
+   [
+    "Wann?",
+    "Quando?"
+   ],
+   [
+    "Wie?",
+    "Come?"
+   ],
+   [
+    "Warum?",
+    "Perché?"
+   ],
+   [
+    "Wie viel?",
+    "Quanto?"
+   ],
+   [
+    "Welche/r/s?",
+    "Quale?"
+   ]
+  ],
+  "tip": "Perché heißt sowohl warum als auch weil — Frage und Antwort benutzen dasselbe Wort."
+ },
+ {
+  "id": "possessivi",
+  "nr": 11,
+  "level": "A1",
+  "title": "Besitzanzeigende Wörter",
+  "description": "mein, dein, sein",
+  "table": [
+   [
+    "mein (m)",
+    "il mio"
+   ],
+   [
+    "meine (f)",
+    "la mia"
+   ],
+   [
+    "dein (m)",
+    "il tuo"
+   ],
+   [
+    "deine (f)",
+    "la tua"
+   ],
+   [
+    "sein/ihr (m)",
+    "il suo"
+   ],
+   [
+    "seine/ihre (f)",
+    "la sua"
+   ],
+   [
+    "unser",
+    "il nostro"
+   ],
+   [
+    "euer",
+    "il vostro"
+   ],
+   [
+    "ihr (Plural)",
+    "il loro"
+   ]
+  ],
+  "tip": "Der Artikel gehört dazu: il mio libro. Nur bei Verwandten in der Einzahl fällt er weg — mio fratello, mia madre."
+ },
+ {
+  "id": "aggettivi",
+  "nr": 12,
+  "level": "A1",
+  "title": "Adjektive",
+  "description": "richten sich nach dem Substantiv",
+  "table": [
+   [
+    "der hohe Berg",
+    "il monte alto"
+   ],
+   [
+    "die hohe Mauer",
+    "la parete alta"
+   ],
+   [
+    "die hohen Berge",
+    "i monti alti"
+   ],
+   [
+    "die hohen Mauern",
+    "le pareti alte"
+   ],
+   [
+    "der große Mann",
+    "l'uomo grande"
+   ],
+   [
+    "die große Frau",
+    "la donna grande"
+   ],
+   [
+    "die großen Männer",
+    "gli uomini grandi"
+   ]
+  ],
+  "tip": "Adjektive auf -e haben nur eine Form für männlich und weiblich: grande, verde, difficile. Im Plural wird daraus -i."
+ },
+ {
+  "id": "plurale",
+  "nr": 13,
+  "level": "A2",
+  "title": "Mehrzahl",
+  "description": "Endungen statt Umlaut",
+  "table": [
+   [
+    "der Zug — die Züge",
+    "il treno — i treni"
+   ],
+   [
+    "die Karte — die Karten",
+    "la carta — le carte"
+   ],
+   [
+    "der Schlüssel — die Schlüssel",
+    "la chiave — le chiavi"
+   ],
+   [
+    "der Mann — die Männer",
+    "l'uomo — gli uomini"
+   ],
+   [
+    "die Hand — die Hände",
+    "la mano — le mani"
+   ],
+   [
+    "die Stadt — die Städte",
+    "la città — le città"
+   ]
+  ],
+  "tip": "Grundregel: -o wird zu -i, -a wird zu -e, -e wird zu -i. Wörter mit Betonung am Ende wie città bleiben unverändert."
+ },
+ {
+  "id": "ora",
+  "nr": 14,
+  "level": "A2",
+  "title": "Uhrzeit",
+  "description": "Wie spät ist es?",
+  "table": [
+   [
+    "Wie spät ist es?",
+    "Che ore sono?"
+   ],
+   [
+    "Es ist ein Uhr",
+    "È l'una"
+   ],
+   [
+    "Es ist zwei Uhr",
+    "Sono le due"
+   ],
+   [
+    "Es ist fünf Uhr",
+    "Sono le cinque"
+   ],
+   [
+    "halb drei",
+    "le due e mezza"
+   ],
+   [
+    "Viertel nach vier",
+    "le quattro e un quarto"
+   ],
+   [
+    "Viertel vor fünf",
+    "le cinque meno un quarto"
+   ],
+   [
+    "um acht Uhr",
+    "alle otto"
+   ],
+   [
+    "Mittag",
+    "mezzogiorno"
+   ],
+   [
+    "Mitternacht",
+    "mezzanotte"
+   ]
+  ],
+  "tip": "Nur bei ein Uhr steht die Einzahl: è l'una. Ab zwei heißt es sono le."
+ },
+ {
+  "id": "numeri",
+  "nr": 15,
+  "level": "A1",
+  "title": "Zahlen 1–20",
+  "description": "Grundzahlen",
+  "table": [
+   [
+    "1",
+    "uno"
+   ],
+   [
+    "2",
+    "due"
+   ],
+   [
+    "3",
+    "tre"
+   ],
+   [
+    "4",
+    "quattro"
+   ],
+   [
+    "5",
+    "cinque"
+   ],
+   [
+    "6",
+    "sei"
+   ],
+   [
+    "7",
+    "sette"
+   ],
+   [
+    "8",
+    "otto"
+   ],
+   [
+    "9",
+    "nove"
+   ],
+   [
+    "10",
+    "dieci"
+   ],
+   [
+    "11",
+    "undici"
+   ],
+   [
+    "12",
+    "dodici"
+   ],
+   [
+    "13",
+    "tredici"
+   ],
+   [
+    "14",
+    "quattordici"
+   ],
+   [
+    "15",
+    "quindici"
+   ],
+   [
+    "16",
+    "sedici"
+   ],
+   [
+    "17",
+    "diciassette"
+   ],
+   [
+    "18",
+    "diciotto"
+   ],
+   [
+    "19",
+    "diciannove"
+   ],
+   [
+    "20",
+    "venti"
+   ]
+  ],
+  "tip": "Ab 17 dreht sich der Aufbau um: sedici ist sechs-zehn, diciassette dagegen zehn-sieben."
+ }
+]
