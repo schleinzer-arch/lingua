@@ -106,8 +106,12 @@ const Store = {
 
   day(key) {
     const k = key || this.today();
-    if (!this.data.days[k]) this.data.days[k] = { seen: 0, right: 0, newWords: 0, sessions: 0 };
-    if (this.data.days[k].sessions === undefined) this.data.days[k].sessions = 0;
+    if (!this.data.days[k]) this.data.days[k] =
+      { seen: 0, right: 0, newWords: 0, sessions: 0, drill: 0, drillRight: 0 };
+    const d = this.data.days[k];
+    if (d.sessions === undefined) d.sessions = 0;
+    if (d.drill === undefined) d.drill = 0;
+    if (d.drillRight === undefined) d.drillRight = 0;
     return this.data.days[k];
   },
 
@@ -245,32 +249,84 @@ const Voice = {
   ready: false,
   pick: null,
 
+  /* Alle Stimmen der aktiven Sprache — fuer die Auswahl im Profil. */
+  list(lang) {
+    if (!window.speechSynthesis) return [];
+    const L = LANGS[lang || currentLang()] || LANGS.sk;
+    const main = L.speech.slice(0, 2).toLowerCase();
+    const back = L.fallback.slice(0, 2).toLowerCase();
+    const vs = window.speechSynthesis.getVoices();
+    const a = vs.filter(v => v.lang.toLowerCase().startsWith(main));
+    return a.length ? a : vs.filter(v => v.lang.toLowerCase().startsWith(back));
+  },
+
+  /* Die selbst gewaehlte Stimme steht pro Sprache im Geraetespeicher,
+     nicht im Lernstand — sie gehoert zum Geraet. */
+  chosenKey() { return 'lingua_voice_' + currentLang(); },
+  chosen() {
+    try { return localStorage.getItem(this.chosenKey()) || ''; } catch (e) { return ''; }
+  },
+  choose(uri) {
+    try { localStorage.setItem(this.chosenKey(), uri || ''); } catch (e) {}
+    this.resolve();
+  },
+
+  rate() {
+    try {
+      const v = parseFloat(localStorage.getItem('lingua_rate'));
+      return isNaN(v) ? 0.8 : v;
+    } catch (e) { return 0.8; }
+  },
+  setRate(v) { try { localStorage.setItem('lingua_rate', String(v)); } catch (e) {} },
+
+  resolve() {
+    const vs = this.list();
+    if (!vs.length) { this.pick = null; return; }
+    const want = this.chosen();
+    this.pick = (want && vs.find(v => v.voiceURI === want)) || vs[0];
+    this.ready = true;
+  },
+
   init() {
     if (!window.speechSynthesis) return;
-    const load = () => {
-      const vs = window.speechSynthesis.getVoices();
-      if (!vs.length) return;
-      const L = LANGS[currentLang()] || LANGS.sk;
-      const main = L.speech.slice(0, 2).toLowerCase();
-      const back = L.fallback.slice(0, 2).toLowerCase();
-      this.pick = vs.find(v => v.lang.toLowerCase().startsWith(main))
-        || vs.find(v => v.lang.toLowerCase().startsWith(back))
-        || null;
-      this.ready = true;
-    };
+    const load = () => { if (window.speechSynthesis.getVoices().length) this.resolve(); };
     load();
     window.speechSynthesis.onvoiceschanged = load;
     setTimeout(load, 700);
   },
 
-  say(text, rate) {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
+  say(text, opts) {
+    if (!window.speechSynthesis || !text) return;
+    opts = opts || {};
+    const SS = window.speechSynthesis;
+    SS.cancel();
+
+    // Einzelne Woerter klingen ohne Satzzeichen abgehackt, weil die
+    // Sprachausgabe keine Satzmelodie ansetzt.
+    let t = String(text).trim();
+    if (!/[.?!\u2026]$/.test(t) && t.split(/\s+/).length <= 2) t += '.';
+
+    const conf = LANGS[currentLang()] || LANGS.sk;
+    const u = new SpeechSynthesisUtterance(t);
     if (this.pick) u.voice = this.pick;
-    u.lang = (LANGS[currentLang()] || LANGS.sk).speech;
-    u.rate = rate || 0.88;
-    window.speechSynthesis.speak(u);
+    u.lang = conf.speech;
+    u.rate = opts.rate || this.rate();
+
+    let lief = false;
+    u.onstart = () => { lief = true; };
+    SS.speak(u);
+
+    // Auf iOS bleibt speak() gelegentlich still, besonders nachdem die
+    // Seite im Hintergrund war. Dann einmal ohne feste Stimme nachfassen.
+    if (opts.retry === false) return;
+    setTimeout(() => {
+      if (lief) return;
+      SS.cancel();
+      const u2 = new SpeechSynthesisUtterance(t);
+      u2.lang = conf.speech;
+      u2.rate = opts.rate || this.rate();
+      SS.speak(u2);
+    }, 350);
   },
 };
 
@@ -398,6 +454,7 @@ const Sync = {
         newWords: Math.max(x.newWords || 0, y.newWords || 0),
         sessions: Math.max(x.sessions || 0, y.sessions || 0),
         drill: Math.max(x.drill || 0, y.drill || 0),
+        drillRight: Math.max(x.drillRight || 0, y.drillRight || 0),
       };
     });
     return out;
@@ -699,13 +756,17 @@ const Stats = {
     return d ? d.newWords : 0;
   },
 
+  /* Trefferquote über Session und Pauken zusammen.
+     Das Pauken zaehlt getrennt, damit es den Tagesring nicht aufblaeht —
+     in die Quote gehoert es aber hinein. */
   accuracy() {
-    let seen = 0, right = 0;
+    let ok = 0, all = 0;
     for (const k in Store.data.days) {
-      seen += Store.data.days[k].seen;
-      right += Store.data.days[k].right;
+      const d = Store.data.days[k];
+      ok += (d.right || 0) + (d.drillRight || 0);
+      all += (d.seen || 0) + (d.drill || 0);
     }
-    return seen ? Math.round(right / seen * 100) : 0;
+    return all ? Math.round(ok / all * 100) : 0;
   },
 
   byBox() {

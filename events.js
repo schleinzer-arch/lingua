@@ -261,11 +261,44 @@ function bindAll() {
     App.render();
   });
 
+  /* --- Stimme und Tempo --- */
+  on('[data-voice-try]', el => {
+    const uri = el.getAttribute('data-voice-try');
+    const v = Voice.list().find(x => x.voiceURI === uri);
+    const alt = Voice.pick;
+    if (v) Voice.pick = v;
+    Voice.say(LANGS[currentLang()].hello === 'Dnes'
+      ? 'Dobr\u00fd de\u0148, ako sa m\u00e1te?'
+      : 'Buongiorno, come sta?');
+    setTimeout(() => { Voice.pick = alt; }, 60);
+  });
+
+  on('[data-voice-pick]', el => {
+    Voice.choose(el.getAttribute('data-voice-pick'));
+    App.render();
+  });
+
   on('[data-speech-toggle]', () => {
     Store.data.settings.speech = Store.data.settings.speech === false;
     Store.save();
     App.render();
   });
+
+  /* --- Temporegler --- */
+  const rate = App.el.querySelector('#rate');
+  if (rate) {
+    const show = App.el.querySelector('#ratev');
+    rate.addEventListener('input', () => {
+      const v = parseFloat(rate.value);
+      if (show) show.textContent = v.toFixed(2);
+      Voice.setRate(v);
+    });
+    rate.addEventListener('change', () => {
+      Voice.say(LANGS[currentLang()].hello === 'Dnes'
+        ? 'Dobr\u00fd de\u0148'
+        : 'Buongiorno');
+    });
+  }
 
   /* --- Suche in der Wortliste --- */
   const search = App.el.querySelector('#wsearch');

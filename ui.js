@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '5';
+const APP_VERSION = '6';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], byId: {}, sentById: {} };
 
 const App = {
@@ -150,16 +150,22 @@ const Home = {
     const counts = this.preview();
 
     return '<div class="safe-top"></div><div class="view fade">' +
+      // Feste Plätze: Slowakisch links, Italienisch rechts. Aktiv gross und
+      // dunkel, das andere kleiner und grau. Die Unterzeile steht unter dem
+      // aktiven Wort, damit klar ist, wozu sie gehoert.
       '<div class="hero">' +
-        '<div class="display">' + esc(L.hello) + '</div>' +
-        '<div class="small" style="margin-top:7px;">' + esc(L.helloDe) +
-          ' &middot; Stufe ' + lvl + '</div>' +
+        '<div class="greets">' +
+          LANG_ORDER.map(function (code) {
+            const G = LANGS[code];
+            const on = code === L.code;
+            return on
+              ? '<span class="greet on">' + esc(G.hello) + '</span>'
+              : '<button class="greet off" data-lang="' + code + '">' + esc(G.hello) + '</button>';
+          }).join('') +
+        '</div>' +
+        '<div class="small greetsub' + (L.code === LANG_ORDER[0] ? '' : ' right') + '">' +
+          esc(L.helloDe) + ' &middot; Stufe ' + lvl + '</div>' +
       '</div>' +
-      // Die andere Sprache bleibt sichtbar, aber leise
-      '<div class="langswitch"><button data-lang="' + O.code + '">' +
-        '<span class="flag">' + O.flag + '</span>' +
-        '<b>' + esc(O.hello) + '</b><span class="chev">\u203A</span></button></div>' +
-
       '<div class="plan"><div class="panel">' +
         '<div class="plan-row"><span class="dot"></span>' + counts.fresh + ' neue Wörter</div>' +
         '<div class="plan-row"><span class="dot soft"></span>' + counts.due + ' Wiederholungen</div>' +
@@ -382,7 +388,7 @@ const Run = {
 
     return '<div class="view fade"><div class="view-pad">' +
       '<div class="muted center" style="margin:6px 0 16px;">' +
-        (q.dir === 'de2sk' ? 'Wie heißt das auf Slowakisch?' : 'Was bedeutet das?') + '</div>' +
+        (q.dir === 'de2sk' ? 'Wie heißt das auf ' + LANGS[currentLang()].name + '?' : 'Was bedeutet das?') + '</div>' +
       '<div class="wordcard" style="min-height:150px;">' +
         (q.dir === 'sk2de' ? '<button class="speak" data-say="' + esc(v.w) + '">' + ICON.speak + '</button>' : '') +
         '<div class="word' + (q.ask.length > 13 ? ' long' : '') + '">' + marked(q.ask) + '</div>' +
@@ -397,13 +403,14 @@ const Run = {
     const v = it.word, shown = this.phase === 'a';
     const cls = shown ? (this.verdict === 'wrong' ? ' wrong' : ' right') : '';
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Schreib das slowakische Wort</div>' +
+      '<div class="muted center" style="margin:6px 0 16px;">Schreib das Wort auf ' +
+        LANGS[currentLang()].name + '</div>' +
       '<div class="wordcard" style="min-height:130px;">' +
         '<div class="word' + (v.de.length > 13 ? ' long' : '') + '">' + esc(v.de) + '</div>' +
       '</div>' +
       '<input class="field' + cls + '" id="typed" style="margin-top:16px;" ' +
         'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
-        'placeholder="slowakisch…" ' + (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
+        'placeholder="' + LANGS[currentLang()].name.toLowerCase() + '…" ' + (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
       (shown ? this.feedback(this.verdict, this.picked, v.w, v.de) : '') +
       '<div class="spacer"></div></div></div>' +
       '<div class="bottom">' +
@@ -606,8 +613,8 @@ const Drill = {
       Leitner.demote(W, id);       // Ein Fehler zählt immer
     }
     const d = Store.day();
-    d.right += ok ? 1 : 0;
-    d.drill = (d.drill || 0) + 1;  // getrennt von der Session gezählt
+    d.drill = (d.drill || 0) + 1;            // getrennt von der Session
+    d.drillRight = (d.drillRight || 0) + (ok ? 1 : 0);
     Store.save();
     App.render();
     setTimeout(() => {
@@ -651,7 +658,7 @@ const Drill = {
         '<div class="wordcard fade" style="min-height:132px;">' +
           (q.dir === 'sk2de' ? '<button class="speak" data-say="' + esc(q.ask) + '">' +
             ICON.speak + '</button>' : '') +
-          '<span class="chip">' + esc(q.dir === 'de2sk' ? 'auf Slowakisch' : 'auf Deutsch') + '</span>' +
+          '<span class="chip">' + esc(q.dir === 'de2sk' ? 'auf ' + LANGS[currentLang()].name : 'auf Deutsch') + '</span>' +
           '<div class="word' + (q.ask.length > 14 ? ' long' : '') + '" style="margin-top:12px;">' +
             marked(q.ask) + '</div>' +
         '</div>' +
@@ -807,6 +814,7 @@ function relTime(ms) {
 const Profile = {
   view() {
     const sy = Sync.cfg();
+    const vs = Voice.list();
     const m = Stats.mastered(), t = Stats.touched();
     const c = Stats.cefr();
     const pct = Math.round(c.at / c.next * 100);
@@ -847,6 +855,30 @@ const Profile = {
         '<span class="chip">' + m + '</span></div>' +
         '<div class="row"><div class="row-main"><div class="row-sk">Insgesamt verfügbar</div></div>' +
         '<span class="chip plain">' + DB.vocab.length + '</span></div>' +
+      '</div>' +
+
+      '<div class="head" style="margin:26px 0 10px;">Sprachausgabe</div>' +
+      '<div class="card">' +
+        '<div class="small" style="margin-bottom:12px;">Tempo</div>' +
+        '<input type="range" class="slider" id="rate" min="0.5" max="1.1" step="0.05" value="' +
+          Voice.rate() + '"/>' +
+        '<div class="tiny" style="display:flex;justify-content:space-between;margin-top:2px;">' +
+          '<span>langsam</span><span id="ratev">' + Voice.rate().toFixed(2) + '</span><span>normal</span></div>' +
+        (vs.length
+          ? '<div class="small" style="margin:18px 0 8px;">Stimme</div>' +
+            vs.map(function (v, i) {
+              const on = Voice.pick && Voice.pick.voiceURI === v.voiceURI;
+              return '<div class="row"><div class="row-main">' +
+                '<div class="row-sk">' + esc(v.name) +
+                  (i > 0 ? ' <span class="chip plain">Variante ' + (i + 1) + '</span>' : '') + '</div>' +
+                '<div class="row-de">' + esc(v.lang) + '</div></div>' +
+                '<button class="btn-mini" data-voice-try="' + esc(v.voiceURI) + '">Hören</button>' +
+                '<button class="btn-mini' + (on ? ' on' : '') + '" data-voice-pick="' +
+                  esc(v.voiceURI) + '">' + (on ? 'gewählt' : 'wählen') + '</button></div>';
+            }).join('')
+          : '<div class="small" style="margin-top:14px;">Für diese Sprache ist keine Stimme ' +
+            'installiert. Unter Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen ' +
+            'nachladen.</div>') +
       '</div>' +
 
       '<div class="head" style="margin:26px 0 10px;">Sprechübungen</div>' +
@@ -920,7 +952,7 @@ const Legal = {
         'color:var(--cobalt);text-decoration:none;">schleinzer@gmail.com</a></div>') +
 
       block('Zweck', '<div class="small">Nicht-kommerzielle Privatanwendung zum Erlernen der ' +
-        'slowakischen Sprache, ohne Erwerbsabsicht.</div>') +
+        'slowakischen und italienischen Sprache, ohne Erwerbsabsicht.</div>') +
 
       block('Datenschutz',
         '<div class="small" style="margin-bottom:10px;">Verantwortlicher im Sinne der DSGVO: ' +
