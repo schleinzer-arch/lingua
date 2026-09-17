@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Sprachausgabe-Test</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{background:#FBF9F4;font-family:-apple-system,system-ui,sans-serif;color:#16202E;
+    padding:22px 16px 70px;max-width:560px;margin:0 auto;line-height:1.5;font-size:15px;}
+  h1{font-size:22px;font-weight:650;margin-bottom:4px;}
+  .sub{font-size:13.5px;color:#6B7585;margin-bottom:20px;}
+  .card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;
+    box-shadow:0 1px 4px rgba(0,0,0,.06);}
+  .card h2{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+    color:#AAA;margin-bottom:10px;}
+  .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;
+    border-bottom:1px solid #F0F0F0;font-size:14px;}
+  .row:last-child{border-bottom:none;}
+  .row .k{color:#6B7585;} .row .v{font-weight:600;text-align:right;word-break:break-word;}
+  .ok{color:#2E7D52;} .bad{color:#C0392B;} .warn{color:#C8892B;}
+  button{font-family:inherit;font-size:15px;font-weight:600;border:none;cursor:pointer;
+    background:#1E4FA3;color:#fff;padding:14px;border-radius:14px;width:100%;margin-top:8px;}
+  button.sec{background:#fff;color:#16202E;border:1.5px solid #E9E5DC;font-weight:500;}
+  .phrase{background:#EDF2FA;border-left:3px solid #1E4FA3;border-radius:10px;
+    padding:12px 14px;margin:12px 0;}
+  .phrase .l{font-size:11px;color:#1E4FA3;font-weight:600;margin-bottom:3px;}
+  .phrase .t{font-size:20px;font-family:Georgia,serif;}
+  .langs{display:flex;gap:6px;margin-bottom:12px;}
+  .langs button{flex:1;padding:9px;font-size:13px;border-radius:99px;margin:0;
+    background:transparent;color:#6B7585;border:1.5px solid #E9E5DC;font-weight:500;}
+  .langs button.on{background:#1E4FA3;color:#fff;border-color:#1E4FA3;}
+  .voice{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #F0F0F0;}
+  .voice:last-child{border-bottom:none;}
+  .voice .n{flex:1;min-width:0;}
+  .voice .nm{font-size:14.5px;font-weight:600;word-break:break-word;}
+  .voice .mt{font-size:11.5px;color:#AAA;margin-top:1px;}
+  .voice button{width:auto;margin:0;padding:9px 15px;font-size:13px;border-radius:99px;flex:none;}
+  .voice.sel{background:#EDF2FA;margin:0 -8px;padding:11px 8px;border-radius:10px;}
+  .badge{font-size:10.5px;padding:2px 7px;border-radius:99px;background:#EDF2FA;color:#1E4FA3;}
+  .badge.siri{background:#FCEFED;color:#C0392B;}
+  input[type=range]{width:100%;margin-top:6px;accent-color:#1E4FA3;}
+  .rate{display:flex;justify-content:space-between;font-size:13px;color:#6B7585;}
+  .rateval{font-weight:700;color:#16202E;font-variant-numeric:tabular-nums;}
+  #log{background:#1c1c1e;color:#d8d8d8;border-radius:12px;padding:12px;
+    font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.6;
+    max-height:280px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;}
+  .hint{font-size:12.5px;color:#6B7585;margin-top:10px;}
+  .tip{background:#FBF3E4;border-radius:10px;padding:12px 14px;font-size:13px;
+    color:#8A6420;margin-bottom:12px;line-height:1.55;}
+</style>
+</head>
+<body>
+
+<h1>Sprachausgabe-Test</h1>
+<div class="sub">Klärt, warum es stumm bleibt — und welche Stimme am besten klingt.</div>
+
+<div class="tip">
+  <b>Vorher:</b> Einstellungen &rarr; Bedienungshilfen &rarr; Gesprochene Inhalte &rarr; Stimmen
+  &rarr; Slowakisch bzw. Italienisch &rarr; Stimme antippen &rarr; <i>Erweitert</i> oder
+  <i>Premium</i> laden. Danach Chrome ganz schließen und diese Seite neu öffnen.
+  Stimmen mit „Siri“ im Namen sperrt Apple für Websites.
+</div>
+
+<div class="card">
+  <h2>1 &middot; Umgebung</h2>
+  <div class="row"><span class="k">speechSynthesis</span><span class="v" id="e-api">–</span></div>
+  <div class="row"><span class="k">Stimmen gesamt</span><span class="v" id="e-n">–</span></div>
+  <div class="row"><span class="k">für diese Sprache</span><span class="v" id="e-cur">–</span></div>
+  <div class="row"><span class="k">Browser</span><span class="v" style="font-size:11px;font-weight:400;" id="e-ua">–</span></div>
+  <button class="sec" id="btn-reload" style="margin-top:12px;">Stimmen neu einlesen</button>
+</div>
+
+<div class="card">
+  <h2>2 &middot; Sprache und Testsatz</h2>
+  <div class="langs">
+    <button class="on" data-lang="sk">Slowakisch</button>
+    <button data-lang="it">Italienisch</button>
+  </div>
+  <div class="phrase"><div class="l">WIRD VORGELESEN</div>
+    <div class="t" id="phrase">Dobrý deň, ako sa máte?</div></div>
+  <div class="langs" style="margin-top:4px;">
+    <button class="on" data-kind="satz">Ganzer Satz</button>
+    <button data-kind="wort">Einzelwort</button>
+  </div>
+</div>
+
+<div class="card">
+  <h2>3 &middot; Tempo</h2>
+  <div class="rate"><span>langsam</span><span class="rateval" id="rv">0.80</span><span>normal</span></div>
+  <input type="range" id="rate" min="0.5" max="1.2" step="0.05" value="0.8"/>
+  <div class="hint">Zum Vergleichen: Die App steht derzeit auf 0.88.</div>
+</div>
+
+<div class="card">
+  <h2>4 &middot; Stimmen durchhören</h2>
+  <div id="voices"><div class="hint">Noch keine Stimmen eingelesen.</div></div>
+  <div class="hint">Antippen zum Anhören. Die zuletzt gewählte merkt sich die Seite für Abschnitt 5.</div>
+</div>
+
+<div class="card">
+  <h2>5 &middot; Warum es stumm bleiben könnte</h2>
+  <div class="hint" style="margin-bottom:6px;">
+    Der Reihe nach antippen. Bei welcher Variante du etwas hörst, ist die Antwort.
+  </div>
+  <button id="btn-a">A &middot; gemerkte Stimme <span style="font-weight:400;">(so macht es die App)</span></button>
+  <button id="btn-b">B &middot; Stimme jedes Mal frisch suchen</button>
+  <button id="btn-c">C &middot; ganz ohne Stimme, nur Sprachcode</button>
+  <button id="btn-d">D &middot; ohne vorheriges cancel()</button>
+  <button id="btn-e">E &middot; frisch, mit Nachfassen nach 300 ms</button>
+</div>
+
+<div class="card">
+  <h2>6 &middot; Protokoll</h2>
+  <div id="log">Bereit.</div>
+  <button class="sec" id="btn-copy" style="margin-top:12px;">Protokoll kopieren</button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var SS = window.speechSynthesis;
+  var logEl = document.getElementById('log'), lines = [];
+  function log(m) {
+    lines.push('[' + new Date().toTimeString().slice(0, 8) + '] ' + m);
+    logEl.textContent = lines.join('\n');
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  function set(id, t, c) {
+    var el = document.getElementById(id); el.textContent = t;
+    el.className = 'v' + (c ? ' ' + c : '');
+  }
+
+  var LANG = {
+    sk: { code: 'sk-SK', satz: 'Dobr\u00fd de\u0148, ako sa m\u00e1te?', wort: '\u010eakujem' },
+    it: { code: 'it-IT', satz: 'Buongiorno, come sta?', wort: 'Buonasera' }
+  };
+  var cur = 'sk', kind = 'satz', rate = 0.8;
+  var gewaehlt = null;   // in Abschnitt 4 ausgesucht
+  var gemerkt = null;    // wie die App: einmal beim Start gemerkt
+
+  set('e-api', SS ? 'vorhanden' : 'FEHLT', SS ? 'ok' : 'bad');
+  set('e-ua', navigator.userAgent.slice(0, 70));
+
+  function voices() { return SS ? SS.getVoices() : []; }
+  function forLang(l) {
+    var w = l.slice(0, 2).toLowerCase();
+    return voices().filter(function (v) { return v.lang.toLowerCase().indexOf(w) === 0; });
+  }
+  function text() { return LANG[cur][kind]; }
+
+  function renderVoices() {
+    var box = document.getElementById('voices');
+    var vs = forLang(cur);
+    set('e-n', String(voices().length));
+    set('e-cur', vs.length ? String(vs.length) : 'keine', vs.length ? 'ok' : 'bad');
+    if (!vs.length) {
+      box.innerHTML = '<div class="hint">Für diese Sprache ist keine Stimme installiert. '
+        + 'Über den Hinweis ganz oben nachladen.</div>';
+      return;
+    }
+    box.innerHTML = '';
+    vs.forEach(function (v, i) {
+      var siri = /siri/i.test(v.name) || /siri/i.test(v.voiceURI || '');
+      var row = document.createElement('div');
+      row.className = 'voice' + (gewaehlt && gewaehlt.voiceURI === v.voiceURI ? ' sel' : '');
+      var n = document.createElement('div'); n.className = 'n';
+      n.innerHTML = '<div class="nm">' + v.name
+        + (siri ? ' <span class="badge siri">von Apple gesperrt</span>' : '')
+        + (v.localService ? ' <span class="badge">auf dem Gerät</span>' : '') + '</div>'
+        + '<div class="mt">' + v.lang + (v.default ? ' \u00b7 Standard' : '') + '</div>';
+      var b = document.createElement('button');
+      b.textContent = 'H\u00f6ren';
+      b.addEventListener('click', function () {
+        gewaehlt = v;
+        renderVoices();
+        sprich('Stimme ' + v.name, { voice: v });
+      });
+      row.appendChild(n); row.appendChild(b);
+      box.appendChild(row);
+    });
+  }
+
+  function scan(quiet) {
+    if (!voices().length) { if (!quiet) log('getVoices() liefert nichts'); return; }
+    if (!gemerkt) {
+      gemerkt = forLang(cur)[0] || null;
+      if (gemerkt) log('Stimme gemerkt: ' + gemerkt.name + ' (' + gemerkt.lang + ')');
+    }
+    renderVoices();
+  }
+
+  if (SS) {
+    scan(true);
+    SS.onvoiceschanged = function () { log('onvoiceschanged'); scan(true); };
+    setTimeout(function () { scan(true); }, 800);
+  }
+
+  document.getElementById('btn-reload').addEventListener('click', function () {
+    gemerkt = null; gewaehlt = null; scan(); log('neu eingelesen');
+  });
+
+  document.getElementById('rate').addEventListener('input', function (e) {
+    rate = parseFloat(e.target.value);
+    document.getElementById('rv').textContent = rate.toFixed(2);
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'), function (b) {
+    b.addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'),
+        function (x) { x.className = ''; });
+      b.className = 'on';
+      cur = b.getAttribute('data-lang');
+      gemerkt = forLang(cur)[0] || null;
+      gewaehlt = null;
+      document.getElementById('phrase').textContent = text();
+      renderVoices();
+      log('Sprache: ' + cur);
+    });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-kind]'), function (b) {
+    b.addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-kind]'),
+        function (x) { x.className = ''; });
+      b.className = 'on';
+      kind = b.getAttribute('data-kind');
+      document.getElementById('phrase').textContent = text();
+    });
+  });
+
+  function sprich(label, opts) {
+    if (!SS) { log(label + ': keine API'); return; }
+    if (opts.cancel !== false) SS.cancel();
+
+    var t = text();
+    // Einzelwoerter klingen ohne Satzzeichen abgehackt
+    if (kind === 'wort' && !/[.?!]$/.test(t)) t = t + '.';
+
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang = LANG[cur].code;
+    u.rate = rate;
+
+    var st = null;
+    if (opts.voice && typeof opts.voice === 'object') st = opts.voice;
+    else if (opts.voice === 'gemerkt') st = gemerkt;
+    else if (opts.voice === 'frisch') st = gewaehlt || forLang(cur)[0] || null;
+    if (st) u.voice = st;
+
+    var lief = false;
+    u.onstart = function () { lief = true; log(label + ': START'); };
+    u.onend = function () { log(label + ': Ende' + (lief ? '' : ' (ohne Start!)')); };
+    u.onerror = function (e) { log(label + ': FEHLER ' + (e.error || '?')); };
+
+    log(label + ': speak() @' + rate.toFixed(2) + ' mit '
+        + (st ? st.name : 'ohne Stimme') + (opts.cancel === false ? ' / ohne cancel' : ''));
+    SS.speak(u);
+
+    if (opts.retry) {
+      setTimeout(function () {
+        if (lief) return;
+        log(label + ': nichts passiert, fasse ohne Stimme nach');
+        SS.cancel();
+        var u2 = new SpeechSynthesisUtterance(t);
+        u2.lang = LANG[cur].code; u2.rate = rate;
+        u2.onstart = function () { log(label + ': START beim Nachfassen'); };
+        u2.onerror = function (e) { log(label + ': Nachfassen FEHLER ' + (e.error || '?')); };
+        SS.speak(u2);
+      }, 300);
+    }
+  }
+
+  document.getElementById('btn-a').addEventListener('click', function () { sprich('A gemerkt', { voice: 'gemerkt' }); });
+  document.getElementById('btn-b').addEventListener('click', function () { sprich('B frisch', { voice: 'frisch' }); });
+  document.getElementById('btn-c').addEventListener('click', function () { sprich('C ohne Stimme', { voice: null }); });
+  document.getElementById('btn-d').addEventListener('click', function () { sprich('D ohne cancel', { voice: 'frisch', cancel: false }); });
+  document.getElementById('btn-e').addEventListener('click', function () { sprich('E frisch+Nachfassen', { voice: 'frisch', retry: true }); });
+
+  document.getElementById('btn-copy').addEventListener('click', function () {
+    var vs = voices();
+    var liste = vs.map(function (v) { return v.name + ' [' + v.lang + ']'
+      + (v.localService ? ' lokal' : '') + (v.default ? ' std' : ''); }).join('\n  ');
+    var txt = '=== Sprachausgabe-Test ===\n' + navigator.userAgent
+      + '\nTempo zuletzt: ' + rate.toFixed(2)
+      + '\nZuletzt gewaehlt: ' + (gewaehlt ? gewaehlt.name + ' [' + gewaehlt.lang + ']' : '-')
+      + '\n\nAlle Stimmen (' + vs.length + '):\n  ' + liste
+      + '\n\nProtokoll:\n' + lines.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () {
+        var b = document.getElementById('btn-copy');
+        b.textContent = '\u2713 Kopiert';
+        setTimeout(function () { b.textContent = 'Protokoll kopieren'; }, 1800);
+      });
+    } else { logEl.textContent = txt; }
+  });
+})();
+</script>
+</body>
+</html>
