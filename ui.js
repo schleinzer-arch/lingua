@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '6';
+const APP_VERSION = '8';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], byId: {}, sentById: {} };
 
 const App = {
@@ -82,7 +82,7 @@ const App = {
     else if (s === 'profile') this.el.innerHTML = Profile.view();
     else if (s === 'legal') this.el.innerHTML = Legal.view();
     else if (s === 'grammar') this.el.innerHTML = Library.chapter(this.arg);
-    else if (s === 'words') this.el.innerHTML = Library.wordList();
+    else if (s === 'words') this.el.innerHTML = Library.wordList(this.arg);
     bindAll();
   },
 };
@@ -115,6 +115,7 @@ function ring(pct, size, stroke) {
 
 const ICON = {
   speak: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
+  micSmall: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>',
   mic: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>',
   home: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 10.5 12 3l9 7.5M5.5 9.5V20h13V9.5"/></svg>',
   book: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h6a3 3 0 0 1 2 3v14a2.5 2.5 0 0 0-2.5-2H4z"/><path d="M20 4h-6a3 3 0 0 0-2 3v14a2.5 2.5 0 0 1 2.5-2H20z"/></svg>',
@@ -242,7 +243,8 @@ const Run = {
       const others = sample(DB.phrases.filter(x => x.id !== it.phrase.id), 3);
       it.opts = shuffle(others.map(x => x.de).concat([it.phrase.de]));
     }
-    if (it.kind === 'build') it.q = Make.build(it.sent, DB);
+    if (it.kind === 'build' || it.kind === 'listenbuild') it.q = Make.build(it.sent, DB);
+    if (it.kind === 'listen') it.q = Make.listen(it.sent, DB);
   },
 
   answer(ok, id, map, level) {
@@ -290,6 +292,8 @@ const Run = {
     else if (it.kind === 'choice') body = this.choice(it);
     else if (it.kind === 'type') body = this.type(it);
     else if (it.kind === 'build') body = this.build(it);
+    else if (it.kind === 'listen') body = this.listen(it);
+    else if (it.kind === 'listenbuild') body = this.build(it, true);
     else if (it.kind === 'dictation') body = this.dictation(it);
     else if (it.kind === 'speak') body = this.speak(it);
     else body = this.phrase(it);
@@ -420,7 +424,7 @@ const Run = {
   },
 
   /* --- Wortbausteine --- */
-  build(it) {
+  build(it, hoeren) {
     const q = it.q, shown = this.phase === 'a';
     const slotCls = shown ? (this.verdict === 'wrong' ? ' wrong' : ' right') : '';
     const slots = this.built.map((w, i) =>
@@ -435,8 +439,14 @@ const Run = {
     }).join('');
 
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted" style="margin:6px 0 14px;">Bau den Satz</div>' +
-      '<div class="prompt">' + esc(it.sent.de) + '</div>' +
+      '<div class="muted" style="margin:6px 0 14px;">' +
+        (hoeren ? 'Hör zu und bau den Satz' : 'Bau den Satz') + '</div>' +
+      (hoeren
+        ? '<div class="center" style="margin:4px 0 14px;">' +
+            '<button class="mic" data-say="' + esc(it.sent.w) + '">' + ICON.mic + '</button>' +
+            '<div class="tiny" style="margin-top:10px;">Antippen zum Anhören</div></div>' +
+          (shown ? '<div class="prompt">' + esc(it.sent.de) + '</div>' : '')
+        : '<div class="prompt">' + esc(it.sent.de) + '</div>') +
       '<div class="slots' + slotCls + '">' + slots + '</div>' +
       (shown ? this.feedback(this.verdict, this.built.join(' '), q.target, it.sent.de)
              : '<div class="bank" style="margin-top:18px;">' + bank + '</div>') +
@@ -446,6 +456,32 @@ const Run = {
                : '<button class="btn" data-check-build ' +
                  (this.built.length ? '' : 'disabled') + '>Prüfen</button>') +
       '</div>';
+  },
+
+  /* --- Satz anhören, Bedeutung wählen --- */
+  listen(it) {
+    const q = it.q, shown = this.phase === 'a';
+    const opts = q.options.map(o => {
+      let cls = 'opt';
+      if (shown) {
+        if (o === q.answer) cls += ' right';
+        else if (o === this.picked) cls += ' wrong';
+        else cls += ' dim';
+      }
+      return '<button class="' + cls + '" data-picklisten="' + esc(o) + '">' +
+        '<span class="opt-in"><span>' + esc(o) + '</span>' +
+        (shown && o === q.answer ? '<span>&#10003;</span>' : '') + '</span></button>';
+    }).join('');
+    return '<div class="view fade"><div class="view-pad">' +
+      '<div class="muted center" style="margin:6px 0 16px;">Was bedeutet das?</div>' +
+      '<div class="center" style="margin-bottom:10px;">' +
+        '<button class="mic" data-say="' + esc(it.sent.w) + '">' + ICON.mic + '</button></div>' +
+      '<div class="tiny center" style="margin-bottom:18px;">Antippen zum Anhören</div>' +
+      (shown ? '<div class="card" style="margin-bottom:12px;text-align:center;">' +
+        '<div class="body" style="font-weight:560;">' + esc(it.sent.w) + '</div></div>' : '') +
+      '<div class="opts">' + opts + '</div>' +
+      '<div class="spacer"></div></div></div>' +
+      (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
   },
 
   /* --- Diktat --- */
@@ -526,6 +562,11 @@ const Run = {
         '<div class="fb-d">Richtig ist <b>' + esc(target) + '</b>.' +
         (tips ? '<br>' + tips : '') + '</div></div>';
     }
+    if (verdict === 'typo') {
+      return '<div class="fb warn" style="margin-top:14px;">' +
+        '<div class="fb-t">Fast — ein Buchstabe daneben</div>' +
+        '<div class="fb-d">Richtig ist <b>' + esc(target) + '</b> — ' + esc(gloss) + '</div></div>';
+    }
     if (verdict === 'close') {
       return '<div class="fb warn" style="margin-top:14px;">' +
         '<div class="fb-t">Fast richtig</div>' +
@@ -566,16 +607,24 @@ const Run = {
    Endlos, immer gemischte Richtung, kein Ende, kein Ergebnisbildschirm. */
 const Drill = {
   q: null, picked: null, right: 0, wrong: 0, key: 0,
+  letzte: [],            // zuletzt gefragte Wörter, gegen Wiederholungen
+  set: null,             // auf eine Gruppe beschränkt?
 
-  start() {
+  start(set) {
+    this.set = set || null;      // 'lang' | 'arbeit' | null
     this.right = 0; this.wrong = 0; this.key = 0;
     this.picked = null;
+    this.letzte = [];
     this.next();
     App.go('drill');
   },
 
   pool() {
     const W = Store.data.words;
+    if (this.set === 'lang')
+      return DB.vocab.filter(v => W[v.id] && W[v.id].box >= MASTER_BOX);
+    if (this.set === 'arbeit')
+      return DB.vocab.filter(v => W[v.id] && W[v.id].box < MASTER_BOX);
     let p = DB.vocab.filter(v => W[v.id]);
     if (p.length < 8) {
       const rank = LVL_RANK[Session.level(DB)];
@@ -587,7 +636,14 @@ const Drill = {
   next() {
     const p = this.pool();
     if (p.length < 4) { this.q = null; return; }
-    const v = p[Math.floor(Math.random() * p.length)];
+    // Die zuletzt gefragten Wörter aussparen, damit nicht dieselben
+    // paar Vokabeln hintereinander kommen.
+    const sperre = Math.min(this.letzte.length, Math.max(0, p.length - 4));
+    const frei = p.filter(x => this.letzte.slice(0, sperre).indexOf(x.id) === -1);
+    const aus = frei.length ? frei : p;
+    const v = aus[Math.floor(Math.random() * aus.length)];
+    this.letzte.unshift(v.id);
+    if (this.letzte.length > 8) this.letzte.pop();
     this.q = Make.choice(v, DB);   // Richtung zufällig, also gemischt
     this.q.word = v;
     this.picked = null;
@@ -650,7 +706,9 @@ const Drill = {
     return '<div class="safe-top"></div>' +
       '<div class="sess-top">' +
         '<button class="sess-x" data-go="home">&times;</button>' +
-        '<span class="body" style="font-weight:560;flex:1;">Vokabeln üben</span>' +
+        '<span class="body" style="font-weight:560;flex:1;">' +
+          (this.set === 'lang' ? 'Langzeitgedächtnis üben'
+           : this.set === 'arbeit' ? 'Wörter in Arbeit' : 'Vokabeln üben') + '</span>' +
         '<span class="drillscore"><span class="dg">' + this.right + ' &#10003;</span>' +
         '<span class="dr">' + this.wrong + ' &#10007;</span></span>' +
       '</div>' +
@@ -689,23 +747,25 @@ const Library = {
         (t === 'woerter' ? this.words() :
          t === 'saetze' ? this.sentences() :
          t === 'phrasen' ? this.phrases() : this.grammar()) +
-        '<div class="spacer"></div></div></div>' + navbar('library');
+        '<div class="spacer"></div></div></div>' + navbar('library') + Repeat.view();
   },
 
   words() {
     const W = Store.data.words;
     const groups = [
-      ['Im Langzeitgedächtnis', v => W[v.id] && W[v.id].box >= MASTER_BOX],
-      ['In Arbeit', v => W[v.id] && W[v.id].box < MASTER_BOX],
-      ['Noch nicht begonnen', v => !W[v.id]],
+      ['lang',   'Im Langzeitgedächtnis', v => W[v.id] && W[v.id].box >= MASTER_BOX],
+      ['arbeit', 'In Arbeit',             v => W[v.id] && W[v.id].box < MASTER_BOX],
+      ['offen',  'Noch nicht begonnen',   v => !W[v.id]],
     ];
-    let out = '<button class="tile" data-go="words" style="margin-bottom:14px;">' +
+    let out = '<button class="tile" data-words="alle" style="margin-bottom:14px;">' +
       '<div class="head">Alle Wörter durchsehen</div>' +
       '<div class="small">' + DB.vocab.length + ' Einträge, durchsuchbar</div></button>';
-    groups.forEach(([label, fn]) => {
+    groups.forEach(([key, label, fn]) => {
       const n = DB.vocab.filter(fn).length;
-      out += '<div class="row"><div class="row-main"><div class="row-sk">' + label + '</div></div>' +
-        '<span class="chip">' + n + '</span></div>';
+      out += '<button class="row rowbtn" data-words="' + key + '">' +
+        '<div class="row-main"><div class="row-sk">' + label + '</div></div>' +
+        '<span class="chip">' + n + '</span>' +
+        '<span class="rowchev">\u203A</span></button>';
     });
     const b = Stats.byBox();
     out += '<div class="head" style="margin:26px 0 10px;">Verteilung nach Kasten</div>';
@@ -720,9 +780,17 @@ const Library = {
     return out;
   },
 
-  wordList() {
+  wordList(filter) {
     const W = Store.data.words;
-    const rows = DB.vocab.map(v => {
+    const F = {
+      alle:   { titel: 'Alle Wörter',           test: () => true },
+      lang:   { titel: 'Im Langzeitgedächtnis', test: v => W[v.id] && W[v.id].box >= MASTER_BOX },
+      arbeit: { titel: 'In Arbeit',             test: v => W[v.id] && W[v.id].box < MASTER_BOX },
+      offen:  { titel: 'Noch nicht begonnen',   test: v => !W[v.id] },
+    }[filter] || { titel: 'Alle Wörter', test: () => true };
+
+    const liste = DB.vocab.filter(F.test);
+    const rows = liste.map(v => {
       const st = W[v.id];
       const cls = st ? (st.box >= MASTER_BOX ? '' : ' ochre') : ' plain';
       const lab = st ? 'Kasten ' + st.box : v.level;
@@ -733,26 +801,36 @@ const Library = {
         '<button class="speak" style="position:static;width:36px;height:36px;" ' +
         'data-say="' + esc(v.w) + '">' + ICON.speak + '</button></div>';
     }).join('');
+
+    // Gezielt üben lohnt nur, wenn genug Wörter für Antwortmöglichkeiten da sind.
+    const uebbar = filter && filter !== 'offen' && liste.length >= 4;
+
     return '<div class="safe-top"></div>' +
       '<div class="appbar"><button class="iconbtn" data-go="library">' + ICON.back + '</button>' +
-      '<div class="head">Alle Wörter</div><div style="width:38px;"></div></div>' +
+      '<div class="head">' + esc(F.titel) + '</div><div style="width:38px;"></div></div>' +
       '<div style="padding:14px var(--pad) 10px;">' +
+        (uebbar ? '<button class="btn" style="margin-bottom:10px;" data-drill-set="' + filter +
+          '">Diese ' + liste.length + ' Wörter üben</button>' : '') +
         '<input class="search" id="wsearch" placeholder="Suchen…" autocomplete="off"></div>' +
-      '<div class="view"><div class="view-pad" id="wlist">' + rows +
+      '<div class="view"><div class="view-pad" id="wlist">' +
+      (rows || '<div class="card center"><div class="small">Hier ist noch nichts.</div></div>') +
       '<div class="spacer"></div></div></div>';
   },
-
   sentences() {
     const open = DB.sentences.filter(s => Session.unlocked(s));
     let out = '<div class="small" style="margin-bottom:14px;">' + open.length +
       ' von ' + DB.sentences.length + ' Sätzen freigeschaltet. Ein Satz erscheint, ' +
       'sobald du seine Wörter kennst.</div>';
+    const sprechbar = Session.speechOn();
     out += open.slice(0, 120).map(s =>
       '<div class="row"><div class="row-main">' +
       '<div class="row-sk" style="font-weight:560;">' + esc(s.w) + '</div>' +
       '<div class="row-de">' + esc(s.de) + '</div></div>' +
       '<button class="speak" style="position:static;width:36px;height:36px;" ' +
-      'data-say="' + esc(s.w) + '">' + ICON.speak + '</button></div>').join('');
+      'data-say="' + esc(s.w) + '">' + ICON.speak + '</button>' +
+      (sprechbar ? '<button class="speak" style="position:static;width:36px;height:36px;' +
+        'margin-left:6px;" data-repeat="' + esc(s.w) + '">' + ICON.micSmall + '</button>' : '') +
+      '</div>').join('');
     if (!open.length) out += '<div class="card center"><div class="small">' +
       'Noch keine Sätze frei. Lerne ein paar Wörter, dann erscheinen sie hier.</div></div>';
     return out;
@@ -796,6 +874,38 @@ const Library = {
           '<table class="gtable">' + rows + '</table></div>' +
         '<div class="tipbox">' + esc(g.tip) + '</div>' +
         '<div class="spacer"></div></div></div>';
+  },
+};
+
+/* ---------- Nachsprechen aus der Bibliothek ----------
+   Ein Blatt über der Liste, damit man nicht die Seite verlässt. */
+const Repeat = {
+  text: '', heard: '', verdict: null,
+
+  open(t) { this.text = t; this.heard = ''; this.verdict = null; App.render(); },
+  close() { Listen.stop(); this.text = ''; App.render(); },
+
+  view() {
+    if (!this.text) return '';
+    const live = Listen.active;
+    return '<div class="sheet-bg" data-repeat-close></div>' +
+      '<div class="sheet"><div class="sheet-grip"></div>' +
+      '<div class="view-pad" style="padding-bottom:10px;">' +
+        '<div class="muted center" style="margin-bottom:14px;">Sprich nach</div>' +
+        '<div class="wordcard" style="min-height:120px;">' +
+          '<button class="speak" data-say="' + esc(this.text) + '">' + ICON.speak + '</button>' +
+          '<div class="word' + (this.text.length > 18 ? ' long' : '') + '">' +
+            marked(this.text) + '</div>' +
+        '</div>' +
+        '<div class="heard" style="margin-top:16px;">' + esc(this.heard) + '</div>' +
+        '<div class="center" style="margin-top:12px;">' +
+          '<button class="mic' + (live ? ' live' : '') + '" data-repeat-listen>' +
+            ICON.mic + '</button></div>' +
+        '<div class="tiny center" style="margin-top:12px;">' +
+          (live ? 'Ich höre zu…' : 'Antippen und sprechen') + '</div>' +
+        (this.verdict ? Run.feedback(this.verdict, this.heard, this.text, '') : '') +
+        '<button class="btn-line" style="margin-top:18px;" data-repeat-close>Schließen</button>' +
+      '</div></div>';
   },
 };
 

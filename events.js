@@ -17,6 +17,37 @@ function bindAll() {
   on('[data-chapter]', el => App.go('grammar', el.getAttribute('data-chapter')));
   on('[data-start]', () => Run.start());
   on('[data-drill]', () => Drill.start());
+  on('[data-words]', el => App.go('words', el.getAttribute('data-words')));
+  on('[data-drill-set]', el => Drill.start(el.getAttribute('data-drill-set')));
+
+  /* --- Nachsprechen aus der Bibliothek --- */
+  on('[data-repeat]', el => Repeat.open(el.getAttribute('data-repeat')));
+  on('[data-repeat-close]', () => Repeat.close());
+  on('[data-repeat-listen]', () => {
+    if (Listen.active) { Listen.stop(); return; }
+    Repeat.heard = ''; Repeat.verdict = null;
+    App.render();
+    Listen.start(
+      teil => {
+        Repeat.heard = teil;
+        const h = App.el.querySelector('.heard');
+        if (h) h.textContent = teil;
+      },
+      ende => {
+        Repeat.heard = ende || Repeat.heard;
+        if (Repeat.heard) Repeat.verdict = Text.compare(Repeat.heard, Repeat.text);
+        App.render();
+      },
+      fehler => {
+        Repeat.heard = fehler === 'not-allowed' || fehler === 'service-not-allowed'
+          ? 'Mikrofon nicht freigegeben'
+          : fehler === 'no-speech' ? 'Nichts gehört — nochmal versuchen'
+          : 'Erkennung fehlgeschlagen';
+        App.render();
+      }
+    );
+    setTimeout(() => App.render(), 40);
+  });
   on('[data-drillpick]', el => Drill.answer(el.getAttribute('data-drillpick')));
   on('[data-quit]', () => {
     if (Run.i > 0 && Run.i < Run.items.length) {
@@ -87,6 +118,24 @@ function bindAll() {
     Run.verdict = ok ? 'exact' : 'wrong';
     if (ok) { Run.right++; Leitner.promote(Store.data.phrases, it.phrase.id); }
     else { Run.wrong++; Leitner.demote(Store.data.phrases, it.phrase.id); }
+    const d = Store.day(); d.seen++; if (ok) d.right++;
+    Store.save();
+    App.render();
+  });
+
+  /* --- Satz anhören, Bedeutung wählen --- */
+  on('[data-picklisten]', el => {
+    if (Run.phase === 'a') return;
+    const it = Run.cur();
+    const choice = el.getAttribute('data-picklisten');
+    Run.picked = choice;
+    Run.phase = 'a';
+    const ok = choice === it.q.answer;
+    Run.verdict = ok ? 'exact' : 'wrong';
+    it.sent.words.forEach(w => {
+      if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 1); }
+    });
+    if (ok) Run.right++; else Run.wrong++;
     const d = Store.day(); d.seen++; if (ok) d.right++;
     Store.save();
     App.render();
@@ -171,9 +220,10 @@ function bindAll() {
     const said = Run.built.join(' ');
     Run.verdict = Text.compare(said, it.q.target);
     Run.phase = 'a';
-    const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics';
+    const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics' || Run.verdict === 'typo';
+    const stufe = it.kind === 'listenbuild' ? 3 : 2;
     it.sent.words.forEach(w => {
-      if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 2); }
+      if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, stufe); }
       else Leitner.demote(Store.data.words, w);
     });
     if (ok) Run.right++; else Run.wrong++;
@@ -383,3 +433,10 @@ function syncFehler(grund) {
 
 /* ---------- Start ---------- */
 document.addEventListener('DOMContentLoaded', () => App.boot());
+
+/* Nach dem Zurueckkehren aus dem Hintergrund die Sprachausgabe aufwecken —
+   auf iOS bleibt sie sonst gelegentlich stumm, bis die Seite neu laedt. */
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) Voice.wake();
+});
+window.addEventListener('pageshow', () => Voice.wake());

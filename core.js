@@ -193,12 +193,32 @@ const Text = {
       .replace(/ť/g, 't').replace(/ň/g, 'n');
   },
 
-  // 'exact' | 'diacritics' | 'close' | 'wrong'
+  // Abstand nach Levenshtein — fuer die Toleranz bei einem Tippfehler
+  dist(a, b) {
+    const m = a.length, n = b.length;
+    if (Math.abs(m - n) > 2) return 99;
+    let prev = Array.from({ length: n + 1 }, (_, i) => i);
+    for (let i = 1; i <= m; i++) {
+      const cur = [i];
+      for (let j = 1; j <= n; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1,
+                          prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      }
+      prev = cur;
+    }
+    return prev[n];
+  },
+
+  // 'exact' | 'diacritics' | 'typo' | 'close' | 'wrong'
   compare(said, target) {
     const a = this.norm(said), b = this.norm(target);
     if (!a) return 'wrong';
     if (a === b) return 'exact';
     if (this.flat(a) === this.flat(b)) return 'diacritics';
+    // Ein einzelner falscher Buchstabe soll kein ganzer Fehler sein —
+    // es geht ums Hoeren und Verstehen, nicht um Rechtschreibung.
+    const erlaubt = b.length > 12 ? 2 : 1;
+    if (this.dist(this.flat(a), this.flat(b)) <= erlaubt) return 'typo';
     const aw = a.split(' '), bw = b.split(' ');
     let hit = 0;
     const pool = bw.slice();
@@ -295,39 +315,74 @@ const Voice = {
     setTimeout(load, 700);
   },
 
+  /* Auf iOS vergeht zwischen speak() und dem tatsaechlichen Beginn je nach
+     Geraet bis zu zwei Sekunden. Wer frueher nachfasst, wuergt die Ausgabe ab. */
   say(text, opts) {
     if (!window.speechSynthesis || !text) return;
     opts = opts || {};
     const SS = window.speechSynthesis;
-    SS.cancel();
 
-    // Einzelne Woerter klingen ohne Satzzeichen abgehackt, weil die
-    // Sprachausgabe keine Satzmelodie ansetzt.
+    this.unlock();
+
+    // Nur abbrechen, wenn wirklich etwas laeuft — ein cancel() auf eine
+    // leere Warteschlange kann die Ausgabe auf iOS blockieren.
+    if (SS.speaking || SS.pending) SS.cancel();
+
+    // Einzelne Woerter klingen ohne Satzzeichen abgehackt.
     let t = String(text).trim();
     if (!/[.?!\u2026]$/.test(t) && t.split(/\s+/).length <= 2) t += '.';
 
     const conf = LANGS[currentLang()] || LANGS.sk;
-    const u = new SpeechSynthesisUtterance(t);
-    if (this.pick) u.voice = this.pick;
-    u.lang = conf.speech;
-    u.rate = opts.rate || this.rate();
+    const rate = opts.rate || this.rate();
+    const mk = (withVoice) => {
+      const u = new SpeechSynthesisUtterance(t);
+      if (withVoice && this.pick) u.voice = this.pick;
+      u.lang = conf.speech;
+      u.rate = rate;
+      return u;
+    };
 
     let lief = false;
+    const u = mk(true);
     u.onstart = () => { lief = true; };
     SS.speak(u);
 
-    // Auf iOS bleibt speak() gelegentlich still, besonders nachdem die
-    // Seite im Hintergrund war. Dann einmal ohne feste Stimme nachfassen.
     if (opts.retry === false) return;
-    setTimeout(() => {
-      if (lief) return;
-      SS.cancel();
-      const u2 = new SpeechSynthesisUtterance(t);
-      u2.lang = conf.speech;
-      u2.rate = opts.rate || this.rate();
-      SS.speak(u2);
-    }, 350);
+    // Grosszuegig warten und nur eingreifen, wenn die Warteschlange
+    // nachweislich leer ist — sonst unterbricht man das Anlaufen.
+    clearTimeout(this._t);
+    this._t = setTimeout(() => {
+      if (lief || SS.speaking || SS.pending) return;
+      SS.speak(mk(false));
+    }, 1800);
   },
+
+  /* Der Klingelschalter legt reine Web-Audio-Ausgabe still. Eine einmal
+     angestossene stille Tonspur stuft die Sitzung als echte Wiedergabe ein. */
+  unlock() {
+    if (this._unlocked) return;
+    this._unlocked = true;
+    try {
+      const a = document.createElement('audio');
+      a.setAttribute('x-webkit-airplay', 'deny');
+      a.preload = 'auto';
+      a.loop = true;
+      a.volume = 0.001;
+      a.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+      const p = a.play();
+      if (p && p.catch) p.catch(() => {});
+    } catch (e) { /* ohne Freigabe geht es meist trotzdem */ }
+  },
+
+  /* Nach dem Zurueckkehren aus dem Hintergrund bleibt die Ausgabe auf iOS
+     gelegentlich haengen. Ein Aufwecken raeumt das auf. */
+  wake() {
+    if (!window.speechSynthesis) return;
+    // Nur aufwecken, nicht abbrechen: ein cancel() auf eine leere
+    // Warteschlange kann die Ausgabe auf iOS selbst stilllegen.
+    try { window.speechSynthesis.resume(); } catch (e) {}
+  },
+
 };
 
 /* ---------- Spracherkennung ---------- */
@@ -595,7 +650,11 @@ const Session = {
       const open = DB.sentences.filter(s =>
         LVL_RANK[s.reqLevel] <= rank && s.tokens <= cap && this.unlocked(s));
       sample(open, max).forEach(s => {
-        core.push({ kind: Math.random() < 0.35 ? 'dictation' : 'build', sent: s });
+        // Haelfte Satzbau nach Vorlage, Haelfte Hoerverstehen in der
+        // Stufe, die zum Stand der Woerter passt.
+        core.push(Math.random() < 0.5
+          ? { kind: 'build', sent: s }
+          : { kind: listenStage(s), sent: s });
       });
     }
 
@@ -678,9 +737,28 @@ function touches(item, id) {
    Kasten 1 erkennen, ab Kasten 2 auch selbst schreiben. */
 function exerciseFor(st) {
   const box = (st && st.box) || 1;
-  if (box <= 1) return 'choice';
-  if (box === 2) return Math.random() < 0.5 ? 'type' : 'choice';
-  return Math.random() < 0.7 ? 'type' : 'choice';
+  // Selbst schreiben erst, wenn ein Wort wirklich sitzt. Frueher ist es
+  // eine Rechtschreibpruefung, keine Vokabeluebung.
+  if (box < 4) return 'choice';
+  return Math.random() < 0.6 ? 'type' : 'choice';
+}
+
+/* Welche Hoerverstehens-Stufe passt zu diesem Satz?
+   Die Anforderung waechst mit den Kaesten seiner Woerter. */
+function listenStage(sent) {
+  const W = Store.data.words;
+  if (!sent.words.length) return 'listen';
+  let min = 9;
+  sent.words.forEach(id => { min = Math.min(min, (W[id] && W[id].box) || 1); });
+
+  // Zwei Bedingungen muessen zusammenkommen: Die Woerter dieses Satzes
+  // muessen sitzen UND man muss insgesamt weit genug sein. Sonst kaeme
+  // freies Schreiben schon in der zweiten Woche, nur weil ein kurzer
+  // Satz aus drei gut geuebten Woertern besteht.
+  const gesamt = Stats.mastered();
+  if (min >= 5 && gesamt >= 150) return 'dictation';    // frei eintippen
+  if (min >= 3 && gesamt >= 40) return 'listenbuild';   // aus Bausteinen bauen
+  return 'listen';                                      // Bedeutung waehlen
 }
 
 /* ---------- Aufgaben erzeugen ---------- */
@@ -706,6 +784,13 @@ const Make = {
       right: shuffle(pick.map(v => ({ id: v.id, text: v.w }))),
       total: pick.length,
     };
+  },
+
+  // Satz anhoeren, Bedeutung waehlen — die erste Stufe des Hoerverstehens.
+  listen(sent, DB) {
+    const pool = DB.sentences.filter(x => x.id !== sent.id && x.de !== sent.de);
+    const wrong = sample(pool, 3).map(x => x.de);
+    return { answer: sent.de, options: shuffle(wrong.concat([sent.de])) };
   },
 
   // Wortbausteine aus einem Satz.

@@ -388,3 +388,8 @@ input{font-family:inherit;}
 }
 .btn-mini.on{background:var(--cobalt);border-color:var(--cobalt);color:#fff;}
 .btn-mini:active{background:var(--tint);}
+
+/* ---------- Antippbare Listenzeilen ---------- */
+.rowbtn{width:100%;text-align:left;background:none;}
+.rowbtn:active{background:var(--tint);}
+.rowchev{color:var(--ink-4);margin-left:8px;font-size:17px;}
