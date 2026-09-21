@@ -2,7 +2,7 @@
  {
   "id": "per-favore",
   "de": "Bitte.",
-  "context": "Verständigung",
+  "context": "Höflichkeit",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -13,7 +13,7 @@
  {
   "id": "buongiorno-come-va",
   "de": "Guten Tag, wie geht's?",
-  "context": "Verständigung",
+  "context": "Begrüßung",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -24,7 +24,7 @@
  {
   "id": "come-sta",
   "de": "Wie geht es Ihnen?",
-  "context": "Verständigung",
+  "context": "Begrüßung",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -35,7 +35,7 @@
  {
   "id": "mi-chiamo",
   "de": "Ich heiße...",
-  "context": "Verständigung",
+  "context": "Kennenlernen",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -46,7 +46,7 @@
  {
   "id": "come-si-chiama",
   "de": "Wie heißen Sie?",
-  "context": "Verständigung",
+  "context": "Kennenlernen",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -57,7 +57,7 @@
  {
   "id": "di-dove-viene",
   "de": "Woher kommen Sie?",
-  "context": "Verständigung",
+  "context": "Kennenlernen",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -68,7 +68,7 @@
  {
   "id": "vengo-dall-austria",
   "de": "Ich komme aus Österreich.",
-  "context": "Verständigung",
+  "context": "Kennenlernen",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -167,7 +167,7 @@
  {
   "id": "mi-puo-aiutare-per-favore",
   "de": "Können Sie mir bitte helfen?",
-  "context": "Verständigung",
+  "context": "Notfall",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -178,7 +178,7 @@
  {
   "id": "dov-e-il-bagno",
   "de": "Wo ist die Toilette?",
-  "context": "Verständigung",
+  "context": "Orientierung",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -189,7 +189,7 @@
  {
   "id": "quanto-costa",
   "de": "Was kostet das?",
-  "context": "Verständigung",
+  "context": "Einkaufen",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -200,7 +200,7 @@
  {
   "id": "un-tavolo-per-due-per-favore",
   "de": "Einen Tisch für zwei, bitte.",
-  "context": "Verständigung",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -211,7 +211,7 @@
  {
   "id": "il-conto-per-favore",
   "de": "Die Rechnung, bitte.",
-  "context": "Verständigung",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -222,7 +222,7 @@
  {
   "id": "vorrei-pagare",
   "de": "Ich möchte zahlen.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -233,7 +233,7 @@
  {
   "id": "senza-carne-per-favore",
   "de": "Ohne Fleisch, bitte.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -244,7 +244,7 @@
  {
   "id": "questo-posto-e-libero",
   "de": "Ist dieser Platz frei?",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -255,7 +255,7 @@
  {
   "id": "vorrei-ordinare",
   "de": "Ich möchte bestellen.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -266,7 +266,7 @@
  {
   "id": "cosa-mi-consiglia",
   "de": "Was empfehlen Sie mir?",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -277,7 +277,7 @@
  {
   "id": "che-cos-e-questo",
   "de": "Was ist das?",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -288,7 +288,7 @@
  {
   "id": "avete-un-menu-in-inglese",
   "de": "Haben Sie eine Speisekarte auf Englisch?",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -299,7 +299,7 @@
  {
   "id": "vorrei-un-acqua-naturale-per-favore",
   "de": "Ich hätte gern ein stilles Wasser.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -310,7 +310,7 @@
  {
   "id": "vorrei-un-acqua-frizzante-per-favore",
   "de": "Ich hätte gern ein Mineralwasser mit Kohlensäure.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -321,7 +321,7 @@
  {
   "id": "per-me-la-pasta-per-favore",
   "de": "Für mich die Pasta, bitte.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -332,7 +332,7 @@
  {
   "id": "senza-cipolla-per-favore",
   "de": "Ohne Zwiebel, bitte.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -343,7 +343,7 @@
  {
   "id": "sono-allergico-allergica-alle-noci",
   "de": "Ich bin allergisch gegen Nüsse.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -354,7 +354,7 @@
  {
   "id": "e-piccante",
   "de": "Ist das scharf?",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -365,7 +365,7 @@
  {
   "id": "e-vegetariano",
   "de": "Ist das vegetarisch?",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -376,7 +376,7 @@
  {
   "id": "vorrei-la-pasta-al-dente",
   "de": "Ich hätte die Pasta gern al dente.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -387,7 +387,7 @@
  {
   "id": "possiamo-avere-del-pane",
   "de": "Können wir etwas Brot bekommen?",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -398,7 +398,7 @@
  {
   "id": "prendiamo-un-dolce-da-dividere",
   "de": "Wir nehmen ein Dessert zum Teilen.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -409,7 +409,7 @@
  {
   "id": "era-tutto-buonissimo",
   "de": "Es war alles sehr lecker.",
-  "context": "Restaurant & Hotel",
+  "context": "Restaurant",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -420,7 +420,7 @@
  {
   "id": "ho-una-prenotazione",
   "de": "Ich habe eine Reservierung.",
-  "context": "Restaurant & Hotel",
+  "context": "Hotel & Reise",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -431,7 +431,7 @@
  {
   "id": "a-che-ora-e-la-colazione",
   "de": "Wann gibt es Frühstück?",
-  "context": "Restaurant & Hotel",
+  "context": "Hotel & Reise",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -442,7 +442,7 @@
  {
   "id": "vorrei-fare-il-check-in",
   "de": "Ich möchte einchecken.",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -453,7 +453,7 @@
  {
   "id": "a-che-ora-e-il-check-out",
   "de": "Wann ist der Check-out?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -464,7 +464,7 @@
  {
   "id": "la-colazione-e-inclusa",
   "de": "Ist das Frühstück inklusive?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -475,7 +475,7 @@
  {
   "id": "qual-e-la-password-del-wi-fi",
   "de": "Wie lautet das WLAN-Passwort?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -486,7 +486,7 @@
  {
   "id": "la-camera-e-troppo-rumorosa",
   "de": "Das Zimmer ist zu laut.",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -497,7 +497,7 @@
  {
   "id": "c-e-l-aria-condizionata",
   "de": "Gibt es eine Klimaanlage?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -508,7 +508,7 @@
  {
   "id": "potrei-avere-un-altra-chiave",
   "de": "Könnte ich einen weiteren Schlüssel bekommen?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -519,7 +519,7 @@
  {
   "id": "puo-chiamarmi-un-taxi",
   "de": "Können Sie mir ein Taxi rufen?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -530,7 +530,7 @@
  {
   "id": "dov-e-la-fermata",
   "de": "Wo ist die Haltestelle?",
-  "context": "Reisen & Orientierung",
+  "context": "Orientierung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -541,7 +541,7 @@
  {
   "id": "mi-sono-perso-persa",
   "de": "Ich habe mich verirrt.",
-  "context": "Reisen & Orientierung",
+  "context": "Orientierung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -552,7 +552,7 @@
  {
   "id": "un-biglietto-per-roma-per-favore",
   "de": "Eine Fahrkarte nach Rom, bitte.",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -563,7 +563,7 @@
  {
   "id": "solo-andata-per-favore",
   "de": "Nur Hinfahrt, bitte.",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -574,7 +574,7 @@
  {
   "id": "andata-e-ritorno-per-favore",
   "de": "Hin- und Rückfahrt, bitte.",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -585,7 +585,7 @@
  {
   "id": "a-che-ora-parte-il-treno",
   "de": "Wann fährt der Zug ab?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -596,7 +596,7 @@
  {
   "id": "da-quale-binario-parte",
   "de": "Von welchem Gleis fährt er ab?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -607,7 +607,7 @@
  {
   "id": "dove-devo-cambiare",
   "de": "Wo muss ich umsteigen?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -618,7 +618,7 @@
  {
   "id": "questo-treno-va-a-roma",
   "de": "Fährt dieser Zug nach Rom?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -629,7 +629,7 @@
  {
   "id": "quanto-dura-il-viaggio",
   "de": "Wie lange dauert die Fahrt?",
-  "context": "Reisen & Orientierung",
+  "context": "Hotel & Reise",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -640,7 +640,7 @@
  {
   "id": "come-arrivo-in-centro",
   "de": "Wie komme ich ins Zentrum?",
-  "context": "Reisen & Orientierung",
+  "context": "Orientierung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -651,7 +651,7 @@
  {
   "id": "e-lontano-da-qui",
   "de": "Ist es weit von hier?",
-  "context": "Reisen & Orientierung",
+  "context": "Orientierung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -662,7 +662,7 @@
  {
   "id": "puo-mostrarmelo-sulla-mappa",
   "de": "Können Sie es mir auf der Karte zeigen?",
-  "context": "Alltag & Kennenlernen",
+  "context": "Orientierung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -673,7 +673,7 @@
  {
   "id": "vorrei-andare-a-questo-indirizzo",
   "de": "Ich möchte zu dieser Adresse fahren.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Orientierung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -684,7 +684,7 @@
  {
   "id": "grazie-per-l-aiuto",
   "de": "Danke für die Hilfe.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Höflichkeit",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -695,7 +695,7 @@
  {
   "id": "di-niente",
   "de": "Keine Ursache.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Höflichkeit",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -706,7 +706,7 @@
  {
   "id": "va-bene",
   "de": "In Ordnung.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Höflichkeit",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -717,7 +717,7 @@
  {
   "id": "non-c-e-problema",
   "de": "Kein Problem.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Höflichkeit",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -728,7 +728,7 @@
  {
   "id": "a-domani",
   "de": "Bis morgen.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Begrüßung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -739,7 +739,7 @@
  {
   "id": "ci-vediamo-dopo",
   "de": "Wir sehen uns später.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Begrüßung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -750,7 +750,7 @@
  {
   "id": "buona-giornata",
   "de": "Schönen Tag!",
-  "context": "Alltag & Kennenlernen",
+  "context": "Begrüßung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -761,7 +761,7 @@
  {
   "id": "buona-serata",
   "de": "Schönen Abend!",
-  "context": "Alltag & Kennenlernen",
+  "context": "Begrüßung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -772,7 +772,7 @@
  {
   "id": "sono-austriaco-austriaca",
   "de": "Ich bin Österreicher / Österreicherin.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Kennenlernen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -783,7 +783,7 @@
  {
   "id": "abito-vicino-a-vienna",
   "de": "Ich wohne in der Nähe von Wien.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Kennenlernen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -794,7 +794,7 @@
  {
   "id": "sto-imparando-l-italiano",
   "de": "Ich lerne Italienisch.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Verständigung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -805,7 +805,7 @@
  {
   "id": "parlo-solo-un-po-d-italiano",
   "de": "Ich spreche nur ein wenig Italienisch.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Verständigung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -816,7 +816,7 @@
  {
   "id": "questa-e-la-mia-famiglia",
   "de": "Das ist meine Familie.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Kennenlernen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -827,7 +827,7 @@
  {
   "id": "ho-un-fratello-e-una-sorella",
   "de": "Ich habe einen Bruder und eine Schwester.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Kennenlernen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -838,7 +838,7 @@
  {
   "id": "vivo-con-il-mio-compagno-la-mia-compag",
   "de": "Ich lebe mit meinem Partner / meiner Partnerin.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Kennenlernen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -849,7 +849,7 @@
  {
   "id": "piacere-di-conoscerti",
   "de": "Freut mich, dich kennenzulernen.",
-  "context": "Alltag & Kennenlernen",
+  "context": "Kennenlernen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -860,7 +860,7 @@
  {
   "id": "posso-provarlo",
   "de": "Kann ich es anprobieren?",
-  "context": "Alltag & Kennenlernen",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -871,7 +871,7 @@
  {
   "id": "avete-una-taglia-piu-grande",
   "de": "Haben Sie eine größere Größe?",
-  "context": "Alltag & Kennenlernen",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -882,7 +882,7 @@
  {
   "id": "avete-una-taglia-piu-piccola",
   "de": "Haben Sie eine kleinere Größe?",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -893,7 +893,7 @@
  {
   "id": "quanto-viene",
   "de": "Was kostet das?",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -904,7 +904,7 @@
  {
   "id": "e-troppo-caro",
   "de": "Das ist zu teuer.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -915,7 +915,7 @@
  {
   "id": "posso-pagare-con-la-carta",
   "de": "Kann ich mit Karte bezahlen?",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -926,7 +926,7 @@
  {
   "id": "posso-avere-lo-scontrino",
   "de": "Kann ich den Kassenbon bekommen?",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -937,7 +937,7 @@
  {
   "id": "vorrei-restituire-questo",
   "de": "Ich möchte das zurückgeben.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Einkaufen",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -948,7 +948,7 @@
  {
   "id": "non-ho-capito",
   "de": "Ich habe nicht verstanden.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Verständigung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -959,7 +959,7 @@
  {
   "id": "puo-scriverlo-per-favore",
   "de": "Können Sie das bitte aufschreiben?",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Verständigung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -970,7 +970,7 @@
  {
   "id": "sto-ancora-imparando",
   "de": "Ich lerne noch.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Verständigung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -981,7 +981,7 @@
  {
   "id": "chiamate-la-polizia",
   "de": "Rufen Sie die Polizei!",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -992,7 +992,7 @@
  {
   "id": "ho-bisogno-di-un-medico",
   "de": "Ich brauche einen Arzt.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1003,7 +1003,7 @@
  {
   "id": "dov-e-l-ospedale",
   "de": "Wo ist das Krankenhaus?",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1014,7 +1014,7 @@
  {
   "id": "aiuto",
   "de": "Hilfe!",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1025,7 +1025,7 @@
  {
   "id": "chiamate-un-ambulanza",
   "de": "Rufen Sie einen Krankenwagen!",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1036,7 +1036,7 @@
  {
   "id": "mi-sento-male",
   "de": "Mir geht es schlecht.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1047,7 +1047,7 @@
  {
   "id": "mi-fa-male-qui",
   "de": "Hier tut es mir weh.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1058,7 +1058,7 @@
  {
   "id": "ho-bisogno-di-una-farmacia",
   "de": "Ich brauche eine Apotheke.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1069,7 +1069,7 @@
  {
   "id": "sono-allergico-allergica-a-questo",
   "de": "Ich bin dagegen allergisch.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1080,7 +1080,7 @@
  {
   "id": "ho-perso-il-passaporto",
   "de": "Ich habe meinen Reisepass verloren.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Notfall",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1091,7 +1091,7 @@
  {
   "id": "bene-grazie",
   "de": "Gut, danke.",
-  "context": "Sprache, Gesundheit & Notfall",
+  "context": "Begrüßung",
   "level": "A2",
   "src": "liste",
   "box": 1,
@@ -1102,7 +1102,7 @@
  {
   "id": "come-stai",
   "de": "Wie geht es dir?",
-  "context": "Verständigung",
+  "context": "Begrüßung",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -1113,7 +1113,7 @@
  {
   "id": "come-ti-chiami",
   "de": "Wie heißt du?",
-  "context": "Verständigung",
+  "context": "Kennenlernen",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -1124,7 +1124,7 @@
  {
   "id": "di-dove-sei",
   "de": "Woher bist du?",
-  "context": "Verständigung",
+  "context": "Kennenlernen",
   "level": "A1",
   "src": "liste",
   "box": 1,
@@ -1157,23 +1157,12 @@
  {
   "id": "quanti-anni-hai",
   "de": "Wie alt bist du?",
-  "context": "Verständigung",
+  "context": "Kennenlernen",
   "level": "A1",
   "src": "liste",
   "box": 1,
   "due": null,
   "strength": 0,
   "w": "Quanti anni hai?"
- },
- {
-  "id": "aglio-olio-e-peperoncino",
-  "de": "Mit Knoblauch, Öl und Chili",
-  "context": "Verständigung",
-  "level": "A1",
-  "src": "liste",
-  "box": 1,
-  "due": null,
-  "strength": 0,
-  "w": "Aglio, olio e peperoncino"
  }
 ]

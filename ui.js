@@ -3,8 +3,20 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '8';
-const DB = { vocab: [], sentences: [], phrases: [], grammar: [], byId: {}, sentById: {} };
+const APP_VERSION = '9';
+const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, byId: {}, sentById: {} };
+
+/* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
+   Phrasen weiter, nur die Grammatikübungen sind dann leer. */
+async function loadPractice(code) {
+  try {
+    const r = await fetch('data/' + code + '/practice.json');
+    const d = await r.json();
+    return d && d.chapters ? d : { chapters: {} };
+  } catch (e) {
+    return { chapters: {} };
+  }
+}
 
 const App = {
   screen: 'home',
@@ -27,6 +39,7 @@ const App = {
       DB.vocab = v; DB.sentences = s; DB.phrases = p; DB.grammar = g;
       v.forEach(x => DB.byId[x.id] = x);
       s.forEach(x => DB.sentById[x.id] = x);
+      DB.practice = await loadPractice(L);
     } catch (e) {
       this.el.innerHTML =
         '<div style="padding:40px 24px;text-align:center;">' +
@@ -59,6 +72,7 @@ const App = {
       DB.byId = {}; DB.sentById = {};
       v.forEach(x => DB.byId[x.id] = x);
       s.forEach(x => DB.sentById[x.id] = x);
+      DB.practice = await loadPractice(code);
     } catch (e) { /* Daten fehlen: Anzeige bleibt, Meldung folgt beim Start */ }
     Voice.init();
     this.go('home');
@@ -217,18 +231,30 @@ const Run = {
   items: [], i: 0, phase: 'q', picked: null, built: [], heard: '', verdict: null,
   right: 0, wrong: 0, skipped: 0,
   matched: [], pick1: null, missPair: null,
+  practice: null,      // null = Session, sonst { type, arg } einer Übungsrunde
 
   start() {
     this.items = Session.build(DB);
-    this.i = 0; this.right = 0; this.wrong = 0; this.wipped = 0;
+    this.i = 0; this.right = 0; this.wrong = 0; this.skipped = 0;
+    this.practice = null;
     this.reset();
     if (!this.items.length) { App.go('home'); return; }
     this.prep();
     App.go('session');
   },
 
+  /* Übungsrunde aus der Bibliothek: dieselbe Maschine, andere Wertung */
+  begin(items, practice) {
+    this.items = items;
+    this.i = 0; this.right = 0; this.wrong = 0; this.skipped = 0;
+    this.practice = practice || null;
+    this.reset();
+    this.prep();
+    App.go('session');
+  },
+
   reset() {
-    this.phase = 'q'; this.picked = null; this.built = []; this.heard = ''; this.verdict = null;
+    this.phase = 'q'; this.picked = null; this.built = []; this.heard = ''; this.verdict = null; this.hit = null;
     this.matched = []; this.pick1 = null; this.missPair = null;
   },
 
@@ -239,7 +265,7 @@ const Run = {
     if (!it) return;
     if (it.kind === 'choice') it.q = Make.choice(it.word, DB, it.dir);
     if (it.kind === 'match') it.q = Make.pairs(it.words);
-    if (it.kind === 'phrasechoice') {
+    if (it.kind === 'phrasechoice' && !it.preset) {
       const others = sample(DB.phrases.filter(x => x.id !== it.phrase.id), 3);
       it.opts = shuffle(others.map(x => x.de).concat([it.phrase.de]));
     }
@@ -260,7 +286,8 @@ const Run = {
     this.i++;
     this.reset();
     if (this.i >= this.items.length) {
-      Store.day().sessions++;     // Session abgeschlossen — zaehlt fuer die Serie
+      // Nur eine Session zählt für die Serie, eine Übungsrunde nicht
+      if (!this.practice) Store.day().sessions++;
       Store.save();
       if (Sync.on) Sync.run(true);   // still abgleichen, ohne zu blockieren
       App.go('session');
@@ -287,7 +314,9 @@ const Run = {
 
     let body = '';
     if (it.kind === 'intro') body = this.intro(it);
-    else if (it.kind === 'match') body = this.match(it);
+    else if (it.kind === 'match' || it.kind === 'gpairs') body = this.match(it);
+    else if (it.kind === 'cloze') body = this.cloze(it);
+    else if (it.kind === 'gtype') body = this.gtype(it);
     else if (it.kind === 'phrasechoice') body = this.phraseChoice(it);
     else if (it.kind === 'choice') body = this.choice(it);
     else if (it.kind === 'type') body = this.type(it);
@@ -338,7 +367,8 @@ const Run = {
         ' data-pair="' + side + ':' + o.id + '">' + esc(o.text) + '</button>';
     };
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted" style="margin:6px 0 16px;">Was gehört zusammen?</div>' +
+      '<div class="muted" style="margin:6px 0 ' + (it.title ? '8' : '16') + 'px;">Was gehört zusammen?</div>' +
+      (it.title ? '<div style="margin-bottom:14px;"><span class="chip">' + esc(it.title) + '</span></div>' : '') +
       '<div class="pairgrid">' +
         '<div class="paircol">' + q.left.map(o => cell('l', o)).join('') + '</div>' +
         '<div class="paircol">' + q.right.map(o => cell('r', o)).join('') + '</div>' +
@@ -348,31 +378,113 @@ const Run = {
       '<div class="spacer"></div></div></div>';
   },
 
-  /* --- Phrase als Auswahl, wenn nicht gesprochen wird --- */
+  /* --- Phrase als Auswahl, wenn nicht gesprochen wird ---
+     Richtung 'w2de' (Standard): Phrase zeigen, Bedeutung wählen.
+     Richtung 'de2w' (Übungsrunde): Bedeutung zeigen, Phrase wählen. */
   phraseChoice(it) {
     const p = it.phrase, shown = this.phase === 'a';
+    const rev = it.dir === 'de2w';
+    const right = rev ? p.w : p.de;
     const opts = it.opts.map(o => {
       let cls = 'opt';
       if (shown) {
-        if (o === p.de) cls += ' right';
+        if (o === right) cls += ' right';
         else if (o === this.picked) cls += ' wrong';
         else cls += ' dim';
       }
       return '<button class="' + cls + '" data-pickphrase="' + esc(o) + '">' +
-        '<span class="opt-in"><span>' + esc(o) + '</span>' +
-        (shown && o === p.de ? '<span>&#10003;</span>' : '') + '</span></button>';
+        '<span class="opt-in"><span>' + (rev ? marked(o) : esc(o)) + '</span>' +
+        (shown && o === right ? '<span>&#10003;</span>' : '') + '</span></button>';
     }).join('');
+    const card = rev
+      ? '<div class="wordcard" style="min-height:140px;">' +
+          (shown ? '<button class="speak" data-say="' + esc(p.w) + '">' + ICON.speak + '</button>' : '') +
+          '<span class="chip">' + esc(p.context) + '</span>' +
+          '<div class="word' + (p.de.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
+            esc(p.de) + '</div>' +
+        '</div>'
+      : '<div class="wordcard" style="min-height:140px;">' +
+          '<button class="speak" data-say="' + esc(p.w) + '">' + ICON.speak + '</button>' +
+          '<span class="chip">' + esc(p.context) + '</span>' +
+          '<div class="word' + (p.w.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
+            marked(p.w) + '</div>' +
+        '</div>';
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Was bedeutet das?</div>' +
-      '<div class="wordcard" style="min-height:140px;">' +
-        '<button class="speak" data-say="' + esc(p.w) + '">' + ICON.speak + '</button>' +
-        '<span class="chip">' + esc(p.context) + '</span>' +
-        '<div class="word' + (p.w.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
-          marked(p.w) + '</div>' +
-      '</div>' +
+      '<div class="muted center" style="margin:6px 0 16px;">' +
+        (rev ? 'Wie sagt man das?' : 'Was bedeutet das?') + '</div>' +
+      card +
       '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
       '<div class="spacer"></div></div></div>' +
       (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
+  },
+
+  /* --- Lückensatz: Sätze (Wort fehlt) und Grammatik (Form fehlt) --- */
+  cloze(it) {
+    const q = it.q, shown = this.phase === 'a';
+    const ok = shown && this.picked === q.answer;
+    const opts = q.options.map(o => {
+      let cls = 'opt';
+      if (shown) {
+        if (o === q.answer) cls += ' right';
+        else if (o === this.picked) cls += ' wrong';
+        else cls += ' dim';
+      }
+      return '<button class="' + cls + '" data-pickcloze="' + esc(o) + '">' +
+        '<span class="opt-in"><span>' + marked(o) + '</span>' +
+        (shown && o === q.answer ? '<span>&#10003;</span>' : '') + '</span></button>';
+    }).join('');
+    const parts = q.text.split('___');
+    const gap = '<span class="gap' + (shown ? ' right' : '') + '">' +
+      (shown ? marked(q.answer) : '&nbsp;') + '</span>';
+    return '<div class="view fade"><div class="view-pad">' +
+      '<div class="muted center" style="margin:6px 0 12px;">' +
+        (q.chapter ? 'Welche Form passt?' : 'Welches Wort fehlt?') + '</div>' +
+      '<div class="wordcard" style="min-height:0;padding:26px 20px;">' +
+        (shown ? '<button class="speak" data-say="' + esc(q.full) + '">' + ICON.speak + '</button>' : '') +
+        (q.title ? '<span class="chip">' + esc(q.title) + '</span>' : '') +
+        '<div class="clozeline" style="margin-top:' + (q.title ? 14 : 0) + 'px;">' +
+          marked(parts[0]) + gap + marked(parts[1] || '') + '</div>' +
+        (q.hint ? '<div class="tiny" style="margin-top:10px;">' + esc(q.hint) + '</div>' : '') +
+        '<div class="gloss" style="font-size:16px;margin-top:12px;">' + esc(q.de) + '</div>' +
+      '</div>' +
+      '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
+      (shown
+        ? '<div class="fb ' + (ok ? 'good' : 'bad') + '" style="margin-top:14px;">' +
+            '<div class="fb-t">' + (ok ? 'Richtig' : 'Noch nicht') + '</div>' +
+            '<div class="fb-d">' + (ok ? '' : 'Richtig ist <b>' + esc(q.answer) + '</b> — ') +
+            esc(q.full) + '</div></div>'
+        : '') +
+      '<div class="spacer"></div></div></div>' +
+      (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
+  },
+
+  /* --- Form eintippen (Grammatik) --- */
+  gtype(it) {
+    const q = it.q, shown = this.phase === 'a';
+    const okv = this.verdict === 'exact' || this.verdict === 'diacritics';
+    const cls = shown ? (okv ? ' right' : ' wrong') : '';
+    const name = LANGS[currentLang()].name;
+    const fb = !shown ? '' :
+      this.feedback(okv ? this.verdict : 'wrong', this.picked, okv ? (this.hit || q.target) : q.target, q.de) +
+      (this.verdict === 'typo' || this.verdict === 'close'
+        ? '<div class="tiny" style="margin-top:8px;">Bei Endungen zählt jeder Buchstabe.</div>' : '');
+    return '<div class="view fade"><div class="view-pad">' +
+      '<div class="muted center" style="margin:6px 0 16px;">Schreib die Form auf ' + name + '</div>' +
+      '<div class="wordcard" style="min-height:130px;">' +
+        '<span class="chip">' + esc(q.title) + '</span>' +
+        '<div class="word' + (q.de.length > 13 ? ' long' : '') + '" style="margin-top:12px;">' +
+          esc(q.de) + '</div>' +
+      '</div>' +
+      '<input class="field' + cls + '" id="typed" style="margin-top:16px;" ' +
+        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+        'placeholder="' + name.toLowerCase() + '…" ' +
+        (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
+      fb +
+      '<div class="spacer"></div></div></div>' +
+      '<div class="bottom">' +
+        (shown ? '<button class="btn" data-next>Weiter</button>'
+               : '<button class="btn" data-check-gtype>Prüfen</button>') +
+      '</div>';
   },
 
   /* --- Mehrfachauswahl --- */
@@ -585,20 +697,34 @@ const Run = {
     const newly = Stats.learnedToday();
     return '<div class="safe-top"></div><div class="view pop"><div class="result">' +
       '<div class="result-mark">' + mark + '</div>' +
-      '<div class="title" style="margin-bottom:10px;">Session beendet</div>' +
+      '<div class="title" style="margin-bottom:10px;">' + (this.practice ? 'Runde beendet' : 'Session beendet') + '</div>' +
       '<div class="result-pct" style="color:' +
         (pct >= 80 ? 'var(--good)' : pct >= 60 ? 'var(--ochre)' : 'var(--bad)') + '">' + pct + '%</div>' +
       '<div class="small" style="margin-top:4px;">' + this.right + ' von ' + total + ' richtig' +
-        (this.wipped ? ', ' + this.wipped + ' übersprungen' : '') + '</div>' +
-      (newly ? '<div class="panel" style="margin-top:24px;text-align:left;">' +
+        (this.skipped ? ', ' + this.skipped + ' übersprungen' : '') + '</div>' +
+      (this.practice ? this.practiceNote() : '') +
+      (newly && !this.practice ? '<div class="panel" style="margin-top:24px;text-align:left;">' +
         '<div class="body"><b>' + newly + '</b> ' +
         (newly === 1 ? 'Wort ist' : 'Wörter sind') + ' heute ins Langzeitgedächtnis gewandert.</div>' +
         '</div>' : '') +
       '</div></div>' +
       '<div class="bottom"><div class="btn-row">' +
-        '<button class="btn-line" data-go="home">Schluss</button>' +
-        '<button class="btn wide" data-start>Noch eine</button>' +
+        (this.practice
+          ? '<button class="btn-line" data-go="library">Schluss</button>' +
+            '<button class="btn wide" data-practice-again>Noch eine Runde</button>'
+          : '<button class="btn-line" data-go="home">Schluss</button>' +
+            '<button class="btn wide" data-start>Noch eine</button>') +
       '</div></div>';
+  },
+
+  /* Unter dem Ergebnis einer Übungsrunde: bei einer einzelnen Regel ihr Stand */
+  practiceNote() {
+    const P = this.practice;
+    if (!P || P.type !== 'grammar' || !P.arg) return '';
+    const rc = Practice.recent(P.arg);
+    if (!rc) return '';
+    return '<div class="panel" style="margin-top:24px;text-align:left;">' +
+      '<div class="body">Diese Regel: zuletzt <b>' + rc.r + ' von ' + rc.n + '</b> richtig.</div></div>';
   },
 };
 
@@ -821,6 +947,9 @@ const Library = {
     let out = '<div class="small" style="margin-bottom:14px;">' + open.length +
       ' von ' + DB.sentences.length + ' Sätzen freigeschaltet. Ein Satz erscheint, ' +
       'sobald du seine Wörter kennst.</div>';
+    if (open.length >= 4) {
+      out += '<button class="btn" data-practice="sentences" style="margin-bottom:14px;">Sätze üben</button>';
+    }
     const sprechbar = Session.speechOn();
     out += open.slice(0, 120).map(s =>
       '<div class="row"><div class="row-main">' +
@@ -839,28 +968,50 @@ const Library = {
   phrases() {
     const ctx = [];
     DB.phrases.forEach(p => { if (!ctx.includes(p.context)) ctx.push(p.context); });
-    return ctx.map(c =>
-      '<div class="head" style="margin:20px 0 6px;">' + esc(c) + '</div>' +
-      DB.phrases.filter(p => p.context === c).map(p =>
-        '<div class="row"><div class="row-main">' +
-        '<div class="row-sk" style="font-weight:560;">' + marked(p.w) + '</div>' +
-        '<div class="row-de">' + esc(p.de) + '</div></div>' +
-        '<button class="speak" style="position:static;width:36px;height:36px;" ' +
-        'data-say="' + esc(p.w) + '">' + ICON.speak + '</button></div>').join('')
-    ).join('');
+    // Bekannte Situationen in fester Reihenfolge, unbekannte dahinter
+    const ord = Practice.CTX_ORDER;
+    ctx.sort((a, b) => {
+      const ia = ord.indexOf(a), ib = ord.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
+    const top = DB.phrases.length >= 4
+      ? '<button class="btn" data-practice="phrases" style="margin-bottom:4px;">Alle Phrasen üben</button>' : '';
+    return top + ctx.map(c => {
+      const list = DB.phrases.filter(p => p.context === c);
+      return '<div class="sechead"><div class="head">' + esc(c) + '</div>' +
+        (list.length >= 4
+          ? '<button class="chipbtn" data-practice="phrases:' + esc(c) + '">üben</button>' : '') +
+        '</div>' +
+        list.map(p =>
+          '<div class="row"><div class="row-main">' +
+          '<div class="row-sk" style="font-weight:560;">' + marked(p.w) + '</div>' +
+          '<div class="row-de">' + esc(p.de) + '</div></div>' +
+          '<button class="speak" style="position:static;width:36px;height:36px;" ' +
+          'data-say="' + esc(p.w) + '">' + ICON.speak + '</button></div>').join('');
+    }).join('');
   },
 
   grammar() {
-    return DB.grammar.map(g =>
-      '<button class="tile" data-chapter="' + esc(g.id) + '" style="margin-bottom:9px;">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">' +
-      '<div><div class="head">' + esc(g.title) + '</div>' +
-      '<div class="small">' + esc(g.description) + '</div></div>' +
-      '<span class="chip">' + esc(g.level) + '</span></div></button>').join('');
+    const can = DB.grammar.filter(g => Practice.available(g.id)).length >= 2;
+    const any = DB.grammar.some(g => Practice.recent(g.id));
+    return (can ? '<button class="btn" data-practice="grammar" style="margin-bottom:6px;">Grammatik üben</button>' : '') +
+      (any ? '<div class="tiny" style="margin:0 2px 12px;">Die Zahl zeigt, wie viele deiner letzten ' +
+        'Antworten zu einer Regel richtig waren.</div>' : '<div style="height:8px;"></div>') +
+      DB.grammar.map(g => {
+        const rc = Practice.recent(g.id);
+        return '<button class="tile" data-chapter="' + esc(g.id) + '" style="margin-bottom:9px;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">' +
+          '<div><div class="head">' + esc(g.title) + '</div>' +
+          '<div class="small">' + esc(g.description) + '</div></div>' +
+          '<span style="display:flex;gap:6px;align-items:center;flex:none;">' +
+            (rc ? '<span class="chip' + (rc.r / rc.n >= 0.8 ? '' : ' ochre') + '">' + rc.r + '/' + rc.n + '</span>' : '') +
+            '<span class="chip">' + esc(g.level) + '</span></span></div></button>';
+      }).join('');
   },
 
   chapter(id) {
     const g = DB.grammar.find(x => x.id === id) || DB.grammar[0];
+    const rc = Practice.recent(g.id);
     const rows = g.table.map(r =>
       '<tr><td style="color:var(--ink-2);">' + esc(r[0]) + '</td>' +
       '<td>' + marked(r[1]) + '</td></tr>').join('');
@@ -873,6 +1024,10 @@ const Library = {
         '<div class="card" style="margin-top:16px;padding:4px 18px 10px;">' +
           '<table class="gtable">' + rows + '</table></div>' +
         '<div class="tipbox">' + esc(g.tip) + '</div>' +
+        (Practice.available(g.id)
+          ? '<button class="btn" data-practice="grammar:' + esc(g.id) + '" style="margin-top:18px;">Diese Regel üben</button>' +
+            (rc ? '<div class="tiny center" style="margin-top:8px;">Zuletzt ' + rc.r + ' von ' + rc.n + ' richtig</div>' : '')
+          : '') +
         '<div class="spacer"></div></div></div>';
   },
 };

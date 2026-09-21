@@ -65,6 +65,7 @@ const Store = {
       v: 2,
       words: {},        // id -> {box, due, strength, learned}
       phrases: {},      // id -> {box, due, strength}
+      grammar: {},      // kapitel-id -> {seen, right, last, t}
       days: {},         // 'YYYY-MM-DD' -> {seen, right, newWords, sessions}
       settings: { goal: 24, speech: true },
       started: Store.today(),
@@ -79,6 +80,7 @@ const Store = {
       this.data = this.blank();
     }
     if (!this.data.words) this.data = this.blank();
+    if (!this.data.grammar) this.data.grammar = {};
     if (!this.data.settings) this.data.settings = { goal: 24, speech: true };
     if (this.data.settings.speech === undefined) this.data.settings.speech = true;
     return this.data;
@@ -481,7 +483,7 @@ const Sync = {
     if (!theirs || !theirs.words) return mine;
     const out = {
       v: 2,
-      words: {}, phrases: {}, days: {},
+      words: {}, phrases: {}, grammar: {}, days: {},
       settings: mine.settings || { goal: 24, speech: true },
       started: [mine.started, theirs.started].filter(Boolean).sort()[0] || Store.today(),
     };
@@ -498,6 +500,15 @@ const Sync = {
           out[kind][id] = (x.box || 1) >= (y.box || 1) ? x : y;
         }
       });
+    });
+    // Stand je Grammatikkapitel: der jüngere Zeitstempel gewinnt
+    const ga = mine.grammar || {}, gb = theirs.grammar || {};
+    Object.keys(ga).concat(Object.keys(gb)).forEach(id => {
+      if (out.grammar[id]) return;
+      const x = ga[id], y = gb[id];
+      if (!x) { out.grammar[id] = y; return; }
+      if (!y) { out.grammar[id] = x; return; }
+      out.grammar[id] = (x.t || 0) >= (y.t || 0) ? x : y;
     });
     const da = mine.days || {}, db = theirs.days || {};
     Object.keys(da).concat(Object.keys(db)).forEach(k => {
@@ -664,7 +675,7 @@ const Session = {
     const ready = DB.phrases.filter(p => LVL_RANK[p.level] <= rank);
     const pDue = ready.filter(p => !P[p.id] || Leitner.isDue(P[p.id]));
     pDue.slice(0, canSpeak ? 3 : 2).forEach(p => {
-      core.push({ kind: canSpeak ? 'speak' : 'phrasechoice', phrase: p });
+      core.push({ kind: canSpeak && isPlainPhrase(p.w) ? 'speak' : 'phrasechoice', phrase: p });
     });
 
     // 4 · Neue Wörter — so viele, dass die Session voll wird.
@@ -810,6 +821,443 @@ const Make = {
     const extras = sample(pool, want).map(v => v.w);
     return { target, parts, bank: shuffle(parts.concat(extras)) };
   },
+};
+
+/* ---------- Phrasen ohne Platzhalter ----------
+   „Mi chiamo…", „Come si dice … in italiano?" und Formen mit Schrägstrich
+   („allergico / allergica") lassen sich weder eintippen noch nachsprechen. */
+function isPlainPhrase(text) {
+  return !/\.\.\.|\u2026|\s\/\s|___/.test(String(text || ''));
+}
+
+/* ---------- Üben aus der Bibliothek ----------
+   Sätze, Phrasen und Grammatik laufen über dieselbe Aufgabenmaschine wie die
+   Session (Run). Hier entstehen nur die Aufgabenlisten und die Regeln,
+   was eine Antwort bewirkt.
+
+   Regeln wie beim Vokabel-Üben:
+   - zählt getrennt (drill), nie auf das Tagesziel und nie auf die Serie
+   - eine richtige Antwort rückt nur ein FÄLLIGES Wort oder eine fällige
+     Phrase vor, sonst liesse sich der Wiederholungsabstand aushebeln
+   - ein Fehler stuft nur das zurück, was sich eindeutig zuordnen lässt:
+     beim Lückensatz das Zielwort, bei Phrasen die Phrase. Beim Satzbau
+     oder Diktat bleibt alles stehen — dort ist unklar, welches Wort schuld war
+   - Grammatik hat keine Kästen, nur einen Stand je Kapitel */
+const Practice = {
+  ROUND: 10,
+  last: null,
+  CTX_ORDER: ['Begrüßung', 'Kennenlernen', 'Höflichkeit', 'Verständigung',
+              'Orientierung', 'Einkaufen', 'Restaurant', 'Hotel & Reise', 'Notfall'],
+
+  /* ---- Hilfen ---- */
+  pickWeighted(list) {
+    let sum = 0;
+    list.forEach(x => { sum += x[1]; });
+    let r = Math.random() * sum;
+    for (let i = 0; i < list.length; i++) {
+      r -= list[i][1];
+      if (r <= 0) return list[i][0];
+    }
+    return list[list.length - 1][0];
+  },
+
+  conf(id) {
+    const P = DB.practice;
+    return (P && P.chapters && P.chapters[id]) || null;
+  },
+
+  // Wörter eines Satzes samt Satzzeichen davor und dahinter
+  words(text) {
+    return String(text || '').trim().split(/\s+/).filter(Boolean).map(raw => {
+      const m = raw.match(/^([„"“‘'(¿¡]*)(.*?)([.,!?;:…"”’')]*)$/);
+      return { raw, pre: m[1], core: m[2], post: m[3] };
+    });
+  },
+
+  likeCase(ref, s) {
+    const big = ref && ref[0] !== ref[0].toLowerCase();
+    return big ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+  },
+
+  /* Grundformen der Vokabeln: ohne Artikel, mehrere Schreibweisen getrennt.
+     Mehrwortausdrücke bleiben draussen, sie stehen selten als Ganzes im Satz. */
+  lemmasOf(v) {
+    if (!/^(noun|adj|adv|verb)$/.test(v.pos)) return [];
+    const out = [];
+    String(v.w).split(/\s*\/\s*/).forEach(part => {
+      let w = part.toLowerCase().trim();
+      w = w.replace(/^(?:(?:il|lo|la|i|gli|le|un|una|uno)\s+|l'|un')/, '');
+      if (w && !/\s/.test(w)) out.push(w);
+    });
+    return out;
+  },
+
+  /* Deutsche Bedeutungen einer Vokabel ohne Artikel und Klammern. Zwei Wörter
+     mit gleicher Bedeutung (camera/stanza, ísť/chodiť) dürfen nicht als
+     Ablenker füreinander dienen — sonst wäre beides richtig. */
+  meanings(v) {
+    return String(v.de).toLowerCase().split(/\s*[,\/;]\s*/)
+      .map(d => d.replace(/\(.*?\)/g, '').trim().replace(/^(?:der|die|das|ein|eine|einen|zu|sich)\s+/, ''))
+      .filter(Boolean);
+  },
+
+  sameMeaning(a, b) {
+    const m = this.meanings(a);
+    return this.meanings(b).some(x => m.indexOf(x) !== -1);
+  },
+
+  lemmas() {
+    if (this._lemFor === DB.vocab) return this._lem;
+    const idx = {};
+    DB.vocab.forEach(v => this.lemmasOf(v).forEach(l => { if (!idx[l]) idx[l] = v; }));
+    this._lemFor = DB.vocab;
+    this._lem = idx;
+    return idx;
+  },
+
+  /* ---------- Sätze ---------- */
+  pool() { return DB.sentences.filter(s => Session.unlocked(s)); },
+
+  sentenceRound() {
+    const pool = this.pool();
+    if (pool.length < 4) return [];
+    const canSpeak = Session.speechOn();
+    return sample(pool, Math.min(this.ROUND, pool.length))
+      .map(s => this.sentenceItem(s, canSpeak));
+  },
+
+  sentenceItem(s, canSpeak) {
+    const long = s.w.split(/\s+/).length > 9;   // lange Sätze nicht als Bausteine
+    const r = Math.random();
+    const fx = { words: s.words };
+    if (r < 0.30) {
+      const cz = this.clozeFromSentence(s);
+      if (cz) return cz;
+    }
+    if (r < 0.55 && !long) return { kind: 'build', sent: s, fx };
+    if (canSpeak && r > 0.85) {
+      return { kind: 'speak', phrase: { id: s.id, w: s.w, de: s.de, context: '' }, fx: {} };
+    }
+    let kind = listenStage(s);
+    if (long && kind === 'listenbuild') kind = 'listen';
+    return { kind, sent: s, fx };
+  },
+
+  /* Ein Inhaltswort ausblenden. Ablenker stammen aus derselben Wortart und
+     aus bereits begonnenen Wörtern; der deutsche Satz steht als Hilfe darüber. */
+  clozeFromSentence(s) {
+    const W = Store.data.words, idx = this.lemmas();
+    const toks = this.words(s.w);
+    if (toks.length < 3) return null;
+    const count = {};
+    toks.forEach(t => { const k = t.core.toLowerCase(); count[k] = (count[k] || 0) + 1; });
+    const cands = [];
+    toks.forEach((t, i) => {
+      const k = t.core.toLowerCase();
+      if (count[k] === 1 && idx[k]) cands.push({ i, v: idx[k] });
+    });
+    if (!cands.length) return null;
+    const known = cands.filter(c => W[c.v.id]);
+    const pick = sample(known.length ? known : cands, 1)[0];
+    const t = toks[pick.i], v = pick.v;
+    const here = {};
+    toks.forEach(x => { here[x.core.toLowerCase()] = 1; });
+    let forms = DB.vocab
+      .filter(x => x.id !== v.id && x.pos === v.pos && W[x.id] && !this.sameMeaning(x, v))
+      .map(x => this.lemmasOf(x)[0]).filter(Boolean);
+    forms = forms.filter((f, i) => forms.indexOf(f) === i && !here[f]);
+    if (forms.length < 3) return null;
+    const wrong = sample(forms, 3).map(f => this.likeCase(t.core, f));
+    return {
+      kind: 'cloze',
+      q: {
+        de: s.de,
+        text: toks.map((x, i) => i === pick.i ? x.pre + '___' + x.post : x.raw).join(' '),
+        answer: t.core, options: shuffle(wrong.concat([t.core])),
+        hint: '', full: s.w, title: '', chapter: null,
+      },
+      fx: { words: s.words, demoteWord: W[v.id] ? v.id : null },
+    };
+  },
+
+  /* ---------- Phrasen ---------- */
+  phraseRound(ctx) {
+    const pool = DB.phrases.filter(p => !ctx || p.context === ctx);
+    if (pool.length < 4) return [];
+    const canSpeak = Session.speechOn();
+    return sample(pool, Math.min(this.ROUND, pool.length))
+      .map(p => this.phraseItem(p, ctx, canSpeak));
+  },
+
+  phraseItem(p, ctx, canSpeak) {
+    const plain = isPlainPhrase(p.w);
+    const bag = [['w2de', 3], ['de2w', 3]];
+    if (plain) {
+      bag.push(['build', 2], ['dictation', 1.5]);
+      if (canSpeak) bag.push(['speak', 1.5]);
+    }
+    const what = this.pickWeighted(bag);
+    const fx = { phrase: p.id };
+    const flat = { id: p.id, w: p.w, de: p.de, words: [] };
+    if (what === 'build') return { kind: 'build', sent: flat, fx };
+    if (what === 'dictation') return { kind: 'dictation', sent: flat, fx };
+    if (what === 'speak') return { kind: 'speak', phrase: p, fx };
+
+    // Ablenker bevorzugt aus derselben Situation — sonst ist es leicht
+    const key = what === 'w2de' ? 'de' : 'w';
+    const right = p[key];
+    const near = DB.phrases.filter(x => x.id !== p.id && x.context === p.context);
+    const far = DB.phrases.filter(x => x.id !== p.id && x.context !== p.context);
+    const seen = {}; seen[right] = 1;
+    const wrong = [];
+    sample(near, near.length).concat(sample(far, far.length)).forEach(x => {
+      if (wrong.length < 3 && !seen[x[key]]) { seen[x[key]] = 1; wrong.push(x[key]); }
+    });
+    return {
+      kind: 'phrasechoice', dir: what, phrase: p, preset: true, fx,
+      opts: shuffle(wrong.concat([right])),
+    };
+  },
+
+  /* ---------- Grammatik ---------- */
+  chapter(id) { return DB.grammar.find(g => g.id === id) || null; },
+
+  // Nur Zeilen, deren Lösung eine einzelne Form ist, taugen zum Eintippen
+  typable(r) {
+    const t = String(r[1] || '');
+    return !!t && !!r[0] && !/[\/()]|\s—\s/.test(t) && t.length <= 26;
+  },
+
+  // Slowakisch: mit oder ohne Fürwort — „ja som" und „som" gelten beide
+  accept(t) {
+    const list = [t];
+    const bare = t.replace(/^(?:ja|ty|on\/ona|my|vy|oni)\s+/i, '');
+    if (bare && bare !== t) list.push(bare);
+    return list;
+  },
+
+  /* Beim Eintippen einer Endung zählt jeder Buchstabe: „parli" statt „parla"
+     ist genau der Fehler, den man üben will. Deshalb keine Tippfehler-Toleranz,
+     nur fehlende Zeichen (č, ľ, á …) werden nachgesehen. */
+  judge(said, list) {
+    const rank = { exact: 4, diacritics: 3, typo: 2, close: 1, wrong: 0 };
+    let best = 'wrong', target = list[0];
+    list.forEach(t => {
+      const v = Text.compare(said, t);
+      if (rank[v] > rank[best]) { best = v; target = t; }
+    });
+    return { verdict: best, target };
+  },
+
+  available(id) {
+    const conf = this.conf(id), ch = this.chapter(id);
+    if (!conf || !ch) return false;
+    const n = (conf.items || []).length +
+      (conf.forms === 'both' ? ch.table.filter(r => this.typable(r)).length : 0);
+    return n >= 4;
+  },
+
+  authored(x, ch) {
+    return {
+      kind: 'cloze',
+      q: { de: x.de, text: x.s, answer: x.a, options: shuffle(x.opts.slice()),
+           hint: x.hint || '', full: x.s.replace('___', x.a), title: ch.title, chapter: ch.id },
+      fx: { chapter: ch.id },
+    };
+  },
+
+  /* Sätze aus dem Bestand, in denen genau eine Form des Kapitels steht.
+     Die Ablenker sind die übrigen Formen derselben Tabelle. */
+  autoCloze(ch, auto) {
+    if (!auto || !auto.forms || !auto.forms.length) return [];
+    const set = {};
+    auto.forms.forEach(f => { set[f.toLowerCase()] = 1; });
+    const rank = LVL_RANK[Session.level(DB)];
+    const need = auto.requireDe ? new RegExp(auto.requireDe, 'i') : null;
+    const skip = auto.excludeDe ? new RegExp(auto.excludeDe, 'i') : null;
+    const src = DB.sentences.filter(s => LVL_RANK[s.reqLevel] <= rank)
+      .concat(DB.phrases.filter(p => LVL_RANK[p.level] <= rank && isPlainPhrase(p.w)));
+    const out = [];
+    src.forEach(x => {
+      if (need && !need.test(x.de)) return;
+      if (skip && skip.test(x.de)) return;
+      const toks = this.words(x.w);
+      if (toks.length < 2) return;
+      const hits = [];
+      toks.forEach((t, i) => { if (set[t.core.toLowerCase()]) hits.push(i); });
+      if (hits.length !== 1) return;
+      const t = toks[hits[0]], ans = t.core.toLowerCase();
+      const wrong = sample(auto.forms.filter(f => f.toLowerCase() !== ans), 3);
+      out.push({
+        kind: 'cloze',
+        q: { de: x.de, text: toks.map((y, i) => i === hits[0] ? y.pre + '___' + y.post : y.raw).join(' '),
+             answer: t.core, options: shuffle(wrong.map(f => this.likeCase(t.core, f)).concat([t.core])),
+             hint: '', full: x.w, title: ch.title, chapter: ch.id },
+        fx: { chapter: ch.id },
+      });
+    });
+    return sample(out, 8);
+  },
+
+  typeItem(r, ch) {
+    return {
+      kind: 'gtype',
+      q: { de: r[0], target: r[1], accept: this.accept(r[1]), title: ch.title, chapter: ch.id },
+      fx: { chapter: ch.id },
+    };
+  },
+
+  // Formen zuordnen; Zeilen mit gleicher Lösung oder gleichem Wort nur einmal
+  pairsItem(ch) {
+    const seenR = {}, seenL = {};
+    const rows = ch.table.filter(r => {
+      const a = String(r[0]).toLowerCase(), b = String(r[1]).toLowerCase();
+      if (!a || !b || a.length > 42 || b.length > 28 || seenL[a] || seenR[b]) return false;
+      seenL[a] = 1; seenR[b] = 1;
+      return true;
+    });
+    if (rows.length < 4) return null;
+    const pick = sample(rows, Math.min(5, rows.length));
+    return {
+      kind: 'gpairs', grammar: true, title: ch.title,
+      q: {
+        left:  shuffle(pick.map((r, i) => ({ id: 'g' + i, text: r[0] }))),
+        right: shuffle(pick.map((r, i) => ({ id: 'g' + i, text: r[1] }))),
+        total: pick.length,
+      },
+      fx: { chapter: ch.id },
+    };
+  },
+
+  grammarPool(id) {
+    const ch = this.chapter(id);
+    if (!ch) return null;
+    const conf = this.conf(id) || {};
+    const seen = {};
+    const clozes = shuffle((conf.items || []).map(x => this.authored(x, ch))
+      .concat(this.autoCloze(ch, conf.auto)))
+      .filter(it => {
+        const k = it.q.full.toLowerCase();
+        if (seen[k]) return false;
+        seen[k] = 1;
+        return true;
+      });
+    const types = conf.forms === 'both'
+      ? shuffle(ch.table.filter(r => this.typable(r)).map(r => this.typeItem(r, ch))) : [];
+    return { ch, clozes, types, pairs: conf.forms ? this.pairsItem(ch) : null };
+  },
+
+  grammarRound(id) {
+    const p = this.grammarPool(id);
+    if (!p) return [];
+    let items = [];
+    if (p.pairs) items.push(p.pairs);
+    items = items.concat(p.types.slice(0, 3));
+    items = items.concat(p.clozes.slice(0, this.ROUND - items.length));
+    if (items.length < this.ROUND) {
+      items = items.concat(p.types.slice(3, 3 + this.ROUND - items.length));
+    }
+    return items.length >= 4 ? shuffle(items) : [];
+  },
+
+  /* Quer durch alle Kapitel. Kapitel ohne Übung oder mit schwachem Stand
+     kommen häufiger dran, aber keines dominiert die Runde. */
+  mixedGrammarRound() {
+    const chs = DB.grammar.filter(g => this.available(g.id));
+    if (chs.length < 2) return [];
+    const wt = chs.map(g => {
+      const r = this.recent(g.id);
+      return [g, r ? 1 + (1 - r.r / r.n) : 2];
+    });
+    const pools = {}, items = [];
+    let guard = 0;
+    while (items.length < this.ROUND && guard++ < 80) {
+      const pair = this.pickWeightedPair(wt);
+      const g = pair[0];
+      const p = pools[g.id] || (pools[g.id] = this.grammarPool(g.id));
+      const roll = Math.random();
+      let it = null;
+      if (roll < 0.12 && p.pairs) { it = p.pairs; p.pairs = null; }
+      else if (roll < 0.45 && p.types.length) it = p.types.shift();
+      else if (p.clozes.length) it = p.clozes.shift();
+      else if (p.types.length) it = p.types.shift();
+      if (it) { items.push(it); pair[1] *= 0.35; }
+    }
+    return items.length >= 4 ? items : [];
+  },
+
+  pickWeightedPair(wt) {
+    let sum = 0;
+    wt.forEach(x => { sum += x[1]; });
+    let r = Math.random() * sum;
+    for (let i = 0; i < wt.length; i++) {
+      r -= wt[i][1];
+      if (r <= 0) return wt[i];
+    }
+    return wt[wt.length - 1];
+  },
+
+  /* ---------- Stand je Kapitel ---------- */
+  record(id, ok) {
+    if (!Store.data.grammar) Store.data.grammar = {};
+    const G = Store.data.grammar;
+    const st = G[id] || (G[id] = { seen: 0, right: 0, last: '', t: 0 });
+    st.seen++;
+    if (ok) st.right++;
+    st.last = (String(st.last || '') + (ok ? '1' : '0')).slice(-10);
+    st.t = Date.now();
+  },
+
+  // Die letzten (bis zu zehn) Antworten: { r: richtig, n: gezählt } oder null
+  recent(id) {
+    const st = Store.data.grammar && Store.data.grammar[id];
+    if (!st || !st.last) return null;
+    const n = st.last.length;
+    return { n, r: (st.last.match(/1/g) || []).length };
+  },
+
+  /* ---------- Antwort werten ---------- */
+  score(it, ok) {
+    if (ok) Run.right++; else Run.wrong++;
+    const d = Store.day();
+    d.drill = (d.drill || 0) + 1;
+    d.drillRight = (d.drillRight || 0) + (ok ? 1 : 0);
+    const fx = it.fx || {};
+    const W = Store.data.words, P = Store.data.phrases;
+    if (ok) {
+      (fx.words || []).forEach(id => {
+        const st = W[id];
+        if (st && Leitner.isDue(st)) Leitner.promote(W, id);
+      });
+      if (fx.phrase) {
+        const st = P[fx.phrase];
+        if (st && Leitner.isDue(st)) Leitner.promote(P, fx.phrase);
+      }
+    } else {
+      if (fx.demoteWord && W[fx.demoteWord]) Leitner.demote(W, fx.demoteWord);
+      if (fx.phrase && P[fx.phrase]) Leitner.demote(P, fx.phrase);
+    }
+    if (fx.chapter) this.record(fx.chapter, ok);
+    Store.save();
+  },
+
+  /* ---------- Start ---------- */
+  start(spec) {
+    spec = String(spec || '');
+    const i = spec.indexOf(':');
+    const type = i < 0 ? spec : spec.slice(0, i);
+    const arg = i < 0 ? '' : spec.slice(i + 1);
+    let items = [];
+    if (type === 'sentences') items = this.sentenceRound();
+    else if (type === 'phrases') items = this.phraseRound(arg);
+    else if (type === 'grammar') items = arg ? this.grammarRound(arg) : this.mixedGrammarRound();
+    if (!items.length) return false;
+    this.last = spec;
+    Run.begin(items, { type, arg });
+    return true;
+  },
+
+  again() { if (this.last) this.start(this.last); },
 };
 
 /* ---------- Statistik ---------- */

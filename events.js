@@ -19,6 +19,8 @@ function bindAll() {
   on('[data-drill]', () => Drill.start());
   on('[data-words]', el => App.go('words', el.getAttribute('data-words')));
   on('[data-drill-set]', el => Drill.start(el.getAttribute('data-drill-set')));
+  on('[data-practice]', el => Practice.start(el.getAttribute('data-practice')));
+  on('[data-practice-again]', () => Practice.again());
 
   /* --- Nachsprechen aus der Bibliothek --- */
   on('[data-repeat]', el => Repeat.open(el.getAttribute('data-repeat')));
@@ -51,10 +53,11 @@ function bindAll() {
   on('[data-drillpick]', el => Drill.answer(el.getAttribute('data-drillpick')));
   on('[data-quit]', () => {
     if (Run.i > 0 && Run.i < Run.items.length) {
-      if (!confirm('Session abbrechen? Der bisherige Fortschritt bleibt gespeichert.')) return;
+      if (!confirm((Run.practice ? 'Runde' : 'Session') +
+        ' abbrechen? Der bisherige Fortschritt bleibt gespeichert.')) return;
     }
     Listen.stop();
-    App.go('home');
+    App.go(Run.practice ? 'library' : 'home');
   });
 
   /* --- Vorlesen --- */
@@ -114,8 +117,9 @@ function bindAll() {
     const choice = el.getAttribute('data-pickphrase');
     Run.picked = choice;
     Run.phase = 'a';
-    const ok = choice === it.phrase.de;
+    const ok = choice === (it.dir === 'de2w' ? it.phrase.w : it.phrase.de);
     Run.verdict = ok ? 'exact' : 'wrong';
+    if (Run.practice) { Practice.score(it, ok); App.render(); return; }
     if (ok) { Run.right++; Leitner.promote(Store.data.phrases, it.phrase.id); }
     else { Run.wrong++; Leitner.demote(Store.data.phrases, it.phrase.id); }
     const d = Store.day(); d.seen++; if (ok) d.right++;
@@ -132,6 +136,7 @@ function bindAll() {
     Run.phase = 'a';
     const ok = choice === it.q.answer;
     Run.verdict = ok ? 'exact' : 'wrong';
+    if (Run.practice) { Practice.score(it, ok); App.render(); return; }
     it.sent.words.forEach(w => {
       if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 1); }
     });
@@ -154,16 +159,21 @@ function bindAll() {
     if (Run.pick1.id === id) {
       Run.matched.push(id);
       Run.pick1 = null; Run.missPair = null;
-      Leitner.raise(Store.data.words, id, 1);
+      if (!it.grammar) Leitner.raise(Store.data.words, id, 1);
       if (Run.matched.length >= it.q.total) {
-        Run.right++;
-        const d = Store.day(); d.seen++; d.right++;
-        Store.save();
+        if (Run.practice) {
+          Practice.score(it, !it.misses);     // fehlerfrei = richtig
+        } else {
+          Run.right++;
+          const d = Store.day(); d.seen++; d.right++;
+          Store.save();
+        }
         App.render();
         setTimeout(() => { if (App.screen === 'session') Run.next(); }, 550);
         return;
       }
     } else {
+      it.misses = (it.misses || 0) + 1;
       Run.missPair = [Run.pick1.side + ':' + Run.pick1.id, side + ':' + id];
       Run.pick1 = null;
       setTimeout(() => { Run.missPair = null; if (App.screen === 'session') App.render(); }, 550);
@@ -193,12 +203,40 @@ function bindAll() {
     Run.verdict = Text.compare(inp.value, it.sent.w);
     Run.phase = 'a';
     const ok = Run.verdict !== 'wrong';
+    if (Run.practice) { Practice.score(it, ok); App.render(); return; }
     it.sent.words.forEach(w => {
       if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 3); }
     });
     if (ok) Run.right++; else Run.wrong++;
     const d = Store.day(); d.seen++; if (ok) d.right++;
     Store.save();
+    App.render();
+  });
+
+  /* --- Lückensatz --- */
+  on('[data-pickcloze]', el => {
+    if (Run.phase === 'a') return;
+    const it = Run.cur();
+    const choice = el.getAttribute('data-pickcloze');
+    Run.picked = choice;
+    Run.phase = 'a';
+    const ok = choice === it.q.answer;
+    Run.verdict = ok ? 'exact' : 'wrong';
+    Practice.score(it, ok);
+    App.render();
+  });
+
+  /* --- Form eintippen (Grammatik): jeder Buchstabe zählt --- */
+  on('[data-check-gtype]', () => {
+    const inp = App.el.querySelector('#typed');
+    if (!inp || Run.phase === 'a') return;
+    const it = Run.cur();
+    Run.picked = inp.value;
+    const j = Practice.judge(inp.value, it.q.accept);
+    Run.verdict = j.verdict;
+    Run.hit = j.target;
+    Run.phase = 'a';
+    Practice.score(it, j.verdict === 'exact' || j.verdict === 'diacritics');
     App.render();
   });
 
@@ -221,6 +259,7 @@ function bindAll() {
     Run.verdict = Text.compare(said, it.q.target);
     Run.phase = 'a';
     const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics' || Run.verdict === 'typo';
+    if (Run.practice) { Practice.score(it, ok); App.render(); return; }
     const stufe = it.kind === 'listenbuild' ? 3 : 2;
     it.sent.words.forEach(w => {
       if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, stufe); }
@@ -252,6 +291,7 @@ function bindAll() {
         Run.verdict = Text.compare(Run.heard, it.phrase.w);
         Run.phase = 'a';
         const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics';
+        if (Run.practice) { Practice.score(it, ok); App.render(); return; }
         Leitner[ok ? 'promote' : 'demote'](Store.data.phrases, it.phrase.id);
         if (ok) Leitner.raise(Store.data.phrases, it.phrase.id, 4);
         if (ok) Run.right++; else Run.wrong++;
@@ -369,7 +409,7 @@ function bindAll() {
     typed.addEventListener('keydown', ev => {
       if (ev.key !== 'Enter') return;
       ev.preventDefault();
-      const btn = App.el.querySelector('[data-check-type],[data-check-dict]');
+      const btn = App.el.querySelector('[data-check-type],[data-check-dict],[data-check-gtype]');
       if (btn) btn.click();
     });
   }

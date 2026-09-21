@@ -1,0 +1,1391 @@
+{
+ "v": 1,
+ "chapters": {
+  "personliche-furworter": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Ich wohne in Wien.",
+     "s": "___ bývam vo Viedni.",
+     "a": "Ja",
+     "opts": [
+      "Ja",
+      "Ty",
+      "My",
+      "Oni"
+     ]
+    },
+    {
+     "de": "Du bist müde.",
+     "s": "___ si unavený.",
+     "a": "Ty",
+     "opts": [
+      "Ty",
+      "Ja",
+      "On",
+      "My"
+     ]
+    },
+    {
+     "de": "Er arbeitet hier.",
+     "s": "___ tu pracuje.",
+     "a": "On",
+     "opts": [
+      "On",
+      "Ona",
+      "Ja",
+      "Vy"
+     ]
+    },
+    {
+     "de": "Wir sprechen Slowakisch.",
+     "s": "___ hovoríme po slovensky.",
+     "a": "My",
+     "opts": [
+      "My",
+      "Vy",
+      "Oni",
+      "Ja"
+     ]
+    },
+    {
+     "de": "Sind Sie aus Wien? (formell)",
+     "s": "___ ste z Viedne?",
+     "a": "Vy",
+     "opts": [
+      "Vy",
+      "Ty",
+      "My",
+      "On"
+     ]
+    },
+    {
+     "de": "Sie (Plural) kommen morgen.",
+     "s": "___ prídu zajtra.",
+     "a": "Oni",
+     "opts": [
+      "Oni",
+      "Ona",
+      "Ja",
+      "Ty"
+     ]
+    }
+   ]
+  },
+  "verb-byt-sein": {
+   "forms": "both",
+   "auto": {
+    "forms": [
+     "som",
+     "si",
+     "je",
+     "sme",
+     "ste",
+     "sú"
+    ],
+    "requireDe": "\\b(bin|bist|ist|sind|seid)\\b",
+    "excludeDe": "\\b(esse|isst|essen|esst)\\b"
+   },
+   "items": [
+    {
+     "de": "Ich bin müde.",
+     "s": "Ja ___ unavený.",
+     "a": "som",
+     "opts": [
+      "som",
+      "si",
+      "je",
+      "sme"
+     ]
+    },
+    {
+     "de": "Du bist zu Hause.",
+     "s": "Ty ___ doma.",
+     "a": "si",
+     "opts": [
+      "si",
+      "som",
+      "je",
+      "ste"
+     ]
+    },
+    {
+     "de": "Er ist Arzt.",
+     "s": "On ___ lekár.",
+     "a": "je",
+     "opts": [
+      "je",
+      "si",
+      "som",
+      "sú"
+     ]
+    },
+    {
+     "de": "Wir sind hier.",
+     "s": "My ___ tu.",
+     "a": "sme",
+     "opts": [
+      "sme",
+      "ste",
+      "sú",
+      "som"
+     ]
+    },
+    {
+     "de": "Ihr seid Freunde.",
+     "s": "Vy ___ priatelia.",
+     "a": "ste",
+     "opts": [
+      "ste",
+      "sme",
+      "sú",
+      "si"
+     ]
+    },
+    {
+     "de": "Sie sind aus Wien.",
+     "s": "Oni ___ z Viedne.",
+     "a": "sú",
+     "opts": [
+      "sú",
+      "je",
+      "ste",
+      "sme"
+     ]
+    }
+   ]
+  },
+  "verb-mat-haben": {
+   "forms": "both",
+   "auto": {
+    "forms": [
+     "mám",
+     "máš",
+     "má",
+     "máme",
+     "máte",
+     "majú"
+    ],
+    "requireDe": "\\b(habe|hast|hat|haben|habt)\\b"
+   },
+   "items": [
+    {
+     "de": "Ich habe Hunger.",
+     "s": "Ja ___ hlad.",
+     "a": "mám",
+     "opts": [
+      "mám",
+      "máš",
+      "má",
+      "majú"
+     ]
+    },
+    {
+     "de": "Du hast Zeit.",
+     "s": "Ty ___ čas.",
+     "a": "máš",
+     "opts": [
+      "máš",
+      "mám",
+      "má",
+      "máte"
+     ]
+    },
+    {
+     "de": "Er hat ein Auto.",
+     "s": "On ___ auto.",
+     "a": "má",
+     "opts": [
+      "má",
+      "mám",
+      "máš",
+      "majú"
+     ]
+    },
+    {
+     "de": "Wir haben Kinder.",
+     "s": "My ___ deti.",
+     "a": "máme",
+     "opts": [
+      "máme",
+      "máte",
+      "majú",
+      "mám"
+     ]
+    },
+    {
+     "de": "Ihr habt Glück.",
+     "s": "Vy ___ šťastie.",
+     "a": "máte",
+     "opts": [
+      "máte",
+      "máme",
+      "majú",
+      "máš"
+     ]
+    },
+    {
+     "de": "Sie haben ein Haus.",
+     "s": "Oni ___ dom.",
+     "a": "majú",
+     "opts": [
+      "majú",
+      "má",
+      "máte",
+      "máme"
+     ]
+    }
+   ]
+  },
+  "verb-ist-gehen": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Ich gehe nach Hause.",
+     "s": "Ja ___ domov.",
+     "a": "idem",
+     "opts": [
+      "idem",
+      "ideš",
+      "ide",
+      "idú"
+     ],
+     "hint": "(ísť)"
+    },
+    {
+     "de": "Du gehst zur Arbeit.",
+     "s": "Ty ___ do práce.",
+     "a": "ideš",
+     "opts": [
+      "ideš",
+      "idem",
+      "ide",
+      "idete"
+     ],
+     "hint": "(ísť)"
+    },
+    {
+     "de": "Er geht in die Stadt.",
+     "s": "On ___ do mesta.",
+     "a": "ide",
+     "opts": [
+      "ide",
+      "idem",
+      "idú",
+      "ideme"
+     ],
+     "hint": "(ísť)"
+    },
+    {
+     "de": "Wir gehen ins Kino.",
+     "s": "My ___ do kina.",
+     "a": "ideme",
+     "opts": [
+      "ideme",
+      "idem",
+      "idete",
+      "idú"
+     ],
+     "hint": "(ísť)"
+    },
+    {
+     "de": "Ihr geht nach Wien.",
+     "s": "Vy ___ do Viedne.",
+     "a": "idete",
+     "opts": [
+      "idete",
+      "ideme",
+      "idú",
+      "ideš"
+     ],
+     "hint": "(ísť)"
+    },
+    {
+     "de": "Sie gehen zum Bahnhof.",
+     "s": "Oni ___ na stanicu.",
+     "a": "idú",
+     "opts": [
+      "idú",
+      "ide",
+      "idete",
+      "idem"
+     ],
+     "hint": "(ísť)"
+    },
+    {
+     "de": "Wohin gehst du?",
+     "s": "Kam ___?",
+     "a": "ideš",
+     "opts": [
+      "ideš",
+      "idem",
+      "ide",
+      "idete"
+     ],
+     "hint": "(ísť)"
+    },
+    {
+     "de": "Heute gehe ich nicht zur Arbeit.",
+     "s": "Dnes ___ do práce.",
+     "a": "nejdem",
+     "opts": [
+      "nejdem",
+      "neidem",
+      "idem",
+      "nejdeš"
+     ],
+     "hint": "(ísť)"
+    }
+   ]
+  },
+  "verb-hovorit-sprechen": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Ich spreche Deutsch.",
+     "s": "Ja ___ po nemecky.",
+     "a": "hovorím",
+     "opts": [
+      "hovorím",
+      "hovoríš",
+      "hovorí",
+      "hovoria"
+     ],
+     "hint": "(hovoriť)"
+    },
+    {
+     "de": "Sprichst du Slowakisch?",
+     "s": "Ty ___ po slovensky?",
+     "a": "hovoríš",
+     "opts": [
+      "hovoríš",
+      "hovorím",
+      "hovorí",
+      "hovoríte"
+     ],
+     "hint": "(hovoriť)"
+    },
+    {
+     "de": "Er spricht Englisch.",
+     "s": "On ___ po anglicky.",
+     "a": "hovorí",
+     "opts": [
+      "hovorí",
+      "hovorím",
+      "hovoria",
+      "hovoríme"
+     ],
+     "hint": "(hovoriť)"
+    },
+    {
+     "de": "Wir sprechen langsam.",
+     "s": "My ___ pomaly.",
+     "a": "hovoríme",
+     "opts": [
+      "hovoríme",
+      "hovoríte",
+      "hovoria",
+      "hovorím"
+     ],
+     "hint": "(hovoriť)"
+    },
+    {
+     "de": "Sprechen Sie Deutsch?",
+     "s": "Vy ___ po nemecky?",
+     "a": "hovoríte",
+     "opts": [
+      "hovoríte",
+      "hovoríme",
+      "hovoria",
+      "hovoríš"
+     ],
+     "hint": "(hovoriť)"
+    },
+    {
+     "de": "Sie sprechen viel.",
+     "s": "Oni ___ veľa.",
+     "a": "hovoria",
+     "opts": [
+      "hovoria",
+      "hovorí",
+      "hovoríte",
+      "hovoríme"
+     ],
+     "hint": "(hovoriť)"
+    },
+    {
+     "de": "Was machst du?",
+     "s": "Čo ___?",
+     "a": "robíš",
+     "opts": [
+      "robíš",
+      "robím",
+      "robí",
+      "robia"
+     ],
+     "hint": "(robiť)"
+    },
+    {
+     "de": "Ich mache Hausaufgaben.",
+     "s": "Ja ___ domáce úlohy.",
+     "a": "robím",
+     "opts": [
+      "robím",
+      "robíš",
+      "robí",
+      "robia"
+     ],
+     "hint": "(robiť)"
+    }
+   ]
+  },
+  "verb-jest-essen": {
+   "forms": "both",
+   "auto": {
+    "forms": [
+     "jem",
+     "ješ",
+     "je",
+     "jeme",
+     "jete",
+     "jedia"
+    ],
+    "requireDe": "\\b(esse|isst|essen|esst)\\b"
+   },
+   "items": [
+    {
+     "de": "Ich esse Brot.",
+     "s": "Ja ___ chlieb.",
+     "a": "jem",
+     "opts": [
+      "jem",
+      "ješ",
+      "je",
+      "jeme"
+     ],
+     "hint": "(jesť)"
+    },
+    {
+     "de": "Du isst Suppe.",
+     "s": "Ty ___ polievku.",
+     "a": "ješ",
+     "opts": [
+      "ješ",
+      "jem",
+      "je",
+      "jete"
+     ],
+     "hint": "(jesť)"
+    },
+    {
+     "de": "Er isst Fleisch.",
+     "s": "On ___ mäso.",
+     "a": "je",
+     "opts": [
+      "je",
+      "jem",
+      "ješ",
+      "jedia"
+     ],
+     "hint": "(jesť)"
+    },
+    {
+     "de": "Wir essen um eins.",
+     "s": "My ___ o jednej.",
+     "a": "jeme",
+     "opts": [
+      "jeme",
+      "jete",
+      "jedia",
+      "jem"
+     ],
+     "hint": "(jesť)"
+    },
+    {
+     "de": "Ihr esst gern.",
+     "s": "Vy ___ radi.",
+     "a": "jete",
+     "opts": [
+      "jete",
+      "jeme",
+      "jedia",
+      "ješ"
+     ],
+     "hint": "(jesť)"
+    },
+    {
+     "de": "Sie essen Pizza.",
+     "s": "Oni ___ pizzu.",
+     "a": "jedia",
+     "opts": [
+      "jedia",
+      "je",
+      "jete",
+      "jeme"
+     ],
+     "hint": "(jesť)"
+    }
+   ]
+  },
+  "verneinung": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Ich habe keine Zeit.",
+     "s": "___ čas.",
+     "a": "Nemám",
+     "opts": [
+      "Nemám",
+      "Nie mám",
+      "Mám nie",
+      "Nemáš"
+     ]
+    },
+    {
+     "de": "Ich bin nicht müde.",
+     "s": "___ unavený.",
+     "a": "Nie som",
+     "opts": [
+      "Nie som",
+      "Nesom",
+      "Som nie",
+      "Nemám"
+     ]
+    },
+    {
+     "de": "Ich spreche nicht Deutsch.",
+     "s": "___ po nemecky.",
+     "a": "Nehovorím",
+     "opts": [
+      "Nehovorím",
+      "Nie hovorím",
+      "Hovorím nie",
+      "Nehovorí"
+     ]
+    },
+    {
+     "de": "Ich gehe nicht.",
+     "s": "___ do práce.",
+     "a": "Nejdem",
+     "opts": [
+      "Nejdem",
+      "Neidem",
+      "Nie idem",
+      "Nejdeš"
+     ]
+    },
+    {
+     "de": "Er ist nicht hier.",
+     "s": "On tu ___.",
+     "a": "nie je",
+     "opts": [
+      "nie je",
+      "nejde",
+      "nemá",
+      "je nie"
+     ]
+    },
+    {
+     "de": "Ich verstehe nicht.",
+     "s": "___.",
+     "a": "Nerozumiem",
+     "opts": [
+      "Nerozumiem",
+      "Nie rozumiem",
+      "Rozumiem nie",
+      "Nerozumieš"
+     ]
+    },
+    {
+     "de": "Wir haben keine Kinder.",
+     "s": "___ deti.",
+     "a": "Nemáme",
+     "opts": [
+      "Nemáme",
+      "Nie máme",
+      "Nemám",
+      "Máme nie"
+     ]
+    },
+    {
+     "de": "Ich weiß nicht.",
+     "s": "___.",
+     "a": "Neviem",
+     "opts": [
+      "Neviem",
+      "Nie viem",
+      "Nevieš",
+      "Viem nie"
+     ]
+    }
+   ]
+  },
+  "frageworter": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Wer ist das?",
+     "s": "___ je to?",
+     "a": "Kto",
+     "opts": [
+      "Kto",
+      "Čo",
+      "Kde",
+      "Kedy"
+     ]
+    },
+    {
+     "de": "Was ist das?",
+     "s": "___ je to?",
+     "a": "Čo",
+     "opts": [
+      "Čo",
+      "Kto",
+      "Kde",
+      "Ako"
+     ]
+    },
+    {
+     "de": "Wo wohnst du?",
+     "s": "___ bývaš?",
+     "a": "Kde",
+     "opts": [
+      "Kde",
+      "Kam",
+      "Kedy",
+      "Ako"
+     ]
+    },
+    {
+     "de": "Wohin gehst du?",
+     "s": "___ ideš?",
+     "a": "Kam",
+     "opts": [
+      "Kam",
+      "Kde",
+      "Kto",
+      "Koľko"
+     ]
+    },
+    {
+     "de": "Wann kommt der Zug?",
+     "s": "___ príde vlak?",
+     "a": "Kedy",
+     "opts": [
+      "Kedy",
+      "Kde",
+      "Kam",
+      "Prečo"
+     ]
+    },
+    {
+     "de": "Wie heißt du?",
+     "s": "___ sa voláš?",
+     "a": "Ako",
+     "opts": [
+      "Ako",
+      "Čo",
+      "Kto",
+      "Kedy"
+     ]
+    },
+    {
+     "de": "Wie viel kostet das?",
+     "s": "___ to stojí?",
+     "a": "Koľko",
+     "opts": [
+      "Koľko",
+      "Ako",
+      "Čo",
+      "Kde"
+     ]
+    },
+    {
+     "de": "Warum bist du müde?",
+     "s": "___ si unavený?",
+     "a": "Prečo",
+     "opts": [
+      "Prečo",
+      "Kedy",
+      "Kam",
+      "Ako"
+     ]
+    },
+    {
+     "de": "Welcher Zug fährt nach Wien?",
+     "s": "___ vlak ide do Viedne?",
+     "a": "Ktorý",
+     "opts": [
+      "Ktorý",
+      "Kto",
+      "Čo",
+      "Kde"
+     ]
+    },
+    {
+     "de": "Wo ist der Bahnhof?",
+     "s": "___ je stanica?",
+     "a": "Kde",
+     "opts": [
+      "Kde",
+      "Kam",
+      "Kto",
+      "Ako"
+     ]
+    },
+    {
+     "de": "Wohin fährt dieser Zug?",
+     "s": "___ ide tento vlak?",
+     "a": "Kam",
+     "opts": [
+      "Kam",
+      "Kde",
+      "Kedy",
+      "Kto"
+     ]
+    }
+   ]
+  },
+  "possessivpronomen": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "mein Bruder",
+     "s": "___ brat",
+     "a": "môj",
+     "opts": [
+      "môj",
+      "moja",
+      "moje",
+      "tvoj"
+     ]
+    },
+    {
+     "de": "meine Schwester",
+     "s": "___ sestra",
+     "a": "moja",
+     "opts": [
+      "moja",
+      "môj",
+      "moje",
+      "tvoja"
+     ]
+    },
+    {
+     "de": "mein Kind",
+     "s": "___ dieťa",
+     "a": "moje",
+     "opts": [
+      "moje",
+      "môj",
+      "moja",
+      "tvoje"
+     ]
+    },
+    {
+     "de": "dein Haus",
+     "s": "___ dom",
+     "a": "tvoj",
+     "opts": [
+      "tvoj",
+      "tvoja",
+      "tvoje",
+      "môj"
+     ]
+    },
+    {
+     "de": "deine Mutter",
+     "s": "___ mama",
+     "a": "tvoja",
+     "opts": [
+      "tvoja",
+      "tvoj",
+      "tvoje",
+      "moja"
+     ]
+    },
+    {
+     "de": "sein Auto",
+     "s": "___ auto",
+     "a": "jeho",
+     "opts": [
+      "jeho",
+      "jej",
+      "moje",
+      "tvoje"
+     ]
+    },
+    {
+     "de": "ihr Haus (einer Frau)",
+     "s": "___ dom",
+     "a": "jej",
+     "opts": [
+      "jej",
+      "jeho",
+      "moja",
+      "tvoj"
+     ]
+    },
+    {
+     "de": "unsere Familie",
+     "s": "___ rodina",
+     "a": "naša",
+     "opts": [
+      "naša",
+      "náš",
+      "naše",
+      "vaša"
+     ]
+    },
+    {
+     "de": "euer Zug",
+     "s": "___ vlak",
+     "a": "váš",
+     "opts": [
+      "váš",
+      "vaša",
+      "naše",
+      "náš"
+     ]
+    }
+   ]
+  },
+  "adjektive-grundformen": {
+   "forms": "pairs",
+   "items": [
+    {
+     "de": "ein großer Mann",
+     "s": "___ muž",
+     "a": "veľký",
+     "opts": [
+      "veľký",
+      "veľká",
+      "veľké",
+      "veľkí"
+     ]
+    },
+    {
+     "de": "eine große Frau",
+     "s": "___ žena",
+     "a": "veľká",
+     "opts": [
+      "veľká",
+      "veľký",
+      "veľké",
+      "veľkú"
+     ]
+    },
+    {
+     "de": "ein großes Auto",
+     "s": "___ auto",
+     "a": "veľké",
+     "opts": [
+      "veľké",
+      "veľký",
+      "veľká",
+      "veľkú"
+     ]
+    },
+    {
+     "de": "ein neues Haus",
+     "s": "___ dom",
+     "a": "nový",
+     "opts": [
+      "nový",
+      "nová",
+      "nové",
+      "novú"
+     ],
+     "hint": "(nový)"
+    },
+    {
+     "de": "eine neue Stadt",
+     "s": "___ mesto",
+     "a": "nové",
+     "opts": [
+      "nové",
+      "nový",
+      "nová",
+      "novú"
+     ],
+     "hint": "(nový)"
+    },
+    {
+     "de": "ein schönes Kind",
+     "s": "___ dieťa",
+     "a": "pekné",
+     "opts": [
+      "pekné",
+      "pekný",
+      "pekná",
+      "peknú"
+     ],
+     "hint": "(pekný)"
+    },
+    {
+     "de": "eine schöne Frau",
+     "s": "___ žena",
+     "a": "pekná",
+     "opts": [
+      "pekná",
+      "pekný",
+      "pekné",
+      "peknú"
+     ],
+     "hint": "(pekný)"
+    },
+    {
+     "de": "ein alter Mann",
+     "s": "___ muž",
+     "a": "starý",
+     "opts": [
+      "starý",
+      "stará",
+      "staré",
+      "starú"
+     ],
+     "hint": "(starý)"
+    },
+    {
+     "de": "ein gutes Essen",
+     "s": "___ jedlo",
+     "a": "dobré",
+     "opts": [
+      "dobré",
+      "dobrý",
+      "dobrá",
+      "dobrú"
+     ],
+     "hint": "(dobrý)"
+    },
+    {
+     "de": "ein schneller Zug",
+     "s": "___ vlak",
+     "a": "rýchly",
+     "opts": [
+      "rýchly",
+      "rýchla",
+      "rýchle",
+      "rýchlu"
+     ],
+     "hint": "(rýchly)"
+    }
+   ]
+  },
+  "plural-mehrzahl": {
+   "forms": false,
+   "items": [
+    {
+     "de": "Haus — Häuser",
+     "s": "dom — ___",
+     "a": "domy",
+     "opts": [
+      "domy",
+      "domi",
+      "doma",
+      "domov"
+     ]
+    },
+    {
+     "de": "Auto — Autos",
+     "s": "auto — ___",
+     "a": "autá",
+     "opts": [
+      "autá",
+      "auty",
+      "autov",
+      "autí"
+     ]
+    },
+    {
+     "de": "Mann — Männer",
+     "s": "muž — ___",
+     "a": "muži",
+     "opts": [
+      "muži",
+      "muže",
+      "mužy",
+      "mužov"
+     ]
+    },
+    {
+     "de": "Frau — Frauen",
+     "s": "žena — ___",
+     "a": "ženy",
+     "opts": [
+      "ženy",
+      "ženi",
+      "žene",
+      "žien"
+     ]
+    },
+    {
+     "de": "Kind — Kinder",
+     "s": "dieťa — ___",
+     "a": "deti",
+     "opts": [
+      "deti",
+      "dety",
+      "detá",
+      "dieťaty"
+     ]
+    },
+    {
+     "de": "Tag — Tage",
+     "s": "deň — ___",
+     "a": "dni",
+     "opts": [
+      "dni",
+      "dny",
+      "dne",
+      "deňy"
+     ]
+    },
+    {
+     "de": "Stadt — Städte",
+     "s": "mesto — ___",
+     "a": "mestá",
+     "opts": [
+      "mestá",
+      "mesty",
+      "mesti",
+      "mestý"
+     ]
+    },
+    {
+     "de": "Buch — Bücher",
+     "s": "kniha — ___",
+     "a": "knihy",
+     "opts": [
+      "knihy",
+      "knihi",
+      "knihá",
+      "knihe"
+     ]
+    },
+    {
+     "de": "Bier — Biere",
+     "s": "pivo — ___",
+     "a": "piva",
+     "opts": [
+      "piva",
+      "pivy",
+      "pivá",
+      "pivi"
+     ]
+    },
+    {
+     "de": "Tisch — Tische",
+     "s": "stôl — ___",
+     "a": "stoly",
+     "opts": [
+      "stoly",
+      "stôly",
+      "stoli",
+      "stôla"
+     ]
+    }
+   ]
+  },
+  "uhrzeiten": {
+   "forms": "pairs",
+   "items": [
+    {
+     "de": "Es ist ein Uhr.",
+     "s": "___ jedna hodina.",
+     "a": "Je",
+     "opts": [
+      "Je",
+      "Sú",
+      "Sme",
+      "Ide"
+     ]
+    },
+    {
+     "de": "Es ist zwei Uhr.",
+     "s": "___ dve hodiny.",
+     "a": "Sú",
+     "opts": [
+      "Sú",
+      "Je",
+      "Sme",
+      "Ste"
+     ]
+    },
+    {
+     "de": "Es ist fünf Uhr.",
+     "s": "Je päť ___.",
+     "a": "hodín",
+     "opts": [
+      "hodín",
+      "hodiny",
+      "hodina",
+      "hodinu"
+     ]
+    },
+    {
+     "de": "Es ist drei Uhr.",
+     "s": "Sú tri ___.",
+     "a": "hodiny",
+     "opts": [
+      "hodiny",
+      "hodín",
+      "hodina",
+      "hodinu"
+     ]
+    },
+    {
+     "de": "Der Zug fährt um acht Uhr ab.",
+     "s": "Vlak ide ___ ôsmej.",
+     "a": "o",
+     "opts": [
+      "o",
+      "v",
+      "na",
+      "do"
+     ]
+    },
+    {
+     "de": "Es ist halb drei.",
+     "s": "Je ___ tretej.",
+     "a": "pol",
+     "opts": [
+      "pol",
+      "pola",
+      "polovica",
+      "štvrť"
+     ]
+    },
+    {
+     "de": "Es ist Viertel nach vier.",
+     "s": "Je štvrť na ___.",
+     "a": "päť",
+     "opts": [
+      "päť",
+      "štyri",
+      "štvrtú",
+      "pol"
+     ]
+    },
+    {
+     "de": "Es ist Viertel vor fünf.",
+     "s": "Je tri štvrte na ___.",
+     "a": "päť",
+     "opts": [
+      "päť",
+      "štyri",
+      "šesť",
+      "piatej"
+     ]
+    },
+    {
+     "de": "Wie spät ist es?",
+     "s": "Koľko je ___?",
+     "a": "hodín",
+     "opts": [
+      "hodín",
+      "hodiny",
+      "hodina",
+      "čas"
+     ]
+    }
+   ]
+  },
+  "kasus-einfuhrung": {
+   "forms": false,
+   "items": [
+    {
+     "de": "Ich sehe den Mann.",
+     "s": "Vidím ___.",
+     "a": "muža",
+     "opts": [
+      "muža",
+      "muž",
+      "mužu",
+      "mužom"
+     ],
+     "hint": "(muž)"
+    },
+    {
+     "de": "Ich sehe die Frau.",
+     "s": "Vidím ___.",
+     "a": "ženu",
+     "opts": [
+      "ženu",
+      "žena",
+      "ženy",
+      "ženou"
+     ],
+     "hint": "(žena)"
+    },
+    {
+     "de": "Ich sehe das Kind.",
+     "s": "Vidím ___.",
+     "a": "dieťa",
+     "opts": [
+      "dieťa",
+      "dieťaťu",
+      "deti",
+      "dieťaťom"
+     ],
+     "hint": "(dieťa)"
+    },
+    {
+     "de": "Ich habe einen Bruder.",
+     "s": "Mám ___.",
+     "a": "brata",
+     "opts": [
+      "brata",
+      "brat",
+      "bratu",
+      "bratom"
+     ],
+     "hint": "(brat)"
+    },
+    {
+     "de": "Ich habe eine Schwester.",
+     "s": "Mám ___.",
+     "a": "sestru",
+     "opts": [
+      "sestru",
+      "sestra",
+      "sestry",
+      "sestre"
+     ],
+     "hint": "(sestra)"
+    },
+    {
+     "de": "Ich sehe das Haus.",
+     "s": "Vidím ___.",
+     "a": "dom",
+     "opts": [
+      "dom",
+      "domu",
+      "doma",
+      "dome"
+     ],
+     "hint": "(dom)"
+    },
+    {
+     "de": "Ich habe einen Hund.",
+     "s": "Mám ___.",
+     "a": "psa",
+     "opts": [
+      "psa",
+      "pes",
+      "psu",
+      "psom"
+     ],
+     "hint": "(pes)"
+    },
+    {
+     "de": "Ich lese ein Buch.",
+     "s": "Čítam ___.",
+     "a": "knihu",
+     "opts": [
+      "knihu",
+      "kniha",
+      "knihy",
+      "knihe"
+     ],
+     "hint": "(kniha)"
+    },
+    {
+     "de": "Ich sehe die Mutter.",
+     "s": "Vidím ___.",
+     "a": "mamu",
+     "opts": [
+      "mamu",
+      "mama",
+      "mamy",
+      "mame"
+     ],
+     "hint": "(mama)"
+    },
+    {
+     "de": "Ich habe ein Auto.",
+     "s": "Mám ___.",
+     "a": "auto",
+     "opts": [
+      "auto",
+      "autu",
+      "autá",
+      "auta"
+     ],
+     "hint": "(auto)"
+    }
+   ]
+  },
+  "zahlen-1-20": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Zwei plus drei ist ...",
+     "s": "Dva plus tri je ___.",
+     "a": "päť",
+     "opts": [
+      "päť",
+      "štyri",
+      "šesť",
+      "sedem"
+     ]
+    },
+    {
+     "de": "Sechs plus vier ist ...",
+     "s": "Šesť plus štyri je ___.",
+     "a": "desať",
+     "opts": [
+      "desať",
+      "deväť",
+      "jedenásť",
+      "osem"
+     ]
+    },
+    {
+     "de": "Zehn plus zwei ist ...",
+     "s": "Desať plus dva je ___.",
+     "a": "dvanásť",
+     "opts": [
+      "dvanásť",
+      "jedenásť",
+      "trinásť",
+      "dvadsať"
+     ]
+    },
+    {
+     "de": "Neun plus sieben ist ...",
+     "s": "Deväť plus sedem je ___.",
+     "a": "šestnásť",
+     "opts": [
+      "šestnásť",
+      "pätnásť",
+      "sedemnásť",
+      "osemnásť"
+     ]
+    },
+    {
+     "de": "Zwanzig minus fünf ist ...",
+     "s": "Dvadsať mínus päť je ___.",
+     "a": "pätnásť",
+     "opts": [
+      "pätnásť",
+      "štrnásť",
+      "šestnásť",
+      "desať"
+     ]
+    },
+    {
+     "de": "Sieben plus sechs ist ...",
+     "s": "Sedem plus šesť je ___.",
+     "a": "trinásť",
+     "opts": [
+      "trinásť",
+      "dvanásť",
+      "štrnásť",
+      "jedenásť"
+     ]
+    }
+   ]
+  }
+ }
+}

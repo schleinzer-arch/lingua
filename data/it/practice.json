@@ -1,0 +1,1590 @@
+{
+ "v": 1,
+ "chapters": {
+  "pronomi-personali": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Wir sprechen Italienisch.",
+     "s": "___ parliamo italiano.",
+     "a": "Noi",
+     "opts": [
+      "Noi",
+      "Voi",
+      "Loro",
+      "Io"
+     ]
+    },
+    {
+     "de": "Du bist müde.",
+     "s": "___ sei stanco.",
+     "a": "Tu",
+     "opts": [
+      "Tu",
+      "Lui",
+      "Noi",
+      "Loro"
+     ]
+    },
+    {
+     "de": "Er wohnt in Wien.",
+     "s": "___ abita a Vienna.",
+     "a": "Lui",
+     "opts": [
+      "Lui",
+      "Lei",
+      "Io",
+      "Voi"
+     ]
+    },
+    {
+     "de": "Ich bin Österreicher.",
+     "s": "___ sono austriaco.",
+     "a": "Io",
+     "opts": [
+      "Io",
+      "Tu",
+      "Noi",
+      "Lui"
+     ]
+    },
+    {
+     "de": "Sind Sie Herr Rossi? (formell)",
+     "s": "___ è il signor Rossi?",
+     "a": "Lei",
+     "opts": [
+      "Lei",
+      "Lui",
+      "Tu",
+      "Loro"
+     ]
+    },
+    {
+     "de": "Ihr habt Zeit.",
+     "s": "___ avete tempo.",
+     "a": "Voi",
+     "opts": [
+      "Voi",
+      "Noi",
+      "Loro",
+      "Tu"
+     ]
+    },
+    {
+     "de": "Sie (Plural) kommen aus Rom.",
+     "s": "___ vengono da Roma.",
+     "a": "Loro",
+     "opts": [
+      "Loro",
+      "Lei",
+      "Voi",
+      "Noi"
+     ]
+    },
+    {
+     "de": "Sie ist Italienerin.",
+     "s": "___ è italiana.",
+     "a": "Lei",
+     "opts": [
+      "Lei",
+      "Lui",
+      "Io",
+      "Loro"
+     ]
+    }
+   ]
+  },
+  "essere": {
+   "forms": "both",
+   "auto": {
+    "forms": [
+     "sono",
+     "sei",
+     "è",
+     "siamo",
+     "siete"
+    ],
+    "requireDe": "\\b(bin|bist|ist|sind|seid)\\b",
+    "excludeDe": "spät|Uhr|\\bSie\\b(?!\\s+(ist|hat|war)\\b)"
+   },
+   "items": [
+    {
+     "de": "Ich bin zu Hause.",
+     "s": "Io ___ a casa.",
+     "a": "sono",
+     "opts": [
+      "sono",
+      "sei",
+      "è",
+      "siamo"
+     ]
+    },
+    {
+     "de": "Du bist aus Wien.",
+     "s": "Tu ___ di Vienna.",
+     "a": "sei",
+     "opts": [
+      "sei",
+      "sono",
+      "è",
+      "siete"
+     ]
+    },
+    {
+     "de": "Er ist Arzt.",
+     "s": "Lui ___ medico.",
+     "a": "è",
+     "opts": [
+      "è",
+      "sei",
+      "sono",
+      "siamo"
+     ]
+    },
+    {
+     "de": "Wir sind müde.",
+     "s": "Noi ___ stanchi.",
+     "a": "siamo",
+     "opts": [
+      "siamo",
+      "siete",
+      "sono",
+      "sei"
+     ]
+    },
+    {
+     "de": "Ihr seid Freunde.",
+     "s": "Voi ___ amici.",
+     "a": "siete",
+     "opts": [
+      "siete",
+      "siamo",
+      "sono",
+      "sei"
+     ]
+    },
+    {
+     "de": "Sie sind Österreicher.",
+     "s": "Loro ___ austriaci.",
+     "a": "sono",
+     "opts": [
+      "sono",
+      "è",
+      "siete",
+      "siamo"
+     ]
+    }
+   ]
+  },
+  "avere": {
+   "forms": "both",
+   "auto": {
+    "forms": [
+     "ho",
+     "hai",
+     "ha",
+     "abbiamo",
+     "avete",
+     "hanno"
+    ],
+    "requireDe": "\\b(habe|hast|hat|haben|habt)\\b",
+    "excludeDe": "\\bSie\\b(?!\\s+(ist|hat|war)\\b)"
+   },
+   "items": [
+    {
+     "de": "Ich habe Hunger.",
+     "s": "Io ___ fame.",
+     "a": "ho",
+     "opts": [
+      "ho",
+      "hai",
+      "ha",
+      "hanno"
+     ]
+    },
+    {
+     "de": "Du hast Zeit.",
+     "s": "Tu ___ tempo.",
+     "a": "hai",
+     "opts": [
+      "hai",
+      "ho",
+      "ha",
+      "avete"
+     ]
+    },
+    {
+     "de": "Sie hat eine Schwester.",
+     "s": "Lei ___ una sorella.",
+     "a": "ha",
+     "opts": [
+      "ha",
+      "hai",
+      "hanno",
+      "ho"
+     ]
+    },
+    {
+     "de": "Wir haben einen Hund.",
+     "s": "Noi ___ un cane.",
+     "a": "abbiamo",
+     "opts": [
+      "abbiamo",
+      "avete",
+      "hanno",
+      "ho"
+     ]
+    },
+    {
+     "de": "Ihr habt recht.",
+     "s": "Voi ___ ragione.",
+     "a": "avete",
+     "opts": [
+      "avete",
+      "abbiamo",
+      "hanno",
+      "hai"
+     ]
+    },
+    {
+     "de": "Sie haben zwei Kinder.",
+     "s": "Loro ___ due figli.",
+     "a": "hanno",
+     "opts": [
+      "hanno",
+      "ha",
+      "abbiamo",
+      "avete"
+     ]
+    }
+   ]
+  },
+  "articolo-determinativo": {
+   "forms": "pairs",
+   "items": [
+    {
+     "de": "der Zug",
+     "s": "___ treno",
+     "a": "il",
+     "opts": [
+      "il",
+      "lo",
+      "la",
+      "l'"
+     ]
+    },
+    {
+     "de": "der Student",
+     "s": "___ studente",
+     "a": "lo",
+     "opts": [
+      "lo",
+      "il",
+      "l'",
+      "la"
+     ]
+    },
+    {
+     "de": "der Freund",
+     "s": "___ amico",
+     "a": "l'",
+     "opts": [
+      "l'",
+      "il",
+      "lo",
+      "la"
+     ]
+    },
+    {
+     "de": "das Haus",
+     "s": "___ casa",
+     "a": "la",
+     "opts": [
+      "la",
+      "il",
+      "l'",
+      "le"
+     ]
+    },
+    {
+     "de": "das Wasser",
+     "s": "___ acqua",
+     "a": "l'",
+     "opts": [
+      "l'",
+      "la",
+      "il",
+      "le"
+     ]
+    },
+    {
+     "de": "die Züge",
+     "s": "___ treni",
+     "a": "i",
+     "opts": [
+      "i",
+      "gli",
+      "le",
+      "il"
+     ]
+    },
+    {
+     "de": "die Studenten",
+     "s": "___ studenti",
+     "a": "gli",
+     "opts": [
+      "gli",
+      "i",
+      "le",
+      "lo"
+     ]
+    },
+    {
+     "de": "die Häuser",
+     "s": "___ case",
+     "a": "le",
+     "opts": [
+      "le",
+      "i",
+      "gli",
+      "la"
+     ]
+    },
+    {
+     "de": "der Rucksack",
+     "s": "___ zaino",
+     "a": "lo",
+     "opts": [
+      "lo",
+      "il",
+      "l'",
+      "i"
+     ]
+    },
+    {
+     "de": "die Freundin",
+     "s": "___ amica",
+     "a": "l'",
+     "opts": [
+      "l'",
+      "la",
+      "lo",
+      "le"
+     ]
+    }
+   ]
+  },
+  "articolo-indeterminativo": {
+   "forms": "pairs",
+   "items": [
+    {
+     "de": "ein Zug",
+     "s": "___ treno",
+     "a": "un",
+     "opts": [
+      "un",
+      "uno",
+      "una",
+      "un'"
+     ]
+    },
+    {
+     "de": "ein Student",
+     "s": "___ studente",
+     "a": "uno",
+     "opts": [
+      "uno",
+      "un",
+      "una",
+      "un'"
+     ]
+    },
+    {
+     "de": "ein Haus",
+     "s": "___ casa",
+     "a": "una",
+     "opts": [
+      "una",
+      "un",
+      "uno",
+      "un'"
+     ]
+    },
+    {
+     "de": "eine Freundin",
+     "s": "___ amica",
+     "a": "un'",
+     "opts": [
+      "un'",
+      "una",
+      "un",
+      "uno"
+     ]
+    },
+    {
+     "de": "ein Freund",
+     "s": "___ amico",
+     "a": "un",
+     "opts": [
+      "un",
+      "un'",
+      "uno",
+      "una"
+     ]
+    },
+    {
+     "de": "ein Rucksack",
+     "s": "___ zaino",
+     "a": "uno",
+     "opts": [
+      "uno",
+      "un",
+      "una",
+      "un'"
+     ]
+    },
+    {
+     "de": "eine Tasche",
+     "s": "___ borsa",
+     "a": "una",
+     "opts": [
+      "una",
+      "un",
+      "uno",
+      "un'"
+     ]
+    },
+    {
+     "de": "eine Orange",
+     "s": "___ arancia",
+     "a": "un'",
+     "opts": [
+      "un'",
+      "una",
+      "un",
+      "uno"
+     ]
+    },
+    {
+     "de": "ein Mann",
+     "s": "___ uomo",
+     "a": "un",
+     "opts": [
+      "un",
+      "un'",
+      "uno",
+      "una"
+     ]
+    },
+    {
+     "de": "ein Buch",
+     "s": "___ libro",
+     "a": "un",
+     "opts": [
+      "un",
+      "uno",
+      "una",
+      "un'"
+     ]
+    }
+   ]
+  },
+  "verbi-are": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Marco spricht Deutsch.",
+     "s": "Marco ___ tedesco.",
+     "a": "parla",
+     "opts": [
+      "parla",
+      "parlo",
+      "parli",
+      "parlano"
+     ],
+     "hint": "(parlare)"
+    },
+    {
+     "de": "Wir arbeiten in Wien.",
+     "s": "Noi ___ a Vienna.",
+     "a": "lavoriamo",
+     "opts": [
+      "lavoriamo",
+      "lavoro",
+      "lavorate",
+      "lavorano"
+     ],
+     "hint": "(lavorare)"
+    },
+    {
+     "de": "Ich wohne in Rom.",
+     "s": "Io ___ a Roma.",
+     "a": "abito",
+     "opts": [
+      "abito",
+      "abiti",
+      "abita",
+      "abitiamo"
+     ],
+     "hint": "(abitare)"
+    },
+    {
+     "de": "Du kaufst Brot.",
+     "s": "Tu ___ il pane.",
+     "a": "compri",
+     "opts": [
+      "compri",
+      "compro",
+      "compra",
+      "comprate"
+     ],
+     "hint": "(comprare)"
+    },
+    {
+     "de": "Ihr esst um eins.",
+     "s": "Voi ___ all'una.",
+     "a": "mangiate",
+     "opts": [
+      "mangiate",
+      "mangiamo",
+      "mangiano",
+      "mangi"
+     ],
+     "hint": "(mangiare)"
+    },
+    {
+     "de": "Sie lernen Italienisch.",
+     "s": "Loro ___ l'italiano.",
+     "a": "studiano",
+     "opts": [
+      "studiano",
+      "studia",
+      "studiate",
+      "studio"
+     ],
+     "hint": "(studiare)"
+    },
+    {
+     "de": "Ich höre Musik.",
+     "s": "Io ___ la musica.",
+     "a": "ascolto",
+     "opts": [
+      "ascolto",
+      "ascolti",
+      "ascolta",
+      "ascoltano"
+     ],
+     "hint": "(ascoltare)"
+    },
+    {
+     "de": "Meine Schwester bestellt einen Kaffee.",
+     "s": "Mia sorella ___ un caffè.",
+     "a": "ordina",
+     "opts": [
+      "ordina",
+      "ordino",
+      "ordini",
+      "ordinano"
+     ],
+     "hint": "(ordinare)"
+    },
+    {
+     "de": "Ihr singt gut.",
+     "s": "Voi ___ bene.",
+     "a": "cantate",
+     "opts": [
+      "cantate",
+      "cantiamo",
+      "cantano",
+      "canti"
+     ],
+     "hint": "(cantare)"
+    },
+    {
+     "de": "Du arbeitest viel.",
+     "s": "Tu ___ molto.",
+     "a": "lavori",
+     "opts": [
+      "lavori",
+      "lavoro",
+      "lavora",
+      "lavorate"
+     ],
+     "hint": "(lavorare)"
+    }
+   ]
+  },
+  "verbi-ere": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Ich nehme einen Kaffee.",
+     "s": "Io ___ un caffè.",
+     "a": "prendo",
+     "opts": [
+      "prendo",
+      "prendi",
+      "prende",
+      "prendono"
+     ],
+     "hint": "(prendere)"
+    },
+    {
+     "de": "Du siehst das Meer.",
+     "s": "Tu ___ il mare.",
+     "a": "vedi",
+     "opts": [
+      "vedi",
+      "vedo",
+      "vede",
+      "vedete"
+     ],
+     "hint": "(vedere)"
+    },
+    {
+     "de": "Sie schreibt eine E-Mail.",
+     "s": "Lei ___ un'e-mail.",
+     "a": "scrive",
+     "opts": [
+      "scrive",
+      "scrivo",
+      "scrivi",
+      "scrivono"
+     ],
+     "hint": "(scrivere)"
+    },
+    {
+     "de": "Wir lesen ein Buch.",
+     "s": "Noi ___ un libro.",
+     "a": "leggiamo",
+     "opts": [
+      "leggiamo",
+      "leggo",
+      "leggete",
+      "leggono"
+     ],
+     "hint": "(leggere)"
+    },
+    {
+     "de": "Ihr verkauft Obst.",
+     "s": "Voi ___ la frutta.",
+     "a": "vendete",
+     "opts": [
+      "vendete",
+      "vendiamo",
+      "vendono",
+      "vendi"
+     ],
+     "hint": "(vendere)"
+    },
+    {
+     "de": "Sie schließen um acht.",
+     "s": "Loro ___ alle otto.",
+     "a": "chiudono",
+     "opts": [
+      "chiudono",
+      "chiude",
+      "chiudete",
+      "chiudi"
+     ],
+     "hint": "(chiudere)"
+    },
+    {
+     "de": "Er läuft schnell.",
+     "s": "Lui ___ veloce.",
+     "a": "corre",
+     "opts": [
+      "corre",
+      "corro",
+      "corri",
+      "corrono"
+     ],
+     "hint": "(correre)"
+    },
+    {
+     "de": "Ich antworte nicht.",
+     "s": "Io non ___.",
+     "a": "rispondo",
+     "opts": [
+      "rispondo",
+      "rispondi",
+      "risponde",
+      "rispondiamo"
+     ],
+     "hint": "(rispondere)"
+    },
+    {
+     "de": "Du lebst in Wien.",
+     "s": "Tu ___ a Vienna.",
+     "a": "vivi",
+     "opts": [
+      "vivi",
+      "vivo",
+      "vive",
+      "vivete"
+     ],
+     "hint": "(vivere)"
+    },
+    {
+     "de": "Wir legen die Tasche auf den Tisch.",
+     "s": "Noi ___ la borsa sul tavolo.",
+     "a": "mettiamo",
+     "opts": [
+      "mettiamo",
+      "mettete",
+      "mettono",
+      "metto"
+     ],
+     "hint": "(mettere)"
+    }
+   ]
+  },
+  "verbi-ire": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Ich beende die Arbeit.",
+     "s": "Io ___ il lavoro.",
+     "a": "finisco",
+     "opts": [
+      "finisco",
+      "finisci",
+      "finiamo",
+      "finiscono"
+     ],
+     "hint": "(finire)"
+    },
+    {
+     "de": "Wir fahren morgen ab.",
+     "s": "Noi ___ domani.",
+     "a": "partiamo",
+     "opts": [
+      "partiamo",
+      "parto",
+      "partite",
+      "partono"
+     ],
+     "hint": "(partire)"
+    },
+    {
+     "de": "Verstehst du Italienisch?",
+     "s": "Tu ___ l'italiano?",
+     "a": "capisci",
+     "opts": [
+      "capisci",
+      "capisco",
+      "capisce",
+      "capite"
+     ],
+     "hint": "(capire)"
+    },
+    {
+     "de": "Sie schlafen viel.",
+     "s": "Loro ___ tanto.",
+     "a": "dormono",
+     "opts": [
+      "dormono",
+      "dorme",
+      "dormite",
+      "dormi"
+     ],
+     "hint": "(dormire)"
+    },
+    {
+     "de": "Er bevorzugt Kaffee.",
+     "s": "Lui ___ il caffè.",
+     "a": "preferisce",
+     "opts": [
+      "preferisce",
+      "preferisco",
+      "preferisci",
+      "preferiscono"
+     ],
+     "hint": "(preferire)"
+    },
+    {
+     "de": "Öffnet ihr die Tür?",
+     "s": "Voi ___ la porta?",
+     "a": "aprite",
+     "opts": [
+      "aprite",
+      "apriamo",
+      "aprono",
+      "apri"
+     ],
+     "hint": "(aprire)"
+    },
+    {
+     "de": "Sie beenden um sechs.",
+     "s": "Loro ___ alle sei.",
+     "a": "finiscono",
+     "opts": [
+      "finiscono",
+      "finisce",
+      "finite",
+      "finisci"
+     ],
+     "hint": "(finire)"
+    },
+    {
+     "de": "Ich fahre um acht ab.",
+     "s": "Io ___ alle otto.",
+     "a": "parto",
+     "opts": [
+      "parto",
+      "parti",
+      "parte",
+      "partono"
+     ],
+     "hint": "(partire)"
+    },
+    {
+     "de": "Sie hört die Musik.",
+     "s": "Lei ___ la musica.",
+     "a": "sente",
+     "opts": [
+      "sente",
+      "sento",
+      "senti",
+      "sentono"
+     ],
+     "hint": "(sentire)"
+    },
+    {
+     "de": "Wir bevorzugen den Zug.",
+     "s": "Noi ___ il treno.",
+     "a": "preferiamo",
+     "opts": [
+      "preferiamo",
+      "preferisco",
+      "preferite",
+      "preferiscono"
+     ],
+     "hint": "(preferire)"
+    }
+   ]
+  },
+  "negazione": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Ich verstehe nicht.",
+     "s": "___ capisco.",
+     "a": "Non",
+     "opts": [
+      "Non",
+      "No",
+      "Mai",
+      "Niente"
+     ]
+    },
+    {
+     "de": "Ich habe nichts.",
+     "s": "Non ho ___.",
+     "a": "niente",
+     "opts": [
+      "niente",
+      "nessuno",
+      "mai",
+      "sempre"
+     ]
+    },
+    {
+     "de": "Niemand kommt.",
+     "s": "Non viene ___.",
+     "a": "nessuno",
+     "opts": [
+      "nessuno",
+      "niente",
+      "mai",
+      "sempre"
+     ]
+    },
+    {
+     "de": "Ich bin nie müde.",
+     "s": "Non sono ___ stanco.",
+     "a": "mai",
+     "opts": [
+      "mai",
+      "niente",
+      "nessuno",
+      "più"
+     ]
+    },
+    {
+     "de": "Wir sind nicht zu Hause.",
+     "s": "Non ___ a casa.",
+     "a": "siamo",
+     "opts": [
+      "siamo",
+      "sono",
+      "siete",
+      "sei"
+     ]
+    },
+    {
+     "de": "Sie spricht nicht Deutsch.",
+     "s": "Lei ___ parla tedesco.",
+     "a": "non",
+     "opts": [
+      "non",
+      "no",
+      "nessuno",
+      "niente"
+     ]
+    },
+    {
+     "de": "Ich weiß nicht.",
+     "s": "___ so.",
+     "a": "Non",
+     "opts": [
+      "Non",
+      "No",
+      "Mai",
+      "Niente"
+     ]
+    },
+    {
+     "de": "Ich habe keinen Hunger.",
+     "s": "Non ___ fame.",
+     "a": "ho",
+     "opts": [
+      "ho",
+      "hai",
+      "ha",
+      "sono"
+     ]
+    }
+   ]
+  },
+  "interrogativi": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Wer ist der Herr dort?",
+     "s": "___ è quel signore?",
+     "a": "Chi",
+     "opts": [
+      "Chi",
+      "Dove",
+      "Quando",
+      "Come"
+     ]
+    },
+    {
+     "de": "Wo wohnst du?",
+     "s": "___ abiti?",
+     "a": "Dove",
+     "opts": [
+      "Dove",
+      "Chi",
+      "Quando",
+      "Come"
+     ]
+    },
+    {
+     "de": "Wann kommt der Zug?",
+     "s": "___ arriva il treno?",
+     "a": "Quando",
+     "opts": [
+      "Quando",
+      "Dove",
+      "Come",
+      "Chi"
+     ]
+    },
+    {
+     "de": "Wie heißt du?",
+     "s": "___ ti chiami?",
+     "a": "Come",
+     "opts": [
+      "Come",
+      "Chi",
+      "Quando",
+      "Perché"
+     ]
+    },
+    {
+     "de": "Warum bist du müde?",
+     "s": "___ sei stanco?",
+     "a": "Perché",
+     "opts": [
+      "Perché",
+      "Come",
+      "Dove",
+      "Quando"
+     ]
+    },
+    {
+     "de": "Wie viel kostet das?",
+     "s": "___ costa?",
+     "a": "Quanto",
+     "opts": [
+      "Quanto",
+      "Quale",
+      "Come",
+      "Dove"
+     ]
+    },
+    {
+     "de": "Welchen Zug nimmst du?",
+     "s": "___ treno prendi?",
+     "a": "Quale",
+     "opts": [
+      "Quale",
+      "Quanto",
+      "Chi",
+      "Dove"
+     ]
+    },
+    {
+     "de": "Woher kommst du?",
+     "s": "___ vieni?",
+     "a": "Da dove",
+     "opts": [
+      "Da dove",
+      "Dove",
+      "Quando",
+      "Come"
+     ]
+    },
+    {
+     "de": "Was isst du?",
+     "s": "___ mangi?",
+     "a": "Che cosa",
+     "opts": [
+      "Che cosa",
+      "Chi",
+      "Dove",
+      "Quando"
+     ]
+    },
+    {
+     "de": "Wie viele Kinder hast du?",
+     "s": "___ figli hai?",
+     "a": "Quanti",
+     "opts": [
+      "Quanti",
+      "Quanto",
+      "Quale",
+      "Chi"
+     ]
+    }
+   ]
+  },
+  "possessivi": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "mein Buch",
+     "s": "___ libro",
+     "a": "il mio",
+     "opts": [
+      "il mio",
+      "la mia",
+      "il tuo",
+      "il suo"
+     ]
+    },
+    {
+     "de": "meine Mutter",
+     "s": "___ madre",
+     "a": "mia",
+     "opts": [
+      "mia",
+      "la mia",
+      "mio",
+      "tua"
+     ]
+    },
+    {
+     "de": "dein Auto",
+     "s": "___ macchina",
+     "a": "la tua",
+     "opts": [
+      "la tua",
+      "il tuo",
+      "la mia",
+      "la sua"
+     ]
+    },
+    {
+     "de": "unser Haus",
+     "s": "___ casa",
+     "a": "la nostra",
+     "opts": [
+      "la nostra",
+      "il nostro",
+      "la vostra",
+      "la mia"
+     ]
+    },
+    {
+     "de": "dein Bruder",
+     "s": "___ fratello",
+     "a": "tuo",
+     "opts": [
+      "tuo",
+      "il tuo",
+      "la tua",
+      "mio"
+     ]
+    },
+    {
+     "de": "euer Zug",
+     "s": "___ treno",
+     "a": "il vostro",
+     "opts": [
+      "il vostro",
+      "il nostro",
+      "la vostra",
+      "il loro"
+     ]
+    },
+    {
+     "de": "seine Schwester",
+     "s": "___ sorella",
+     "a": "sua",
+     "opts": [
+      "sua",
+      "la sua",
+      "suo",
+      "mia"
+     ]
+    },
+    {
+     "de": "ihr Haus (der Leute)",
+     "s": "___ casa",
+     "a": "la loro",
+     "opts": [
+      "la loro",
+      "il loro",
+      "la sua",
+      "la nostra"
+     ]
+    }
+   ]
+  },
+  "aggettivi": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "der hohe Berg",
+     "s": "il monte ___",
+     "a": "alto",
+     "opts": [
+      "alto",
+      "alta",
+      "alti",
+      "alte"
+     ]
+    },
+    {
+     "de": "die hohe Mauer",
+     "s": "la parete ___",
+     "a": "alta",
+     "opts": [
+      "alta",
+      "alto",
+      "alti",
+      "alte"
+     ]
+    },
+    {
+     "de": "die hohen Berge",
+     "s": "i monti ___",
+     "a": "alti",
+     "opts": [
+      "alti",
+      "alto",
+      "alta",
+      "alte"
+     ]
+    },
+    {
+     "de": "die hohen Mauern",
+     "s": "le pareti ___",
+     "a": "alte",
+     "opts": [
+      "alte",
+      "alti",
+      "alta",
+      "alto"
+     ]
+    },
+    {
+     "de": "das grüne Auto",
+     "s": "la macchina ___",
+     "a": "verde",
+     "opts": [
+      "verde",
+      "verda",
+      "verdi"
+     ],
+     "hint": "(verde)"
+    },
+    {
+     "de": "die grünen Autos",
+     "s": "le macchine ___",
+     "a": "verdi",
+     "opts": [
+      "verdi",
+      "verde",
+      "verda"
+     ],
+     "hint": "(verde)"
+    },
+    {
+     "de": "der neue Zug",
+     "s": "il treno ___",
+     "a": "nuovo",
+     "opts": [
+      "nuovo",
+      "nuova",
+      "nuovi",
+      "nuove"
+     ],
+     "hint": "(nuovo)"
+    },
+    {
+     "de": "die neuen Häuser",
+     "s": "le case ___",
+     "a": "nuove",
+     "opts": [
+      "nuove",
+      "nuovi",
+      "nuova",
+      "nuovo"
+     ],
+     "hint": "(nuovo)"
+    },
+    {
+     "de": "die schwierigen Aufgaben",
+     "s": "i compiti ___",
+     "a": "difficili",
+     "opts": [
+      "difficili",
+      "difficile",
+      "difficila",
+      "difficilo"
+     ],
+     "hint": "(difficile)"
+    },
+    {
+     "de": "der kleine Junge",
+     "s": "il bambino ___",
+     "a": "piccolo",
+     "opts": [
+      "piccolo",
+      "piccola",
+      "piccoli",
+      "piccole"
+     ],
+     "hint": "(piccolo)"
+    }
+   ]
+  },
+  "plurale": {
+   "forms": false,
+   "items": [
+    {
+     "de": "die Karten",
+     "s": "le ___",
+     "a": "carte",
+     "opts": [
+      "carte",
+      "carti",
+      "carta"
+     ],
+     "hint": "(la carta)"
+    },
+    {
+     "de": "die Bücher",
+     "s": "i ___",
+     "a": "libri",
+     "opts": [
+      "libri",
+      "libre",
+      "libro"
+     ],
+     "hint": "(il libro)"
+    },
+    {
+     "de": "die Häuser",
+     "s": "le ___",
+     "a": "case",
+     "opts": [
+      "case",
+      "casi",
+      "casa"
+     ],
+     "hint": "(la casa)"
+    },
+    {
+     "de": "die Hände",
+     "s": "le ___",
+     "a": "mani",
+     "opts": [
+      "mani",
+      "mane",
+      "mano"
+     ],
+     "hint": "(la mano)"
+    },
+    {
+     "de": "die Städte",
+     "s": "le ___",
+     "a": "città",
+     "opts": [
+      "città",
+      "citti",
+      "citte"
+     ],
+     "hint": "(la città)"
+    },
+    {
+     "de": "die Männer",
+     "s": "gli ___",
+     "a": "uomini",
+     "opts": [
+      "uomini",
+      "uomi",
+      "uomo"
+     ],
+     "hint": "(l'uomo)"
+    },
+    {
+     "de": "die Schlüssel",
+     "s": "le ___",
+     "a": "chiavi",
+     "opts": [
+      "chiavi",
+      "chiave",
+      "chiavo"
+     ],
+     "hint": "(la chiave)"
+    },
+    {
+     "de": "die Gläser",
+     "s": "i ___",
+     "a": "bicchieri",
+     "opts": [
+      "bicchieri",
+      "bicchiere",
+      "bicchiera",
+      "bicchiero"
+     ],
+     "hint": "(il bicchiere)"
+    },
+    {
+     "de": "die Banken",
+     "s": "le ___",
+     "a": "banche",
+     "opts": [
+      "banche",
+      "banci",
+      "banca"
+     ],
+     "hint": "(la banca)"
+    },
+    {
+     "de": "die Freunde",
+     "s": "gli ___",
+     "a": "amici",
+     "opts": [
+      "amici",
+      "amiche",
+      "amico"
+     ],
+     "hint": "(l'amico)"
+    }
+   ]
+  },
+  "ora": {
+   "forms": "pairs",
+   "items": [
+    {
+     "de": "Es ist zwei Uhr.",
+     "s": "___ le due.",
+     "a": "Sono",
+     "opts": [
+      "Sono",
+      "È",
+      "Sei",
+      "Siamo"
+     ]
+    },
+    {
+     "de": "Es ist ein Uhr.",
+     "s": "___ l'una.",
+     "a": "È",
+     "opts": [
+      "È",
+      "Sono",
+      "Siamo",
+      "Sei"
+     ]
+    },
+    {
+     "de": "Es ist halb drei.",
+     "s": "Sono le due e ___.",
+     "a": "mezza",
+     "opts": [
+      "mezza",
+      "mezzo",
+      "quarto",
+      "meno"
+     ]
+    },
+    {
+     "de": "Es ist Viertel nach vier.",
+     "s": "Sono le quattro e un ___.",
+     "a": "quarto",
+     "opts": [
+      "quarto",
+      "mezzo",
+      "quinto",
+      "terzo"
+     ]
+    },
+    {
+     "de": "Es ist Viertel vor fünf.",
+     "s": "Sono le cinque ___ un quarto.",
+     "a": "meno",
+     "opts": [
+      "meno",
+      "e",
+      "per",
+      "senza"
+     ]
+    },
+    {
+     "de": "Der Zug fährt um acht ab.",
+     "s": "Il treno parte ___ otto.",
+     "a": "alle",
+     "opts": [
+      "alle",
+      "a",
+      "le",
+      "per"
+     ]
+    },
+    {
+     "de": "Es ist Mittag.",
+     "s": "È ___.",
+     "a": "mezzogiorno",
+     "opts": [
+      "mezzogiorno",
+      "mezzanotte",
+      "mezza",
+      "mezzo"
+     ]
+    },
+    {
+     "de": "Wie spät ist es?",
+     "s": "Che ___ sono?",
+     "a": "ore",
+     "opts": [
+      "ore",
+      "ora",
+      "orario",
+      "tempo"
+     ]
+    }
+   ]
+  },
+  "numeri": {
+   "forms": "both",
+   "items": [
+    {
+     "de": "Zwei plus drei ist ...",
+     "s": "Due più tre fa ___.",
+     "a": "cinque",
+     "opts": [
+      "cinque",
+      "quattro",
+      "sei",
+      "sette"
+     ]
+    },
+    {
+     "de": "Sechs plus vier ist ...",
+     "s": "Sei più quattro fa ___.",
+     "a": "dieci",
+     "opts": [
+      "dieci",
+      "nove",
+      "undici",
+      "otto"
+     ]
+    },
+    {
+     "de": "Zehn plus zwei ist ...",
+     "s": "Dieci più due fa ___.",
+     "a": "dodici",
+     "opts": [
+      "dodici",
+      "undici",
+      "tredici",
+      "venti"
+     ]
+    },
+    {
+     "de": "Neun plus sieben ist ...",
+     "s": "Nove più sette fa ___.",
+     "a": "sedici",
+     "opts": [
+      "sedici",
+      "diciassette",
+      "quindici",
+      "diciotto"
+     ]
+    },
+    {
+     "de": "Acht plus neun ist ...",
+     "s": "Otto più nove fa ___.",
+     "a": "diciassette",
+     "opts": [
+      "diciassette",
+      "sedici",
+      "diciotto",
+      "diciannove"
+     ]
+    },
+    {
+     "de": "Zwanzig minus fünf ist ...",
+     "s": "Venti meno cinque fa ___.",
+     "a": "quindici",
+     "opts": [
+      "quindici",
+      "quattordici",
+      "sedici",
+      "dieci"
+     ]
+    },
+    {
+     "de": "Sieben plus sechs ist ...",
+     "s": "Sette più sei fa ___.",
+     "a": "tredici",
+     "opts": [
+      "tredici",
+      "dodici",
+      "quattordici",
+      "undici"
+     ]
+    },
+    {
+     "de": "Zwölf minus eins ist ...",
+     "s": "Dodici meno uno fa ___.",
+     "a": "undici",
+     "opts": [
+      "undici",
+      "dieci",
+      "dodici",
+      "tredici"
+     ]
+    }
+   ]
+  }
+ }
+}
