@@ -6,10 +6,13 @@
    Voraussetzung: Im Pages-Projekt unter Einstellungen -> Bindings
    ein KV-Namespace mit dem Variablennamen FORTSCHRITT verbinden.
 
-   Gespeichert wird ausschliesslich der Lernfortschritt: welches Wort
-   in welchem Kasten steht. Keine Namen, keine Kennungen, keine
-   IP-Adressen. Der Code wird nie im Klartext abgelegt, sondern nur
-   als Pruefsumme, die den Datensatz benennt.
+   Gespeichert wird ausschliesslich der Lernfortschritt: je Wort und
+   Phrase Kasten, Termine und Zeitstempel, je Grammatikregel die Zaehler,
+   je Tag die Tageszaehler, dazu Tagesziel und Startdatum. Keine Namen,
+   keine Kennungen, keine IP-Adressen. Der Code wird nie im Klartext
+   abgelegt, sondern nur als Pruefsumme, die den Datensatz benennt.
+   Aendert sich, was die App sendet, muss der Abgleich-Text im
+   Impressum (ui.js, Legal) mitgezogen werden.
    ============================================================ */
 
 const MAX_BYTES = 2 * 1024 * 1024;   // 2 MB reichen weit ueber ein Jahr hinaus

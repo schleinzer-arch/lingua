@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '9';
+const APP_VERSION = '10';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
@@ -1222,9 +1222,10 @@ const Legal = {
       block('Datenschutz',
         '<div class="small" style="margin-bottom:10px;">Verantwortlicher im Sinne der DSGVO: ' +
         'Clemens Schleinzer, Enzersdorfer Straße 9/2/2, 2401 Fischamend, schleinzer@gmail.com</div>' +
-        '<div class="small" style="margin-bottom:10px;">Der Lernfortschritt wird ausschließlich ' +
-        'lokal im Browser gespeichert und verlässt das Gerät nicht. Es werden keine Cookies gesetzt, ' +
-        'kein Tracking durchgeführt und keine Analysedienste eingesetzt.</div>' +
+        '<div class="small" style="margin-bottom:10px;">Der Lernfortschritt wird lokal im Browser ' +
+        'gespeichert. Er verlässt das Gerät nur, wenn Sie den Abgleich zwischen Geräten einschalten ' +
+        '(siehe unten). Es werden keine Cookies gesetzt, kein Tracking durchgeführt und keine ' +
+        'Analysedienste eingesetzt.</div>' +
         '<div class="small">Beim Aufruf der Seite wird Ihre IP-Adresse an den Hosting-Anbieter ' +
         'übertragen. Externe Programmbibliotheken werden nicht geladen.</div>') +
 
@@ -1238,11 +1239,18 @@ const Legal = {
 
       block('Abgleich zwischen Geräten',
         '<div class="card" style="background:var(--tint);">' +
-        '<div class="small">Wer den Abgleich einschaltet, überträgt seinen Lernfortschritt ' +
-        'an einen Speicher bei Cloudflare, der zu dieser Seite gehört. Übertragen wird ' +
-        'ausschließlich, welches Wort in welchem Wiederholungskasten steht — keine Namen, ' +
-        'keine Kennungen, keine Inhalte. Das Codewort wird nicht im Klartext abgelegt, ' +
-        'sondern nur als Prüfsumme. Ohne Einschalten verlässt nichts das Gerät.</div></div>') +
+        '<div class="small" style="margin-bottom:10px;">Wer den Abgleich einschaltet, überträgt ' +
+        'seinen Lernfortschritt an einen Speicher bei Cloudflare, der zu dieser Seite gehört. ' +
+        'Übertragen werden ausschließlich Lernstände — keine Namen, keine Kennungen und keine ' +
+        'Inhalte Ihrer Eingaben:</div>' +
+        '<div class="small" style="margin-bottom:10px;">Für jedes Wort und jede Phrase der ' +
+        'Wiederholungskasten, der Termin der nächsten Wiederholung, die erreichte Übungsstufe ' +
+        'und der Zeitpunkt der letzten Änderung. Für jede Grammatikregel die Zahl der Antworten ' +
+        'und ob die zuletzt gegebenen richtig waren. Für jeden Tag die Zahl der Übungen, der ' +
+        'richtigen Antworten, der neuen Wörter und der abgeschlossenen Sitzungen. Dazu das ' +
+        'Tagesziel, die Einstellung zu den Sprechübungen und das Startdatum.</div>' +
+        '<div class="small">Das Codewort wird nicht im Klartext abgelegt, sondern nur als ' +
+        'Prüfsumme. Ohne Einschalten verlässt nichts das Gerät.</div></div>') +
 
       block('Sprachausgabe',
         '<div class="small">Das Vorlesen erfolgt über die Sprachausgabe des Betriebssystems. ' +
