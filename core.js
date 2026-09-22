@@ -170,6 +170,18 @@ const Leitner = {
     return st;
   },
 
+  /* Milder Rückfall um nur einen Kasten, nie unter 1 — für falsche
+     Antworten beim Üben aus der Bibliothek. Dort ist es schon gefestigtes
+     Wissen zum Auffrischen; ein einzelner Fehler soll nicht den ganzen
+     Fortschritt kosten, wie es der volle Rückfall aus der Session täte. */
+  demoteOne(map, id) {
+    const st = this.touch(map, id);
+    st.box = Math.max(1, st.box - 1);
+    st.due = Store.dayKey(INTERVALS[st.box]);
+    if (st.box < MASTER_BOX) st.learned = null;
+    return st;
+  },
+
   // Übungsstufe: 0 neu · 1 erkennen · 2 zusammensetzen · 3 tippen · 4 sprechen
   raise(map, id, level) {
     const st = this.state(map, id);
@@ -1234,8 +1246,8 @@ const Practice = {
         if (st && Leitner.isDue(st)) Leitner.promote(P, fx.phrase);
       }
     } else {
-      if (fx.demoteWord && W[fx.demoteWord]) Leitner.demote(W, fx.demoteWord);
-      if (fx.phrase && P[fx.phrase]) Leitner.demote(P, fx.phrase);
+      if (fx.demoteWord && W[fx.demoteWord]) Leitner.demoteOne(W, fx.demoteWord);
+      if (fx.phrase && P[fx.phrase]) Leitner.demoteOne(P, fx.phrase);
     }
     if (fx.chapter) this.record(fx.chapter, ok);
     Store.save();
