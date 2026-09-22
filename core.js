@@ -83,13 +83,6 @@ const Store = {
     if (!this.data.grammar) this.data.grammar = {};
     if (!this.data.settings) this.data.settings = { goal: 24, speech: true };
     if (this.data.settings.speech === undefined) this.data.settings.speech = true;
-    if (!this.data.started) this.data.started = this.today();
-    // Selbstheilung: Wörter/Phrasen, die durch einen früheren Fehler ohne
-    // Fälligkeitsprüfung unmöglich schnell in ein hohes Kasten gerutscht
-    // sind, wieder auf ein plausibles Mass bringen. Läuft bei jedem Laden,
-    // ist aber folgenlos, sobald der Stand einmal bereinigt ist.
-    Leitner.fixImpossible(this.data.words, this.data.started);
-    Leitner.fixImpossible(this.data.phrases, this.data.started);
     return this.data;
   },
 
@@ -108,16 +101,6 @@ const Store = {
   dayKey(offset) {
     const d = new Date();
     d.setDate(d.getDate() + (offset || 0));
-    return d.getFullYear() + '-' +
-      String(d.getMonth() + 1).padStart(2, '0') + '-' +
-      String(d.getDate()).padStart(2, '0');
-  },
-
-  // Datum (YYYY-MM-DD) um `delta` Tage verschieben — für die Rückrechnung
-  // in fixImpossible().
-  addDays(dateStr, delta) {
-    const d = new Date(dateStr + 'T00:00:00');
-    d.setDate(d.getDate() + delta);
     return d.getFullYear() + '-' +
       String(d.getMonth() + 1).padStart(2, '0') + '-' +
       String(d.getDate()).padStart(2, '0');
@@ -168,12 +151,7 @@ const Leitner = {
   seen(map, id) { return !!map[id]; },
 
   promote(map, id) {
-    const st = this.state(map, id);
-    // Nur ein fälliges Wort rückt vor — sonst liesse sich der
-    // Wiederholungsabstand durch mehrfaches Üben am selben Tag aushebeln.
-    // Zentral hier geprüft, statt an jeder Aufrufstelle einzeln.
-    if (!this.isDue(st)) return st;
-    this.touch(map, id);
+    const st = this.touch(map, id);
     const before = st.box;
     st.box = Math.min(5, st.box + 1);
     st.due = Store.dayKey(INTERVALS[st.box]);
@@ -186,29 +164,10 @@ const Leitner = {
 
   demote(map, id) {
     const st = this.touch(map, id);
-    st.box = Math.max(1, st.box - 1);
+    st.box = 1;
     st.due = Store.dayKey(1);
-    if (st.box < MASTER_BOX) st.learned = null;
+    st.learned = null;
     return st;
-  },
-
-  /* Rechnet aus Kasten und Fälligkeit den frühestmöglichen Einführungstag
-     zurück und wirft alles, was vor dem App-Start liegen müsste — also
-     unmöglich ist —, auf Kasten 3 zurück, sofort wieder fällig. */
-  fixImpossible(map, started) {
-    if (!map || !started) return;
-    const MIN_DAYS = [0, 0, 1, 4, 11, 25]; // Mindestabstand Einführung → Kasten, Index = Kasten
-    Object.keys(map).forEach(id => {
-      const st = map[id];
-      if (!st || st.box < MASTER_BOX || !st.due) return;
-      const promotedOn = Store.addDays(st.due, -INTERVALS[st.box]);
-      const earliestIntro = Store.addDays(promotedOn, -MIN_DAYS[st.box]);
-      if (earliestIntro < started) {
-        st.box = 3;
-        st.due = Store.today();
-        st.learned = null;
-      }
-    });
   },
 
   // Übungsstufe: 0 neu · 1 erkennen · 2 zusammensetzen · 3 tippen · 4 sprechen
@@ -1354,5 +1313,132 @@ const Stats = {
     if (m >= 800) return { label: 'B1 in Arbeit', next: 1200, at: m };
     if (m >= 300) return { label: 'A2 in Arbeit', next: 800, at: m };
     return { label: 'A1 in Arbeit', next: 300, at: m };
+  },
+
+  /* Wortschatz, Grammatik und Phrasen je Niveau — für die Fortschrittsansicht.
+     „unlocked" heisst: die Session führt auf diesem Niveau schon neue
+     Wörter ein. Grammatik und Phrasen sind in der Bibliothek immer frei
+     übbar, unabhängig vom Niveau — dafür gilt „unlocked" nicht. */
+  levelBreakdown(DB) {
+    const W = Store.data.words, P = Store.data.phrases;
+    const rank = LVL_RANK[Session.level(DB)];
+    return ['A1', 'A2', 'B1'].map(L => {
+      const vocab = DB.vocab.filter(v => v.level === L);
+      const vocabDone = vocab.filter(v => W[v.id] && W[v.id].box >= MASTER_BOX).length;
+      const phrases = DB.phrases.filter(p => p.level === L);
+      const phrasesDone = phrases.filter(p => P[p.id] && P[p.id].box >= MASTER_BOX).length;
+      const gram = DB.grammar.filter(g => g.level === L && Practice.available(g.id));
+      const gramDone = gram.filter(g => solidChapter(g.id)).length;
+      return {
+        level: L, unlocked: LVL_RANK[L] <= rank,
+        vocab: vocab.length, vocabDone,
+        phrases: phrases.length, phrasesDone,
+        gram: gram.length, gramDone,
+      };
+    });
+  },
+};
+
+/* Ein Grammatikkapitel gilt als sicher, wenn von mindestens vier der
+   letzten Antworten vier Fünftel richtig waren. Dieselbe Schwelle
+   verwendet auch die Anzeige in der Bibliothek (Practice.recent). */
+function solidChapter(id) {
+  const r = Practice.recent(id);
+  return !!(r && r.n >= 4 && r.r / r.n >= 0.8);
+}
+
+/* ---------- Abzeichen ----------
+   Rein aus dem vorhandenen Lernstand abgeleitet, nichts davon wird
+   gespeichert oder abgeglichen — der Lernstand selbst (Wörter, Kästen,
+   Grammatikstand, Serie) ist ja schon da und entscheidet. Nur, WELCHE
+   Abzeichen auf diesem Gerät schon als „neu" gezeigt wurden, steht lokal
+   ausserhalb des Lernstands, genau wie Sprache, Stimme oder Tempo. */
+const BADGES = [
+  { id: 'streak-3',    group: 'Serie',      icon: '\u{1F525}', title: '3 Tage in Folge',
+    check: () => Stats.streak() >= 3 },
+  { id: 'streak-7',    group: 'Serie',      icon: '\u{1F525}', title: 'Eine Woche Serie',
+    check: () => Stats.streak() >= 7 },
+  { id: 'streak-30',   group: 'Serie',      icon: '\u{1F525}', title: 'Ein Monat Serie',
+    check: () => Stats.streak() >= 30 },
+  { id: 'streak-100',  group: 'Serie',      icon: '\u{1F525}', title: '100 Tage Serie',
+    check: () => Stats.streak() >= 100 },
+  { id: 'streak-365',  group: 'Serie',      icon: '\u{1F525}', title: 'Ein Jahr Serie',
+    check: () => Stats.streak() >= 365 },
+
+  { id: 'words-50',    group: 'Wortschatz', icon: '\u{1F4D8}', title: '50 Wörter gemeistert',
+    check: () => Stats.mastered() >= 50 },
+  { id: 'words-100',   group: 'Wortschatz', icon: '\u{1F4D8}', title: '100 Wörter gemeistert',
+    check: () => Stats.mastered() >= 100 },
+  { id: 'words-500',   group: 'Wortschatz', icon: '\u{1F4D8}', title: '500 Wörter gemeistert',
+    check: () => Stats.mastered() >= 500 },
+  { id: 'words-1200',  group: 'Wortschatz', icon: '\u{1F4D8}', title: '1200 Wörter gemeistert',
+    check: () => Stats.mastered() >= 1200 },
+
+  { id: 'level-a1',    group: 'Niveau',     icon: '\u{1F3C5}', title: 'Niveau A1 erreicht',
+    check: () => Stats.mastered() >= 300 },
+  { id: 'level-a2',    group: 'Niveau',     icon: '\u{1F3C5}', title: 'Niveau A2 erreicht',
+    check: () => Stats.mastered() >= 800 },
+
+  { id: 'grammar-first', group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Erste Regel sicher',
+    check: (DB) => DB.grammar.some(g => solidChapter(g.id)) },
+  { id: 'grammar-a1',    group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Alle A1-Regeln sicher',
+    check: (DB) => grammarLevelDone(DB, 'A1') },
+  { id: 'grammar-a2',    group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Alle A2-Regeln sicher',
+    check: (DB) => grammarLevelDone(DB, 'A2') },
+
+  { id: 'both-langs', group: 'Sprachen', icon: '\u{1F30D}', title: 'Beide Sprachen begonnen',
+    check: () => Badges.otherStarted() },
+];
+
+function grammarLevelDone(DB, level) {
+  const chs = DB.grammar.filter(g => g.level === level && Practice.available(g.id));
+  if (!chs.length) return false;
+  return chs.every(g => solidChapter(g.id));
+}
+
+const Badges = {
+  all: BADGES,
+
+  /* Merkt sich pro Gerät und Sprache, welche Abzeichen schon als „neu"
+     gezeigt wurden — bewusst ausserhalb von Store.data, damit der
+     Abgleich zwischen Geräten unverändert bleibt. */
+  key() { return 'lingua_badges_' + currentLang(); },
+
+  seen() {
+    try {
+      const raw = localStorage.getItem(this.key());
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  },
+
+  markSeen(map) { try { localStorage.setItem(this.key(), JSON.stringify(map)); } catch (e) {} },
+
+  otherStarted() {
+    try {
+      const other = otherLang(currentLang());
+      const raw = localStorage.getItem('lingua_' + other);
+      if (!raw) return false;
+      const d = JSON.parse(raw);
+      return !!(d && d.words && Object.keys(d.words).length > 0);
+    } catch (e) { return false; }
+  },
+
+  /* Aktueller Stand aller Abzeichen — für die Anzeige im Profil. */
+  list(DB) {
+    return BADGES.map(b => ({ id: b.id, group: b.group, icon: b.icon, title: b.title,
+      earned: !!b.check(DB) }));
+  },
+
+  /* Seit dem letzten Aufruf neu verdiente Abzeichen — merkt sie sich
+     sofort, damit dieselbe Runde nicht zweimal als „neu" zählt. */
+  checkNew(DB) {
+    const have = this.seen();
+    const fresh = [];
+    BADGES.forEach(b => {
+      if (have[b.id]) return;
+      if (b.check(DB)) { have[b.id] = 1; fresh.push(b); }
+    });
+    if (fresh.length) this.markSeen(have);
+    return fresh;
   },
 };
