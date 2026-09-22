@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '10';
+const APP_VERSION = '11';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
@@ -999,13 +999,18 @@ const Library = {
         'Antworten zu einer Regel richtig waren.</div>' : '<div style="height:8px;"></div>') +
       DB.grammar.map(g => {
         const rc = Practice.recent(g.id);
-        return '<button class="tile" data-chapter="' + esc(g.id) + '" style="margin-bottom:9px;">' +
+        return '<div class="tile" data-chapter="' + esc(g.id) + '" style="margin-bottom:9px;cursor:pointer;">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">' +
           '<div><div class="head">' + esc(g.title) + '</div>' +
           '<div class="small">' + esc(g.description) + '</div></div>' +
           '<span style="display:flex;gap:6px;align-items:center;flex:none;">' +
             (rc ? '<span class="chip' + (rc.r / rc.n >= 0.8 ? '' : ' ochre') + '">' + rc.r + '/' + rc.n + '</span>' : '') +
-            '<span class="chip">' + esc(g.level) + '</span></span></div></button>';
+            '<span class="chip">' + esc(g.level) + '</span></span></div>' +
+          (Practice.available(g.id)
+            ? '<button class="chipbtn" style="align-self:flex-start;margin-top:2px;" ' +
+              'data-practice="grammar:' + esc(g.id) + '">Üben</button>'
+            : '') +
+          '</div>';
       }).join('');
   },
 

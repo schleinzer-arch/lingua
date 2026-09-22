@@ -19,7 +19,7 @@ function bindAll() {
   on('[data-drill]', () => Drill.start());
   on('[data-words]', el => App.go('words', el.getAttribute('data-words')));
   on('[data-drill-set]', el => Drill.start(el.getAttribute('data-drill-set')));
-  on('[data-practice]', el => Practice.start(el.getAttribute('data-practice')));
+  on('[data-practice]', (el, ev) => { ev.stopPropagation(); Practice.start(el.getAttribute('data-practice')); });
   on('[data-practice-again]', () => Practice.again());
 
   /* --- Nachsprechen aus der Bibliothek --- */
@@ -139,6 +139,7 @@ function bindAll() {
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
     it.sent.words.forEach(w => {
       if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 1); }
+      else Leitner.demote(Store.data.words, w);
     });
     if (ok) Run.right++; else Run.wrong++;
     const d = Store.day(); d.seen++; if (ok) d.right++;
@@ -206,6 +207,7 @@ function bindAll() {
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
     it.sent.words.forEach(w => {
       if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 3); }
+      else Leitner.demote(Store.data.words, w);
     });
     if (ok) Run.right++; else Run.wrong++;
     const d = Store.day(); d.seen++; if (ok) d.right++;

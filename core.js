@@ -83,6 +83,13 @@ const Store = {
     if (!this.data.grammar) this.data.grammar = {};
     if (!this.data.settings) this.data.settings = { goal: 24, speech: true };
     if (this.data.settings.speech === undefined) this.data.settings.speech = true;
+    if (!this.data.started) this.data.started = this.today();
+    // Selbstheilung: Wörter/Phrasen, die durch einen früheren Fehler ohne
+    // Fälligkeitsprüfung unmöglich schnell in ein hohes Kasten gerutscht
+    // sind, wieder auf ein plausibles Mass bringen. Läuft bei jedem Laden,
+    // ist aber folgenlos, sobald der Stand einmal bereinigt ist.
+    Leitner.fixImpossible(this.data.words, this.data.started);
+    Leitner.fixImpossible(this.data.phrases, this.data.started);
     return this.data;
   },
 
@@ -101,6 +108,16 @@ const Store = {
   dayKey(offset) {
     const d = new Date();
     d.setDate(d.getDate() + (offset || 0));
+    return d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+  },
+
+  // Datum (YYYY-MM-DD) um `delta` Tage verschieben — für die Rückrechnung
+  // in fixImpossible().
+  addDays(dateStr, delta) {
+    const d = new Date(dateStr + 'T00:00:00');
+    d.setDate(d.getDate() + delta);
     return d.getFullYear() + '-' +
       String(d.getMonth() + 1).padStart(2, '0') + '-' +
       String(d.getDate()).padStart(2, '0');
@@ -151,7 +168,12 @@ const Leitner = {
   seen(map, id) { return !!map[id]; },
 
   promote(map, id) {
-    const st = this.touch(map, id);
+    const st = this.state(map, id);
+    // Nur ein fälliges Wort rückt vor — sonst liesse sich der
+    // Wiederholungsabstand durch mehrfaches Üben am selben Tag aushebeln.
+    // Zentral hier geprüft, statt an jeder Aufrufstelle einzeln.
+    if (!this.isDue(st)) return st;
+    this.touch(map, id);
     const before = st.box;
     st.box = Math.min(5, st.box + 1);
     st.due = Store.dayKey(INTERVALS[st.box]);
@@ -164,10 +186,29 @@ const Leitner = {
 
   demote(map, id) {
     const st = this.touch(map, id);
-    st.box = 1;
+    st.box = Math.max(1, st.box - 1);
     st.due = Store.dayKey(1);
-    st.learned = null;
+    if (st.box < MASTER_BOX) st.learned = null;
     return st;
+  },
+
+  /* Rechnet aus Kasten und Fälligkeit den frühestmöglichen Einführungstag
+     zurück und wirft alles, was vor dem App-Start liegen müsste — also
+     unmöglich ist —, auf Kasten 3 zurück, sofort wieder fällig. */
+  fixImpossible(map, started) {
+    if (!map || !started) return;
+    const MIN_DAYS = [0, 0, 1, 4, 11, 25]; // Mindestabstand Einführung → Kasten, Index = Kasten
+    Object.keys(map).forEach(id => {
+      const st = map[id];
+      if (!st || st.box < MASTER_BOX || !st.due) return;
+      const promotedOn = Store.addDays(st.due, -INTERVALS[st.box]);
+      const earliestIntro = Store.addDays(promotedOn, -MIN_DAYS[st.box]);
+      if (earliestIntro < started) {
+        st.box = 3;
+        st.due = Store.today();
+        st.learned = null;
+      }
+    });
   },
 
   // Übungsstufe: 0 neu · 1 erkennen · 2 zusammensetzen · 3 tippen · 4 sprechen
