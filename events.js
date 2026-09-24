@@ -137,8 +137,12 @@ function bindAll() {
     const ok = choice === it.q.answer;
     Run.verdict = ok ? 'exact' : 'wrong';
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
+    // Nur faellige Woerter ruecken vor — sonst liesse sich der
+    // Wiederholungsabstand durch haeufige Saetze aushebeln.
     it.sent.words.forEach(w => {
-      if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 1); }
+      if (!ok) return;
+      if (Leitner.isDue(Store.data.words[w])) Leitner.promote(Store.data.words, w);
+      Leitner.raise(Store.data.words, w, 1);
     });
     if (ok) Run.right++; else Run.wrong++;
     const d = Store.day(); d.seen++; if (ok) d.right++;
@@ -204,8 +208,12 @@ function bindAll() {
     Run.phase = 'a';
     const ok = Run.verdict !== 'wrong';
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
+    // Nur faellige Woerter ruecken vor — sonst liesse sich der
+    // Wiederholungsabstand durch haeufige Saetze aushebeln.
     it.sent.words.forEach(w => {
-      if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, 3); }
+      if (!ok) return;
+      if (Leitner.isDue(Store.data.words[w])) Leitner.promote(Store.data.words, w);
+      Leitner.raise(Store.data.words, w, 3);
     });
     if (ok) Run.right++; else Run.wrong++;
     const d = Store.day(); d.seen++; if (ok) d.right++;
@@ -261,9 +269,14 @@ function bindAll() {
     const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics' || Run.verdict === 'typo';
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
     const stufe = it.kind === 'listenbuild' ? 3 : 2;
+    // Nur faellige Woerter ruecken vor — sonst liesse sich der
+    // Wiederholungsabstand durch haeufige Saetze aushebeln. Ein Fehler
+    // zaehlt dagegen immer, auch wenn das Wort gerade nicht faellig war.
     it.sent.words.forEach(w => {
-      if (ok) { Leitner.promote(Store.data.words, w); Leitner.raise(Store.data.words, w, stufe); }
-      else Leitner.demote(Store.data.words, w);
+      if (ok) {
+        if (Leitner.isDue(Store.data.words[w])) Leitner.promote(Store.data.words, w);
+        Leitner.raise(Store.data.words, w, stufe);
+      } else Leitner.demote(Store.data.words, w);
     });
     if (ok) Run.right++; else Run.wrong++;
     const d = Store.day(); d.seen++; if (ok) d.right++;
@@ -320,9 +333,6 @@ function bindAll() {
   });
 
   on('[data-next]', () => Run.next());
-
-  /* --- Abzeichen-Overlay schließen --- */
-  on('[data-badges-close]', () => { Run.newBadges = []; App.render(); });
 
   /* --- Sprache wechseln --- */
   on('[data-lang]', el => App.switchLang(el.getAttribute('data-lang')));
