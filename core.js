@@ -393,8 +393,10 @@ const Voice = {
     const SS = window.speechSynthesis;
 
     this.unlock();
+    const as = navigator.audioSession ? (navigator.audioSession.type + '/' + navigator.audioSession.state) : 'n/v';
     VLog.add('say „' + String(text).slice(0, 24) + '\u2026" unlocked=' + this._unlocked +
-      ' speaking=' + SS.speaking + ' pending=' + SS.pending + ' hidden=' + document.hidden);
+      ' speaking=' + SS.speaking + ' pending=' + SS.pending + ' hidden=' + document.hidden +
+      ' audioSession=' + as);
 
     // Nur abbrechen, wenn wirklich etwas laeuft — ein cancel() auf eine
     // leere Warteschlange kann die Ausgabe auf iOS blockieren.
@@ -446,6 +448,24 @@ const Voice = {
       const p = a.play();
       if (p && p.catch) p.catch(() => {});
     } catch (e) { /* ohne Freigabe geht es meist trotzdem */ }
+    this.claimSession();
+  },
+
+  /* Seit iOS 16.4 kann eine Seite der Systemebene explizit sagen, dass ihr
+     Ton echte Wiedergabe ist statt Hintergrundgeraeusch — ohne das landet
+     Sprachausgabe auf manchen Geraeten in einer Kategorie, die zwar keinen
+     Fehler wirft, aber auch keinen hoerbaren Ton erzeugt. Kein Garant
+     (Safari entscheidet laut Dokumentation trotzdem manchmal selbst),
+     aber die von Apple vorgesehene Stellschraube dafuer. */
+  claimSession() {
+    try {
+      if (navigator.audioSession) {
+        navigator.audioSession.type = 'playback';
+        VLog.add('audioSession auf "playback" gesetzt (Zustand: ' + navigator.audioSession.state + ')');
+      } else {
+        VLog.add('audioSession-Schnittstelle nicht verfügbar');
+      }
+    } catch (e) { VLog.add('audioSession-Fehler: ' + e.message); }
   },
 
   /* Nach dem Zurueckkehren aus dem Hintergrund bleibt die Ausgabe auf iOS
@@ -457,6 +477,7 @@ const Voice = {
     // Nur aufwecken, nicht abbrechen: ein cancel() auf eine leere
     // Warteschlange kann die Ausgabe auf iOS selbst stilllegen.
     try { window.speechSynthesis.resume(); } catch (e) { VLog.add('  \u2192 resume()-Fehler ' + e.message); }
+    if (this._unlocked) this.claimSession();
   },
 
 };

@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '13';
+const APP_VERSION = '14';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
