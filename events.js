@@ -334,6 +334,9 @@ function bindAll() {
 
   on('[data-next]', () => Run.next());
 
+  /* --- Abzeichen-Overlay schließen --- */
+  on('[data-badges-close]', () => { Run.newBadges = []; App.render(); });
+
   /* --- Sprache wechseln --- */
   on('[data-lang]', el => App.switchLang(el.getAttribute('data-lang')));
 
@@ -471,6 +474,27 @@ function bindAll() {
     if (!confirm('Wirklich alle Daten löschen? Kästen, Serien und Statistiken gehen verloren.')) return;
     Store.reset();
     App.go('home');
+  });
+
+  /* --- Verstecktes Diagnoseprotokoll: 7x auf die Versionszeile tippen --- */
+  on('[data-vtap]', () => {
+    const now = Date.now();
+    if (!window.__vtaps || now - window.__vtapAt > 2500) window.__vtaps = 0;
+    window.__vtaps++; window.__vtapAt = now;
+    if (window.__vtaps >= 7) {
+      window.__vtaps = 0;
+      Diag.open = true;
+      App.render();
+    }
+  });
+  on('[data-diag-close]', () => { Diag.open = false; App.render(); });
+  on('[data-diag-clear]', () => { VLog.clear(); App.render(); });
+  on('[data-diag-copy]', el => {
+    const text = VLog.text();
+    const done = () => { el.textContent = 'Kopiert'; setTimeout(() => { el.textContent = 'Kopieren'; }, 1200); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => {});
+    }
   });
 }
 

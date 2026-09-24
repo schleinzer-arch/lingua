@@ -62,7 +62,7 @@ const Store = {
 
   blank() {
     return {
-      v: 2,
+      v: 3,
       words: {},        // id -> {box, due, strength, learned}
       phrases: {},      // id -> {box, due, strength}
       grammar: {},      // kapitel-id -> {seen, right, last, t}
@@ -83,7 +83,32 @@ const Store = {
     if (!this.data.grammar) this.data.grammar = {};
     if (!this.data.settings) this.data.settings = { goal: 24, speech: true };
     if (this.data.settings.speech === undefined) this.data.settings.speech = true;
+    if (!this.data.v || this.data.v < 3) this.fixBoxes2026();
     return this.data;
+  },
+
+  /* Einmalige Korrektur (September 2026): Satzübungen haben vor der
+     Behebung auch nicht fällige Wörter vorrücken lassen. Wer dadurch zu
+     schnell in Kasten 4/5 gelandet ist, rutscht pauschal zwei bzw. eine
+     Stufe zurück und wird mit einem passenden neuen Termin wieder
+     regulär fällig. Nur Wörter — Phrasen liefen immer schon über
+     fällige Listen und waren nie betroffen. Läuft je Sprache genau
+     einmal; der frische Zeitstempel sorgt dafür, dass der Abgleich
+     zwischen Geräten diese Korrektur behält statt sie durch den noch
+     unkorrigierten, höheren Kasten des anderen Geräts zu überschreiben. */
+  fixBoxes2026() {
+    const W = this.data.words || {};
+    Object.keys(W).forEach(id => {
+      const st = W[id];
+      const neu = st.box === 5 ? 3 : st.box === 4 ? 2 : null;
+      if (neu === null) return;
+      st.box = neu;
+      st.due = this.dayKey(INTERVALS[neu]);
+      st.t = Date.now();
+      if (neu < MASTER_BOX) st.learned = null;
+    });
+    this.data.v = 3;
+    this.save();
   },
 
   save() {
@@ -167,6 +192,18 @@ const Leitner = {
     st.box = 1;
     st.due = Store.dayKey(1);
     st.learned = null;
+    return st;
+  },
+
+  /* Milder Rückfall um nur einen Kasten, nie unter 1 — für falsche
+     Antworten beim Üben aus der Bibliothek. Dort ist es schon gefestigtes
+     Wissen zum Auffrischen; ein einzelner Fehler soll nicht den ganzen
+     Fortschritt kosten, wie es der volle Rückfall aus der Session täte. */
+  demoteOne(map, id) {
+    const st = this.touch(map, id);
+    st.box = Math.max(1, st.box - 1);
+    st.due = Store.dayKey(INTERVALS[st.box]);
+    if (st.box < MASTER_BOX) st.learned = null;
     return st;
   },
 
@@ -267,6 +304,37 @@ const SOUNDS = {
 };
 
 /* ---------- Sprachausgabe ---------- */
+/* ---------- Diagnose: Sprachausgabe ----------
+   Rein lokal, nie abgeglichen und nirgends sonst sichtbar. Haelt die
+   letzten Ereignisse rund um Voice.say()/wake() fest, damit sich ein
+   seltener, unregelmaessiger Ausfall im Nachhinein nachvollziehen
+   laesst. Zugang nur ueber einen versteckten Handgriff im Profil. */
+const VLOG_KEY = 'lingua_voicelog';
+const VLOG_MAX = 100;
+const VLog = {
+  add(line) {
+    try {
+      const d = new Date();
+      const stamp = String(d.getHours()).padStart(2, '0') + ':' +
+        String(d.getMinutes()).padStart(2, '0') + ':' +
+        String(d.getSeconds()).padStart(2, '0');
+      const raw = localStorage.getItem(VLOG_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      arr.push(stamp + '  ' + line);
+      while (arr.length > VLOG_MAX) arr.shift();
+      localStorage.setItem(VLOG_KEY, JSON.stringify(arr));
+    } catch (e) {}
+  },
+  text() {
+    try {
+      const raw = localStorage.getItem(VLOG_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return arr.length ? arr.join('\n') : '(noch keine Einträge)';
+    } catch (e) { return '(Fehler beim Lesen)'; }
+  },
+  clear() { try { localStorage.removeItem(VLOG_KEY); } catch (e) {} },
+};
+
 const Voice = {
   ready: false,
   pick: null,
@@ -325,6 +393,8 @@ const Voice = {
     const SS = window.speechSynthesis;
 
     this.unlock();
+    VLog.add('say „' + String(text).slice(0, 24) + '\u2026" unlocked=' + this._unlocked +
+      ' speaking=' + SS.speaking + ' pending=' + SS.pending + ' hidden=' + document.hidden);
 
     // Nur abbrechen, wenn wirklich etwas laeuft — ein cancel() auf eine
     // leere Warteschlange kann die Ausgabe auf iOS blockieren.
@@ -346,7 +416,8 @@ const Voice = {
 
     let lief = false;
     const u = mk(true);
-    u.onstart = () => { lief = true; };
+    u.onstart = () => { lief = true; VLog.add('  \u2192 angelaufen (onstart)'); };
+    u.onerror = (e) => { VLog.add('  \u2192 onerror ' + (e && e.error)); };
     SS.speak(u);
 
     if (opts.retry === false) return;
@@ -355,6 +426,7 @@ const Voice = {
     clearTimeout(this._t);
     this._t = setTimeout(() => {
       if (lief || SS.speaking || SS.pending) return;
+      VLog.add('  \u2192 nach 1800ms nichts angekommen, fasse ohne Stimme nach');
       SS.speak(mk(false));
     }, 1800);
   },
@@ -377,42 +449,14 @@ const Voice = {
   },
 
   /* Nach dem Zurueckkehren aus dem Hintergrund bleibt die Ausgabe auf iOS
-     gelegentlich haengen. Ein Aufwecken raeumt das meistens auf. */
+     gelegentlich haengen. Ein Aufwecken raeumt das auf. */
   wake() {
     if (!window.speechSynthesis) return;
+    VLog.add('wake hidden=' + document.hidden + ' speaking=' + window.speechSynthesis.speaking +
+      ' pending=' + window.speechSynthesis.pending);
     // Nur aufwecken, nicht abbrechen: ein cancel() auf eine leere
     // Warteschlange kann die Ausgabe auf iOS selbst stilllegen.
-    try { window.speechSynthesis.resume(); } catch (e) {}
-    this.check();
-  },
-
-  /* resume() reicht auf iOS nicht immer: manchmal ist die native
-     Sprachausgabe nach laengerer Zeit im Hintergrund endgueltig taub,
-     ohne dass ein Fehler auftritt — speak() tut dann einfach nichts.
-     Ein kurzer, lautloser Testsatz zeigt das auf; bleibt die Antwort
-     aus, hilft nur ein Neuladen der Seite. Laeuft nur, wenn die
-     Ausgabe vorher schon einmal genutzt wurde, und hoechstens einmal
-     gleichzeitig. */
-  check() {
-    if (!this._unlocked || this._checking) return;
-    const SS = window.speechSynthesis;
-    if (SS.speaking || SS.pending) return;   // laeuft schon etwas — offensichtlich lebendig
-    this._checking = true;
-    let lief = false;
-    try {
-      const u = new SpeechSynthesisUtterance('.');
-      u.volume = 0;
-      u.rate = 10;
-      u.onstart = () => { lief = true; };
-      u.onend = () => { lief = true; };
-      SS.speak(u);
-    } catch (e) { this._checking = false; return; }
-    setTimeout(() => {
-      this._checking = false;
-      if (!lief && !SS.speaking && !SS.pending) {
-        try { location.reload(); } catch (e) {}
-      }
-    }, 900);
+    try { window.speechSynthesis.resume(); } catch (e) { VLog.add('  \u2192 resume()-Fehler ' + e.message); }
   },
 
 };
@@ -1264,8 +1308,8 @@ const Practice = {
         if (st && Leitner.isDue(st)) Leitner.promote(P, fx.phrase);
       }
     } else {
-      if (fx.demoteWord && W[fx.demoteWord]) Leitner.demote(W, fx.demoteWord);
-      if (fx.phrase && P[fx.phrase]) Leitner.demote(P, fx.phrase);
+      if (fx.demoteWord && W[fx.demoteWord]) Leitner.demoteOne(W, fx.demoteWord);
+      if (fx.phrase && P[fx.phrase]) Leitner.demoteOne(P, fx.phrase);
     }
     if (fx.chapter) this.record(fx.chapter, ok);
     Store.save();
@@ -1343,5 +1387,132 @@ const Stats = {
     if (m >= 800) return { label: 'B1 in Arbeit', next: 1200, at: m };
     if (m >= 300) return { label: 'A2 in Arbeit', next: 800, at: m };
     return { label: 'A1 in Arbeit', next: 300, at: m };
+  },
+
+  /* Wortschatz, Grammatik und Phrasen je Niveau — für die Fortschrittsansicht.
+     „unlocked" heisst: die Session führt auf diesem Niveau schon neue
+     Wörter ein. Grammatik und Phrasen sind in der Bibliothek immer frei
+     übbar, unabhängig vom Niveau — dafür gilt „unlocked" nicht. */
+  levelBreakdown(DB) {
+    const W = Store.data.words, P = Store.data.phrases;
+    const rank = LVL_RANK[Session.level(DB)];
+    return ['A1', 'A2', 'B1'].map(L => {
+      const vocab = DB.vocab.filter(v => v.level === L);
+      const vocabDone = vocab.filter(v => W[v.id] && W[v.id].box >= MASTER_BOX).length;
+      const phrases = DB.phrases.filter(p => p.level === L);
+      const phrasesDone = phrases.filter(p => P[p.id] && P[p.id].box >= MASTER_BOX).length;
+      const gram = DB.grammar.filter(g => g.level === L && Practice.available(g.id));
+      const gramDone = gram.filter(g => solidChapter(g.id)).length;
+      return {
+        level: L, unlocked: LVL_RANK[L] <= rank,
+        vocab: vocab.length, vocabDone,
+        phrases: phrases.length, phrasesDone,
+        gram: gram.length, gramDone,
+      };
+    });
+  },
+};
+
+/* Ein Grammatikkapitel gilt als sicher, wenn von mindestens vier der
+   letzten Antworten vier Fünftel richtig waren. Dieselbe Schwelle
+   verwendet auch die Anzeige in der Bibliothek (Practice.recent). */
+function solidChapter(id) {
+  const r = Practice.recent(id);
+  return !!(r && r.n >= 4 && r.r / r.n >= 0.8);
+}
+
+/* ---------- Abzeichen ----------
+   Rein aus dem vorhandenen Lernstand abgeleitet, nichts davon wird
+   gespeichert oder abgeglichen — der Lernstand selbst (Wörter, Kästen,
+   Grammatikstand, Serie) ist ja schon da und entscheidet. Nur, WELCHE
+   Abzeichen auf diesem Gerät schon als „neu" gezeigt wurden, steht lokal
+   ausserhalb des Lernstands, genau wie Sprache, Stimme oder Tempo. */
+const BADGES = [
+  { id: 'streak-3',    group: 'Serie',      icon: '\u{1F525}', title: '3 Tage in Folge',
+    check: () => Stats.streak() >= 3 },
+  { id: 'streak-7',    group: 'Serie',      icon: '\u{1F525}', title: 'Eine Woche Serie',
+    check: () => Stats.streak() >= 7 },
+  { id: 'streak-30',   group: 'Serie',      icon: '\u{1F525}', title: 'Ein Monat Serie',
+    check: () => Stats.streak() >= 30 },
+  { id: 'streak-100',  group: 'Serie',      icon: '\u{1F525}', title: '100 Tage Serie',
+    check: () => Stats.streak() >= 100 },
+  { id: 'streak-365',  group: 'Serie',      icon: '\u{1F525}', title: 'Ein Jahr Serie',
+    check: () => Stats.streak() >= 365 },
+
+  { id: 'words-50',    group: 'Wortschatz', icon: '\u{1F4D8}', title: '50 Wörter gemeistert',
+    check: () => Stats.mastered() >= 50 },
+  { id: 'words-100',   group: 'Wortschatz', icon: '\u{1F4D8}', title: '100 Wörter gemeistert',
+    check: () => Stats.mastered() >= 100 },
+  { id: 'words-500',   group: 'Wortschatz', icon: '\u{1F4D8}', title: '500 Wörter gemeistert',
+    check: () => Stats.mastered() >= 500 },
+  { id: 'words-1200',  group: 'Wortschatz', icon: '\u{1F4D8}', title: '1200 Wörter gemeistert',
+    check: () => Stats.mastered() >= 1200 },
+
+  { id: 'level-a1',    group: 'Niveau',     icon: '\u{1F3C5}', title: 'Niveau A1 erreicht',
+    check: () => Stats.mastered() >= 300 },
+  { id: 'level-a2',    group: 'Niveau',     icon: '\u{1F3C5}', title: 'Niveau A2 erreicht',
+    check: () => Stats.mastered() >= 800 },
+
+  { id: 'grammar-first', group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Erste Regel sicher',
+    check: (DB) => DB.grammar.some(g => solidChapter(g.id)) },
+  { id: 'grammar-a1',    group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Alle A1-Regeln sicher',
+    check: (DB) => grammarLevelDone(DB, 'A1') },
+  { id: 'grammar-a2',    group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Alle A2-Regeln sicher',
+    check: (DB) => grammarLevelDone(DB, 'A2') },
+
+  { id: 'both-langs', group: 'Sprachen', icon: '\u{1F30D}', title: 'Beide Sprachen begonnen',
+    check: () => Badges.otherStarted() },
+];
+
+function grammarLevelDone(DB, level) {
+  const chs = DB.grammar.filter(g => g.level === level && Practice.available(g.id));
+  if (!chs.length) return false;
+  return chs.every(g => solidChapter(g.id));
+}
+
+const Badges = {
+  all: BADGES,
+
+  /* Merkt sich pro Gerät und Sprache, welche Abzeichen schon als „neu"
+     gezeigt wurden — bewusst ausserhalb von Store.data, damit der
+     Abgleich zwischen Geräten unverändert bleibt. */
+  key() { return 'lingua_badges_' + currentLang(); },
+
+  seen() {
+    try {
+      const raw = localStorage.getItem(this.key());
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  },
+
+  markSeen(map) { try { localStorage.setItem(this.key(), JSON.stringify(map)); } catch (e) {} },
+
+  otherStarted() {
+    try {
+      const other = otherLang(currentLang());
+      const raw = localStorage.getItem('lingua_' + other);
+      if (!raw) return false;
+      const d = JSON.parse(raw);
+      return !!(d && d.words && Object.keys(d.words).length > 0);
+    } catch (e) { return false; }
+  },
+
+  /* Aktueller Stand aller Abzeichen — für die Anzeige im Profil. */
+  list(DB) {
+    return BADGES.map(b => ({ id: b.id, group: b.group, icon: b.icon, title: b.title,
+      earned: !!b.check(DB) }));
+  },
+
+  /* Seit dem letzten Aufruf neu verdiente Abzeichen — merkt sie sich
+     sofort, damit dieselbe Runde nicht zweimal als „neu" zählt. */
+  checkNew(DB) {
+    const have = this.seen();
+    const fresh = [];
+    BADGES.forEach(b => {
+      if (have[b.id]) return;
+      if (b.check(DB)) { have[b.id] = 1; fresh.push(b); }
+    });
+    if (fresh.length) this.markSeen(have);
+    return fresh;
   },
 };

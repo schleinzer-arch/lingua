@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '11';
+const APP_VERSION = '13';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
@@ -97,6 +97,7 @@ const App = {
     else if (s === 'legal') this.el.innerHTML = Legal.view();
     else if (s === 'grammar') this.el.innerHTML = Library.chapter(this.arg);
     else if (s === 'words') this.el.innerHTML = Library.wordList(this.arg);
+    else if (s === 'levels') this.el.innerHTML = Levels.view();
     bindAll();
   },
 };
@@ -232,11 +233,13 @@ const Run = {
   right: 0, wrong: 0, skipped: 0,
   matched: [], pick1: null, missPair: null,
   practice: null,      // null = Session, sonst { type, arg } einer Übungsrunde
+  newBadges: [],        // seit dieser Runde neu verdiente Abzeichen
 
   start() {
     this.items = Session.build(DB);
     this.i = 0; this.right = 0; this.wrong = 0; this.skipped = 0;
     this.practice = null;
+    this.newBadges = [];
     this.reset();
     if (!this.items.length) { App.go('home'); return; }
     this.prep();
@@ -248,6 +251,7 @@ const Run = {
     this.items = items;
     this.i = 0; this.right = 0; this.wrong = 0; this.skipped = 0;
     this.practice = practice || null;
+    this.newBadges = [];
     this.reset();
     this.prep();
     App.go('session');
@@ -289,6 +293,7 @@ const Run = {
       // Nur eine Session zählt für die Serie, eine Übungsrunde nicht
       if (!this.practice) Store.day().sessions++;
       Store.save();
+      this.newBadges = Badges.checkNew(DB);
       if (Sync.on) Sync.run(true);   // still abgleichen, ohne zu blockieren
       App.go('session');
       return;
@@ -422,6 +427,7 @@ const Run = {
   cloze(it) {
     const q = it.q, shown = this.phase === 'a';
     const ok = shown && this.picked === q.answer;
+    const tip = q.chapter ? (Practice.chapter(q.chapter) || {}).tip : '';
     const opts = q.options.map(o => {
       let cls = 'opt';
       if (shown) {
@@ -454,6 +460,7 @@ const Run = {
             '<div class="fb-d">' + (ok ? '' : 'Richtig ist <b>' + esc(q.answer) + '</b> — ') +
             esc(q.full) + '</div></div>'
         : '') +
+      (shown && tip ? '<div class="tipbox">' + esc(tip) + '</div>' : '') +
       '<div class="spacer"></div></div></div>' +
       (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
   },
@@ -464,10 +471,12 @@ const Run = {
     const okv = this.verdict === 'exact' || this.verdict === 'diacritics';
     const cls = shown ? (okv ? ' right' : ' wrong') : '';
     const name = LANGS[currentLang()].name;
+    const tip = (Practice.chapter(q.chapter) || {}).tip;
     const fb = !shown ? '' :
       this.feedback(okv ? this.verdict : 'wrong', this.picked, okv ? (this.hit || q.target) : q.target, q.de) +
       (this.verdict === 'typo' || this.verdict === 'close'
-        ? '<div class="tiny" style="margin-top:8px;">Bei Endungen zählt jeder Buchstabe.</div>' : '');
+        ? '<div class="tiny" style="margin-top:8px;">Bei Endungen zählt jeder Buchstabe.</div>' : '') +
+      (tip ? '<div class="tipbox">' + esc(tip) + '</div>' : '');
     return '<div class="view fade"><div class="view-pad">' +
       '<div class="muted center" style="margin:6px 0 16px;">Schreib die Form auf ' + name + '</div>' +
       '<div class="wordcard" style="min-height:130px;">' +
@@ -714,6 +723,25 @@ const Run = {
             '<button class="btn wide" data-practice-again>Noch eine Runde</button>'
           : '<button class="btn-line" data-go="home">Schluss</button>' +
             '<button class="btn wide" data-start>Noch eine</button>') +
+      '</div></div>' +
+      (this.newBadges.length ? this.badgePopup() : '');
+  },
+
+  /* --- Neu freigeschaltete Abzeichen --- */
+  badgePopup() {
+    const list = this.newBadges;
+    return '<div class="sheet-bg" data-badges-close></div>' +
+      '<div class="sheet"><div class="sheet-grip"></div>' +
+      '<div class="badge-pop">' +
+        '<div class="badge-ic">' + list[0].icon + '</div>' +
+        '<div class="title" style="margin-top:6px;">' +
+          (list.length > 1 ? 'Neue Abzeichen' : 'Neues Abzeichen') + '</div>' +
+      '</div>' +
+      '<div class="view-pad">' +
+        list.map(b => '<div class="badge-row">' +
+          '<span class="badge-ic">' + b.icon + '</span>' +
+          '<div class="row-sk">' + esc(b.title) + '</div></div>').join('') +
+        '<button class="btn" style="margin-top:18px;" data-badges-close>Weiter</button>' +
       '</div></div>';
   },
 
@@ -1076,6 +1104,76 @@ function relTime(ms) {
   return 'vor ' + d + (d === 1 ? ' Tag' : ' Tagen');
 }
 
+/* Abzeichenkacheln fürs Profil — nicht erreichte bleiben sichtbar, aber blass. */
+function badgesGrid() {
+  const list = Badges.list(DB);
+  const earned = list.filter(b => b.earned).length;
+  const tiles = list.map(b =>
+    '<div class="badge' + (b.earned ? '' : ' locked') + '">' +
+      '<div class="badge-ic">' + b.icon + '</div>' +
+      '<div class="badge-t">' + esc(b.title) + '</div></div>').join('');
+  return '<div class="small" style="margin:-4px 0 10px;">' + earned + ' von ' + list.length +
+    ' erreicht</div><div class="badge-grid">' + tiles + '</div>';
+}
+
+/* ---------- Niveau-Fortschritt ---------- */
+const Levels = {
+  view() {
+    const c = Stats.cefr();
+    const pct = Math.round(c.at / c.next * 100);
+    const rows = Stats.levelBreakdown(DB);
+    const nextLevel = c.label === 'A1 in Arbeit' ? 'A2' : c.label === 'A2 in Arbeit' ? 'B1' : null;
+
+    let missing = 'Du lernst schon auf B1-Niveau — weiter so.';
+    if (nextLevel) {
+      const r = rows.find(x => x.level === nextLevel);
+      const bits = [];
+      if (r) {
+        if (r.vocab - r.vocabDone > 0) bits.push((r.vocab - r.vocabDone) + ' ' + nextLevel + '-Wörter');
+        if (r.gram - r.gramDone > 0) bits.push((r.gram - r.gramDone) + ' ' + nextLevel + '-Grammatikkapitel');
+        if (r.phrases - r.phrasesDone > 0) bits.push((r.phrases - r.phrasesDone) + ' ' + nextLevel + '-Phrasen');
+      }
+      missing = bits.length
+        ? 'Für ' + nextLevel + ' fehlen dir noch: ' + bits.join(', ') + '.'
+        : 'Du hast alles für ' + nextLevel + ' beisammen — es muss nur noch sitzen.';
+    }
+
+    const block = (key, doneKey, useLock) => rows.filter(r => r[key] > 0).map(r => {
+      const total = r[key], done = r[doneKey];
+      const locked = useLock && !r.unlocked;
+      const pct2 = Math.round(done / total * 100);
+      const cls = locked ? ' locked' : (done >= total ? ' done' : '');
+      return '<div class="lvl-block">' +
+        '<div class="lvl-row"><span class="small">' + r.level + '</span>' +
+        '<span class="small">' + done + '/' + total + (locked ? ' &middot; noch gesperrt' : '') +
+        '</span></div>' +
+        '<div class="lvl-bar' + cls + '"><i style="width:' + (locked ? 0 : pct2) + '%"></i></div>' +
+      '</div>';
+    }).join('');
+
+    return '<div class="safe-top"></div>' +
+      '<div class="appbar"><button class="iconbtn" data-go="profile">' + ICON.back + '</button>' +
+      '<div class="head">Niveau</div><div style="width:38px;"></div></div>' +
+      '<div class="view fade"><div class="view-pad" style="padding-top:16px;">' +
+
+      '<div class="panel" style="display:flex;align-items:center;gap:18px;">' +
+        '<div class="ring">' + ring(pct, 84, 7) +
+        '<div class="ring-in"><div style="font-size:18px;font-weight:680;">' + c.at + '</div></div></div>' +
+        '<div style="flex:1;">' +
+          '<div class="head">' + c.label + '</div>' +
+          '<div class="small" style="margin-top:2px;">' + c.at + ' von ' + c.next +
+          ' Wörtern im Langzeitgedächtnis</div></div></div>' +
+
+      '<div class="small" style="margin-top:14px;">' + esc(missing) + '</div>' +
+
+      '<div class="head" style="margin:26px 0 10px;">Wortschatz</div>' + block('vocab', 'vocabDone', true) +
+      '<div class="head" style="margin:26px 0 10px;">Grammatik</div>' + block('gram', 'gramDone', false) +
+      '<div class="head" style="margin:26px 0 10px;">Phrasen</div>' + block('phrases', 'phrasesDone', false) +
+
+      '<div class="spacer"></div></div></div>';
+  },
+};
+
 const Profile = {
   view() {
     const sy = Sync.cfg();
@@ -1095,13 +1193,15 @@ const Profile = {
       '<button class="iconbtn" data-go="legal"><span style="font-size:16px;">&sect;</span></button></div>' +
       '<div class="view"><div class="view-pad" style="padding-top:18px;">' +
 
-      '<div class="panel" style="display:flex;align-items:center;gap:18px;">' +
+      '<button class="panel rowbtn" data-go="levels" ' +
+        'style="display:flex;align-items:center;gap:18px;width:100%;text-align:left;">' +
         '<div class="ring">' + ring(pct, 84, 7) +
         '<div class="ring-in"><div style="font-size:18px;font-weight:680;">' + m + '</div></div></div>' +
         '<div style="flex:1;">' +
           '<div class="head">' + c.label + '</div>' +
           '<div class="small" style="margin-top:2px;">' + m + ' von ' + c.next +
-          ' Wörtern im Langzeitgedächtnis</div></div></div>' +
+          ' Wörtern im Langzeitgedächtnis</div></div>' +
+        '<span class="rowchev">\u203A</span></button>' +
 
       '<div class="stat-row" style="margin-top:12px;">' +
         '<div class="stat"><b>' + Stats.streak() + '</b><span class="tiny">Tage in Folge</span></div>' +
@@ -1121,6 +1221,9 @@ const Profile = {
         '<div class="row"><div class="row-main"><div class="row-sk">Insgesamt verfügbar</div></div>' +
         '<span class="chip plain">' + DB.vocab.length + '</span></div>' +
       '</div>' +
+
+      '<div class="head" style="margin:26px 0 10px;">Abzeichen</div>' +
+      badgesGrid() +
 
       '<div class="head" style="margin:26px 0 10px;">Sprachausgabe</div>' +
       '<div class="card">' +
@@ -1192,12 +1295,35 @@ const Profile = {
       'Nicht umkehrbar.</div>' +
       '<button class="btn-danger" data-reset>Alle Daten löschen</button>' +
 
-      '<div class="tiny center" style="margin-top:26px;">Version ' + APP_VERSION +
+      '<div class="tiny center" data-vtap style="margin-top:26px;">Version ' + APP_VERSION +
       ' &middot; ' + (LANGS[currentLang()] || LANGS.sk).name +
       ' &middot; ' + DB.vocab.length + ' Wörter, ' + DB.sentences.length + ' Sätze</div>' +
-      '<div class="spacer"></div></div></div>' + navbar('profile');
+      '<div class="spacer"></div></div></div>' + navbar('profile') +
+      (Diag.open ? diagSheet() : '');
   },
 };
+
+/* ---------- Diagnose: Sprachausgabe ----------
+   Versteckter Zugang: 7x auf die Versionszeile im Profil tippen. Zeigt
+   das lokale Protokoll aus Voice.say()/wake() als reinen Text, den man
+   markieren, kopieren oder abtippen kann — nichts davon verlässt das
+   Gerät von selbst. */
+const Diag = { open: false };
+function diagSheet() {
+  return '<div class="sheet-bg" data-diag-close></div>' +
+    '<div class="sheet"><div class="sheet-grip"></div>' +
+    '<div class="view-pad">' +
+      '<div class="head" style="margin-bottom:10px;">Sprachausgabe-Protokoll</div>' +
+      '<textarea readonly style="width:100%;height:260px;font-family:monospace;font-size:11px;' +
+        'padding:10px;border-radius:var(--r-m);border:1px solid var(--line);background:var(--tint);' +
+        'resize:none;" onclick="this.select()">' + esc(VLog.text()) + '</textarea>' +
+      '<div class="btn-row" style="margin-top:12px;">' +
+        '<button class="btn-line" data-diag-copy>Kopieren</button>' +
+        '<button class="btn-line" data-diag-clear>Leeren</button>' +
+        '<button class="btn" data-diag-close>Schließen</button>' +
+      '</div>' +
+    '</div></div>';
+}
 
 /* ---------- Impressum ---------- */
 const Legal = {
