@@ -1,10 +1,10 @@
 /* Slovencina - Offline-Cache */
-var CACHE = 'lingua-v14';
-var FILES = ['./','index.html','styles.css?v=14','core.js?v=14','ui.js?v=14','events.js?v=14',
+var CACHE = 'lingua-v15';
+var FILES = ['./','index.html','styles.css?v=15','core.js?v=15','ui.js?v=15','events.js?v=15',
   'manifest.json','icons/favicon.ico','icons/icon-32.png','icons/icon-180.png',
   'icons/icon-192.png','icons/icon-512.png','icons/icon-512-maskable.png',
-  'data/sk/vocab.json','data/sk/sentences.json','data/sk/phrases.json','data/sk/grammar.json','data/sk/practice.json',
-  'data/it/vocab.json','data/it/sentences.json','data/it/phrases.json','data/it/grammar.json','data/it/practice.json'];
+  'data/sk/vocab.json','data/sk/sentences.json','data/sk/phrases.json','data/sk/grammar.json','data/sk/practice.json','data/sk/topics.json',
+  'data/it/vocab.json','data/it/sentences.json','data/it/phrases.json','data/it/grammar.json','data/it/practice.json','data/it/topics.json'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {

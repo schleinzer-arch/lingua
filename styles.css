@@ -438,3 +438,15 @@ input{font-family:inherit;}
 .lvl-bar i{display:block;height:100%;border-radius:99px;background:var(--cobalt);}
 .lvl-bar.done i{background:var(--good);}
 .lvl-bar.locked{background:var(--tint-2);}
+
+/* ---------- Gezielt üben (Startseite) ---------- */
+.focus{margin:26px var(--pad) 0;}
+.focus .head{margin:0 0 9px;}
+.focus-card{background:var(--surface);border-radius:var(--r-m);padding:0 14px;}
+.focus-row{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.focus-row:last-child{border-bottom:none;}
+.focus-row:active{opacity:.7;}
+.rowbtn.off{opacity:.45;cursor:default;}

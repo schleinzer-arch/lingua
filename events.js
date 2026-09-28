@@ -22,6 +22,10 @@ function bindAll() {
   on('[data-practice]', el => Practice.start(el.getAttribute('data-practice')));
   on('[data-practice-again]', () => Practice.again());
 
+  /* --- Gezielt üben (Startseite) --- */
+  on('[data-focus]', el => { Focus.open = el.getAttribute('data-focus'); App.render(); });
+  on('[data-focus-close]', () => { Focus.open = null; App.render(); });
+
   /* --- Nachsprechen aus der Bibliothek --- */
   on('[data-repeat]', el => Repeat.open(el.getAttribute('data-repeat')));
   on('[data-repeat-close]', () => Repeat.close());
@@ -57,7 +61,7 @@ function bindAll() {
         ' abbrechen? Der bisherige Fortschritt bleibt gespeichert.')) return;
     }
     Listen.stop();
-    App.go(Run.practice ? 'library' : 'home');
+    App.go(Run.practice ? (Run.practice.from || 'library') : 'home');
   });
 
   /* --- Vorlesen --- */

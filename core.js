@@ -1336,6 +1336,26 @@ const Practice = {
     Store.save();
   },
 
+  /* ---------- Vorschlag für die Startseite ----------
+     Die schwächste Regel der erreichten Stufe. Ist keine schwach, die erste
+     noch nie geübte, sonst die am längsten nicht geübte.
+     Liefert { id, why: 'schwach' | 'neu' | 'lange' } oder null. */
+  suggest() {
+    const rank = LVL_RANK[Session.level(DB)] || 1;
+    let cand = DB.grammar.filter(g => this.available(g.id) && (LVL_RANK[g.level] || 1) <= rank);
+    if (!cand.length) cand = DB.grammar.filter(g => this.available(g.id));
+    if (!cand.length) return null;
+    const G = Store.data.grammar || {};
+    const done = cand.filter(g => this.recent(g.id));
+    const fresh = cand.filter(g => !this.recent(g.id));
+    const quote = g => { const r = this.recent(g.id); return r.r / r.n; };
+    done.sort((a, b) => (quote(a) - quote(b)) || ((G[a.id].t || 0) - (G[b.id].t || 0)));
+    if (done.length && quote(done[0]) < 0.8) return { id: done[0].id, why: 'schwach' };
+    if (fresh.length) return { id: fresh[0].id, why: 'neu' };
+    done.sort((a, b) => (G[a.id].t || 0) - (G[b.id].t || 0));
+    return { id: done[0].id, why: 'lange' };
+  },
+
   /* ---------- Start ---------- */
   start(spec) {
     spec = String(spec || '');
@@ -1347,12 +1367,41 @@ const Practice = {
     else if (type === 'phrases') items = this.phraseRound(arg);
     else if (type === 'grammar') items = arg ? this.grammarRound(arg) : this.mixedGrammarRound();
     if (!items.length) return false;
+    // Wohin „Schluss" führt: dorthin, wo die Runde begonnen wurde.
+    // „Noch eine Runde" startet aus der Runde heraus und behält das Ziel.
+    if (typeof App === 'undefined' || App.screen !== 'session')
+      this.from = (typeof App !== 'undefined' && App.screen === 'home') ? 'home' : 'library';
     this.last = spec;
-    Run.begin(items, { type, arg });
+    Run.begin(items, { type, arg, from: this.from || 'library' });
     return true;
   },
 
   again() { if (this.last) this.start(this.last); },
+};
+
+/* ---------- Themen ----------
+   Ordnet die Wörter nach Sachgebieten (data/<sprache>/topics.json).
+   Reine Ansicht: ändert weder Kästen noch Freischaltung. Eine Themenrunde
+   nimmt nur Wörter, die schon begonnen wurden. */
+const Topics = {
+  MIN: 4,   // so viele begonnene Wörter braucht eine Runde (Antwortmöglichkeiten)
+
+  list() { return (DB.topics && DB.topics.topics) || []; },
+  get(key) { return this.list().find(t => t.key === key) || null; },
+
+  // Wörter des Themas, die es in der Wortliste gibt
+  words(key) {
+    const t = this.get(key);
+    return t ? t.ids.map(id => DB.byId[id]).filter(Boolean) : [];
+  },
+
+  // davon schon begonnen
+  started(key) {
+    const W = Store.data.words;
+    return this.words(key).filter(v => W[v.id]);
+  },
+
+  ready(key) { return this.started(key).length >= this.MIN; },
 };
 
 /* ---------- Statistik ---------- */

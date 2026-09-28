@@ -3,8 +3,8 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '14';
-const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, byId: {}, sentById: {} };
+const APP_VERSION = '15';
+const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, topics: { topics: [] }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
    Phrasen weiter, nur die Grammatikübungen sind dann leer. */
@@ -15,6 +15,18 @@ async function loadPractice(code) {
     return d && d.chapters ? d : { chapters: {} };
   } catch (e) {
     return { chapters: {} };
+  }
+}
+
+/* Auch die Themen sind ein Zusatz: fehlt die Datei, fällt nur der
+   Themen-Eintrag auf der Startseite weg. */
+async function loadTopics(code) {
+  try {
+    const r = await fetch('data/' + code + '/topics.json');
+    const d = await r.json();
+    return d && Array.isArray(d.topics) ? d : { topics: [] };
+  } catch (e) {
+    return { topics: [] };
   }
 }
 
@@ -40,6 +52,7 @@ const App = {
       v.forEach(x => DB.byId[x.id] = x);
       s.forEach(x => DB.sentById[x.id] = x);
       DB.practice = await loadPractice(L);
+      DB.topics = await loadTopics(L);
     } catch (e) {
       this.el.innerHTML =
         '<div style="padding:40px 24px;text-align:center;">' +
@@ -73,6 +86,7 @@ const App = {
       v.forEach(x => DB.byId[x.id] = x);
       s.forEach(x => DB.sentById[x.id] = x);
       DB.practice = await loadPractice(code);
+      DB.topics = await loadTopics(code);
     } catch (e) { /* Daten fehlen: Anzeige bleibt, Meldung folgt beim Start */ }
     Voice.init();
     this.go('home');
@@ -80,6 +94,7 @@ const App = {
   },
 
   go(screen, arg) {
+    Focus.open = null;           // ein offenes Blatt schließt beim Seitenwechsel
     this.screen = screen;
     this.arg = arg;
     this.render();
@@ -205,12 +220,14 @@ const Home = {
         '</div>' +
       '</div>' +
 
+      Focus.section() +
+
       '<div class="spacer"></div></div>' +
 
       '<div class="bottom">' +
         '<button class="btn" data-start>Session starten</button>' +
         '<button class="btn-quiet" data-drill>Vokabeln üben</button>' +
-      '</div>' + navbar('home');
+      '</div>' + navbar('home') + Focus.view();
   },
 
   preview() {
@@ -224,6 +241,93 @@ const Home = {
       speak: Session.speechOn() ? 3 : 0,
       phrases: 3,
     };
+  },
+};
+
+/* ---------- Gezielt üben ----------
+   Macht auf der Startseite sichtbar, was es in der Bibliothek schon gibt:
+   Phrasen nach Situation, Wörter nach Thema, dazu ein Grammatik-Vorschlag.
+   Nichts davon ändert die Session. */
+const Focus = {
+  open: null,          // null | 'ctx' | 'topic'
+
+  // Situationen mit genug Phrasen, in fester Reihenfolge
+  contexts() {
+    const ctx = [];
+    DB.phrases.forEach(p => { if (!ctx.includes(p.context)) ctx.push(p.context); });
+    const ord = Practice.CTX_ORDER;
+    ctx.sort((a, b) => {
+      const ia = ord.indexOf(a), ib = ord.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
+    return ctx.map(c => ({ c, n: DB.phrases.filter(p => p.context === c).length }))
+      .filter(x => x.n >= 4);
+  },
+
+  row(attr, label, sub) {
+    return '<button class="focus-row" ' + attr + '>' +
+      '<div class="row-main"><div class="row-sk">' + label + '</div>' +
+      '<div class="row-de">' + sub + '</div></div>' +
+      '<span class="rowchev">›</span></button>';
+  },
+
+  section() {
+    const rows = [];
+    const ctx = this.contexts();
+    if (ctx.length) {
+      rows.push(this.row('data-focus="ctx"', 'Situationen',
+        esc(ctx.slice(0, 3).map(x => x.c).join(', ')) + (ctx.length > 3 ? ' …' : '')));
+    }
+    const tl = Topics.list();
+    if (tl.length) {
+      const ready = tl.filter(t => Topics.ready(t.key)).length;
+      rows.push(this.row('data-focus="topic"', 'Themen',
+        ready ? ready + (ready === 1 ? ' Thema' : ' Themen') + ' mit begonnenen Wörtern'
+              : 'Wörter nach Sachgebiet — füllt sich mit jeder Session'));
+    }
+    const sg = Practice.suggest();
+    if (sg) {
+      const g = Practice.chapter(sg.id), rc = Practice.recent(sg.id);
+      const why = sg.why === 'schwach' ? 'zuletzt ' + rc.r + ' von ' + rc.n + ' richtig'
+        : sg.why === 'neu' ? 'noch nicht geübt' : 'länger nicht geübt';
+      rows.push(this.row('data-practice="grammar:' + esc(sg.id) + '"', 'Grammatik',
+        esc(g.title) + ' · ' + why));
+    }
+    if (!rows.length) return '';
+    return '<div class="focus"><div class="head">Gezielt üben</div>' +
+      '<div class="focus-card">' + rows.join('') + '</div></div>';
+  },
+
+  view() {
+    if (!this.open) return '';
+    let title, body;
+    if (this.open === 'ctx') {
+      title = 'Situationen';
+      body = this.contexts().map(x =>
+        '<button class="row rowbtn" data-practice="phrases:' + esc(x.c) + '">' +
+          '<div class="row-main"><div class="row-sk">' + esc(x.c) + '</div></div>' +
+          '<span class="chip">' + x.n + '</span>' +
+          '<span class="rowchev">›</span></button>').join('');
+    } else {
+      title = 'Themen';
+      body = '<div class="small" style="margin-bottom:6px;">Geübt werden nur Wörter, ' +
+        'die du schon begonnen hast. Neue kommen weiter über die Session.</div>' +
+        Topics.list().map(t => {
+          const n = Topics.started(t.key).length, all = Topics.words(t.key).length;
+          const ok = n >= Topics.MIN;
+          return '<button class="row rowbtn' + (ok ? '' : ' off') + '"' +
+            (ok ? ' data-drill-set="topic:' + esc(t.key) + '"' : ' disabled') + '>' +
+            '<div class="row-main"><div class="row-sk">' + esc(t.label) + '</div>' +
+            '<div class="row-de">' + n + ' von ' + all + ' begonnen</div></div>' +
+            (ok ? '<span class="rowchev">›</span>' : '') + '</button>';
+        }).join('');
+    }
+    return '<div class="sheet-bg" data-focus-close></div>' +
+      '<div class="sheet"><div class="sheet-grip"></div>' +
+      '<div class="view-pad">' +
+        '<div class="head" style="margin:8px 0 6px;">' + title + '</div>' + body +
+        '<button class="btn-line" style="margin-top:18px;" data-focus-close>Schließen</button>' +
+      '</div></div>';
   },
 };
 
@@ -719,7 +823,7 @@ const Run = {
       '</div></div>' +
       '<div class="bottom"><div class="btn-row">' +
         (this.practice
-          ? '<button class="btn-line" data-go="library">Schluss</button>' +
+          ? '<button class="btn-line" data-go="' + (this.practice.from || 'library') + '">Schluss</button>' +
             '<button class="btn wide" data-practice-again>Noch eine Runde</button>'
           : '<button class="btn-line" data-go="home">Schluss</button>' +
             '<button class="btn wide" data-start>Noch eine</button>') +
@@ -765,7 +869,7 @@ const Drill = {
   set: null,             // auf eine Gruppe beschränkt?
 
   start(set) {
-    this.set = set || null;      // 'lang' | 'arbeit' | null
+    this.set = set || null;      // 'lang' | 'arbeit' | 'topic:<key>' | null
     this.right = 0; this.wrong = 0; this.key = 0;
     this.picked = null;
     this.letzte = [];
@@ -773,8 +877,15 @@ const Drill = {
     App.go('drill');
   },
 
+  // Themenrunde? Dann gilt sie als Probelauf: keine Kastenänderung.
+  topic() {
+    return this.set && this.set.indexOf('topic:') === 0 ? this.set.slice(6) : null;
+  },
+
   pool() {
     const W = Store.data.words;
+    const tk = this.topic();
+    if (tk) return Topics.started(tk);
     if (this.set === 'lang')
       return DB.vocab.filter(v => W[v.id] && W[v.id].box >= MASTER_BOX);
     if (this.set === 'arbeit')
@@ -812,15 +923,18 @@ const Drill = {
     const W = Store.data.words;
     const st = W[id];
 
+    const frei = !!this.topic();   // Themenrunde: Kästen bleiben, wie sie sind
+
     if (ok) {
       this.right++;
       // Nur ein fälliges Wort rückt vor — sonst liesse sich der
       // Wiederholungsabstand durch Pauken aushebeln.
-      if (st && Leitner.isDue(st)) Leitner.promote(W, id);
+      if (frei) { /* nichts */ }
+      else if (st && Leitner.isDue(st)) Leitner.promote(W, id);
       else if (!st) Leitner.state(W, id).due = Store.dayKey(1);
     } else {
       this.wrong++;
-      Leitner.demote(W, id);       // Ein Fehler zählt immer
+      if (!frei) Leitner.demote(W, id);       // Ein Fehler zählt immer
     }
     const d = Store.day();
     d.drill = (d.drill || 0) + 1;            // getrennt von der Session
@@ -834,14 +948,23 @@ const Drill = {
     }, ok ? 650 : 1500);
   },
 
+  title() {
+    const tk = this.topic();
+    if (tk) { const t = Topics.get(tk); return t ? t.label : 'Thema'; }
+    return this.set === 'lang' ? 'Langzeitgedächtnis üben'
+      : this.set === 'arbeit' ? 'Wörter in Arbeit' : 'Vokabeln üben';
+  },
+
   view() {
     if (!this.q) {
       return '<div class="safe-top"></div>' +
         '<div class="appbar"><button class="iconbtn" data-go="home">' + ICON.back + '</button>' +
-        '<div class="head">Vokabeln üben</div><div style="width:38px;"></div></div>' +
+        '<div class="head">' + esc(this.title()) + '</div><div style="width:38px;"></div></div>' +
         '<div class="view"><div class="view-pad"><div class="card center" style="margin-top:30px;">' +
         '<div class="body">Dafür braucht es ein paar Wörter mehr.</div>' +
-        '<div class="small" style="margin-top:6px;">Mach zuerst eine Session.</div>' +
+        '<div class="small" style="margin-top:6px;">' + (this.topic()
+          ? 'In diesem Thema sind noch zu wenige Wörter begonnen.'
+          : 'Mach zuerst eine Session.') + '</div>' +
         '</div></div></div>';
     }
     const q = this.q, shown = this.picked !== null;
@@ -860,9 +983,7 @@ const Drill = {
     return '<div class="safe-top"></div>' +
       '<div class="sess-top">' +
         '<button class="sess-x" data-go="home">&times;</button>' +
-        '<span class="body" style="font-weight:560;flex:1;">' +
-          (this.set === 'lang' ? 'Langzeitgedächtnis üben'
-           : this.set === 'arbeit' ? 'Wörter in Arbeit' : 'Vokabeln üben') + '</span>' +
+        '<span class="body" style="font-weight:560;flex:1;">' + esc(this.title()) + '</span>' +
         '<span class="drillscore"><span class="dg">' + this.right + ' &#10003;</span>' +
         '<span class="dr">' + this.wrong + ' &#10007;</span></span>' +
       '</div>' +
@@ -875,7 +996,9 @@ const Drill = {
             marked(q.ask) + '</div>' +
         '</div>' +
         '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
-        '<div class="tiny center" style="margin-top:18px;">Endlos &mdash; beenden mit &times;</div>' +
+        '<div class="tiny center" style="margin-top:18px;">' + (this.topic()
+          ? 'Probelauf &mdash; ändert keine Kästen &middot; beenden mit &times;'
+          : 'Endlos &mdash; beenden mit &times;') + '</div>' +
         '<div class="spacer"></div>' +
       '</div></div>';
   },
@@ -1383,8 +1506,9 @@ const Legal = {
         'Es werden dabei keine Daten an externe Server übertragen.</div>') +
 
       block('Hosting',
-        '<div class="small">GitHub Pages, betrieben von GitHub, Inc., 88 Colin P Kelly Jr St, ' +
-        'San Francisco, CA 94107, USA. Beim Seitenaufruf wird die IP-Adresse an GitHub übertragen.</div>') +
+        '<div class="small">Cloudflare Pages, betrieben von Cloudflare, Inc., 101 Townsend St, ' +
+        'San Francisco, CA 94107, USA. Beim Seitenaufruf wird die IP-Adresse an Cloudflare ' +
+        'übertragen. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert.</div>') +
 
       block('Beschwerderecht',
         '<div class="small">Sie haben das Recht, Beschwerde bei der österreichischen ' +
