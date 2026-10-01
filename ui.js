@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '15';
+const APP_VERSION = '16';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, topics: { topics: [] }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
@@ -1042,7 +1042,7 @@ const Library = {
       out += '<button class="row rowbtn" data-words="' + key + '">' +
         '<div class="row-main"><div class="row-sk">' + label + '</div></div>' +
         '<span class="chip">' + n + '</span>' +
-        '<span class="rowchev">\u203A</span></button>';
+        '<span class="rowchev">›</span></button>';
     });
     const b = Stats.byBox();
     out += '<div class="head" style="margin:26px 0 10px;">Verteilung nach Kasten</div>';
@@ -1324,7 +1324,7 @@ const Profile = {
           '<div class="head">' + c.label + '</div>' +
           '<div class="small" style="margin-top:2px;">' + m + ' von ' + c.next +
           ' Wörtern im Langzeitgedächtnis</div></div>' +
-        '<span class="rowchev">\u203A</span></button>' +
+        '<span class="rowchev">›</span></button>' +
 
       '<div class="stat-row" style="margin-top:12px;">' +
         '<div class="stat"><b>' + Stats.streak() + '</b><span class="tiny">Tage in Folge</span></div>' +

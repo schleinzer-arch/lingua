@@ -9,14 +9,14 @@
    einen Eintrag und einen Ordner unter data/. */
 const LANGS = {
   sk: {
-    code: 'sk', name: 'Slowakisch', flag: '\uD83C\uDDF8\uD83C\uDDF0',
+    code: 'sk', name: 'Slowakisch', flag: '🇸🇰',
     hello: 'Dnes', helloDe: 'heute',
     speech: 'sk-SK', fallback: 'cs-CZ',
     accent: '#1E4FA3', tint: '#EDF2FA', wash: '#DFE6F1', warm: '#C8892B',
     warmWash: '#FBF3E4', warmInk: '#8A6420',
   },
   it: {
-    code: 'it', name: 'Italienisch', flag: '\uD83C\uDDEE\uD83C\uDDF9',
+    code: 'it', name: 'Italienisch', flag: '🇮🇹',
     hello: 'Oggi', helloDe: 'heute',
     speech: 'it-IT', fallback: 'it-IT',
     accent: '#2F6B4A', tint: '#EAF2EC', wash: '#D8E7DD', warm: '#C0562E',
@@ -57,12 +57,16 @@ function applyTheme(code) {
 /* ---------- Speicher ---------- */
 function storeKey() { return 'lingua_' + currentLang(); }
 
+/* Formatstand des Lernstands. Wird beim Laden angehoben und beim Abgleich
+   zwischen Geräten mitgenommen (der höhere Stand gewinnt). */
+const STORE_V = 3;
+
 const Store = {
   data: null,
 
   blank() {
     return {
-      v: 3,
+      v: STORE_V,
       words: {},        // id -> {box, due, strength, learned}
       phrases: {},      // id -> {box, due, strength}
       grammar: {},      // kapitel-id -> {seen, right, last, t}
@@ -83,32 +87,17 @@ const Store = {
     if (!this.data.grammar) this.data.grammar = {};
     if (!this.data.settings) this.data.settings = { goal: 24, speech: true };
     if (this.data.settings.speech === undefined) this.data.settings.speech = true;
-    if (!this.data.v || this.data.v < 3) this.fixBoxes2026();
+    /* Die einmalige Kasten-Korrektur vom September 2026 (Kasten 5 → 3,
+       Kasten 4 → 2) ist erledigt und entfällt. Sie hing am Feld v; weil der
+       Abgleich v bis Version 15 fest auf 2 gesetzt hat, lief sie nach jedem
+       Abgleich beim nächsten Start erneut und leerte jedes Mal das
+       Langzeitgedächtnis. Ein älterer Stand wird jetzt nur noch auf den
+       aktuellen Formatstand gehoben — an den Kästen ändert sich nichts. */
+    if (!this.data.v || this.data.v < STORE_V) {
+      this.data.v = STORE_V;
+      this.save();
+    }
     return this.data;
-  },
-
-  /* Einmalige Korrektur (September 2026): Satzübungen haben vor der
-     Behebung auch nicht fällige Wörter vorrücken lassen. Wer dadurch zu
-     schnell in Kasten 4/5 gelandet ist, rutscht pauschal zwei bzw. eine
-     Stufe zurück und wird mit einem passenden neuen Termin wieder
-     regulär fällig. Nur Wörter — Phrasen liefen immer schon über
-     fällige Listen und waren nie betroffen. Läuft je Sprache genau
-     einmal; der frische Zeitstempel sorgt dafür, dass der Abgleich
-     zwischen Geräten diese Korrektur behält statt sie durch den noch
-     unkorrigierten, höheren Kasten des anderen Geräts zu überschreiben. */
-  fixBoxes2026() {
-    const W = this.data.words || {};
-    Object.keys(W).forEach(id => {
-      const st = W[id];
-      const neu = st.box === 5 ? 3 : st.box === 4 ? 2 : null;
-      if (neu === null) return;
-      st.box = neu;
-      st.due = this.dayKey(INTERVALS[neu]);
-      st.t = Date.now();
-      if (neu < MASTER_BOX) st.learned = null;
-    });
-    this.data.v = 3;
-    this.save();
   },
 
   save() {
@@ -227,7 +216,7 @@ const Text = {
   // ohne Diakritika — für die Zwischenstufe „fast richtig"
   flat(s) {
     return this.norm(s)
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
       .replace(/ľ/g, 'l').replace(/ď/g, 'd')
       .replace(/ť/g, 't').replace(/ň/g, 'n');
   },
@@ -394,7 +383,7 @@ const Voice = {
 
     this.unlock();
     const as = navigator.audioSession ? (navigator.audioSession.type + '/' + navigator.audioSession.state) : 'n/v';
-    VLog.add('say „' + String(text).slice(0, 24) + '\u2026" unlocked=' + this._unlocked +
+    VLog.add('say „' + String(text).slice(0, 24) + '…" unlocked=' + this._unlocked +
       ' speaking=' + SS.speaking + ' pending=' + SS.pending + ' hidden=' + document.hidden +
       ' audioSession=' + as);
 
@@ -404,7 +393,7 @@ const Voice = {
 
     // Einzelne Woerter klingen ohne Satzzeichen abgehackt.
     let t = String(text).trim();
-    if (!/[.?!\u2026]$/.test(t) && t.split(/\s+/).length <= 2) t += '.';
+    if (!/[.?!…]$/.test(t) && t.split(/\s+/).length <= 2) t += '.';
 
     const conf = LANGS[currentLang()] || LANGS.sk;
     const rate = opts.rate || this.rate();
@@ -418,8 +407,8 @@ const Voice = {
 
     let lief = false;
     const u = mk(true);
-    u.onstart = () => { lief = true; VLog.add('  \u2192 angelaufen (onstart)'); };
-    u.onerror = (e) => { VLog.add('  \u2192 onerror ' + (e && e.error)); };
+    u.onstart = () => { lief = true; VLog.add('  → angelaufen (onstart)'); };
+    u.onerror = (e) => { VLog.add('  → onerror ' + (e && e.error)); };
     SS.speak(u);
 
     if (opts.retry === false) return;
@@ -428,7 +417,7 @@ const Voice = {
     clearTimeout(this._t);
     this._t = setTimeout(() => {
       if (lief || SS.speaking || SS.pending) return;
-      VLog.add('  \u2192 nach 1800ms nichts angekommen, fasse ohne Stimme nach');
+      VLog.add('  → nach 1800ms nichts angekommen, fasse ohne Stimme nach');
       SS.speak(mk(false));
     }, 1800);
   },
@@ -476,7 +465,7 @@ const Voice = {
       ' pending=' + window.speechSynthesis.pending);
     // Nur aufwecken, nicht abbrechen: ein cancel() auf eine leere
     // Warteschlange kann die Ausgabe auf iOS selbst stilllegen.
-    try { window.speechSynthesis.resume(); } catch (e) { VLog.add('  \u2192 resume()-Fehler ' + e.message); }
+    try { window.speechSynthesis.resume(); } catch (e) { VLog.add('  → resume()-Fehler ' + e.message); }
     if (this._unlocked) this.claimSession();
   },
 
@@ -573,11 +562,12 @@ const Sync = {
   /* Zwei Staende zusammenfuehren.
      Je Wort gewinnt der juengere Zeitstempel. Fehlt einer — etwa bei
      Staenden aus der Zeit vor dem Abgleich — gewinnt der hoehere Kasten,
-     damit nichts verloren geht. */
+     damit nichts verloren geht. Der Formatstand v wird nie abgesenkt:
+     der hoehere der beiden gilt, mindestens der aktuelle. */
   merge(mine, theirs) {
     if (!theirs || !theirs.words) return mine;
     const out = {
-      v: 2,
+      v: Math.max(mine.v || 0, theirs.v || 0, STORE_V),
       words: {}, phrases: {}, grammar: {}, days: {},
       settings: mine.settings || { goal: 24, speech: true },
       started: [mine.started, theirs.started].filter(Boolean).sort()[0] || Store.today(),
@@ -922,7 +912,7 @@ const Make = {
    „Mi chiamo…", „Come si dice … in italiano?" und Formen mit Schrägstrich
    („allergico / allergica") lassen sich weder eintippen noch nachsprechen. */
 function isPlainPhrase(text) {
-  return !/\.\.\.|\u2026|\s\/\s|___/.test(String(text || ''));
+  return !/\.\.\.|…|\s\/\s|___/.test(String(text || ''));
 }
 
 /* ---------- Üben aus der Bibliothek ----------
@@ -1523,11 +1513,11 @@ const BADGES = [
   { id: 'level-a2',    group: 'Niveau',     icon: '\u{1F3C5}', title: 'Niveau A2 erreicht',
     check: () => Stats.mastered() >= 800 },
 
-  { id: 'grammar-first', group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Erste Regel sicher',
+  { id: 'grammar-first', group: 'Grammatik', icon: '✏️', title: 'Erste Regel sicher',
     check: (DB) => DB.grammar.some(g => solidChapter(g.id)) },
-  { id: 'grammar-a1',    group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Alle A1-Regeln sicher',
+  { id: 'grammar-a1',    group: 'Grammatik', icon: '✏️', title: 'Alle A1-Regeln sicher',
     check: (DB) => grammarLevelDone(DB, 'A1') },
-  { id: 'grammar-a2',    group: 'Grammatik', icon: '\u270F\uFE0F', title: 'Alle A2-Regeln sicher',
+  { id: 'grammar-a2',    group: 'Grammatik', icon: '✏️', title: 'Alle A2-Regeln sicher',
     check: (DB) => grammarLevelDone(DB, 'A2') },
 
   { id: 'both-langs', group: 'Sprachen', icon: '\u{1F30D}', title: 'Beide Sprachen begonnen',
