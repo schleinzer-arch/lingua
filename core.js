@@ -85,6 +85,7 @@ const Store = {
     }
     if (!this.data.words) this.data = this.blank();
     if (!this.data.grammar) this.data.grammar = {};
+    if (!this.data.phrases) this.data.phrases = {};
     if (!this.data.settings) this.data.settings = { goal: 24, speech: true };
     if (this.data.settings.speech === undefined) this.data.settings.speech = true;
     /* Die einmalige Kasten-Korrektur vom September 2026 (Kasten 5 → 3,
@@ -927,6 +928,9 @@ function isPlainPhrase(text) {
    - ein Fehler stuft nur das zurück, was sich eindeutig zuordnen lässt:
      beim Lückensatz das Zielwort, bei Phrasen die Phrase. Beim Satzbau
      oder Diktat bleibt alles stehen — dort ist unklar, welches Wort schuld war
+   - eine Phrase, die noch nie dran war, bekommt beim ersten Üben hier einen
+     Stand: Kasten 1, morgen fällig — wie ein neues Wort beim Vokabel-Üben.
+     So zeigt die Bibliothek auch Phrasen, die nur hier geübt wurden
    - Grammatik hat keine Kästen, nur einen Stand je Kapitel */
 const Practice = {
   ROUND: 10,
@@ -1317,10 +1321,14 @@ const Practice = {
       if (fx.phrase) {
         const st = P[fx.phrase];
         if (st && Leitner.isDue(st)) Leitner.promote(P, fx.phrase);
+        else if (!st) Leitner.state(P, fx.phrase).due = Store.dayKey(1);
       }
     } else {
       if (fx.demoteWord && W[fx.demoteWord]) Leitner.demoteOne(W, fx.demoteWord);
-      if (fx.phrase && P[fx.phrase]) Leitner.demoteOne(P, fx.phrase);
+      if (fx.phrase) {
+        if (P[fx.phrase]) Leitner.demoteOne(P, fx.phrase);
+        else Leitner.state(P, fx.phrase).due = Store.dayKey(1);
+      }
     }
     if (fx.chapter) this.record(fx.chapter, ok);
     Store.save();

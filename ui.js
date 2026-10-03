@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '16';
+const APP_VERSION = '17';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, topics: { topics: [] }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
@@ -1116,7 +1116,11 @@ const Library = {
     return out;
   },
 
+  /* Phrasen haben Kästen wie Wörter. Jede Zeile zeigt ihren Kasten,
+     jede Situation, wie viele begonnen und wie viele gefestigt sind
+     (ab Kasten 4, dieselbe Grenze wie beim Langzeitgedächtnis). */
   phrases() {
+    const P = Store.data.phrases || {};
     const ctx = [];
     DB.phrases.forEach(p => { if (!ctx.includes(p.context)) ctx.push(p.context); });
     // Bekannte Situationen in fester Reihenfolge, unbekannte dahinter
@@ -1125,20 +1129,34 @@ const Library = {
       const ia = ord.indexOf(a), ib = ord.indexOf(b);
       return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
     });
-    const top = DB.phrases.length >= 4
-      ? '<button class="btn" data-practice="phrases" style="margin-bottom:4px;">Alle Phrasen üben</button>' : '';
+    const any = DB.phrases.some(p => P[p.id]);
+    const top = (DB.phrases.length >= 4
+      ? '<button class="btn" data-practice="phrases" style="margin-bottom:4px;">Alle Phrasen üben</button>' : '') +
+      (any ? '<div class="tiny" style="margin:6px 2px 0;">Der Kasten zeigt, wie sicher eine ' +
+        'Phrase sitzt. Ab Kasten ' + MASTER_BOX + ' gilt sie als gefestigt.</div>' : '');
     return top + ctx.map(c => {
       const list = DB.phrases.filter(p => p.context === c);
-      return '<div class="sechead"><div class="head">' + esc(c) + '</div>' +
+      const begun = list.filter(p => P[p.id]).length;
+      const fest = list.filter(p => P[p.id] && P[p.id].box >= MASTER_BOX).length;
+      const stand = begun
+        ? begun + ' von ' + list.length + ' begonnen &middot; ' + fest + ' gefestigt'
+        : list.length + ' Phrasen, noch keine begonnen';
+      return '<div class="sechead"><div><div class="head">' + esc(c) + '</div>' +
+        '<div class="tiny" style="margin-top:2px;">' + stand + '</div></div>' +
         (list.length >= 4
           ? '<button class="chipbtn" data-practice="phrases:' + esc(c) + '">üben</button>' : '') +
         '</div>' +
-        list.map(p =>
-          '<div class="row"><div class="row-main">' +
-          '<div class="row-sk" style="font-weight:560;">' + marked(p.w) + '</div>' +
-          '<div class="row-de">' + esc(p.de) + '</div></div>' +
-          '<button class="speak" style="position:static;width:36px;height:36px;" ' +
-          'data-say="' + esc(p.w) + '">' + ICON.speak + '</button></div>').join('');
+        list.map(p => {
+          const st = P[p.id];
+          const chip = st
+            ? '<span class="chip' + (st.box >= MASTER_BOX ? '' : ' ochre') + '">Kasten ' + st.box + '</span>'
+            : '';
+          return '<div class="row"><div class="row-main">' +
+            '<div class="row-sk" style="font-weight:560;">' + marked(p.w) + '</div>' +
+            '<div class="row-de">' + esc(p.de) + '</div></div>' + chip +
+            '<button class="speak" style="position:static;width:36px;height:36px;flex:none;" ' +
+            'data-say="' + esc(p.w) + '">' + ICON.speak + '</button></div>';
+        }).join('');
     }).join('');
   },
 
