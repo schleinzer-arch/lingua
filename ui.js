@@ -3,7 +3,7 @@
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '17';
+const APP_VERSION = '18';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, topics: { topics: [] }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
@@ -37,8 +37,8 @@ const App = {
 
   async boot() {
     this.el = document.getElementById('app');
+    dropVoiceLeftovers();
     Store.load();
-    Voice.init();
     try {
       const L = currentLang();
       applyTheme(L);
@@ -88,7 +88,6 @@ const App = {
       DB.practice = await loadPractice(code);
       DB.topics = await loadTopics(code);
     } catch (e) { /* Daten fehlen: Anzeige bleibt, Meldung folgt beim Start */ }
-    Voice.init();
     this.go('home');
     if (Sync.on) Sync.run(true).then(r => { if (r.ok && App.screen === 'home') App.render(); });
   },
@@ -144,9 +143,6 @@ function ring(pct, size, stroke) {
 }
 
 const ICON = {
-  speak: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
-  micSmall: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>',
-  mic: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>',
   home: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 10.5 12 3l9 7.5M5.5 9.5V20h13V9.5"/></svg>',
   book: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h6a3 3 0 0 1 2 3v14a2.5 2.5 0 0 0-2.5-2H4z"/><path d="M20 4h-6a3 3 0 0 0-2 3v14a2.5 2.5 0 0 1 2.5-2H20z"/></svg>',
   user: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.7 4.1-5.5 7.5-5.5s6.1 1.8 7.5 5.5"/></svg>',
@@ -176,7 +172,6 @@ const Home = {
     const streak = Stats.streak();
     const lvl = Session.level(DB);
     const L = LANGS[currentLang()] || LANGS.sk;
-    const O = LANGS[otherLang()] || LANGS.it;
 
     const counts = this.preview();
 
@@ -200,9 +195,7 @@ const Home = {
       '<div class="plan"><div class="panel">' +
         '<div class="plan-row"><span class="dot"></span>' + counts.fresh + ' neue Wörter</div>' +
         '<div class="plan-row"><span class="dot soft"></span>' + counts.due + ' Wiederholungen</div>' +
-        (counts.speak
-          ? '<div class="plan-row"><span class="dot ochre"></span>' + counts.speak + ' zum Sprechen</div>'
-          : '<div class="plan-row"><span class="dot ochre"></span>' + counts.phrases + ' Redewendungen</div>') +
+        '<div class="plan-row"><span class="dot ochre"></span>' + counts.phrases + ' Redewendungen</div>' +
       '</div></div>' +
 
       '<div style="padding:20px var(--pad) 0;display:flex;align-items:center;gap:18px;">' +
@@ -238,7 +231,6 @@ const Home = {
     return {
       due: Math.min(due, 10),
       fresh: Math.min(fresh, 7),
-      speak: Session.speechOn() ? 3 : 0,
       phrases: 3,
     };
   },
@@ -333,7 +325,7 @@ const Focus = {
 
 /* ---------- Session ---------- */
 const Run = {
-  items: [], i: 0, phase: 'q', picked: null, built: [], heard: '', verdict: null,
+  items: [], i: 0, phase: 'q', picked: null, built: [], verdict: null,
   right: 0, wrong: 0, skipped: 0,
   matched: [], pick1: null, missPair: null,
   practice: null,      // null = Session, sonst { type, arg } einer Übungsrunde
@@ -362,7 +354,7 @@ const Run = {
   },
 
   reset() {
-    this.phase = 'q'; this.picked = null; this.built = []; this.heard = ''; this.verdict = null; this.hit = null;
+    this.phase = 'q'; this.picked = null; this.built = []; this.verdict = null; this.hit = null;
     this.matched = []; this.pick1 = null; this.missPair = null;
   },
 
@@ -377,8 +369,8 @@ const Run = {
       const others = sample(DB.phrases.filter(x => x.id !== it.phrase.id), 3);
       it.opts = shuffle(others.map(x => x.de).concat([it.phrase.de]));
     }
-    if (it.kind === 'build' || it.kind === 'listenbuild') it.q = Make.build(it.sent, DB);
-    if (it.kind === 'listen') it.q = Make.listen(it.sent, DB);
+    if (it.kind === 'build') it.q = Make.build(it.sent, DB);
+    if (it.kind === 'read') it.q = Make.read(it.sent, DB);
   },
 
   answer(ok, id, map, level) {
@@ -430,10 +422,8 @@ const Run = {
     else if (it.kind === 'choice') body = this.choice(it);
     else if (it.kind === 'type') body = this.type(it);
     else if (it.kind === 'build') body = this.build(it);
-    else if (it.kind === 'listen') body = this.listen(it);
-    else if (it.kind === 'listenbuild') body = this.build(it, true);
-    else if (it.kind === 'dictation') body = this.dictation(it);
-    else if (it.kind === 'speak') body = this.speak(it);
+    else if (it.kind === 'read') body = this.read(it);
+    else if (it.kind === 'write') body = this.write(it);
     else body = this.phrase(it);
 
     return top + body;
@@ -447,7 +437,6 @@ const Run = {
     return '<div class="view fade"><div class="view-pad">' +
       '<div class="muted center" style="margin:6px 0 14px;">Neues Wort</div>' +
       '<div class="wordcard">' +
-        '<button class="speak" data-say="' + esc(v.w) + '">' + ICON.speak + '</button>' +
         '<span class="chip">' + esc(v.level) + '</span>' +
         '<div class="word' + long + '" style="margin-top:14px;">' + marked(v.w) + '</div>' +
         '<div class="gloss">' + esc(v.de) + '</div>' +
@@ -487,7 +476,7 @@ const Run = {
       '<div class="spacer"></div></div></div>';
   },
 
-  /* --- Phrase als Auswahl, wenn nicht gesprochen wird ---
+  /* --- Phrase als Auswahl ---
      Richtung 'w2de' (Standard): Phrase zeigen, Bedeutung wählen.
      Richtung 'de2w' (Übungsrunde): Bedeutung zeigen, Phrase wählen. */
   phraseChoice(it) {
@@ -507,13 +496,11 @@ const Run = {
     }).join('');
     const card = rev
       ? '<div class="wordcard" style="min-height:140px;">' +
-          (shown ? '<button class="speak" data-say="' + esc(p.w) + '">' + ICON.speak + '</button>' : '') +
           '<span class="chip">' + esc(p.context) + '</span>' +
           '<div class="word' + (p.de.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
             esc(p.de) + '</div>' +
         '</div>'
       : '<div class="wordcard" style="min-height:140px;">' +
-          '<button class="speak" data-say="' + esc(p.w) + '">' + ICON.speak + '</button>' +
           '<span class="chip">' + esc(p.context) + '</span>' +
           '<div class="word' + (p.w.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
             marked(p.w) + '</div>' +
@@ -550,7 +537,6 @@ const Run = {
       '<div class="muted center" style="margin:6px 0 12px;">' +
         (q.chapter ? 'Welche Form passt?' : 'Welches Wort fehlt?') + '</div>' +
       '<div class="wordcard" style="min-height:0;padding:26px 20px;">' +
-        (shown ? '<button class="speak" data-say="' + esc(q.full) + '">' + ICON.speak + '</button>' : '') +
         (q.title ? '<span class="chip">' + esc(q.title) + '</span>' : '') +
         '<div class="clozeline" style="margin-top:' + (q.title ? 14 : 0) + 'px;">' +
           marked(parts[0]) + gap + marked(parts[1] || '') + '</div>' +
@@ -602,7 +588,7 @@ const Run = {
 
   /* --- Mehrfachauswahl --- */
   choice(it) {
-    const q = it.q, v = it.word, shown = this.phase === 'a';
+    const q = it.q, shown = this.phase === 'a';
     const opts = q.options.map(o => {
       let cls = 'opt';
       if (shown) {
@@ -619,7 +605,6 @@ const Run = {
       '<div class="muted center" style="margin:6px 0 16px;">' +
         (q.dir === 'de2sk' ? 'Wie heißt das auf ' + LANGS[currentLang()].name + '?' : 'Was bedeutet das?') + '</div>' +
       '<div class="wordcard" style="min-height:150px;">' +
-        (q.dir === 'sk2de' ? '<button class="speak" data-say="' + esc(v.w) + '">' + ICON.speak + '</button>' : '') +
         '<div class="word' + (q.ask.length > 13 ? ' long' : '') + '">' + marked(q.ask) + '</div>' +
       '</div>' +
       '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
@@ -649,7 +634,7 @@ const Run = {
   },
 
   /* --- Wortbausteine --- */
-  build(it, hoeren) {
+  build(it) {
     const q = it.q, shown = this.phase === 'a';
     const slotCls = shown ? (this.verdict === 'wrong' ? ' wrong' : ' right') : '';
     const slots = this.built.map((w, i) =>
@@ -664,14 +649,8 @@ const Run = {
     }).join('');
 
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted" style="margin:6px 0 14px;">' +
-        (hoeren ? 'Hör zu und bau den Satz' : 'Bau den Satz') + '</div>' +
-      (hoeren
-        ? '<div class="center" style="margin:4px 0 14px;">' +
-            '<button class="mic" data-say="' + esc(it.sent.w) + '">' + ICON.mic + '</button>' +
-            '<div class="tiny" style="margin-top:10px;">Antippen zum Anhören</div></div>' +
-          (shown ? '<div class="prompt">' + esc(it.sent.de) + '</div>' : '')
-        : '<div class="prompt">' + esc(it.sent.de) + '</div>') +
+      '<div class="muted" style="margin:6px 0 14px;">Bau den Satz</div>' +
+      '<div class="prompt">' + esc(it.sent.de) + '</div>' +
       '<div class="slots' + slotCls + '">' + slots + '</div>' +
       (shown ? this.feedback(this.verdict, this.built.join(' '), q.target, it.sent.de)
              : '<div class="bank" style="margin-top:18px;">' + bank + '</div>') +
@@ -683,8 +662,8 @@ const Run = {
       '</div>';
   },
 
-  /* --- Satz anhören, Bedeutung wählen --- */
-  listen(it) {
+  /* --- Satz lesen, Bedeutung wählen --- */
+  read(it) {
     const q = it.q, shown = this.phase === 'a';
     const opts = q.options.map(o => {
       let cls = 'opt';
@@ -693,76 +672,49 @@ const Run = {
         else if (o === this.picked) cls += ' wrong';
         else cls += ' dim';
       }
-      return '<button class="' + cls + '" data-picklisten="' + esc(o) + '">' +
+      return '<button class="' + cls + '" data-pickread="' + esc(o) + '">' +
         '<span class="opt-in"><span>' + esc(o) + '</span>' +
         (shown && o === q.answer ? '<span>&#10003;</span>' : '') + '</span></button>';
     }).join('');
     return '<div class="view fade"><div class="view-pad">' +
       '<div class="muted center" style="margin:6px 0 16px;">Was bedeutet das?</div>' +
-      '<div class="center" style="margin-bottom:10px;">' +
-        '<button class="mic" data-say="' + esc(it.sent.w) + '">' + ICON.mic + '</button></div>' +
-      '<div class="tiny center" style="margin-bottom:18px;">Antippen zum Anhören</div>' +
-      (shown ? '<div class="card" style="margin-bottom:12px;text-align:center;">' +
-        '<div class="body" style="font-weight:560;">' + esc(it.sent.w) + '</div></div>' : '') +
-      '<div class="opts">' + opts + '</div>' +
+      '<div class="wordcard" style="min-height:0;padding:26px 20px;">' +
+        '<div class="clozeline">' + marked(it.sent.w) + '</div>' +
+      '</div>' +
+      '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
       '<div class="spacer"></div></div></div>' +
       (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
   },
 
-  /* --- Diktat --- */
-  dictation(it) {
+  /* --- Bedeutung sehen, Phrase eintippen --- */
+  write(it) {
     const shown = this.phase === 'a';
-    const cls = shown ? (this.verdict === 'wrong' ? ' wrong' : ' right') : '';
+    const cls = shown ? (this.verdict === 'wrong' || this.verdict === 'close' ? ' wrong' : ' right') : '';
+    const name = LANGS[currentLang()].name;
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 18px;">Hör zu und schreib mit</div>' +
-      '<div class="center" style="margin-bottom:8px;">' +
-        '<button class="mic" data-say="' + esc(it.sent.w) + '">' + ICON.mic + '</button></div>' +
-      '<div class="tiny center" style="margin-bottom:16px;">Antippen zum Anhören</div>' +
-      '<input class="field' + cls + '" id="typed" autocomplete="off" autocapitalize="off" ' +
-        'autocorrect="off" spellcheck="false" placeholder="was du hörst…" ' +
-        (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
-      (shown ? this.feedback(this.verdict, this.picked, it.sent.w, it.sent.de) : '') +
-      '<div class="spacer"></div></div></div>' +
-      '<div class="bottom">' +
-        (shown ? '<button class="btn" data-next>Weiter</button>'
-               : '<button class="btn" data-check-dict>Prüfen</button>') +
-      '</div>';
-  },
-
-  /* --- Nachsprechen --- */
-  speak(it) {
-    const p = it.phrase, shown = this.phase === 'a';
-    const live = Listen.active;
-    return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Sprich nach</div>' +
-      '<div class="wordcard" style="min-height:140px;">' +
-        '<button class="speak" data-say="' + esc(p.w) + '">' + ICON.speak + '</button>' +
-        '<div class="word' + (p.w.length > 15 ? ' long' : '') + '">' + marked(p.w) + '</div>' +
-        '<div class="gloss" style="font-size:16px;">' + esc(p.de) + '</div>' +
+      '<div class="muted center" style="margin:6px 0 16px;">Schreib das auf ' + name + '</div>' +
+      '<div class="wordcard" style="min-height:130px;">' +
+        '<div class="word' + (it.sent.de.length > 15 ? ' long' : '') + '">' + esc(it.sent.de) + '</div>' +
       '</div>' +
-      '<div class="heard" style="margin-top:18px;">' + esc(this.heard) + '</div>' +
-      '<div class="center" style="margin-top:14px;">' +
-        '<button class="mic' + (live ? ' live' : '') + '" data-listen ' +
-          (Listen.available ? '' : 'disabled') + '>' + ICON.mic + '</button></div>' +
-      '<div class="tiny center" style="margin-top:12px;">' +
-        (Listen.available
-          ? (live ? 'Ich höre zu…' : 'Antippen und sprechen')
-          : 'Spracherkennung steht auf diesem Gerät nicht bereit') + '</div>' +
-      (shown ? this.feedback(this.verdict, this.heard, p.w, p.de) : '') +
+      '<input class="field' + cls + '" id="typed" style="margin-top:16px;" ' +
+        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+        'placeholder="' + name.toLowerCase() + '…" ' +
+        (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
+      (shown ? this.feedback(this.verdict === 'close' ? 'wrong' : this.verdict,
+        this.picked, it.sent.w, it.sent.de) : '') +
       '<div class="spacer"></div></div></div>' +
       '<div class="bottom">' +
         (shown ? '<button class="btn" data-next>Weiter</button>'
-               : '<button class="btn-soft" data-say="' + esc(p.w) + '">Nochmal anhören</button>') +
+               : '<button class="btn" data-check-write>Prüfen</button>') +
       '</div>';
   },
 
-  /* --- Phrase ohne Mikrofon --- */
+  /* --- Redewendung ansehen (Rückfall für unbekannte Aufgabenarten) --- */
   phrase(it) {
-    const p = it.phrase;
+    const p = it.phrase || { w: '', de: '', context: '' };
     return '<div class="view fade"><div class="view-pad">' +
       '<div class="muted center" style="margin:6px 0 16px;">Redewendung</div>' +
       '<div class="wordcard">' +
-        '<button class="speak" data-say="' + esc(p.w) + '">' + ICON.speak + '</button>' +
         '<span class="chip">' + esc(p.context) + '</span>' +
         '<div class="word' + (p.w.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
           marked(p.w) + '</div>' +
@@ -989,8 +941,6 @@ const Drill = {
       '</div>' +
       '<div class="view" key="' + this.key + '"><div class="view-pad">' +
         '<div class="wordcard fade" style="min-height:132px;">' +
-          (q.dir === 'sk2de' ? '<button class="speak" data-say="' + esc(q.ask) + '">' +
-            ICON.speak + '</button>' : '') +
           '<span class="chip">' + esc(q.dir === 'de2sk' ? 'auf ' + LANGS[currentLang()].name : 'auf Deutsch') + '</span>' +
           '<div class="word' + (q.ask.length > 14 ? ' long' : '') + '" style="margin-top:12px;">' +
             marked(q.ask) + '</div>' +
@@ -1024,7 +974,7 @@ const Library = {
         (t === 'woerter' ? this.words() :
          t === 'saetze' ? this.sentences() :
          t === 'phrasen' ? this.phrases() : this.grammar()) +
-        '<div class="spacer"></div></div></div>' + navbar('library') + Repeat.view();
+        '<div class="spacer"></div></div></div>' + navbar('library');
   },
 
   words() {
@@ -1074,9 +1024,7 @@ const Library = {
       return '<div class="row" data-word="' + esc(v.w) + '">' +
         '<div class="row-main"><div class="row-sk">' + marked(v.w) + '</div>' +
         '<div class="row-de">' + esc(v.de) + '</div></div>' +
-        '<span class="chip' + cls + '">' + lab + '</span>' +
-        '<button class="speak" style="position:static;width:36px;height:36px;" ' +
-        'data-say="' + esc(v.w) + '">' + ICON.speak + '</button></div>';
+        '<span class="chip' + cls + '">' + lab + '</span></div>';
     }).join('');
 
     // Gezielt üben lohnt nur, wenn genug Wörter für Antwortmöglichkeiten da sind.
@@ -1101,16 +1049,10 @@ const Library = {
     if (open.length >= 4) {
       out += '<button class="btn" data-practice="sentences" style="margin-bottom:14px;">Sätze üben</button>';
     }
-    const sprechbar = Session.speechOn();
     out += open.slice(0, 120).map(s =>
       '<div class="row"><div class="row-main">' +
       '<div class="row-sk" style="font-weight:560;">' + esc(s.w) + '</div>' +
-      '<div class="row-de">' + esc(s.de) + '</div></div>' +
-      '<button class="speak" style="position:static;width:36px;height:36px;" ' +
-      'data-say="' + esc(s.w) + '">' + ICON.speak + '</button>' +
-      (sprechbar ? '<button class="speak" style="position:static;width:36px;height:36px;' +
-        'margin-left:6px;" data-repeat="' + esc(s.w) + '">' + ICON.micSmall + '</button>' : '') +
-      '</div>').join('');
+      '<div class="row-de">' + esc(s.de) + '</div></div></div>').join('');
     if (!open.length) out += '<div class="card center"><div class="small">' +
       'Noch keine Sätze frei. Lerne ein paar Wörter, dann erscheinen sie hier.</div></div>';
     return out;
@@ -1153,9 +1095,7 @@ const Library = {
             : '';
           return '<div class="row"><div class="row-main">' +
             '<div class="row-sk" style="font-weight:560;">' + marked(p.w) + '</div>' +
-            '<div class="row-de">' + esc(p.de) + '</div></div>' + chip +
-            '<button class="speak" style="position:static;width:36px;height:36px;flex:none;" ' +
-            'data-say="' + esc(p.w) + '">' + ICON.speak + '</button></div>';
+            '<div class="row-de">' + esc(p.de) + '</div></div>' + chip + '</div>';
         }).join('');
     }).join('');
   },
@@ -1198,38 +1138,6 @@ const Library = {
             (rc ? '<div class="tiny center" style="margin-top:8px;">Zuletzt ' + rc.r + ' von ' + rc.n + ' richtig</div>' : '')
           : '') +
         '<div class="spacer"></div></div></div>';
-  },
-};
-
-/* ---------- Nachsprechen aus der Bibliothek ----------
-   Ein Blatt über der Liste, damit man nicht die Seite verlässt. */
-const Repeat = {
-  text: '', heard: '', verdict: null,
-
-  open(t) { this.text = t; this.heard = ''; this.verdict = null; App.render(); },
-  close() { Listen.stop(); this.text = ''; App.render(); },
-
-  view() {
-    if (!this.text) return '';
-    const live = Listen.active;
-    return '<div class="sheet-bg" data-repeat-close></div>' +
-      '<div class="sheet"><div class="sheet-grip"></div>' +
-      '<div class="view-pad" style="padding-bottom:10px;">' +
-        '<div class="muted center" style="margin-bottom:14px;">Sprich nach</div>' +
-        '<div class="wordcard" style="min-height:120px;">' +
-          '<button class="speak" data-say="' + esc(this.text) + '">' + ICON.speak + '</button>' +
-          '<div class="word' + (this.text.length > 18 ? ' long' : '') + '">' +
-            marked(this.text) + '</div>' +
-        '</div>' +
-        '<div class="heard" style="margin-top:16px;">' + esc(this.heard) + '</div>' +
-        '<div class="center" style="margin-top:12px;">' +
-          '<button class="mic' + (live ? ' live' : '') + '" data-repeat-listen>' +
-            ICON.mic + '</button></div>' +
-        '<div class="tiny center" style="margin-top:12px;">' +
-          (live ? 'Ich höre zu…' : 'Antippen und sprechen') + '</div>' +
-        (this.verdict ? Run.feedback(this.verdict, this.heard, this.text, '') : '') +
-        '<button class="btn-line" style="margin-top:18px;" data-repeat-close>Schließen</button>' +
-      '</div></div>';
   },
 };
 
@@ -1318,7 +1226,6 @@ const Levels = {
 const Profile = {
   view() {
     const sy = Sync.cfg();
-    const vs = Voice.list();
     const m = Stats.mastered(), t = Stats.touched();
     const c = Stats.cefr();
     const pct = Math.round(c.at / c.next * 100);
@@ -1366,43 +1273,6 @@ const Profile = {
       '<div class="head" style="margin:26px 0 10px;">Abzeichen</div>' +
       badgesGrid() +
 
-      '<div class="head" style="margin:26px 0 10px;">Sprachausgabe</div>' +
-      '<div class="card">' +
-        '<div class="small" style="margin-bottom:12px;">Tempo</div>' +
-        '<input type="range" class="slider" id="rate" min="0.5" max="1.1" step="0.05" value="' +
-          Voice.rate() + '"/>' +
-        '<div class="tiny" style="display:flex;justify-content:space-between;margin-top:2px;">' +
-          '<span>langsam</span><span id="ratev">' + Voice.rate().toFixed(2) + '</span><span>normal</span></div>' +
-        (vs.length
-          ? '<div class="small" style="margin:18px 0 8px;">Stimme</div>' +
-            vs.map(function (v, i) {
-              const on = Voice.pick && Voice.pick.voiceURI === v.voiceURI;
-              return '<div class="row"><div class="row-main">' +
-                '<div class="row-sk">' + esc(v.name) +
-                  (i > 0 ? ' <span class="chip plain">Variante ' + (i + 1) + '</span>' : '') + '</div>' +
-                '<div class="row-de">' + esc(v.lang) + '</div></div>' +
-                '<button class="btn-mini" data-voice-try="' + esc(v.voiceURI) + '">Hören</button>' +
-                '<button class="btn-mini' + (on ? ' on' : '') + '" data-voice-pick="' +
-                  esc(v.voiceURI) + '">' + (on ? 'gewählt' : 'wählen') + '</button></div>';
-            }).join('')
-          : '<div class="small" style="margin-top:14px;">Für diese Sprache ist keine Stimme ' +
-            'installiert. Unter Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen ' +
-            'nachladen.</div>') +
-      '</div>' +
-
-      '<div class="head" style="margin:26px 0 10px;">Sprechübungen</div>' +
-      '<div class="card">' +
-        '<div class="row"><div class="row-main">' +
-          '<div class="row-sk">Nachsprechen</div>' +
-          '<div class="row-de">' + (Listen.available
-            ? 'Braucht das Mikrofon. Aus, wenn du still üben willst.'
-            : 'Dieser Browser bietet keine Spracherkennung.') + '</div></div>' +
-        (Listen.available
-          ? '<button class="toggle' + (Store.data.settings.speech !== false ? ' on' : '') +
-            '" data-speech-toggle><i></i></button>'
-          : '<span class="chip plain">nicht verfügbar</span>') +
-        '</div></div>' +
-
       '<div class="head" style="margin:26px 0 10px;">Geräte verbinden</div>' +
       (Sync.on
         ? '<div class="card">' +
@@ -1436,35 +1306,12 @@ const Profile = {
       'Nicht umkehrbar.</div>' +
       '<button class="btn-danger" data-reset>Alle Daten löschen</button>' +
 
-      '<div class="tiny center" data-vtap style="margin-top:26px;">Version ' + APP_VERSION +
+      '<div class="tiny center" style="margin-top:26px;">Version ' + APP_VERSION +
       ' &middot; ' + (LANGS[currentLang()] || LANGS.sk).name +
       ' &middot; ' + DB.vocab.length + ' Wörter, ' + DB.sentences.length + ' Sätze</div>' +
-      '<div class="spacer"></div></div></div>' + navbar('profile') +
-      (Diag.open ? diagSheet() : '');
+      '<div class="spacer"></div></div></div>' + navbar('profile');
   },
 };
-
-/* ---------- Diagnose: Sprachausgabe ----------
-   Versteckter Zugang: 7x auf die Versionszeile im Profil tippen. Zeigt
-   das lokale Protokoll aus Voice.say()/wake() als reinen Text, den man
-   markieren, kopieren oder abtippen kann — nichts davon verlässt das
-   Gerät von selbst. */
-const Diag = { open: false };
-function diagSheet() {
-  return '<div class="sheet-bg" data-diag-close></div>' +
-    '<div class="sheet"><div class="sheet-grip"></div>' +
-    '<div class="view-pad">' +
-      '<div class="head" style="margin-bottom:10px;">Sprachausgabe-Protokoll</div>' +
-      '<textarea readonly style="width:100%;height:260px;font-family:monospace;font-size:11px;' +
-        'padding:10px;border-radius:var(--r-m);border:1px solid var(--line);background:var(--tint);' +
-        'resize:none;" onclick="this.select()">' + esc(VLog.text()) + '</textarea>' +
-      '<div class="btn-row" style="margin-top:12px;">' +
-        '<button class="btn-line" data-diag-copy>Kopieren</button>' +
-        '<button class="btn-line" data-diag-clear>Leeren</button>' +
-        '<button class="btn" data-diag-close>Schließen</button>' +
-      '</div>' +
-    '</div></div>';
-}
 
 /* ---------- Impressum ---------- */
 const Legal = {
@@ -1492,17 +1339,9 @@ const Legal = {
         '<div class="small" style="margin-bottom:10px;">Der Lernfortschritt wird lokal im Browser ' +
         'gespeichert. Er verlässt das Gerät nur, wenn Sie den Abgleich zwischen Geräten einschalten ' +
         '(siehe unten). Es werden keine Cookies gesetzt, kein Tracking durchgeführt und keine ' +
-        'Analysedienste eingesetzt.</div>' +
+        'Analysedienste eingesetzt. Die App verwendet weder Mikrofon noch Sprachausgabe.</div>' +
         '<div class="small">Beim Aufruf der Seite wird Ihre IP-Adresse an den Hosting-Anbieter ' +
         'übertragen. Externe Programmbibliotheken werden nicht geladen.</div>') +
-
-      block('Spracherkennung',
-        '<div class="card" style="background:var(--ochre-wash);">' +
-        '<div class="small" style="color:var(--ochre-ink);">Die Sprechübungen sind freiwillig und ' +
-        'starten nur, wenn Sie das Mikrofon ausdrücklich freigeben. Dabei wird die Aufnahme zur ' +
-        'Erkennung an den Sprachdienst des Geräteherstellers (Apple bzw. Google) übertragen und ' +
-        'dort verarbeitet. Ohne Freigabe bleibt die Funktion inaktiv, die App ist vollständig ' +
-        'ohne sie nutzbar.</div></div>') +
 
       block('Abgleich zwischen Geräten',
         '<div class="card" style="background:var(--tint);">' +
@@ -1515,13 +1354,9 @@ const Legal = {
         'und der Zeitpunkt der letzten Änderung. Für jede Grammatikregel die Zahl der Antworten ' +
         'und ob die zuletzt gegebenen richtig waren. Für jeden Tag die Zahl der Übungen, der ' +
         'richtigen Antworten, der neuen Wörter und der abgeschlossenen Sitzungen. Dazu das ' +
-        'Tagesziel, die Einstellung zu den Sprechübungen und das Startdatum.</div>' +
+        'Tagesziel und das Startdatum.</div>' +
         '<div class="small">Das Codewort wird nicht im Klartext abgelegt, sondern nur als ' +
         'Prüfsumme. Ohne Einschalten verlässt nichts das Gerät.</div></div>') +
-
-      block('Sprachausgabe',
-        '<div class="small">Das Vorlesen erfolgt über die Sprachausgabe des Betriebssystems. ' +
-        'Es werden dabei keine Daten an externe Server übertragen.</div>') +
 
       block('Hosting',
         '<div class="small">Cloudflare Pages, betrieben von Cloudflare, Inc., 101 Townsend St, ' +

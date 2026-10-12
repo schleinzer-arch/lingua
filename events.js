@@ -10,6 +10,20 @@ function on(sel, fn) {
   }));
 }
 
+/* Wertung einer Satzaufgabe in der Session.
+   Nur fällige Wörter rücken vor — sonst liesse sich der
+   Wiederholungsabstand durch häufige Sätze aushebeln. */
+function scoreSentence(it, ok, level) {
+  it.sent.words.forEach(w => {
+    if (!ok) return;
+    if (Leitner.isDue(Store.data.words[w])) Leitner.promote(Store.data.words, w);
+    Leitner.raise(Store.data.words, w, level);
+  });
+  if (ok) Run.right++; else Run.wrong++;
+  const d = Store.day(); d.seen++; if (ok) d.right++;
+  Store.save();
+}
+
 function bindAll() {
   /* --- Navigation --- */
   on('[data-go]', el => App.go(el.getAttribute('data-go')));
@@ -26,49 +40,13 @@ function bindAll() {
   on('[data-focus]', el => { Focus.open = el.getAttribute('data-focus'); App.render(); });
   on('[data-focus-close]', () => { Focus.open = null; App.render(); });
 
-  /* --- Nachsprechen aus der Bibliothek --- */
-  on('[data-repeat]', el => Repeat.open(el.getAttribute('data-repeat')));
-  on('[data-repeat-close]', () => Repeat.close());
-  on('[data-repeat-listen]', () => {
-    if (Listen.active) { Listen.stop(); return; }
-    Repeat.heard = ''; Repeat.verdict = null;
-    App.render();
-    Listen.start(
-      teil => {
-        Repeat.heard = teil;
-        const h = App.el.querySelector('.heard');
-        if (h) h.textContent = teil;
-      },
-      ende => {
-        Repeat.heard = ende || Repeat.heard;
-        if (Repeat.heard) Repeat.verdict = Text.compare(Repeat.heard, Repeat.text);
-        App.render();
-      },
-      fehler => {
-        Repeat.heard = fehler === 'not-allowed' || fehler === 'service-not-allowed'
-          ? 'Mikrofon nicht freigegeben'
-          : fehler === 'no-speech' ? 'Nichts gehört — nochmal versuchen'
-          : 'Erkennung fehlgeschlagen';
-        App.render();
-      }
-    );
-    setTimeout(() => App.render(), 40);
-  });
   on('[data-drillpick]', el => Drill.answer(el.getAttribute('data-drillpick')));
   on('[data-quit]', () => {
     if (Run.i > 0 && Run.i < Run.items.length) {
       if (!confirm((Run.practice ? 'Runde' : 'Session') +
         ' abbrechen? Der bisherige Fortschritt bleibt gespeichert.')) return;
     }
-    Listen.stop();
     App.go(Run.practice ? (Run.practice.from || 'library') : 'home');
-  });
-
-  /* --- Vorlesen --- */
-  on('[data-say]', el => {
-    Voice.say(el.getAttribute('data-say'));
-    el.classList.add('on');
-    setTimeout(() => el.classList.remove('on'), 550);
   });
 
   /* --- Neue Vokabel / Phrase bestätigen --- */
@@ -84,7 +62,7 @@ function bindAll() {
 
   on('[data-phrase-ok]', () => {
     const it = Run.cur();
-    Leitner.promote(Store.data.phrases, it.phrase.id);
+    if (it.phrase) Leitner.promote(Store.data.phrases, it.phrase.id);
     Store.day().seen++;
     Store.save();
     Run.next();
@@ -131,26 +109,17 @@ function bindAll() {
     App.render();
   });
 
-  /* --- Satz anhören, Bedeutung wählen --- */
-  on('[data-picklisten]', el => {
+  /* --- Satz lesen, Bedeutung wählen --- */
+  on('[data-pickread]', el => {
     if (Run.phase === 'a') return;
     const it = Run.cur();
-    const choice = el.getAttribute('data-picklisten');
+    const choice = el.getAttribute('data-pickread');
     Run.picked = choice;
     Run.phase = 'a';
     const ok = choice === it.q.answer;
     Run.verdict = ok ? 'exact' : 'wrong';
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
-    // Nur faellige Woerter ruecken vor — sonst liesse sich der
-    // Wiederholungsabstand durch haeufige Saetze aushebeln.
-    it.sent.words.forEach(w => {
-      if (!ok) return;
-      if (Leitner.isDue(Store.data.words[w])) Leitner.promote(Store.data.words, w);
-      Leitner.raise(Store.data.words, w, 1);
-    });
-    if (ok) Run.right++; else Run.wrong++;
-    const d = Store.day(); d.seen++; if (ok) d.right++;
-    Store.save();
+    scoreSentence(it, ok, 1);
     App.render();
   });
 
@@ -202,30 +171,25 @@ function bindAll() {
     App.render();
   });
 
-  /* --- Diktat --- */
-  on('[data-check-dict]', () => {
+  /* --- Phrase nach der deutschen Bedeutung eintippen ---
+     Ein fehlendes Häkchen oder ein vertippter Buchstabe gilt noch als
+     richtig, ein halber Satz nicht. */
+  on('[data-check-write]', () => {
     const inp = App.el.querySelector('#typed');
-    if (!inp) return;
+    if (!inp || Run.phase === 'a') return;
     const it = Run.cur();
     Run.picked = inp.value;
     Run.verdict = Text.compare(inp.value, it.sent.w);
     Run.phase = 'a';
-    const ok = Run.verdict !== 'wrong';
+    const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics' || Run.verdict === 'typo';
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
-    // Nur faellige Woerter ruecken vor — sonst liesse sich der
-    // Wiederholungsabstand durch haeufige Saetze aushebeln.
-    it.sent.words.forEach(w => {
-      if (!ok) return;
-      if (Leitner.isDue(Store.data.words[w])) Leitner.promote(Store.data.words, w);
-      Leitner.raise(Store.data.words, w, 3);
-    });
-    if (ok) Run.right++; else Run.wrong++;
-    const d = Store.day(); d.seen++; if (ok) d.right++;
-    Store.save();
+    scoreSentence(it, ok, 3);
     App.render();
   });
 
-  /* --- Lückensatz --- */
+  /* --- Lückensatz ---
+     In der Session zählt er wie die übrigen Satzaufgaben. Ein Fehler stuft
+     nur das ausgeblendete Wort zurück, das ist eindeutig zuzuordnen. */
   on('[data-pickcloze]', el => {
     if (Run.phase === 'a') return;
     const it = Run.cur();
@@ -234,7 +198,10 @@ function bindAll() {
     Run.phase = 'a';
     const ok = choice === it.q.answer;
     Run.verdict = ok ? 'exact' : 'wrong';
-    Practice.score(it, ok);
+    if (Run.practice || !it.sent) { Practice.score(it, ok); App.render(); return; }
+    const target = it.fx && it.fx.demoteWord;
+    if (!ok && target && Store.data.words[target]) Leitner.demote(Store.data.words, target);
+    scoreSentence(it, ok, 2);
     App.render();
   });
 
@@ -272,14 +239,13 @@ function bindAll() {
     Run.phase = 'a';
     const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics' || Run.verdict === 'typo';
     if (Run.practice) { Practice.score(it, ok); App.render(); return; }
-    const stufe = it.kind === 'listenbuild' ? 3 : 2;
     // Nur faellige Woerter ruecken vor — sonst liesse sich der
     // Wiederholungsabstand durch haeufige Saetze aushebeln. Ein Fehler
     // zaehlt dagegen immer, auch wenn das Wort gerade nicht faellig war.
     it.sent.words.forEach(w => {
       if (ok) {
         if (Leitner.isDue(Store.data.words[w])) Leitner.promote(Store.data.words, w);
-        Leitner.raise(Store.data.words, w, stufe);
+        Leitner.raise(Store.data.words, w, 2);
       } else Leitner.demote(Store.data.words, w);
     });
     if (ok) Run.right++; else Run.wrong++;
@@ -288,50 +254,9 @@ function bindAll() {
     App.render();
   });
 
-  /* --- Nachsprechen --- */
-  on('[data-listen]', () => {
-    if (Run.phase === 'a') return;
-    if (Listen.active) { Listen.stop(); return; }
-    const it = Run.cur();
-    Run.heard = '';
-    App.render();
-
-    Listen.start(
-      partial => {
-        Run.heard = partial;
-        const h = App.el.querySelector('.heard');
-        if (h) h.textContent = partial;
-      },
-      final => {
-        Run.heard = final || Run.heard;
-        if (!Run.heard) { App.render(); return; }
-        Run.verdict = Text.compare(Run.heard, it.phrase.w);
-        Run.phase = 'a';
-        const ok = Run.verdict === 'exact' || Run.verdict === 'diacritics';
-        if (Run.practice) { Practice.score(it, ok); App.render(); return; }
-        Leitner[ok ? 'promote' : 'demote'](Store.data.phrases, it.phrase.id);
-        if (ok) Leitner.raise(Store.data.phrases, it.phrase.id, 4);
-        if (ok) Run.right++; else Run.wrong++;
-        const d = Store.day(); d.seen++; if (ok) d.right++;
-        Store.save();
-        App.render();
-      },
-      err => {
-        Run.heard = err === 'not-allowed' || err === 'service-not-allowed'
-          ? 'Mikrofon nicht freigegeben'
-          : err === 'no-speech' ? 'Nichts gehört — nochmal versuchen'
-          : err === 'language-not-supported' ? 'Slowakisch wird nicht unterstützt'
-          : 'Erkennung fehlgeschlagen';
-        App.render();
-      }
-    );
-    setTimeout(() => App.render(), 40);
-  });
-
   /* Übung überspringen — bleibt ungewertet.
      Kein Kastenwechsel, keine Statistik, das Wort kommt wieder. */
   on('[data-skip]', () => {
-    Listen.stop();
     Run.skipped++;
     Run.next();
   });
@@ -371,45 +296,6 @@ function bindAll() {
     App.render();
   });
 
-  /* --- Stimme und Tempo --- */
-  on('[data-voice-try]', el => {
-    const uri = el.getAttribute('data-voice-try');
-    const v = Voice.list().find(x => x.voiceURI === uri);
-    const alt = Voice.pick;
-    if (v) Voice.pick = v;
-    Voice.say(LANGS[currentLang()].hello === 'Dnes'
-      ? 'Dobr\u00fd de\u0148, ako sa m\u00e1te?'
-      : 'Buongiorno, come sta?');
-    setTimeout(() => { Voice.pick = alt; }, 60);
-  });
-
-  on('[data-voice-pick]', el => {
-    Voice.choose(el.getAttribute('data-voice-pick'));
-    App.render();
-  });
-
-  on('[data-speech-toggle]', () => {
-    Store.data.settings.speech = Store.data.settings.speech === false;
-    Store.save();
-    App.render();
-  });
-
-  /* --- Temporegler --- */
-  const rate = App.el.querySelector('#rate');
-  if (rate) {
-    const show = App.el.querySelector('#ratev');
-    rate.addEventListener('input', () => {
-      const v = parseFloat(rate.value);
-      if (show) show.textContent = v.toFixed(2);
-      Voice.setRate(v);
-    });
-    rate.addEventListener('change', () => {
-      Voice.say(LANGS[currentLang()].hello === 'Dnes'
-        ? 'Dobr\u00fd de\u0148'
-        : 'Buongiorno');
-    });
-  }
-
   /* --- Suche in der Wortliste --- */
   const search = App.el.querySelector('#wsearch');
   if (search) {
@@ -429,7 +315,7 @@ function bindAll() {
     typed.addEventListener('keydown', ev => {
       if (ev.key !== 'Enter') return;
       ev.preventDefault();
-      const btn = App.el.querySelector('[data-check-type],[data-check-dict],[data-check-gtype]');
+      const btn = App.el.querySelector('[data-check-type],[data-check-write],[data-check-gtype]');
       if (btn) btn.click();
     });
   }
@@ -461,6 +347,7 @@ function bindAll() {
           if (!d || !d.words) throw new Error('Format');
           Store.data = d;
           Store.save();
+          Store.load();     // räumt alte Felder (etwa die Sprech-Einstellung) weg
           alert('Fortschritt übernommen.');
           App.go('profile');
         } catch (e) {
@@ -479,27 +366,6 @@ function bindAll() {
     Store.reset();
     App.go('home');
   });
-
-  /* --- Verstecktes Diagnoseprotokoll: 7x auf die Versionszeile tippen --- */
-  on('[data-vtap]', () => {
-    const now = Date.now();
-    if (!window.__vtaps || now - window.__vtapAt > 2500) window.__vtaps = 0;
-    window.__vtaps++; window.__vtapAt = now;
-    if (window.__vtaps >= 7) {
-      window.__vtaps = 0;
-      Diag.open = true;
-      App.render();
-    }
-  });
-  on('[data-diag-close]', () => { Diag.open = false; App.render(); });
-  on('[data-diag-clear]', () => { VLog.clear(); App.render(); });
-  on('[data-diag-copy]', el => {
-    const text = VLog.text();
-    const done = () => { el.textContent = 'Kopiert'; setTimeout(() => { el.textContent = 'Kopieren'; }, 1200); };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done).catch(() => {});
-    }
-  });
 }
 
 /* Fehlermeldungen des Abgleichs in Klartext */
@@ -514,10 +380,3 @@ function syncFehler(grund) {
 
 /* ---------- Start ---------- */
 document.addEventListener('DOMContentLoaded', () => App.boot());
-
-/* Nach dem Zurueckkehren aus dem Hintergrund die Sprachausgabe aufwecken —
-   auf iOS bleibt sie sonst gelegentlich stumm, bis die Seite neu laedt. */
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) Voice.wake();
-});
-window.addEventListener('pageshow', () => Voice.wake());

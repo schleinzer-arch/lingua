@@ -1,6 +1,6 @@
 /* Slovencina - Offline-Cache */
-var CACHE = 'lingua-v17';
-var FILES = ['./','index.html','styles.css?v=17','core.js?v=17','ui.js?v=17','events.js?v=17',
+var CACHE = 'lingua-v18';
+var FILES = ['./','index.html','styles.css?v=18','core.js?v=18','ui.js?v=18','events.js?v=18',
   'manifest.json','icons/favicon.ico','icons/icon-32.png','icons/icon-180.png',
   'icons/icon-192.png','icons/icon-512.png','icons/icon-512-maskable.png',
   'data/sk/vocab.json','data/sk/sentences.json','data/sk/phrases.json','data/sk/grammar.json','data/sk/practice.json','data/sk/topics.json',

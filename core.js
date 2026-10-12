@@ -11,14 +11,12 @@ const LANGS = {
   sk: {
     code: 'sk', name: 'Slowakisch', flag: '🇸🇰',
     hello: 'Dnes', helloDe: 'heute',
-    speech: 'sk-SK', fallback: 'cs-CZ',
     accent: '#1E4FA3', tint: '#EDF2FA', wash: '#DFE6F1', warm: '#C8892B',
     warmWash: '#FBF3E4', warmInk: '#8A6420',
   },
   it: {
     code: 'it', name: 'Italienisch', flag: '🇮🇹',
     hello: 'Oggi', helloDe: 'heute',
-    speech: 'it-IT', fallback: 'it-IT',
     accent: '#2F6B4A', tint: '#EAF2EC', wash: '#D8E7DD', warm: '#C0562E',
     warmWash: '#FBF1EA', warmInk: '#A0451F',
   },
@@ -54,6 +52,16 @@ function applyTheme(code) {
   r.setProperty('--ochre-ink', L.warmInk);
 }
 
+/* Bis Version 17 gab es Sprachausgabe und Spracherkennung. Was davon im
+   Geraetespeicher liegt (Stimme, Tempo, Diagnoseprotokoll), wird beim
+   Start einmal weggeraeumt. Der Lernstand ist davon nicht betroffen. */
+const OLD_VOICE_KEYS = ['lingua_voicelog', 'lingua_rate', 'lingua_voice_sk', 'lingua_voice_it'];
+function dropVoiceLeftovers() {
+  OLD_VOICE_KEYS.forEach(k => {
+    try { if (localStorage.removeItem) localStorage.removeItem(k); } catch (e) {}
+  });
+}
+
 /* ---------- Speicher ---------- */
 function storeKey() { return 'lingua_' + currentLang(); }
 
@@ -71,7 +79,7 @@ const Store = {
       phrases: {},      // id -> {box, due, strength}
       grammar: {},      // kapitel-id -> {seen, right, last, t}
       days: {},         // 'YYYY-MM-DD' -> {seen, right, newWords, sessions}
-      settings: { goal: 24, speech: true },
+      settings: { goal: 24 },
       started: Store.today(),
     };
   },
@@ -83,11 +91,17 @@ const Store = {
     } catch (e) {
       this.data = this.blank();
     }
-    if (!this.data.words) this.data = this.blank();
+    if (!this.data || !this.data.words) this.data = this.blank();
     if (!this.data.grammar) this.data.grammar = {};
     if (!this.data.phrases) this.data.phrases = {};
-    if (!this.data.settings) this.data.settings = { goal: 24, speech: true };
-    if (this.data.settings.speech === undefined) this.data.settings.speech = true;
+    if (!this.data.settings) this.data.settings = { goal: 24 };
+    if (!this.data.settings.goal) this.data.settings.goal = 24;
+    // Die Einstellung zu den Sprechübungen gibt es nicht mehr. Sie fällt
+    // aus dem Lernstand, damit sie auch beim Abgleich nicht mehr reist.
+    if ('speech' in this.data.settings) {
+      delete this.data.settings.speech;
+      this.save();
+    }
     /* Die einmalige Kasten-Korrektur vom September 2026 (Kasten 5 → 3,
        Kasten 4 → 2) ist erledigt und entfällt. Sie hing am Feld v; weil der
        Abgleich v bis Version 15 fest auf 2 gesetzt hat, lief sie nach jedem
@@ -197,7 +211,7 @@ const Leitner = {
     return st;
   },
 
-  // Übungsstufe: 0 neu · 1 erkennen · 2 zusammensetzen · 3 tippen · 4 sprechen
+  // Übungsstufe: 0 neu · 1 erkennen · 2 zusammensetzen · 3 tippen
   raise(map, id, level) {
     const st = this.state(map, id);
     if (level > st.strength) { st.strength = level; st.t = Date.now(); }
@@ -245,7 +259,7 @@ const Text = {
     if (a === b) return 'exact';
     if (this.flat(a) === this.flat(b)) return 'diacritics';
     // Ein einzelner falscher Buchstabe soll kein ganzer Fehler sein —
-    // es geht ums Hoeren und Verstehen, nicht um Rechtschreibung.
+    // es geht ums Verstehen, nicht um Rechtschreibung.
     const erlaubt = b.length > 12 ? 2 : 1;
     if (this.dist(this.flat(a), this.flat(b)) <= erlaubt) return 'typo';
     const aw = a.split(' '), bw = b.split(' ');
@@ -293,232 +307,6 @@ const SOUNDS = {
   'ŕ': 'langes r',
 };
 
-/* ---------- Sprachausgabe ---------- */
-/* ---------- Diagnose: Sprachausgabe ----------
-   Rein lokal, nie abgeglichen und nirgends sonst sichtbar. Haelt die
-   letzten Ereignisse rund um Voice.say()/wake() fest, damit sich ein
-   seltener, unregelmaessiger Ausfall im Nachhinein nachvollziehen
-   laesst. Zugang nur ueber einen versteckten Handgriff im Profil. */
-const VLOG_KEY = 'lingua_voicelog';
-const VLOG_MAX = 100;
-const VLog = {
-  add(line) {
-    try {
-      const d = new Date();
-      const stamp = String(d.getHours()).padStart(2, '0') + ':' +
-        String(d.getMinutes()).padStart(2, '0') + ':' +
-        String(d.getSeconds()).padStart(2, '0');
-      const raw = localStorage.getItem(VLOG_KEY);
-      const arr = raw ? JSON.parse(raw) : [];
-      arr.push(stamp + '  ' + line);
-      while (arr.length > VLOG_MAX) arr.shift();
-      localStorage.setItem(VLOG_KEY, JSON.stringify(arr));
-    } catch (e) {}
-  },
-  text() {
-    try {
-      const raw = localStorage.getItem(VLOG_KEY);
-      const arr = raw ? JSON.parse(raw) : [];
-      return arr.length ? arr.join('\n') : '(noch keine Einträge)';
-    } catch (e) { return '(Fehler beim Lesen)'; }
-  },
-  clear() { try { localStorage.removeItem(VLOG_KEY); } catch (e) {} },
-};
-
-const Voice = {
-  ready: false,
-  pick: null,
-
-  /* Alle Stimmen der aktiven Sprache — fuer die Auswahl im Profil. */
-  list(lang) {
-    if (!window.speechSynthesis) return [];
-    const L = LANGS[lang || currentLang()] || LANGS.sk;
-    const main = L.speech.slice(0, 2).toLowerCase();
-    const back = L.fallback.slice(0, 2).toLowerCase();
-    const vs = window.speechSynthesis.getVoices();
-    const a = vs.filter(v => v.lang.toLowerCase().startsWith(main));
-    return a.length ? a : vs.filter(v => v.lang.toLowerCase().startsWith(back));
-  },
-
-  /* Die selbst gewaehlte Stimme steht pro Sprache im Geraetespeicher,
-     nicht im Lernstand — sie gehoert zum Geraet. */
-  chosenKey() { return 'lingua_voice_' + currentLang(); },
-  chosen() {
-    try { return localStorage.getItem(this.chosenKey()) || ''; } catch (e) { return ''; }
-  },
-  choose(uri) {
-    try { localStorage.setItem(this.chosenKey(), uri || ''); } catch (e) {}
-    this.resolve();
-  },
-
-  rate() {
-    try {
-      const v = parseFloat(localStorage.getItem('lingua_rate'));
-      return isNaN(v) ? 0.8 : v;
-    } catch (e) { return 0.8; }
-  },
-  setRate(v) { try { localStorage.setItem('lingua_rate', String(v)); } catch (e) {} },
-
-  resolve() {
-    const vs = this.list();
-    if (!vs.length) { this.pick = null; return; }
-    const want = this.chosen();
-    this.pick = (want && vs.find(v => v.voiceURI === want)) || vs[0];
-    this.ready = true;
-  },
-
-  init() {
-    if (!window.speechSynthesis) return;
-    const load = () => { if (window.speechSynthesis.getVoices().length) this.resolve(); };
-    load();
-    window.speechSynthesis.onvoiceschanged = load;
-    setTimeout(load, 700);
-  },
-
-  /* Auf iOS vergeht zwischen speak() und dem tatsaechlichen Beginn je nach
-     Geraet bis zu zwei Sekunden. Wer frueher nachfasst, wuergt die Ausgabe ab. */
-  say(text, opts) {
-    if (!window.speechSynthesis || !text) return;
-    opts = opts || {};
-    const SS = window.speechSynthesis;
-
-    this.unlock();
-    const as = navigator.audioSession ? (navigator.audioSession.type + '/' + navigator.audioSession.state) : 'n/v';
-    VLog.add('say „' + String(text).slice(0, 24) + '…" unlocked=' + this._unlocked +
-      ' speaking=' + SS.speaking + ' pending=' + SS.pending + ' hidden=' + document.hidden +
-      ' audioSession=' + as);
-
-    // Nur abbrechen, wenn wirklich etwas laeuft — ein cancel() auf eine
-    // leere Warteschlange kann die Ausgabe auf iOS blockieren.
-    if (SS.speaking || SS.pending) SS.cancel();
-
-    // Einzelne Woerter klingen ohne Satzzeichen abgehackt.
-    let t = String(text).trim();
-    if (!/[.?!…]$/.test(t) && t.split(/\s+/).length <= 2) t += '.';
-
-    const conf = LANGS[currentLang()] || LANGS.sk;
-    const rate = opts.rate || this.rate();
-    const mk = (withVoice) => {
-      const u = new SpeechSynthesisUtterance(t);
-      if (withVoice && this.pick) u.voice = this.pick;
-      u.lang = conf.speech;
-      u.rate = rate;
-      return u;
-    };
-
-    let lief = false;
-    const u = mk(true);
-    u.onstart = () => { lief = true; VLog.add('  → angelaufen (onstart)'); };
-    u.onerror = (e) => { VLog.add('  → onerror ' + (e && e.error)); };
-    SS.speak(u);
-
-    if (opts.retry === false) return;
-    // Grosszuegig warten und nur eingreifen, wenn die Warteschlange
-    // nachweislich leer ist — sonst unterbricht man das Anlaufen.
-    clearTimeout(this._t);
-    this._t = setTimeout(() => {
-      if (lief || SS.speaking || SS.pending) return;
-      VLog.add('  → nach 1800ms nichts angekommen, fasse ohne Stimme nach');
-      SS.speak(mk(false));
-    }, 1800);
-  },
-
-  /* Der Klingelschalter legt reine Web-Audio-Ausgabe still. Eine einmal
-     angestossene stille Tonspur stuft die Sitzung als echte Wiedergabe ein. */
-  unlock() {
-    if (this._unlocked) return;
-    this._unlocked = true;
-    try {
-      const a = document.createElement('audio');
-      a.setAttribute('x-webkit-airplay', 'deny');
-      a.preload = 'auto';
-      a.loop = true;
-      a.volume = 0.001;
-      a.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-      const p = a.play();
-      if (p && p.catch) p.catch(() => {});
-    } catch (e) { /* ohne Freigabe geht es meist trotzdem */ }
-    this.claimSession();
-  },
-
-  /* Seit iOS 16.4 kann eine Seite der Systemebene explizit sagen, dass ihr
-     Ton echte Wiedergabe ist statt Hintergrundgeraeusch — ohne das landet
-     Sprachausgabe auf manchen Geraeten in einer Kategorie, die zwar keinen
-     Fehler wirft, aber auch keinen hoerbaren Ton erzeugt. Kein Garant
-     (Safari entscheidet laut Dokumentation trotzdem manchmal selbst),
-     aber die von Apple vorgesehene Stellschraube dafuer. */
-  claimSession() {
-    try {
-      if (navigator.audioSession) {
-        navigator.audioSession.type = 'playback';
-        VLog.add('audioSession auf "playback" gesetzt (Zustand: ' + navigator.audioSession.state + ')');
-      } else {
-        VLog.add('audioSession-Schnittstelle nicht verfügbar');
-      }
-    } catch (e) { VLog.add('audioSession-Fehler: ' + e.message); }
-  },
-
-  /* Nach dem Zurueckkehren aus dem Hintergrund bleibt die Ausgabe auf iOS
-     gelegentlich haengen. Ein Aufwecken raeumt das auf. */
-  wake() {
-    if (!window.speechSynthesis) return;
-    VLog.add('wake hidden=' + document.hidden + ' speaking=' + window.speechSynthesis.speaking +
-      ' pending=' + window.speechSynthesis.pending);
-    // Nur aufwecken, nicht abbrechen: ein cancel() auf eine leere
-    // Warteschlange kann die Ausgabe auf iOS selbst stilllegen.
-    try { window.speechSynthesis.resume(); } catch (e) { VLog.add('  → resume()-Fehler ' + e.message); }
-    if (this._unlocked) this.claimSession();
-  },
-
-};
-
-/* ---------- Spracherkennung ---------- */
-const Listen = {
-  SR: window.SpeechRecognition || window.webkitSpeechRecognition || null,
-  rec: null,
-  active: false,
-
-  get available() { return !!this.SR; },
-
-  start(onPartial, onDone, onError) {
-    if (!this.SR || this.active) return;
-    let rec;
-    try { rec = new this.SR(); }
-    catch (e) { onError && onError('start-failed'); return; }
-
-    this.rec = rec;
-    this.active = true;
-    let last = '';
-
-    rec.lang = (LANGS[currentLang()] || LANGS.sk).speech;
-    rec.continuous = false;
-    rec.interimResults = true;
-    rec.maxAlternatives = 3;
-
-    rec.onresult = ev => {
-      const r = ev.results[ev.results.length - 1];
-      last = r[0].transcript;
-      onPartial && onPartial(last, r.isFinal);
-    };
-    rec.onerror = ev => {
-      this.active = false;
-      onError && onError(ev.error || 'unknown');
-    };
-    rec.onend = () => {
-      this.active = false;
-      this.rec = null;
-      onDone && onDone(last);
-    };
-
-    try { rec.start(); }
-    catch (e) { this.active = false; onError && onError('start-failed'); }
-  },
-
-  stop() {
-    if (this.rec) { try { this.rec.stop(); } catch (e) { /* schon beendet */ } }
-  },
-};
-
 /* ---------- Hilfsfunktionen ---------- */
 function shuffle(arr) {
   const a = arr.slice();
@@ -564,13 +352,15 @@ const Sync = {
      Je Wort gewinnt der juengere Zeitstempel. Fehlt einer — etwa bei
      Staenden aus der Zeit vor dem Abgleich — gewinnt der hoehere Kasten,
      damit nichts verloren geht. Der Formatstand v wird nie abgesenkt:
-     der hoehere der beiden gilt, mindestens der aktuelle. */
+     der hoehere der beiden gilt, mindestens der aktuelle.
+     Von den Einstellungen reist nur das Tagesziel. */
   merge(mine, theirs) {
     if (!theirs || !theirs.words) return mine;
+    const goal = (mine.settings && mine.settings.goal) || 24;
     const out = {
       v: Math.max(mine.v || 0, theirs.v || 0, STORE_V),
       words: {}, phrases: {}, grammar: {}, days: {},
-      settings: mine.settings || { goal: 24, speech: true },
+      settings: { goal },
       started: [mine.started, theirs.started].filter(Boolean).sort()[0] || Store.today(),
     };
     ['words', 'phrases'].forEach(kind => {
@@ -664,11 +454,6 @@ function distractorPool(DB, v) {
 
 /* ---------- Sessionaufbau ---------- */
 const Session = {
-  // Sprechübungen nur, wenn der Browser sie unterstützt UND sie eingeschaltet sind
-  speechOn() {
-    return Listen.available && Store.data.settings.speech !== false;
-  },
-
   // Aktuelles Niveau aus dem Langzeitwortschatz ableiten
   level(DB) {
     const n = this.masteredCount(DB);
@@ -747,22 +532,18 @@ const Session = {
       const open = DB.sentences.filter(s =>
         LVL_RANK[s.reqLevel] <= rank && s.tokens <= cap && this.unlocked(s));
       sample(open, max).forEach(s => {
-        // Haelfte Satzbau nach Vorlage, Haelfte Hoerverstehen in der
-        // Stufe, die zum Stand der Woerter passt.
-        core.push(Math.random() < 0.5
-          ? { kind: 'build', sent: s }
-          : { kind: listenStage(s), sent: s });
+        // Hälfte Satzbau nach Vorlage, Hälfte in der Lese-Stufe, die zum
+        // Stand der Wörter passt: erst lesen und Bedeutung wählen, später
+        // die Lücke im Satz füllen.
+        core.push(Math.random() < 0.5 ? { kind: 'build', sent: s } : sentenceTask(s));
       });
     }
 
     // 3 · Phrasen der Reihe nach
     const P = Store.data.phrases;
-    const canSpeak = this.speechOn();
     const ready = DB.phrases.filter(p => LVL_RANK[p.level] <= rank);
     const pDue = ready.filter(p => !P[p.id] || Leitner.isDue(P[p.id]));
-    pDue.slice(0, canSpeak ? 3 : 2).forEach(p => {
-      core.push({ kind: canSpeak && isPlainPhrase(p.w) ? 'speak' : 'phrasechoice', phrase: p });
-    });
+    pDue.slice(0, 3).forEach(p => core.push({ kind: 'phrasechoice', phrase: p }));
 
     // 4 · Neue Wörter — so viele, dass die Session voll wird.
     //     In den ersten Tagen gibt es nichts zu wiederholen; dann ist mehr
@@ -840,22 +621,32 @@ function exerciseFor(st) {
   return Math.random() < 0.6 ? 'type' : 'choice';
 }
 
-/* Welche Hoerverstehens-Stufe passt zu diesem Satz?
-   Die Anforderung waechst mit den Kaesten seiner Woerter. */
-function listenStage(sent) {
+/* Welche Lese-Stufe passt zu diesem Satz?
+   Die Anforderung waechst mit den Kaesten seiner Woerter. Zwei Bedingungen
+   muessen zusammenkommen: Die Woerter dieses Satzes muessen sitzen UND man
+   muss insgesamt weit genug sein. Sonst kaeme die Luecke schon in der
+   zweiten Woche, nur weil ein kurzer Satz aus drei gut geuebten Woertern
+   besteht.
+   'read'  — Satz lesen, Bedeutung waehlen
+   'cloze' — ein Wort fehlt, aus vier Formen waehlen */
+function readStage(sent) {
   const W = Store.data.words;
-  if (!sent.words.length) return 'listen';
+  if (!sent.words.length) return 'read';
   let min = 9;
   sent.words.forEach(id => { min = Math.min(min, (W[id] && W[id].box) || 1); });
-
-  // Zwei Bedingungen muessen zusammenkommen: Die Woerter dieses Satzes
-  // muessen sitzen UND man muss insgesamt weit genug sein. Sonst kaeme
-  // freies Schreiben schon in der zweiten Woche, nur weil ein kurzer
-  // Satz aus drei gut geuebten Woertern besteht.
   const gesamt = Stats.mastered();
-  if (min >= 5 && gesamt >= 150) return 'dictation';    // frei eintippen
-  if (min >= 3 && gesamt >= 40) return 'listenbuild';   // aus Bausteinen bauen
-  return 'listen';                                      // Bedeutung waehlen
+  if (min >= 3 && gesamt >= 40) return 'cloze';
+  return 'read';
+}
+
+/* Die Session-Aufgabe zur Lese-Stufe. Lässt sich keine Lücke bauen
+   (zu wenige passende Ablenker), bleibt es beim Lesen. */
+function sentenceTask(s) {
+  if (readStage(s) === 'cloze') {
+    const cz = Practice.clozeFromSentence(s);
+    if (cz) { cz.sent = s; return cz; }
+  }
+  return { kind: 'read', sent: s };
 }
 
 /* ---------- Aufgaben erzeugen ---------- */
@@ -883,8 +674,8 @@ const Make = {
     };
   },
 
-  // Satz anhoeren, Bedeutung waehlen — die erste Stufe des Hoerverstehens.
-  listen(sent, DB) {
+  // Satz lesen, Bedeutung waehlen — die erste Stufe bei den Saetzen.
+  read(sent, DB) {
     const pool = DB.sentences.filter(x => x.id !== sent.id && x.de !== sent.de);
     const wrong = sample(pool, 3).map(x => x.de);
     return { answer: sent.de, options: shuffle(wrong.concat([sent.de])) };
@@ -911,7 +702,8 @@ const Make = {
 
 /* ---------- Phrasen ohne Platzhalter ----------
    „Mi chiamo…", „Come si dice … in italiano?" und Formen mit Schrägstrich
-   („allergico / allergica") lassen sich weder eintippen noch nachsprechen. */
+   („allergico / allergica") lassen sich weder eintippen noch aus
+   Bausteinen zusammensetzen. */
 function isPlainPhrase(text) {
   return !/\.\.\.|…|\s\/\s|___/.test(String(text || ''));
 }
@@ -927,7 +719,7 @@ function isPlainPhrase(text) {
      Phrase vor, sonst liesse sich der Wiederholungsabstand aushebeln
    - ein Fehler stuft nur das zurück, was sich eindeutig zuordnen lässt:
      beim Lückensatz das Zielwort, bei Phrasen die Phrase. Beim Satzbau
-     oder Diktat bleibt alles stehen — dort ist unklar, welches Wort schuld war
+     bleibt alles stehen — dort ist unklar, welches Wort schuld war
    - eine Phrase, die noch nie dran war, bekommt beim ersten Üben hier einen
      Stand: Kasten 1, morgen fällig — wie ein neues Wort beim Vokabel-Üben.
      So zeigt die Bibliothek auch Phrasen, die nur hier geübt wurden
@@ -1010,26 +802,20 @@ const Practice = {
   sentenceRound() {
     const pool = this.pool();
     if (pool.length < 4) return [];
-    const canSpeak = Session.speechOn();
     return sample(pool, Math.min(this.ROUND, pool.length))
-      .map(s => this.sentenceItem(s, canSpeak));
+      .map(s => this.sentenceItem(s));
   },
 
-  sentenceItem(s, canSpeak) {
+  sentenceItem(s) {
     const long = s.w.split(/\s+/).length > 9;   // lange Sätze nicht als Bausteine
     const r = Math.random();
     const fx = { words: s.words };
-    if (r < 0.30) {
+    if (r < 0.35) {
       const cz = this.clozeFromSentence(s);
       if (cz) return cz;
     }
-    if (r < 0.55 && !long) return { kind: 'build', sent: s, fx };
-    if (canSpeak && r > 0.85) {
-      return { kind: 'speak', phrase: { id: s.id, w: s.w, de: s.de, context: '' }, fx: {} };
-    }
-    let kind = listenStage(s);
-    if (long && kind === 'listenbuild') kind = 'listen';
-    return { kind, sent: s, fx };
+    if (r < 0.70 && !long) return { kind: 'build', sent: s, fx };
+    return { kind: 'read', sent: s, fx };
   },
 
   /* Ein Inhaltswort ausblenden. Ablenker stammen aus derselben Wortart und
@@ -1073,24 +859,21 @@ const Practice = {
   phraseRound(ctx) {
     const pool = DB.phrases.filter(p => !ctx || p.context === ctx);
     if (pool.length < 4) return [];
-    const canSpeak = Session.speechOn();
     return sample(pool, Math.min(this.ROUND, pool.length))
-      .map(p => this.phraseItem(p, ctx, canSpeak));
+      .map(p => this.phraseItem(p, ctx));
   },
 
-  phraseItem(p, ctx, canSpeak) {
+  /* Auswahl in beide Richtungen; Phrasen ohne Platzhalter auch als
+     Bausteine und zum Eintippen nach der deutschen Bedeutung. */
+  phraseItem(p, ctx) {
     const plain = isPlainPhrase(p.w);
     const bag = [['w2de', 3], ['de2w', 3]];
-    if (plain) {
-      bag.push(['build', 2], ['dictation', 1.5]);
-      if (canSpeak) bag.push(['speak', 1.5]);
-    }
+    if (plain) bag.push(['build', 2], ['write', 1.5]);
     const what = this.pickWeighted(bag);
     const fx = { phrase: p.id };
     const flat = { id: p.id, w: p.w, de: p.de, words: [] };
     if (what === 'build') return { kind: 'build', sent: flat, fx };
-    if (what === 'dictation') return { kind: 'dictation', sent: flat, fx };
-    if (what === 'speak') return { kind: 'speak', phrase: p, fx };
+    if (what === 'write') return { kind: 'write', sent: flat, fx };
 
     // Ablenker bevorzugt aus derselben Situation — sonst ist es leicht
     const key = what === 'w2de' ? 'de' : 'w';
@@ -1494,7 +1277,7 @@ function solidChapter(id) {
    gespeichert oder abgeglichen — der Lernstand selbst (Wörter, Kästen,
    Grammatikstand, Serie) ist ja schon da und entscheidet. Nur, WELCHE
    Abzeichen auf diesem Gerät schon als „neu" gezeigt wurden, steht lokal
-   ausserhalb des Lernstands, genau wie Sprache, Stimme oder Tempo. */
+   ausserhalb des Lernstands, genau wie die Sprache. */
 const BADGES = [
   { id: 'streak-3',    group: 'Serie',      icon: '\u{1F525}', title: '3 Tage in Folge',
     check: () => Stats.streak() >= 3 },
