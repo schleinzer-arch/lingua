@@ -1,9 +1,9 @@
 /* ============================================================
-   Slovenčina — Oberfläche
+   lingua — Oberfläche (Version 19)
    ============================================================ */
 'use strict';
 
-const APP_VERSION = '18';
+const APP_VERSION = '19';
 const DB = { vocab: [], sentences: [], phrases: [], grammar: [], practice: { chapters: {} }, topics: { topics: [] }, byId: {}, sentById: {} };
 
 /* Die Übungsdatei ist ein Zusatz: fehlt sie, laufen Wörter, Sätze und
@@ -57,7 +57,7 @@ const App = {
       this.el.innerHTML =
         '<div style="padding:40px 24px;text-align:center;">' +
         '<div class="title" style="margin-bottom:8px;">Daten nicht geladen</div>' +
-        '<div class="small">Die Dateien im Ordner <b>data/</b> konnten nicht gelesen werden. ' +
+        '<div class="sub">Die Dateien im Ordner <b>data/</b> konnten nicht gelesen werden. ' +
         'Beim Öffnen als lokale Datei blockiert der Browser das — die App muss über eine ' +
         'Adresse aufgerufen werden.</div></div>';
       return;
@@ -94,6 +94,8 @@ const App = {
 
   go(screen, arg) {
     Focus.open = null;           // ein offenes Blatt schließt beim Seitenwechsel
+    Ask.q = null;
+    if (screen !== 'profile') Profile.syncMsg = null;
     this.screen = screen;
     this.arg = arg;
     this.render();
@@ -103,17 +105,56 @@ const App = {
 
   render() {
     const s = this.screen;
-    if (s === 'home') this.el.innerHTML = Home.view();
-    else if (s === 'session') this.el.innerHTML = Run.view();
-    else if (s === 'drill') this.el.innerHTML = Drill.view();
-    else if (s === 'library') this.el.innerHTML = Library.view();
-    else if (s === 'profile') this.el.innerHTML = Profile.view();
-    else if (s === 'legal') this.el.innerHTML = Legal.view();
-    else if (s === 'grammar') this.el.innerHTML = Library.chapter(this.arg);
-    else if (s === 'words') this.el.innerHTML = Library.wordList(this.arg);
-    else if (s === 'levels') this.el.innerHTML = Levels.view();
+    let html = '';
+    if (s === 'home') html = Home.view();
+    else if (s === 'session') html = Run.view();
+    else if (s === 'drill') html = Drill.view();
+    else if (s === 'library') html = Library.view();
+    else if (s === 'profile') html = Profile.view();
+    else if (s === 'legal') html = Legal.view();
+    else if (s === 'grammar') html = Library.chapter(this.arg);
+    else if (s === 'words') html = Library.wordList(this.arg);
+    else if (s === 'levels') html = Levels.view();
+    this.el.innerHTML = html + Ask.view() + Toast.view();
     bindAll();
   },
+};
+
+/* ---------- Rückfrage als Blatt (statt Browser-Dialog) ---------- */
+const Ask = {
+  q: null,        // { title, text, yes, no, danger, onYes }
+  open(q) { this.q = q; App.render(); },
+  close() { this.q = null; App.render(); },
+  view() {
+    const q = this.q;
+    if (!q) return '';
+    return '<div class="sheet-bg" data-ask-no></div>' +
+      '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="ask-t">' +
+      '<div class="sheet-grip"></div><div class="view-pad">' +
+        '<div class="title" id="ask-t">' + esc(q.title) + '</div>' +
+        (q.text ? '<div class="sub">' + esc(q.text) + '</div>' : '') +
+        '<button class="' + (q.danger ? 'btn-danger solid' : 'btn') + '" data-ask-yes>' + esc(q.yes) + '</button>' +
+        '<button class="btn-line" data-ask-no>' + esc(q.no || 'Abbrechen') + '</button>' +
+      '</div></div>';
+  },
+};
+
+/* ---------- Kurzmeldung (statt Browser-Hinweis) ---------- */
+const Toast = {
+  text: '', timer: null,
+  show(t) {
+    this.text = t;
+    clearTimeout(this.timer);
+    App.render();
+    // Nur die Meldung entfernen, nicht neu zeichnen: sonst ginge eine
+    // gerade getippte Antwort verloren.
+    this.timer = setTimeout(() => {
+      this.text = '';
+      const el = App.el && App.el.querySelector('.toast');
+      if (el) el.remove();
+    }, 3200);
+  },
+  view() { return this.text ? '<div class="toast" role="status">' + esc(this.text) + '</div>' : ''; },
 };
 
 /* ---------- Bausteine ---------- */
@@ -129,37 +170,71 @@ function marked(word) {
     m => '<span class="dia">' + m + '</span>');
 }
 
+// Einzahl oder Mehrzahl
+function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
 function ring(pct, size, stroke) {
-  size = size || 78; stroke = stroke || 6;
+  size = size || 64; stroke = stroke || 6;
   const r = (size - stroke) / 2, c = 2 * Math.PI * r;
   const off = c * (1 - Math.min(pct, 100) / 100);
-  return '<svg width="' + size + '" height="' + size + '">' +
+  return '<svg width="' + size + '" height="' + size + '" aria-hidden="true">' +
     '<circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r +
     '" fill="none" stroke="var(--cobalt-wash)" stroke-width="' + stroke + '"/>' +
-    '<circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r +
+    '<circle class="ring-arc" cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r +
     '" fill="none" stroke="var(--cobalt)" stroke-width="' + stroke +
     '" stroke-dasharray="' + c + '" stroke-dashoffset="' + off +
-    '" stroke-linecap="round" style="transition:stroke-dashoffset .6s"/></svg>';
+    '" stroke-linecap="round"/></svg>';
 }
 
+const svg = (w, body, sw) => '<svg width="' + w + '" height="' + w + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+  'stroke-width="' + (sw || 1.8) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + body + '</svg>';
+
 const ICON = {
-  home: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 10.5 12 3l9 7.5M5.5 9.5V20h13V9.5"/></svg>',
-  book: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h6a3 3 0 0 1 2 3v14a2.5 2.5 0 0 0-2.5-2H4z"/><path d="M20 4h-6a3 3 0 0 0-2 3v14a2.5 2.5 0 0 1 2.5-2H20z"/></svg>',
-  user: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.7 4.1-5.5 7.5-5.5s6.1 1.8 7.5 5.5"/></svg>',
-  skip: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l7 7-7 7M13 5l7 7-7 7"/></svg>',
-  back: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>',
-  down: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>',
+  home: svg(24, '<path d="M3 10.5 12 3l9 7.5M5.5 9.5V20h13V9.5"/>'),
+  book: svg(24, '<path d="M4 4h6a3 3 0 0 1 2 3v14a2.5 2.5 0 0 0-2.5-2H4z"/><path d="M20 4h-6a3 3 0 0 0-2 3v14a2.5 2.5 0 0 1 2.5-2H20z"/>'),
+  user: svg(24, '<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.7 4.1-5.5 7.5-5.5s6.1 1.8 7.5 5.5"/>'),
+  close: svg(20, '<path d="M6 6l12 12M18 6 6 18"/>', 2),
+  skip: svg(20, '<path d="M5 5l7 7-7 7M13 5l7 7-7 7"/>', 2),
+  back: svg(22, '<path d="M15 18l-6-6 6-6"/>', 2.2),
+  chev: svg(16, '<path d="M9 6l6 6-6 6"/>', 2),
+  check: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="richtig"><path d="M5 12.5 10 17l9-10"/></svg>',
+  cross: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" role="img" aria-label="falsch"><path d="M7 7l10 10M17 7 7 17"/></svg>',
+  done: svg(26, '<path d="M5 12.5 10 17l9-10"/>', 2.4),
+  cards: svg(22, '<rect x="3" y="6" width="14" height="14" rx="2.5"/><path d="M7 3h11.5A2.5 2.5 0 0 1 21 5.5V17"/>'),
+  talk: svg(22, '<path d="M4 5h16v11H9l-5 4z"/>'),
+  grid: svg(22, '<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>'),
+  rules: svg(22, '<path d="M4 19 9 5l5 14M6 14h6"/><path d="M16 12.5c0-1.4 1-2.5 2.5-2.5S21 11 21 12.5V19M16 16.5c0 1.5 1 2.5 2.5 2.5S21 18 21 16.5"/>'),
 };
 
 function navbar(active) {
   const item = (id, label, icon) =>
-    '<button data-go="' + id + '" class="' + (active === id ? 'on' : '') + '">' +
+    '<button data-go="' + id + '" class="' + (active === id ? 'on' : '') + '"' +
+    (active === id ? ' aria-current="page"' : '') + '>' +
     icon + '<span>' + label + '</span></button>';
-  return '<div class="nav">' +
+  return '<nav class="nav" aria-label="Hauptbereiche">' +
     item('home', 'Lernen', ICON.home) +
     item('library', 'Bibliothek', ICON.book) +
     item('profile', 'Profil', ICON.user) +
-    '</div>';
+    '</nav>';
+}
+
+/* Zurück-Knopf wie unter iOS: Pfeil und Name der vorigen Seite */
+function backbtn(target, label) {
+  return '<button class="backbtn" data-go="' + target + '">' + ICON.back + '<span>' + esc(label) + '</span></button>';
+}
+
+/* Seitenkopf einer Unterseite: Zurück, großer Titel, Unterzeile */
+function pagehead(target, label, title, sub) {
+  return '<div class="pagehead">' + backbtn(target, label) +
+    '<h1 class="t-large">' + esc(title) + '</h1>' +
+    (sub ? '<div class="sub">' + sub + '</div>' : '') + '</div>';
+}
+
+/* Abzeichen als Zahl im Kreis */
+function medal(b, size) {
+  return '<span class="medal' + (b.earned ? '' : ' open') + (String(b.short).length > 3 ? ' wide' : '') + '"' +
+    (size ? ' style="width:' + size + 'px;height:' + size + 'px;"' : '') + ' aria-hidden="true">' +
+    esc(b.short) + '</span>';
 }
 
 /* ---------- Start ---------- */
@@ -172,55 +247,45 @@ const Home = {
     const streak = Stats.streak();
     const lvl = Session.level(DB);
     const L = LANGS[currentLang()] || LANGS.sk;
-
     const counts = this.preview();
 
-    return '<div class="safe-top"></div><div class="view fade">' +
-      // Feste Plätze: Slowakisch links, Italienisch rechts. Aktiv gross und
-      // dunkel, das andere kleiner und grau. Die Unterzeile steht unter dem
-      // aktiven Wort, damit klar ist, wozu sie gehoert.
-      '<div class="hero">' +
-        '<div class="greets">' +
-          LANG_ORDER.map(function (code) {
-            const G = LANGS[code];
-            const on = code === L.code;
-            return on
-              ? '<span class="greet on">' + esc(G.hello) + '</span>'
-              : '<button class="greet off" data-lang="' + code + '">' + esc(G.hello) + '</button>';
-          }).join('') +
-        '</div>' +
-        '<div class="small greetsub' + (L.code === LANG_ORDER[0] ? '' : ' right') + '">' +
-          esc(L.helloDe) + ' &middot; Stufe ' + lvl + '</div>' +
-      '</div>' +
-      '<div class="plan"><div class="panel">' +
-        '<div class="plan-row"><span class="dot"></span>' + counts.fresh + ' neue Wörter</div>' +
-        '<div class="plan-row"><span class="dot soft"></span>' + counts.due + ' Wiederholungen</div>' +
-        '<div class="plan-row"><span class="dot ochre"></span>' + counts.phrases + ' Redewendungen</div>' +
-      '</div></div>' +
+    const seg = '<div class="seg" role="group" aria-label="Sprache">' +
+      LANG_ORDER.map(code => {
+        const on = code === L.code;
+        return '<button data-lang="' + code + '" class="' + (on ? 'on' : '') + '" aria-pressed="' + on + '">' +
+          esc(LANGS[code].name) + '</button>';
+      }).join('') + '</div>';
 
-      '<div style="padding:20px var(--pad) 0;display:flex;align-items:center;gap:18px;">' +
-        '<div class="ring">' + ring(pct, 74, 6) +
-          '<div class="ring-in">' + (done
-            ? '<div style="font-size:22px;color:var(--good);">&#10003;</div>'
-            : '<div style="font-size:19px;font-weight:680;">' + d.seen + '</div>' +
-              '<div class="tiny">von ' + goal + '</div>') + '</div></div>' +
-        '<div style="flex:1;">' +
-          '<div class="small">Heute geübt</div>' +
-          '<div class="body" style="font-weight:600;margin-top:2px;">' +
-            (done ? 'Für heute erledigt' : d.seen ? 'Session läuft' : 'Noch nichts geübt') + '</div>' +
-          (streak > 0 ? '<div class="tiny" style="color:var(--ochre);margin-top:4px;">' +
-            streak + (streak === 1 ? ' Tag' : ' Tage') + ' in Folge</div>' : '') +
+    const status = done ? 'Für heute erledigt' : d.seen ? 'Session läuft' : 'Noch nichts geübt';
+    const under = streak > 0 ? plural(streak, 'Tag', 'Tage') + ' in Folge' : 'Tagesziel: ' + goal + ' Übungen';
+    const row = (label, n) => '<div class="row"><span class="row-main body">' + label + '</span>' +
+      '<span class="row-val">' + n + '</span></div>';
+
+    return '<div class="safe-top"></div><div class="view fade"><div class="home">' +
+      seg +
+      '<h1 class="t-large greet" lang="' + L.code + '">' + esc(L.hello) + '</h1>' +
+      '<div class="sub">' + esc(L.helloDe) + ' &middot; Stufe ' + lvl + '</div>' +
+
+      '<section class="card today" aria-label="Heute">' +
+        '<div class="today-top">' +
+          '<div class="ring">' + ring(pct, 64, 6) +
+            '<div class="ring-in">' + (done
+              ? '<span style="color:var(--good);">' + ICON.done + '</span>'
+              : '<span class="ring-n">' + d.seen + '</span><span class="ring-of">von ' + goal + '</span>') +
+            '</div></div>' +
+          '<div><div class="head">' + status + '</div><div class="sub">' + under + '</div></div>' +
         '</div>' +
-      '</div>' +
+        '<div class="today-rows">' +
+          row('Neue Wörter', counts.fresh) +
+          row('Wiederholungen', counts.due) +
+          row('Redewendungen', counts.phrases) +
+        '</div>' +
+        '<button class="btn" data-start>' + (done ? 'Noch eine Session' : 'Session starten') + '</button>' +
+      '</section>' +
 
       Focus.section() +
-
-      '<div class="spacer"></div></div>' +
-
-      '<div class="bottom">' +
-        '<button class="btn" data-start>Session starten</button>' +
-        '<button class="btn-quiet" data-drill>Vokabeln üben</button>' +
-      '</div>' + navbar('home') + Focus.view();
+      '<div class="spacer"></div></div></div>' +
+      navbar('home') + Focus.view();
   },
 
   preview() {
@@ -238,8 +303,8 @@ const Home = {
 
 /* ---------- Gezielt üben ----------
    Macht auf der Startseite sichtbar, was es in der Bibliothek schon gibt:
-   Phrasen nach Situation, Wörter nach Thema, dazu ein Grammatik-Vorschlag.
-   Nichts davon ändert die Session. */
+   endloses Vokabelüben, Phrasen nach Situation, Wörter nach Thema, dazu ein
+   Grammatik-Vorschlag. Nichts davon ändert die Session. */
 const Focus = {
   open: null,          // null | 'ctx' | 'topic'
 
@@ -256,38 +321,32 @@ const Focus = {
       .filter(x => x.n >= 4);
   },
 
-  row(attr, label, sub) {
-    return '<button class="focus-row" ' + attr + '>' +
-      '<div class="row-main"><div class="row-sk">' + label + '</div>' +
-      '<div class="row-de">' + sub + '</div></div>' +
-      '<span class="rowchev">›</span></button>';
+  tile(attr, icon, label, sub, warn) {
+    return '<button class="ftile" ' + attr + '>' + icon +
+      '<span class="ftile-t">' + label + '</span>' +
+      '<span class="ftile-d' + (warn ? ' warn' : '') + '">' + sub + '</span></button>';
   },
 
   section() {
-    const rows = [];
+    const tiles = [this.tile('data-drill', ICON.cards, 'Vokabeln', 'endlos, gemischt')];
     const ctx = this.contexts();
-    if (ctx.length) {
-      rows.push(this.row('data-focus="ctx"', 'Situationen',
-        esc(ctx.slice(0, 3).map(x => x.c).join(', ')) + (ctx.length > 3 ? ' …' : '')));
-    }
+    if (ctx.length) tiles.push(this.tile('data-focus="ctx"', ICON.talk, 'Situationen', plural(ctx.length, 'Situation', 'Situationen')));
     const tl = Topics.list();
     if (tl.length) {
       const ready = tl.filter(t => Topics.ready(t.key)).length;
-      rows.push(this.row('data-focus="topic"', 'Themen',
-        ready ? ready + (ready === 1 ? ' Thema' : ' Themen') + ' mit begonnenen Wörtern'
-              : 'Wörter nach Sachgebiet — füllt sich mit jeder Session'));
+      tiles.push(this.tile('data-focus="topic"', ICON.grid, 'Themen',
+        ready ? plural(ready, 'Thema', 'Themen') + ' bereit' : 'füllt sich mit jeder Session'));
     }
     const sg = Practice.suggest();
     if (sg) {
       const g = Practice.chapter(sg.id), rc = Practice.recent(sg.id);
       const why = sg.why === 'schwach' ? 'zuletzt ' + rc.r + ' von ' + rc.n + ' richtig'
         : sg.why === 'neu' ? 'noch nicht geübt' : 'länger nicht geübt';
-      rows.push(this.row('data-practice="grammar:' + esc(sg.id) + '"', 'Grammatik',
-        esc(g.title) + ' · ' + why));
+      tiles.push(this.tile('data-practice="grammar:' + esc(sg.id) + '"', ICON.rules, 'Grammatik',
+        esc(g.title) + ' · ' + why, sg.why === 'schwach'));
     }
-    if (!rows.length) return '';
-    return '<div class="focus"><div class="head">Gezielt üben</div>' +
-      '<div class="focus-card">' + rows.join('') + '</div></div>';
+    return '<section class="focus" aria-labelledby="focus-t"><h2 class="title" id="focus-t">Gezielt üben</h2>' +
+      '<div class="focus-grid">' + tiles.join('') + '</div></section>';
   },
 
   view() {
@@ -299,26 +358,27 @@ const Focus = {
         '<button class="row rowbtn" data-practice="phrases:' + esc(x.c) + '">' +
           '<div class="row-main"><div class="row-sk">' + esc(x.c) + '</div></div>' +
           '<span class="chip">' + x.n + '</span>' +
-          '<span class="rowchev">›</span></button>').join('');
+          '<span class="rowchev">' + ICON.chev + '</span></button>').join('');
     } else {
       title = 'Themen';
-      body = '<div class="small" style="margin-bottom:6px;">Geübt werden nur Wörter, ' +
-        'die du schon begonnen hast. Neue kommen weiter über die Session.</div>' +
+      body = '<div class="sub">Geübt werden nur Wörter, die du schon begonnen hast. ' +
+        'Neue kommen weiter über die Session.</div>' +
         Topics.list().map(t => {
           const n = Topics.started(t.key).length, all = Topics.words(t.key).length;
           const ok = n >= Topics.MIN;
           return '<button class="row rowbtn' + (ok ? '' : ' off') + '"' +
             (ok ? ' data-drill-set="topic:' + esc(t.key) + '"' : ' disabled') + '>' +
             '<div class="row-main"><div class="row-sk">' + esc(t.label) + '</div>' +
-            '<div class="row-de">' + n + ' von ' + all + ' begonnen</div></div>' +
-            (ok ? '<span class="rowchev">›</span>' : '') + '</button>';
+            '<div class="row-de">' + n + ' von ' + all + ' begonnen' +
+              (ok ? '' : ' · ab ' + Topics.MIN + ' übbar') + '</div></div>' +
+            (ok ? '<span class="rowchev">' + ICON.chev + '</span>' : '') + '</button>';
         }).join('');
     }
     return '<div class="sheet-bg" data-focus-close></div>' +
-      '<div class="sheet"><div class="sheet-grip"></div>' +
+      '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-t"><div class="sheet-grip"></div>' +
       '<div class="view-pad">' +
-        '<div class="head" style="margin:8px 0 6px;">' + title + '</div>' + body +
-        '<button class="btn-line" style="margin-top:18px;" data-focus-close>Schließen</button>' +
+        '<h2 class="title" id="sheet-t">' + title + '</h2>' + body +
+        '<button class="btn-line" style="margin-top:16px;" data-focus-close>Schließen</button>' +
       '</div></div>';
   },
 };
@@ -401,16 +461,19 @@ const Run = {
   view() {
     if (this.i >= this.items.length) return this.done();
     const it = this.cur();
-    const pct = Math.round(this.i / this.items.length * 100);
+    const n = this.items.length;
+    const pct = Math.round(this.i / n * 100);
 
     // Ueberspringen nur, solange noch nicht geantwortet wurde
     const canSkip = this.phase !== 'a';
     const top = '<div class="safe-top"></div>' +
-      '<div class="sess-top"><button class="sess-x" data-quit>&times;</button>' +
-      '<span class="track"><i style="width:' + pct + '%"></i></span>' +
-      '<span class="tiny num">' + (this.i + 1) + '/' + this.items.length + '</span>' +
-      (canSkip ? '<button class="skip" data-skip title="Übung überspringen">' +
-        ICON.skip + '</button>' : '<span style="width:26px;"></span>') +
+      '<div class="sess-top">' +
+        '<button class="icon-tap" data-quit aria-label="' + (this.practice ? 'Runde' : 'Session') + ' beenden">' + ICON.close + '</button>' +
+        '<span class="track" role="progressbar" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="' + n +
+          '" aria-valuenow="' + this.i + '"><i style="width:' + pct + '%"></i></span>' +
+        '<span class="count">' + (this.i + 1) + ' / ' + n + '</span>' +
+        (canSkip ? '<button class="icon-tap" data-skip aria-label="Übung überspringen">' + ICON.skip + '</button>'
+                 : '<span class="icon-tap" aria-hidden="true"></span>') +
       '</div>';
 
     let body = '';
@@ -429,26 +492,79 @@ const Run = {
     return top + body;
   },
 
+  /* Eine Antwortmöglichkeit; nach der Antwort richtig, falsch oder neutral */
+  opt(attr, value, label, right) {
+    const shown = this.phase === 'a';
+    let cls = 'opt', icon = '';
+    if (shown) {
+      if (value === right) { cls += ' right'; icon = ICON.check; }
+      else if (value === this.picked) { cls += ' wrong'; icon = ICON.cross; }
+      else cls += ' dim';
+    }
+    return '<button class="' + cls + '" ' + attr + '="' + esc(value) + '">' +
+      '<span class="opt-in"><span>' + label + '</span>' + icon + '</span></button>';
+  },
+
+  /* Rückmeldeleiste unten mit „Weiter" */
+  bar(kind, title, detail, note) {
+    return '<div class="answer ' + kind + '" role="status"><div>' +
+      '<div class="answer-t">' + title + '</div>' +
+      (detail ? '<div class="answer-d">' + detail + '</div>' : '') +
+      (note ? '<div class="answer-n">' + note + '</div>' : '') +
+      '</div><button class="btn" data-next>Weiter</button></div>';
+  },
+
+  /* Auswahlaufgaben: richtig oder nicht, dazu Wort und Bedeutung */
+  choiceBar(ok, pair) {
+    return this.bar(ok ? 'good' : 'bad', ok ? 'Richtig' : 'Noch nicht', pair);
+  },
+
+  /* Eintippen und Satzbau: fünf Stufen von exakt bis falsch */
+  verdictBar(verdict, said, target, gloss, note) {
+    const tail = gloss ? ' — ' + esc(gloss) : '';
+    if (verdict === 'exact') return this.bar('good', 'Richtig', marked(target) + tail, note);
+    if (verdict === 'diacritics') {
+      const marks = Text.missedMarks(said, target);
+      const tips = marks.filter(m => SOUNDS[m]).map(m => '<b>' + m + '</b> ' + SOUNDS[m]).join(' &middot; ');
+      return this.bar('warn', 'Fast — die Zeichen fehlen', 'Richtig ist <b>' + esc(target) + '</b>.',
+        [tips, note].filter(Boolean).join('<br>'));
+    }
+    if (verdict === 'typo') return this.bar('warn', 'Fast — ein Buchstabe daneben',
+      'Richtig ist <b>' + esc(target) + '</b>' + tail, note);
+    if (verdict === 'close') return this.bar('warn', 'Fast richtig',
+      'Richtig ist <b>' + esc(target) + '</b>' + tail, note);
+    return this.bar('bad', 'Noch nicht', 'Richtig ist <b>' + esc(target) + '</b>' + tail, note);
+  },
+
+  // Feld und Bausteinfläche: grün nur bei exakt, ocker bei „fast"
+  look(verdict) {
+    return verdict === 'exact' ? ' right' : verdict === 'wrong' ? ' wrong' : ' warn';
+  },
+
+  tip(chapterId) {
+    const t = chapterId ? (Practice.chapter(chapterId) || {}).tip : '';
+    return t ? '<div class="tipbox"><div class="tipbox-t">Merkhilfe</div><div class="tipbox-d">' + esc(t) + '</div></div>' : '';
+  },
+
   /* --- neue Vokabel vorstellen --- */
   intro(it) {
     const v = it.word;
     const ex = v.ex ? DB.sentById[v.ex] : null;
     const long = v.w.length > 13 ? ' long' : '';
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 14px;">Neues Wort</div>' +
-      '<div class="wordcard">' +
+      '<div class="ask">Neues Wort</div>' +
+      '<div class="wordcard tall">' +
         '<span class="chip">' + esc(v.level) + '</span>' +
-        '<div class="word' + long + '" style="margin-top:14px;">' + marked(v.w) + '</div>' +
+        '<div class="word' + long + '" style="margin-top:12px;">' + marked(v.w) + '</div>' +
         '<div class="gloss">' + esc(v.de) + '</div>' +
       '</div>' +
       (ex ? '<div class="card" style="margin-top:12px;">' +
-        '<div class="tiny" style="margin-bottom:5px;">Im Satz</div>' +
-        '<div class="body" style="font-weight:560;">' + esc(ex.w) + '</div>' +
-        '<div class="small" style="margin-top:2px;">' + esc(ex.de) + '</div></div>' : '') +
+        '<div class="card-label">Im Satz</div>' +
+        '<div class="body" style="font-weight:600;">' + marked(ex.w) + '</div>' +
+        '<div class="sub" style="margin-top:2px;">' + esc(ex.de) + '</div></div>' : '') +
       '<div class="spacer"></div></div></div>' +
       '<div class="bottom"><button class="btn" data-intro-ok>Verstanden</button></div>';
   },
-
 
   /* --- Paare zuordnen --- */
   match(it) {
@@ -462,16 +578,17 @@ const Run = {
       else if (miss) cls += ' miss';
       else if (sel) cls += ' sel';
       return '<button class="' + cls + '" ' + (done ? 'disabled' : '') +
+        (sel ? ' aria-pressed="true"' : '') +
         ' data-pair="' + side + ':' + o.id + '">' + esc(o.text) + '</button>';
     };
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted" style="margin:6px 0 ' + (it.title ? '8' : '16') + 'px;">Was gehört zusammen?</div>' +
-      (it.title ? '<div style="margin-bottom:14px;"><span class="chip">' + esc(it.title) + '</span></div>' : '') +
+      '<div class="ask">Was gehört zusammen?</div>' +
+      (it.title ? '<div style="margin:-4px 0 12px;text-align:center;"><span class="chip">' + esc(it.title) + '</span></div>' : '') +
       '<div class="pairgrid">' +
         '<div class="paircol">' + q.left.map(o => cell('l', o)).join('') + '</div>' +
         '<div class="paircol">' + q.right.map(o => cell('r', o)).join('') + '</div>' +
       '</div>' +
-      '<div class="tiny center" style="margin-top:16px;">' +
+      '<div class="foot center" style="margin-top:16px;">' +
         this.matched.length + ' von ' + q.total + ' gefunden</div>' +
       '<div class="spacer"></div></div></div>';
   },
@@ -483,164 +600,112 @@ const Run = {
     const p = it.phrase, shown = this.phase === 'a';
     const rev = it.dir === 'de2w';
     const right = rev ? p.w : p.de;
-    const opts = it.opts.map(o => {
-      let cls = 'opt';
-      if (shown) {
-        if (o === right) cls += ' right';
-        else if (o === this.picked) cls += ' wrong';
-        else cls += ' dim';
-      }
-      return '<button class="' + cls + '" data-pickphrase="' + esc(o) + '">' +
-        '<span class="opt-in"><span>' + (rev ? marked(o) : esc(o)) + '</span>' +
-        (shown && o === right ? '<span>&#10003;</span>' : '') + '</span></button>';
-    }).join('');
-    const card = rev
-      ? '<div class="wordcard" style="min-height:140px;">' +
-          '<span class="chip">' + esc(p.context) + '</span>' +
-          '<div class="word' + (p.de.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
-            esc(p.de) + '</div>' +
-        '</div>'
-      : '<div class="wordcard" style="min-height:140px;">' +
-          '<span class="chip">' + esc(p.context) + '</span>' +
-          '<div class="word' + (p.w.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
-            marked(p.w) + '</div>' +
-        '</div>';
+    const opts = it.opts.map(o => this.opt('data-pickphrase', o, rev ? marked(o) : esc(o), right)).join('');
+    const shownText = rev ? p.de : p.w;
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">' +
-        (rev ? 'Wie sagt man das?' : 'Was bedeutet das?') + '</div>' +
-      card +
-      '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
+      '<div class="ask">' + (rev ? 'Wie sagt man das?' : 'Was bedeutet das?') + '</div>' +
+      '<div class="wordcard">' +
+        '<span class="chip">' + esc(p.context) + '</span>' +
+        '<div class="word' + (shownText.length > 15 ? ' long' : '') + '" style="margin-top:12px;">' +
+          (rev ? esc(p.de) : marked(p.w)) + '</div>' +
+      '</div>' +
+      '<div class="opts">' + opts + '</div>' +
       '<div class="spacer"></div></div></div>' +
-      (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
+      (shown ? this.choiceBar(this.picked === right, marked(p.w) + ' — ' + esc(p.de)) : '');
   },
 
   /* --- Lückensatz: Sätze (Wort fehlt) und Grammatik (Form fehlt) --- */
   cloze(it) {
     const q = it.q, shown = this.phase === 'a';
     const ok = shown && this.picked === q.answer;
-    const tip = q.chapter ? (Practice.chapter(q.chapter) || {}).tip : '';
-    const opts = q.options.map(o => {
-      let cls = 'opt';
-      if (shown) {
-        if (o === q.answer) cls += ' right';
-        else if (o === this.picked) cls += ' wrong';
-        else cls += ' dim';
-      }
-      return '<button class="' + cls + '" data-pickcloze="' + esc(o) + '">' +
-        '<span class="opt-in"><span>' + marked(o) + '</span>' +
-        (shown && o === q.answer ? '<span>&#10003;</span>' : '') + '</span></button>';
-    }).join('');
+    const opts = q.options.map(o => this.opt('data-pickcloze', o, marked(o), q.answer)).join('');
     const parts = q.text.split('___');
     const gap = '<span class="gap' + (shown ? ' right' : '') + '">' +
-      (shown ? marked(q.answer) : '&nbsp;') + '</span>';
+      (shown ? marked(q.answer) : '<span class="sr">Lücke</span>&nbsp;') + '</span>';
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 12px;">' +
-        (q.chapter ? 'Welche Form passt?' : 'Welches Wort fehlt?') + '</div>' +
-      '<div class="wordcard" style="min-height:0;padding:26px 20px;">' +
+      '<div class="ask">' + (q.chapter ? 'Welche Form passt?' : 'Welches Wort fehlt?') + '</div>' +
+      '<div class="wordcard flat">' +
         (q.title ? '<span class="chip">' + esc(q.title) + '</span>' : '') +
-        '<div class="clozeline" style="margin-top:' + (q.title ? 14 : 0) + 'px;">' +
+        '<div class="clozeline" style="margin-top:' + (q.title ? 12 : 0) + 'px;">' +
           marked(parts[0]) + gap + marked(parts[1] || '') + '</div>' +
-        (q.hint ? '<div class="tiny" style="margin-top:10px;">' + esc(q.hint) + '</div>' : '') +
-        '<div class="gloss" style="font-size:16px;margin-top:12px;">' + esc(q.de) + '</div>' +
+        (q.hint ? '<div class="foot" style="margin-top:8px;">' + esc(q.hint) + '</div>' : '') +
+        '<div class="gloss small">' + esc(q.de) + '</div>' +
       '</div>' +
-      '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
-      (shown
-        ? '<div class="fb ' + (ok ? 'good' : 'bad') + '" style="margin-top:14px;">' +
-            '<div class="fb-t">' + (ok ? 'Richtig' : 'Noch nicht') + '</div>' +
-            '<div class="fb-d">' + (ok ? '' : 'Richtig ist <b>' + esc(q.answer) + '</b> — ') +
-            esc(q.full) + '</div></div>'
-        : '') +
-      (shown && tip ? '<div class="tipbox">' + esc(tip) + '</div>' : '') +
+      '<div class="opts">' + opts + '</div>' +
+      (shown ? this.tip(q.chapter) : '') +
       '<div class="spacer"></div></div></div>' +
-      (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
+      (shown ? this.bar(ok ? 'good' : 'bad', ok ? 'Richtig' : 'Noch nicht',
+        (ok ? '' : 'Richtig ist <b>' + esc(q.answer) + '</b>: ') + marked(q.full)) : '');
   },
 
   /* --- Form eintippen (Grammatik) --- */
   gtype(it) {
     const q = it.q, shown = this.phase === 'a';
     const okv = this.verdict === 'exact' || this.verdict === 'diacritics';
-    const cls = shown ? (okv ? ' right' : ' wrong') : '';
+    const eff = okv ? this.verdict : 'wrong';
     const name = LANGS[currentLang()].name;
-    const tip = (Practice.chapter(q.chapter) || {}).tip;
-    const fb = !shown ? '' :
-      this.feedback(okv ? this.verdict : 'wrong', this.picked, okv ? (this.hit || q.target) : q.target, q.de) +
-      (this.verdict === 'typo' || this.verdict === 'close'
-        ? '<div class="tiny" style="margin-top:8px;">Bei Endungen zählt jeder Buchstabe.</div>' : '') +
-      (tip ? '<div class="tipbox">' + esc(tip) + '</div>' : '');
+    const note = this.verdict === 'typo' || this.verdict === 'close' ? 'Bei Endungen zählt jeder Buchstabe.' : '';
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Schreib die Form auf ' + name + '</div>' +
-      '<div class="wordcard" style="min-height:130px;">' +
+      '<div class="ask">Schreib die Form auf ' + name + '</div>' +
+      '<div class="wordcard">' +
         '<span class="chip">' + esc(q.title) + '</span>' +
         '<div class="word' + (q.de.length > 13 ? ' long' : '') + '" style="margin-top:12px;">' +
           esc(q.de) + '</div>' +
       '</div>' +
-      '<input class="field' + cls + '" id="typed" style="margin-top:16px;" ' +
-        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+      '<label class="sr" for="typed">Antwort auf ' + name + '</label>' +
+      '<input class="field' + (shown ? this.look(eff) : '') + '" id="typed" lang="' + currentLang() + '" ' +
+        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" ' +
         'placeholder="' + name.toLowerCase() + '…" ' +
         (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
-      fb +
+      (shown ? this.tip(q.chapter) : '') +
       '<div class="spacer"></div></div></div>' +
-      '<div class="bottom">' +
-        (shown ? '<button class="btn" data-next>Weiter</button>'
-               : '<button class="btn" data-check-gtype>Prüfen</button>') +
-      '</div>';
+      (shown ? this.verdictBar(eff, this.picked, okv ? (this.hit || q.target) : q.target, q.de, note)
+             : '<div class="bottom"><button class="btn" data-check-gtype>Prüfen</button></div>');
   },
 
   /* --- Mehrfachauswahl --- */
   choice(it) {
     const q = it.q, shown = this.phase === 'a';
-    const opts = q.options.map(o => {
-      let cls = 'opt';
-      if (shown) {
-        if (o === q.answer) cls += ' right';
-        else if (o === this.picked) cls += ' wrong';
-        else cls += ' dim';
-      }
-      return '<button class="' + cls + '" data-pick="' + esc(o) + '">' +
-        '<span class="opt-in"><span>' + esc(o) + '</span>' +
-        (shown && o === q.answer ? '<span>&#10003;</span>' : '') + '</span></button>';
-    }).join('');
-
+    const opts = q.options.map(o => this.opt('data-pick', o, esc(o), q.answer)).join('');
+    const pair = q.dir === 'de2sk' ? marked(q.answer) + ' — ' + esc(q.ask) : marked(q.ask) + ' — ' + esc(q.answer);
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">' +
+      '<div class="ask">' +
         (q.dir === 'de2sk' ? 'Wie heißt das auf ' + LANGS[currentLang()].name + '?' : 'Was bedeutet das?') + '</div>' +
-      '<div class="wordcard" style="min-height:150px;">' +
+      '<div class="wordcard">' +
         '<div class="word' + (q.ask.length > 13 ? ' long' : '') + '">' + marked(q.ask) + '</div>' +
       '</div>' +
-      '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
+      '<div class="opts">' + opts + '</div>' +
       '<div class="spacer"></div></div></div>' +
-      (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
+      (shown ? this.choiceBar(this.picked === q.answer, pair) : '');
   },
 
   /* --- frei eintippen --- */
   type(it) {
     const v = it.word, shown = this.phase === 'a';
-    const cls = shown ? (this.verdict === 'wrong' ? ' wrong' : ' right') : '';
+    const name = LANGS[currentLang()].name;
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Schreib das Wort auf ' +
-        LANGS[currentLang()].name + '</div>' +
-      '<div class="wordcard" style="min-height:130px;">' +
+      '<div class="ask">Schreib das Wort auf ' + name + '</div>' +
+      '<div class="wordcard">' +
         '<div class="word' + (v.de.length > 13 ? ' long' : '') + '">' + esc(v.de) + '</div>' +
       '</div>' +
-      '<input class="field' + cls + '" id="typed" style="margin-top:16px;" ' +
-        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
-        'placeholder="' + LANGS[currentLang()].name.toLowerCase() + '…" ' + (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
-      (shown ? this.feedback(this.verdict, this.picked, v.w, v.de) : '') +
+      '<label class="sr" for="typed">Antwort auf ' + name + '</label>' +
+      '<input class="field' + (shown ? this.look(this.verdict) : '') + '" id="typed" lang="' + currentLang() + '" ' +
+        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" ' +
+        'placeholder="' + name.toLowerCase() + '…" ' + (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
       '<div class="spacer"></div></div></div>' +
-      '<div class="bottom">' +
-        (shown ? '<button class="btn" data-next>Weiter</button>'
-               : '<button class="btn" data-check-type>Prüfen</button>') +
-      '</div>';
+      (shown ? this.verdictBar(this.verdict, this.picked, v.w, v.de)
+             : '<div class="bottom"><button class="btn" data-check-type>Prüfen</button></div>');
   },
 
   /* --- Wortbausteine --- */
   build(it) {
     const q = it.q, shown = this.phase === 'a';
-    const slotCls = shown ? (this.verdict === 'wrong' ? ' wrong' : ' right') : '';
+    // „Fast richtig" zählt beim Satzbau als Fehler und wird auch so gezeigt
+    const eff = this.verdict === 'close' ? 'wrong' : this.verdict;
     const slots = this.built.map((w, i) =>
-      '<button class="slot" data-unslot="' + i + '">' + esc(w) + '</button>').join('');
+      '<button class="slot" data-unslot="' + i + '" aria-label="' + esc(w) + ' entfernen">' + esc(w) + '</button>').join('');
     const used = this.built.slice();
-    const bank = q.bank.map((w, i) => {
+    const bank = q.bank.map(w => {
       const k = used.indexOf(w);
       const isUsed = k >= 0;
       if (isUsed) used.splice(k, 1);
@@ -649,155 +714,103 @@ const Run = {
     }).join('');
 
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted" style="margin:6px 0 14px;">Bau den Satz</div>' +
+      '<div class="ask left">Bau den Satz</div>' +
       '<div class="prompt">' + esc(it.sent.de) + '</div>' +
-      '<div class="slots' + slotCls + '">' + slots + '</div>' +
-      (shown ? this.feedback(this.verdict, this.built.join(' '), q.target, it.sent.de)
-             : '<div class="bank" style="margin-top:18px;">' + bank + '</div>') +
+      '<div class="slots' + (shown ? this.look(eff) : '') + '" aria-label="Dein Satz">' +
+        (slots || '<span class="sub" style="padding:10px 4px;">Tippe die Wörter in der richtigen Reihenfolge an.</span>') + '</div>' +
+      (shown ? '' : '<div class="bank">' + bank + '</div>') +
       '<div class="spacer"></div></div></div>' +
-      '<div class="bottom">' +
-        (shown ? '<button class="btn" data-next>Weiter</button>'
-               : '<button class="btn" data-check-build ' +
-                 (this.built.length ? '' : 'disabled') + '>Prüfen</button>') +
-      '</div>';
+      (shown ? this.verdictBar(eff, this.built.join(' '), q.target, it.sent.de)
+             : '<div class="bottom"><button class="btn" data-check-build ' +
+                 (this.built.length ? '' : 'disabled') + '>Prüfen</button></div>');
   },
 
   /* --- Satz lesen, Bedeutung wählen --- */
   read(it) {
     const q = it.q, shown = this.phase === 'a';
-    const opts = q.options.map(o => {
-      let cls = 'opt';
-      if (shown) {
-        if (o === q.answer) cls += ' right';
-        else if (o === this.picked) cls += ' wrong';
-        else cls += ' dim';
-      }
-      return '<button class="' + cls + '" data-pickread="' + esc(o) + '">' +
-        '<span class="opt-in"><span>' + esc(o) + '</span>' +
-        (shown && o === q.answer ? '<span>&#10003;</span>' : '') + '</span></button>';
-    }).join('');
+    const opts = q.options.map(o => this.opt('data-pickread', o, esc(o), q.answer)).join('');
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Was bedeutet das?</div>' +
-      '<div class="wordcard" style="min-height:0;padding:26px 20px;">' +
+      '<div class="ask">Was bedeutet das?</div>' +
+      '<div class="wordcard flat">' +
         '<div class="clozeline">' + marked(it.sent.w) + '</div>' +
       '</div>' +
-      '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
+      '<div class="opts">' + opts + '</div>' +
       '<div class="spacer"></div></div></div>' +
-      (shown ? '<div class="bottom"><button class="btn" data-next>Weiter</button></div>' : '');
+      (shown ? this.choiceBar(this.picked === q.answer, marked(it.sent.w) + ' — ' + esc(it.sent.de)) : '');
   },
 
   /* --- Bedeutung sehen, Phrase eintippen --- */
   write(it) {
     const shown = this.phase === 'a';
-    const cls = shown ? (this.verdict === 'wrong' || this.verdict === 'close' ? ' wrong' : ' right') : '';
+    const eff = this.verdict === 'close' ? 'wrong' : this.verdict;
     const name = LANGS[currentLang()].name;
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Schreib das auf ' + name + '</div>' +
-      '<div class="wordcard" style="min-height:130px;">' +
+      '<div class="ask">Schreib das auf ' + name + '</div>' +
+      '<div class="wordcard">' +
         '<div class="word' + (it.sent.de.length > 15 ? ' long' : '') + '">' + esc(it.sent.de) + '</div>' +
       '</div>' +
-      '<input class="field' + cls + '" id="typed" style="margin-top:16px;" ' +
-        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+      '<label class="sr" for="typed">Antwort auf ' + name + '</label>' +
+      '<input class="field' + (shown ? this.look(eff) : '') + '" id="typed" lang="' + currentLang() + '" ' +
+        'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" ' +
         'placeholder="' + name.toLowerCase() + '…" ' +
         (shown ? 'disabled value="' + esc(this.picked || '') + '"' : '') + '>' +
-      (shown ? this.feedback(this.verdict === 'close' ? 'wrong' : this.verdict,
-        this.picked, it.sent.w, it.sent.de) : '') +
       '<div class="spacer"></div></div></div>' +
-      '<div class="bottom">' +
-        (shown ? '<button class="btn" data-next>Weiter</button>'
-               : '<button class="btn" data-check-write>Prüfen</button>') +
-      '</div>';
+      (shown ? this.verdictBar(eff, this.picked, it.sent.w, it.sent.de)
+             : '<div class="bottom"><button class="btn" data-check-write>Prüfen</button></div>');
   },
 
   /* --- Redewendung ansehen (Rückfall für unbekannte Aufgabenarten) --- */
   phrase(it) {
     const p = it.phrase || { w: '', de: '', context: '' };
     return '<div class="view fade"><div class="view-pad">' +
-      '<div class="muted center" style="margin:6px 0 16px;">Redewendung</div>' +
-      '<div class="wordcard">' +
+      '<div class="ask">Redewendung</div>' +
+      '<div class="wordcard tall">' +
         '<span class="chip">' + esc(p.context) + '</span>' +
-        '<div class="word' + (p.w.length > 15 ? ' long' : '') + '" style="margin-top:14px;">' +
+        '<div class="word' + (p.w.length > 15 ? ' long' : '') + '" style="margin-top:12px;">' +
           marked(p.w) + '</div>' +
-        '<div class="gloss" style="font-size:17px;">' + esc(p.de) + '</div>' +
+        '<div class="gloss">' + esc(p.de) + '</div>' +
       '</div><div class="spacer"></div></div></div>' +
       '<div class="bottom"><button class="btn" data-phrase-ok>Verstanden</button></div>';
-  },
-
-  /* --- Rückmeldung --- */
-  feedback(verdict, said, target, gloss) {
-    if (verdict === 'exact') {
-      return '<div class="fb good" style="margin-top:14px;">' +
-        '<div class="fb-t">Richtig</div>' +
-        '<div class="fb-d">' + esc(target) + ' — ' + esc(gloss) + '</div></div>';
-    }
-    if (verdict === 'diacritics') {
-      const marks = Text.missedMarks(said, target);
-      const tips = marks.filter(m => SOUNDS[m])
-        .map(m => '<b>' + m + '</b> ' + SOUNDS[m]).join(' &middot; ');
-      return '<div class="fb warn" style="margin-top:14px;">' +
-        '<div class="fb-t">Fast — die Zeichen fehlen</div>' +
-        '<div class="fb-d">Richtig ist <b>' + esc(target) + '</b>.' +
-        (tips ? '<br>' + tips : '') + '</div></div>';
-    }
-    if (verdict === 'typo') {
-      return '<div class="fb warn" style="margin-top:14px;">' +
-        '<div class="fb-t">Fast — ein Buchstabe daneben</div>' +
-        '<div class="fb-d">Richtig ist <b>' + esc(target) + '</b> — ' + esc(gloss) + '</div></div>';
-    }
-    if (verdict === 'close') {
-      return '<div class="fb warn" style="margin-top:14px;">' +
-        '<div class="fb-t">Fast richtig</div>' +
-        '<div class="fb-d">Richtig ist <b>' + esc(target) + '</b> — ' + esc(gloss) + '</div></div>';
-    }
-    return '<div class="fb bad" style="margin-top:14px;">' +
-      '<div class="fb-t">Noch nicht</div>' +
-      '<div class="fb-d">Richtig ist <b>' + esc(target) + '</b> — ' + esc(gloss) + '</div></div>';
   },
 
   /* --- Abschluss --- */
   done() {
     const total = this.right + this.wrong;
     const pct = total ? Math.round(this.right / total * 100) : 0;
-    const mark = pct === 100 ? '&#11088;' : pct >= 80 ? '&#127881;' : pct >= 60 ? '&#128077;' : '&#128218;';
     const newly = Stats.learnedToday();
-    return '<div class="safe-top"></div><div class="view pop"><div class="result">' +
-      '<div class="result-mark">' + mark + '</div>' +
-      '<div class="title" style="margin-bottom:10px;">' + (this.practice ? 'Runde beendet' : 'Session beendet') + '</div>' +
-      '<div class="result-pct" style="color:' +
-        (pct >= 80 ? 'var(--good)' : pct >= 60 ? 'var(--ochre)' : 'var(--bad)') + '">' + pct + '%</div>' +
-      '<div class="small" style="margin-top:4px;">' + this.right + ' von ' + total + ' richtig' +
-        (this.skipped ? ', ' + this.skipped + ' übersprungen' : '') + '</div>' +
-      (this.practice ? this.practiceNote() : '') +
-      (newly && !this.practice ? '<div class="panel" style="margin-top:24px;text-align:left;">' +
-        '<div class="body"><b>' + newly + '</b> ' +
-        (newly === 1 ? 'Wort ist' : 'Wörter sind') + ' heute ins Langzeitgedächtnis gewandert.</div>' +
-        '</div>' : '') +
-      '</div></div>' +
+    const row = (label, val) => '<div class="row"><span class="row-main body">' + label + '</span>' +
+      '<span class="row-val">' + val + '</span></div>';
+
+    const rows = [row('Richtig beantwortet', this.right + ' von ' + total)];
+    if (this.skipped) rows.push(row('Übersprungen', this.skipped));
+    if (!this.practice) {
+      rows.push(row('Heute ins Langzeitgedächtnis', plural(newly, 'Wort', 'Wörter')));
+      rows.push(row('Serie', plural(Stats.streak(), 'Tag', 'Tage')));
+    }
+    const note = this.practice ? this.practiceNote() : '';
+    if (note) rows.push(note);
+
+    const badges = this.newBadges.length
+      ? '<section class="card" aria-label="Neue Abzeichen">' +
+          this.newBadges.map(b => '<div class="badge-new' + '" style="padding:4px 0;">' +
+            medal({ short: b.short, earned: true }) +
+            '<div><div class="foot">Neues Abzeichen</div><div class="head">' + esc(b.title) + '</div></div></div>').join('') +
+        '</section>'
+      : '';
+
+    return '<div class="safe-top"></div><div class="view fade"><div class="result">' +
+      '<div class="ring" role="img" aria-label="' + pct + ' Prozent richtig">' + ring(pct, 156, 10) +
+        '<div class="ring-in"><span class="t-large">' + pct + ' %</span><span class="foot">richtig</span></div></div>' +
+      '<h1 class="title">' + (this.practice ? 'Runde beendet' : 'Session beendet') + '</h1>' +
+      '<section class="card flush">' + rows.join('') + '</section>' +
+      badges +
+      '</div><div class="spacer"></div></div>' +
       '<div class="bottom"><div class="btn-row">' +
         (this.practice
-          ? '<button class="btn-line" data-go="' + (this.practice.from || 'library') + '">Schluss</button>' +
+          ? '<button class="btn-line" data-go="' + (this.practice.from || 'library') + '">Fertig</button>' +
             '<button class="btn wide" data-practice-again>Noch eine Runde</button>'
-          : '<button class="btn-line" data-go="home">Schluss</button>' +
-            '<button class="btn wide" data-start>Noch eine</button>') +
-      '</div></div>' +
-      (this.newBadges.length ? this.badgePopup() : '');
-  },
-
-  /* --- Neu freigeschaltete Abzeichen --- */
-  badgePopup() {
-    const list = this.newBadges;
-    return '<div class="sheet-bg" data-badges-close></div>' +
-      '<div class="sheet"><div class="sheet-grip"></div>' +
-      '<div class="badge-pop">' +
-        '<div class="badge-ic">' + list[0].icon + '</div>' +
-        '<div class="title" style="margin-top:6px;">' +
-          (list.length > 1 ? 'Neue Abzeichen' : 'Neues Abzeichen') + '</div>' +
-      '</div>' +
-      '<div class="view-pad">' +
-        list.map(b => '<div class="badge-row">' +
-          '<span class="badge-ic">' + b.icon + '</span>' +
-          '<div class="row-sk">' + esc(b.title) + '</div></div>').join('') +
-        '<button class="btn" style="margin-top:18px;" data-badges-close>Weiter</button>' +
+          : '<button class="btn-line" data-go="home">Fertig</button>' +
+            '<button class="btn wide" data-start>Noch eine Session</button>') +
       '</div></div>';
   },
 
@@ -807,8 +820,8 @@ const Run = {
     if (!P || P.type !== 'grammar' || !P.arg) return '';
     const rc = Practice.recent(P.arg);
     if (!rc) return '';
-    return '<div class="panel" style="margin-top:24px;text-align:left;">' +
-      '<div class="body">Diese Regel: zuletzt <b>' + rc.r + ' von ' + rc.n + '</b> richtig.</div></div>';
+    return '<div class="row"><span class="row-main body">Diese Regel: zuletzt</span>' +
+      '<span class="row-val">' + rc.r + ' von ' + rc.n + ' richtig</span></div>';
   },
 };
 
@@ -910,45 +923,43 @@ const Drill = {
   view() {
     if (!this.q) {
       return '<div class="safe-top"></div>' +
-        '<div class="appbar"><button class="iconbtn" data-go="home">' + ICON.back + '</button>' +
-        '<div class="head">' + esc(this.title()) + '</div><div style="width:38px;"></div></div>' +
-        '<div class="view"><div class="view-pad"><div class="card center" style="margin-top:30px;">' +
-        '<div class="body">Dafür braucht es ein paar Wörter mehr.</div>' +
-        '<div class="small" style="margin-top:6px;">' + (this.topic()
+        pagehead('home', 'Lernen', this.title()) +
+        '<div class="view"><div class="view-pad"><div class="card center" style="margin-top:20px;">' +
+        '<div class="head">Dafür braucht es ein paar Wörter mehr.</div>' +
+        '<div class="sub" style="margin-top:6px;">' + (this.topic()
           ? 'In diesem Thema sind noch zu wenige Wörter begonnen.'
           : 'Mach zuerst eine Session.') + '</div>' +
         '</div></div></div>';
     }
     const q = this.q, shown = this.picked !== null;
     const opts = q.options.map(o => {
-      let cls = 'opt';
+      let cls = 'opt', icon = '';
       if (shown) {
-        if (o === q.answer) cls += ' right';
-        else if (o === this.picked) cls += ' wrong';
+        if (o === q.answer) { cls += ' right'; icon = ICON.check; }
+        else if (o === this.picked) { cls += ' wrong'; icon = ICON.cross; }
         else cls += ' dim';
       }
       return '<button class="' + cls + '" data-drillpick="' + esc(o) + '">' +
-        '<span class="opt-in"><span>' + esc(o) + '</span>' +
-        (shown && o === q.answer ? '<span>&#10003;</span>' : '') + '</span></button>';
+        '<span class="opt-in"><span>' + esc(o) + '</span>' + icon + '</span></button>';
     }).join('');
 
     return '<div class="safe-top"></div>' +
       '<div class="sess-top">' +
-        '<button class="sess-x" data-go="home">&times;</button>' +
-        '<span class="body" style="font-weight:560;flex:1;">' + esc(this.title()) + '</span>' +
-        '<span class="drillscore"><span class="dg">' + this.right + ' &#10003;</span>' +
-        '<span class="dr">' + this.wrong + ' &#10007;</span></span>' +
+        '<button class="icon-tap" data-go="home" aria-label="Üben beenden">' + ICON.close + '</button>' +
+        '<span class="drill-title">' + esc(this.title()) + '</span>' +
+        '<span class="drillscore"><span class="dg">' + this.right + ' ✓<span class="sr"> richtig</span></span>' +
+        '<span class="dr">' + this.wrong + ' ✗<span class="sr"> falsch</span></span></span>' +
       '</div>' +
       '<div class="view" key="' + this.key + '"><div class="view-pad">' +
-        '<div class="wordcard fade" style="min-height:132px;">' +
+        '<div class="wordcard fade" style="margin-top:8px;">' +
           '<span class="chip">' + esc(q.dir === 'de2sk' ? 'auf ' + LANGS[currentLang()].name : 'auf Deutsch') + '</span>' +
           '<div class="word' + (q.ask.length > 14 ? ' long' : '') + '" style="margin-top:12px;">' +
             marked(q.ask) + '</div>' +
         '</div>' +
-        '<div class="opts" style="margin-top:16px;">' + opts + '</div>' +
-        '<div class="tiny center" style="margin-top:18px;">' + (this.topic()
-          ? 'Probelauf &mdash; ändert keine Kästen &middot; beenden mit &times;'
-          : 'Endlos &mdash; beenden mit &times;') + '</div>' +
+        '<div class="opts">' + opts + '</div>' +
+        '<div class="foot center" style="margin-top:18px;">' + (this.topic()
+          ? 'Probelauf, ändert keine Kästen'
+          : 'Endlos. Beenden mit dem Kreuz oben links.') + '</div>' +
         '<div class="spacer"></div>' +
       '</div></div>';
   },
@@ -961,11 +972,10 @@ const Library = {
   view() {
     const t = this.tab;
     return '<div class="safe-top"></div>' +
-      '<div class="appbar"><div class="title">Bibliothek</div></div>' +
-      '<div style="padding:14px var(--pad) 12px;">' +
-        '<div class="seg">' +
+      '<div class="libhead"><h1 class="t-large">Bibliothek</h1>' +
+        '<div class="seg" role="tablist" aria-label="Bereiche">' +
           ['woerter', 'saetze', 'phrasen', 'grammatik'].map(k =>
-            '<button data-tab="' + k + '" class="' + (t === k ? 'on' : '') + '">' +
+            '<button role="tab" data-tab="' + k + '" class="' + (t === k ? 'on' : '') + '" aria-selected="' + (t === k) + '">' +
             ({ woerter: 'Wörter', saetze: 'Sätze', phrasen: 'Phrasen', grammatik: 'Grammatik' })[k] +
             '</button>').join('') +
         '</div>' +
@@ -984,26 +994,29 @@ const Library = {
       ['arbeit', 'In Arbeit',             v => W[v.id] && W[v.id].box < MASTER_BOX],
       ['offen',  'Noch nicht begonnen',   v => !W[v.id]],
     ];
-    let out = '<button class="tile" data-words="alle" style="margin-bottom:14px;">' +
-      '<div class="head">Alle Wörter durchsehen</div>' +
-      '<div class="small">' + DB.vocab.length + ' Einträge, durchsuchbar</div></button>';
+    let out = '<button class="tile" data-words="alle" style="margin-bottom:12px;">' +
+      '<span class="head">Alle Wörter durchsehen</span>' +
+      '<span class="sub">' + DB.vocab.length + ' Einträge, durchsuchbar</span></button>';
+    out += '<div class="card flush">';
     groups.forEach(([key, label, fn]) => {
       const n = DB.vocab.filter(fn).length;
       out += '<button class="row rowbtn" data-words="' + key + '">' +
         '<div class="row-main"><div class="row-sk">' + label + '</div></div>' +
         '<span class="chip">' + n + '</span>' +
-        '<span class="rowchev">›</span></button>';
+        '<span class="rowchev">' + ICON.chev + '</span></button>';
     });
+    out += '</div>';
     const b = Stats.byBox();
-    out += '<div class="head" style="margin:26px 0 10px;">Verteilung nach Kasten</div>';
+    out += '<h2 class="title sechead-l">Verteilung nach Kasten</h2><div class="card">';
     for (let i = 1; i <= 5; i++) {
       const pct = Stats.touched() ? Math.round(b[i] / Stats.touched() * 100) : 0;
-      out += '<div style="margin-bottom:11px;">' +
-        '<div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px;">' +
-        '<span>Kasten ' + i + '<span class="tiny"> &middot; alle ' + INTERVALS[i] + ' Tage</span></span>' +
-        '<span class="num" style="color:var(--ink-3);">' + b[i] + '</span></div>' +
+      out += '<div style="margin-bottom:' + (i < 5 ? 12 : 0) + 'px;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">' +
+        '<span class="body">Kasten ' + i + ' <span class="foot">· alle ' + plural(INTERVALS[i], 'Tag', 'Tage') + '</span></span>' +
+        '<span class="row-val">' + b[i] + '</span></div>' +
         '<div class="tile-bar"><i style="width:' + pct + '%"></i></div></div>';
     }
+    out += '</div>';
     return out;
   },
 
@@ -1031,30 +1044,35 @@ const Library = {
     const uebbar = filter && filter !== 'offen' && liste.length >= 4;
 
     return '<div class="safe-top"></div>' +
-      '<div class="appbar"><button class="iconbtn" data-go="library">' + ICON.back + '</button>' +
-      '<div class="head">' + esc(F.titel) + '</div><div style="width:38px;"></div></div>' +
-      '<div style="padding:14px var(--pad) 10px;">' +
+      pagehead('library', 'Bibliothek', F.titel, plural(liste.length, 'Wort', 'Wörter')) +
+      '<div style="padding:12px var(--pad) 10px;">' +
         (uebbar ? '<button class="btn" style="margin-bottom:10px;" data-drill-set="' + filter +
           '">Diese ' + liste.length + ' Wörter üben</button>' : '') +
-        '<input class="search" id="wsearch" placeholder="Suchen…" autocomplete="off"></div>' +
-      '<div class="view"><div class="view-pad" id="wlist">' +
-      (rows || '<div class="card center"><div class="small">Hier ist noch nichts.</div></div>') +
-      '<div class="spacer"></div></div></div>';
+        '<label class="sr" for="wsearch">Wörter suchen</label>' +
+        '<input class="search" id="wsearch" type="search" placeholder="Suchen" autocomplete="off"></div>' +
+      '<div class="view"><div class="view-pad">' +
+      (rows ? '<div class="card flush" id="wlist">' + rows + '</div>'
+            : '<div class="card center" id="wlist"><div class="sub">Hier ist noch nichts.</div></div>') +
+      '<div class="spacer"></div></div></div>' + navbar('library');
   },
+
   sentences() {
     const open = DB.sentences.filter(s => Session.unlocked(s));
-    let out = '<div class="small" style="margin-bottom:14px;">' + open.length +
+    let out = '<div class="sub" style="margin-bottom:12px;">' + open.length +
       ' von ' + DB.sentences.length + ' Sätzen freigeschaltet. Ein Satz erscheint, ' +
       'sobald du seine Wörter kennst.</div>';
     if (open.length >= 4) {
-      out += '<button class="btn" data-practice="sentences" style="margin-bottom:14px;">Sätze üben</button>';
+      out += '<button class="btn" data-practice="sentences" style="margin-bottom:12px;">Sätze üben</button>';
     }
-    out += open.slice(0, 120).map(s =>
-      '<div class="row"><div class="row-main">' +
-      '<div class="row-sk" style="font-weight:560;">' + esc(s.w) + '</div>' +
-      '<div class="row-de">' + esc(s.de) + '</div></div></div>').join('');
-    if (!open.length) out += '<div class="card center"><div class="small">' +
-      'Noch keine Sätze frei. Lerne ein paar Wörter, dann erscheinen sie hier.</div></div>';
+    if (open.length) {
+      out += '<div class="card flush">' + open.slice(0, 120).map(s =>
+        '<div class="row"><div class="row-main">' +
+        '<div class="row-sk">' + marked(s.w) + '</div>' +
+        '<div class="row-de">' + esc(s.de) + '</div></div></div>').join('') + '</div>';
+    } else {
+      out += '<div class="card center"><div class="sub">' +
+        'Noch keine Sätze frei. Lerne ein paar Wörter, dann erscheinen sie hier.</div></div>';
+    }
     return out;
   },
 
@@ -1073,8 +1091,8 @@ const Library = {
     });
     const any = DB.phrases.some(p => P[p.id]);
     const top = (DB.phrases.length >= 4
-      ? '<button class="btn" data-practice="phrases" style="margin-bottom:4px;">Alle Phrasen üben</button>' : '') +
-      (any ? '<div class="tiny" style="margin:6px 2px 0;">Der Kasten zeigt, wie sicher eine ' +
+      ? '<button class="btn" data-practice="phrases">Alle Phrasen üben</button>' : '') +
+      (any ? '<div class="foot" style="margin-top:8px;">Der Kasten zeigt, wie sicher eine ' +
         'Phrase sitzt. Ab Kasten ' + MASTER_BOX + ' gilt sie als gefestigt.</div>' : '');
     return top + ctx.map(c => {
       const list = DB.phrases.filter(p => p.context === c);
@@ -1083,10 +1101,10 @@ const Library = {
       const stand = begun
         ? begun + ' von ' + list.length + ' begonnen &middot; ' + fest + ' gefestigt'
         : list.length + ' Phrasen, noch keine begonnen';
-      return '<div class="sechead"><div><div class="head">' + esc(c) + '</div>' +
-        '<div class="tiny" style="margin-top:2px;">' + stand + '</div></div>' +
+      return '<div class="sechead"><div><h2 class="head">' + esc(c) + '</h2>' +
+        '<div class="foot" style="margin-top:2px;">' + stand + '</div></div>' +
         (list.length >= 4
-          ? '<button class="chipbtn" data-practice="phrases:' + esc(c) + '">üben</button>' : '') +
+          ? '<button class="chipbtn" data-practice="phrases:' + esc(c) + '" aria-label="' + esc(c) + ' üben">üben</button>' : '') +
         '</div>' +
         list.map(p => {
           const st = P[p.id];
@@ -1094,7 +1112,7 @@ const Library = {
             ? '<span class="chip' + (st.box >= MASTER_BOX ? '' : ' ochre') + '">Kasten ' + st.box + '</span>'
             : '';
           return '<div class="row"><div class="row-main">' +
-            '<div class="row-sk" style="font-weight:560;">' + marked(p.w) + '</div>' +
+            '<div class="row-sk">' + marked(p.w) + '</div>' +
             '<div class="row-de">' + esc(p.de) + '</div></div>' + chip + '</div>';
         }).join('');
     }).join('');
@@ -1103,18 +1121,19 @@ const Library = {
   grammar() {
     const can = DB.grammar.filter(g => Practice.available(g.id)).length >= 2;
     const any = DB.grammar.some(g => Practice.recent(g.id));
-    return (can ? '<button class="btn" data-practice="grammar" style="margin-bottom:6px;">Grammatik üben</button>' : '') +
-      (any ? '<div class="tiny" style="margin:0 2px 12px;">Die Zahl zeigt, wie viele deiner letzten ' +
-        'Antworten zu einer Regel richtig waren.</div>' : '<div style="height:8px;"></div>') +
+    return (can ? '<button class="btn" data-practice="grammar">Grammatik üben</button>' : '') +
+      (any ? '<div class="foot" style="margin:8px 0 12px;">Die Zahl zeigt, wie viele deiner letzten ' +
+        'Antworten zu einer Regel richtig waren.</div>' : '<div style="height:12px;"></div>') +
       DB.grammar.map(g => {
         const rc = Practice.recent(g.id);
-        return '<button class="tile" data-chapter="' + esc(g.id) + '" style="margin-bottom:9px;">' +
-          '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">' +
-          '<div><div class="head">' + esc(g.title) + '</div>' +
-          '<div class="small">' + esc(g.description) + '</div></div>' +
+        return '<button class="tile" data-chapter="' + esc(g.id) + '" style="margin-bottom:10px;">' +
+          '<span style="display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;">' +
+          '<span style="min-width:0;"><span class="head" style="display:block;">' + esc(g.title) + '</span>' +
+          '<span class="sub" style="display:block;">' + esc(g.description) + '</span></span>' +
           '<span style="display:flex;gap:6px;align-items:center;flex:none;">' +
             (rc ? '<span class="chip' + (rc.r / rc.n >= 0.8 ? '' : ' ochre') + '">' + rc.r + '/' + rc.n + '</span>' : '') +
-            '<span class="chip">' + esc(g.level) + '</span></span></div></button>';
+            '<span class="chip plain">' + esc(g.level) + '</span>' +
+            '<span class="rowchev">' + ICON.chev + '</span></span></span></button>';
       }).join('');
   },
 
@@ -1122,22 +1141,19 @@ const Library = {
     const g = DB.grammar.find(x => x.id === id) || DB.grammar[0];
     const rc = Practice.recent(g.id);
     const rows = g.table.map(r =>
-      '<tr><td style="color:var(--ink-2);">' + esc(r[0]) + '</td>' +
+      '<tr><td>' + esc(r[0]) + '</td>' +
       '<td>' + marked(r[1]) + '</td></tr>').join('');
     return '<div class="safe-top"></div>' +
-      '<div class="appbar"><button class="iconbtn" data-go="library">' + ICON.back + '</button>' +
-      '<div class="head">Grammatik</div><div style="width:38px;"></div></div>' +
-      '<div class="view fade"><div class="view-pad" style="padding-top:16px;">' +
-        '<div class="title">' + esc(g.title) + '</div>' +
-        '<div class="small" style="margin-top:3px;">' + esc(g.description) + '</div>' +
-        '<div class="card" style="margin-top:16px;padding:4px 18px 10px;">' +
-          '<table class="gtable">' + rows + '</table></div>' +
-        '<div class="tipbox">' + esc(g.tip) + '</div>' +
+      '<div class="view fade">' +
+      pagehead('library', 'Bibliothek', g.title, esc(g.description) + ' &middot; ' + esc(g.level)) +
+      '<div class="view-pad" style="padding-top:16px;">' +
+        '<div class="card flush"><table class="gtable">' + rows + '</table></div>' +
+        (g.tip ? '<div class="tipbox"><div class="tipbox-t">Merkhilfe</div><div class="tipbox-d">' + esc(g.tip) + '</div></div>' : '') +
         (Practice.available(g.id)
           ? '<button class="btn" data-practice="grammar:' + esc(g.id) + '" style="margin-top:18px;">Diese Regel üben</button>' +
-            (rc ? '<div class="tiny center" style="margin-top:8px;">Zuletzt ' + rc.r + ' von ' + rc.n + ' richtig</div>' : '')
+            (rc ? '<div class="foot center" style="margin-top:8px;">Zuletzt ' + rc.r + ' von ' + rc.n + ' richtig</div>' : '')
           : '') +
-        '<div class="spacer"></div></div></div>';
+        '<div class="spacer"></div></div></div>' + navbar('library');
   },
 };
 
@@ -1146,23 +1162,31 @@ const Library = {
 function relTime(ms) {
   const m = Math.round((Date.now() - ms) / 60000);
   if (m < 1) return 'gerade eben';
-  if (m < 60) return 'vor ' + m + ' Minuten';
+  if (m < 60) return 'vor ' + plural(m, 'Minute', 'Minuten');
   const h = Math.round(m / 60);
-  if (h < 24) return 'vor ' + h + (h === 1 ? ' Stunde' : ' Stunden');
+  if (h < 24) return 'vor ' + plural(h, 'Stunde', 'Stunden');
   const d = Math.round(h / 24);
-  return 'vor ' + d + (d === 1 ? ' Tag' : ' Tagen');
+  return 'vor ' + plural(d, 'Tag', 'Tagen');
 }
 
-/* Abzeichenkacheln fürs Profil — nicht erreichte bleiben sichtbar, aber blass. */
+/* Abzeichen nach Gruppe: erreichte mit vollem Ring, offene gestrichelt. */
 function badgesGrid() {
   const list = Badges.list(DB);
   const earned = list.filter(b => b.earned).length;
-  const tiles = list.map(b =>
-    '<div class="badge' + (b.earned ? '' : ' locked') + '">' +
-      '<div class="badge-ic">' + b.icon + '</div>' +
-      '<div class="badge-t">' + esc(b.title) + '</div></div>').join('');
-  return '<div class="small" style="margin:-4px 0 10px;">' + earned + ' von ' + list.length +
-    ' erreicht</div><div class="badge-grid">' + tiles + '</div>';
+  const groups = [];
+  list.forEach(b => {
+    let g = groups.find(x => x.name === b.group);
+    if (!g) { g = { name: b.group, items: [] }; groups.push(g); }
+    g.items.push(b);
+  });
+  return '<div class="sub" style="margin:-4px 0 10px;">' + earned + ' von ' + list.length + ' erreicht</div>' +
+    '<section class="card badge-card" aria-label="Abzeichen">' +
+    groups.map(g => '<div class="badge-group"><div class="badge-group-t">' + esc(g.name) + '</div>' +
+      '<div class="badge-grid">' + g.items.map(b =>
+        '<div class="badge">' + medal(b) +
+        '<span class="badge-t">' + esc(b.title) + '<span class="sr">' + (b.earned ? ', erreicht' : ', noch offen') + '</span></span></div>'
+      ).join('') + '</div></div>').join('') +
+    '</section>';
 }
 
 /* ---------- Niveau-Fortschritt ---------- */
@@ -1173,18 +1197,19 @@ const Levels = {
     const rows = Stats.levelBreakdown(DB);
     const nextLevel = c.label === 'A1 in Arbeit' ? 'A2' : c.label === 'A2 in Arbeit' ? 'B1' : null;
 
-    let missing = 'Du lernst schon auf B1-Niveau — weiter so.';
+    let missing = 'Du lernst schon auf B1-Niveau.';
     if (nextLevel) {
       const r = rows.find(x => x.level === nextLevel);
       const bits = [];
+      const part = (n, one, many) => n + ' ' + nextLevel + '-' + (n === 1 ? one : many);
       if (r) {
-        if (r.vocab - r.vocabDone > 0) bits.push((r.vocab - r.vocabDone) + ' ' + nextLevel + '-Wörter');
-        if (r.gram - r.gramDone > 0) bits.push((r.gram - r.gramDone) + ' ' + nextLevel + '-Grammatikkapitel');
-        if (r.phrases - r.phrasesDone > 0) bits.push((r.phrases - r.phrasesDone) + ' ' + nextLevel + '-Phrasen');
+        if (r.vocab - r.vocabDone > 0) bits.push(part(r.vocab - r.vocabDone, 'Wort', 'Wörter'));
+        if (r.gram - r.gramDone > 0) bits.push(part(r.gram - r.gramDone, 'Grammatikkapitel', 'Grammatikkapitel'));
+        if (r.phrases - r.phrasesDone > 0) bits.push(part(r.phrases - r.phrasesDone, 'Phrase', 'Phrasen'));
       }
       missing = bits.length
         ? 'Für ' + nextLevel + ' fehlen dir noch: ' + bits.join(', ') + '.'
-        : 'Du hast alles für ' + nextLevel + ' beisammen — es muss nur noch sitzen.';
+        : 'Du hast alles für ' + nextLevel + ' beisammen, es muss nur noch sitzen.';
     }
 
     const block = (key, doneKey, useLock) => rows.filter(r => r[key] > 0).map(r => {
@@ -1193,42 +1218,44 @@ const Levels = {
       const pct2 = Math.round(done / total * 100);
       const cls = locked ? ' locked' : (done >= total ? ' done' : '');
       return '<div class="lvl-block">' +
-        '<div class="lvl-row"><span class="small">' + r.level + '</span>' +
-        '<span class="small">' + done + '/' + total + (locked ? ' &middot; noch gesperrt' : '') +
+        '<div class="lvl-row"><span class="body">' + r.level + '</span>' +
+        '<span class="sub num">' + done + ' / ' + total + (locked ? ' &middot; noch gesperrt' : '') +
         '</span></div>' +
         '<div class="lvl-bar' + cls + '"><i style="width:' + (locked ? 0 : pct2) + '%"></i></div>' +
       '</div>';
     }).join('');
 
     return '<div class="safe-top"></div>' +
-      '<div class="appbar"><button class="iconbtn" data-go="profile">' + ICON.back + '</button>' +
-      '<div class="head">Niveau</div><div style="width:38px;"></div></div>' +
-      '<div class="view fade"><div class="view-pad" style="padding-top:16px;">' +
+      '<div class="view fade">' + pagehead('profile', 'Profil', 'Niveau') +
+      '<div class="view-pad" style="padding-top:16px;">' +
 
-      '<div class="panel" style="display:flex;align-items:center;gap:18px;">' +
-        '<div class="ring">' + ring(pct, 84, 7) +
-        '<div class="ring-in"><div style="font-size:18px;font-weight:680;">' + c.at + '</div></div></div>' +
+      '<div class="panel" style="display:flex;align-items:center;gap:16px;">' +
+        '<div class="ring">' + ring(pct, 72, 7) +
+        '<div class="ring-in"><span class="ring-n">' + c.at + '</span></div></div>' +
         '<div style="flex:1;">' +
           '<div class="head">' + c.label + '</div>' +
-          '<div class="small" style="margin-top:2px;">' + c.at + ' von ' + c.next +
+          '<div class="sub" style="margin-top:2px;">' + c.at + ' von ' + c.next +
           ' Wörtern im Langzeitgedächtnis</div></div></div>' +
 
-      '<div class="small" style="margin-top:14px;">' + esc(missing) + '</div>' +
+      '<div class="sub" style="margin-top:12px;">' + esc(missing) + '</div>' +
 
-      '<div class="head" style="margin:26px 0 10px;">Wortschatz</div>' + block('vocab', 'vocabDone', true) +
-      '<div class="head" style="margin:26px 0 10px;">Grammatik</div>' + block('gram', 'gramDone', false) +
-      '<div class="head" style="margin:26px 0 10px;">Phrasen</div>' + block('phrases', 'phrasesDone', false) +
+      '<h2 class="title sechead-l">Wortschatz</h2>' + block('vocab', 'vocabDone', true) +
+      '<h2 class="title sechead-l">Grammatik</h2>' + block('gram', 'gramDone', false) +
+      '<h2 class="title sechead-l">Phrasen</h2>' + block('phrases', 'phrasesDone', false) +
 
-      '<div class="spacer"></div></div></div>';
+      '<div class="spacer"></div></div></div>' + navbar('profile');
   },
 };
 
 const Profile = {
+  syncMsg: null,      // Fehlermeldung des Abgleichs, steht unter dem Knopf
+
   view() {
     const sy = Sync.cfg();
     const m = Stats.mastered(), t = Stats.touched();
     const c = Stats.cefr();
     const pct = Math.round(c.at / c.next * 100);
+    const L = LANGS[currentLang()] || LANGS.sk;
     const heat = [];
     for (let i = 29; i >= 0; i--) {
       const k = Store.dayKey(-i);
@@ -1236,47 +1263,48 @@ const Profile = {
       const q = !d ? 0 : d.seen >= Store.data.settings.goal ? 3 : d.seen >= 10 ? 2 : 1;
       heat.push('<i class="q' + q + (i === 0 ? ' today' : '') + '"></i>');
     }
+    const row = (label, val) => '<div class="row"><span class="row-main body">' + label + '</span>' +
+      '<span class="row-val">' + val + '</span></div>';
+    const msg = this.syncMsg ? '<div class="field-error" role="alert">' + esc(this.syncMsg) + '</div>' : '';
+
     return '<div class="safe-top"></div>' +
-      '<div class="appbar"><div class="title">Profil</div>' +
-      '<button class="iconbtn" data-go="legal"><span style="font-size:16px;">&sect;</span></button></div>' +
-      '<div class="view"><div class="view-pad" style="padding-top:18px;">' +
+      '<div class="view"><div class="pagehead"><h1 class="t-large">Profil</h1></div>' +
+      '<div class="view-pad" style="padding-top:14px;">' +
 
       '<button class="panel rowbtn" data-go="levels" ' +
-        'style="display:flex;align-items:center;gap:18px;width:100%;text-align:left;">' +
-        '<div class="ring">' + ring(pct, 84, 7) +
-        '<div class="ring-in"><div style="font-size:18px;font-weight:680;">' + m + '</div></div></div>' +
+        'style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;">' +
+        '<div class="ring">' + ring(pct, 64, 6) +
+        '<div class="ring-in"><span class="ring-n">' + m + '</span></div></div>' +
         '<div style="flex:1;">' +
           '<div class="head">' + c.label + '</div>' +
-          '<div class="small" style="margin-top:2px;">' + m + ' von ' + c.next +
+          '<div class="sub" style="margin-top:2px;">' + m + ' von ' + c.next +
           ' Wörtern im Langzeitgedächtnis</div></div>' +
-        '<span class="rowchev">›</span></button>' +
+        '<span class="rowchev">' + ICON.chev + '</span></button>' +
 
-      '<div class="stat-row" style="margin-top:12px;">' +
-        '<div class="stat"><b>' + Stats.streak() + '</b><span class="tiny">Tage in Folge</span></div>' +
-        '<div class="stat"><b>' + Stats.learnedToday() + '</b><span class="tiny">heute gefestigt</span></div>' +
-        '<div class="stat"><b>' + Stats.accuracy() + '%</b><span class="tiny">Treffer</span></div>' +
+      '<div class="stat-row">' +
+        '<div class="stat"><b>' + Stats.streak() + '</b><span class="foot">Tage in Folge</span></div>' +
+        '<div class="stat"><b>' + Stats.learnedToday() + '</b><span class="foot">heute gefestigt</span></div>' +
+        '<div class="stat"><b>' + Stats.accuracy() + ' %</b><span class="foot">Treffer</span></div>' +
       '</div>' +
 
-      '<div class="head" style="margin:26px 0 10px;">Letzte 30 Tage</div>' +
-      '<div class="heat">' + heat.join('') + '</div>' +
+      '<h2 class="title sechead-l">Letzte 30 Tage</h2>' +
+      '<div class="heat" role="img" aria-label="Lerntage der letzten 30 Tage">' + heat.join('') + '</div>' +
+      '<div class="heat-legend"><span class="foot">vor 30 Tagen</span><span class="foot">heute</span></div>' +
 
-      '<div class="head" style="margin:26px 0 10px;">Wortschatz</div>' +
-      '<div class="card">' +
-        '<div class="row"><div class="row-main"><div class="row-sk">Begonnen</div></div>' +
-        '<span class="chip">' + t + '</span></div>' +
-        '<div class="row"><div class="row-main"><div class="row-sk">Im Langzeitgedächtnis</div></div>' +
-        '<span class="chip">' + m + '</span></div>' +
-        '<div class="row"><div class="row-main"><div class="row-sk">Insgesamt verfügbar</div></div>' +
-        '<span class="chip plain">' + DB.vocab.length + '</span></div>' +
+      '<h2 class="title sechead-l">Wortschatz</h2>' +
+      '<div class="card flush">' +
+        row('Begonnen', t) +
+        row('Im Langzeitgedächtnis', m) +
+        row('Insgesamt verfügbar', DB.vocab.length) +
       '</div>' +
 
-      '<div class="head" style="margin:26px 0 10px;">Abzeichen</div>' +
+      '<h2 class="title sechead-l">Abzeichen</h2>' +
       badgesGrid() +
 
-      '<div class="head" style="margin:26px 0 10px;">Geräte verbinden</div>' +
+      '<h2 class="title sechead-l">Geräte verbinden</h2>' +
       (Sync.on
         ? '<div class="card">' +
-            '<div class="row"><div class="row-main">' +
+            '<div class="row" style="padding-top:0;"><div class="row-main">' +
               '<div class="row-sk">Verbunden</div>' +
               '<div class="row-de">' + (sy.last
                 ? 'Zuletzt abgeglichen ' + relTime(sy.last)
@@ -1286,28 +1314,34 @@ const Profile = {
             '<div class="btn-row" style="margin-top:12px;">' +
               '<button class="btn-line" data-sync-off>Trennen</button>' +
               '<button class="btn-line" data-sync-now>Jetzt abgleichen</button>' +
-            '</div></div>'
+            '</div>' + msg + '</div>'
         : '<div class="card">' +
-            '<div class="small" style="margin-bottom:12px;">Dasselbe Codewort auf jedem Gerät ' +
-            'eintragen — dann teilen sie sich den Lernstand. Beide Sprachen werden getrennt ' +
+            '<div class="sub" style="margin-bottom:12px;">Dasselbe Codewort auf jedem Gerät ' +
+            'eintragen, dann teilen sie sich den Lernstand. Beide Sprachen werden getrennt ' +
             'abgeglichen.</div>' +
+            '<label class="sr" for="synccode">Codewort</label>' +
             '<input class="search" id="synccode" placeholder="Codewort" autocomplete="off" ' +
-              'autocapitalize="characters" spellcheck="false"/>' +
+              'autocapitalize="characters" spellcheck="false"/>' + msg +
             '<button class="btn" style="margin-top:10px;" data-sync-on>Verbinden</button>' +
           '</div>') +
 
-      '<div class="head" style="margin:26px 0 10px;">Fortschritt sichern</div>' +
+      '<h2 class="title sechead-l">Fortschritt sichern</h2>' +
       '<div class="btn-row">' +
         '<button class="btn-line" data-export>Exportieren</button>' +
         '<button class="btn-line" data-import>Importieren</button></div>' +
 
-      '<div class="head" style="margin:26px 0 8px;">Zurücksetzen</div>' +
-      '<div class="small" style="margin-bottom:12px;">Löscht alle Kästen, Serien und Statistiken. ' +
-      'Nicht umkehrbar.</div>' +
+      '<h2 class="title sechead-l">Rechtliches</h2>' +
+      '<div class="card flush"><button class="row rowbtn" data-go="legal">' +
+        '<div class="row-main"><div class="row-sk" style="font-weight:400;">Impressum und Datenschutz</div></div>' +
+        '<span class="rowchev">' + ICON.chev + '</span></button></div>' +
+
+      '<h2 class="title sechead-l">Zurücksetzen</h2>' +
+      '<div class="sub" style="margin-bottom:12px;">Löscht Kästen, Serien und Statistiken für ' +
+        esc(L.name) + '. Nicht umkehrbar.</div>' +
       '<button class="btn-danger" data-reset>Alle Daten löschen</button>' +
 
-      '<div class="tiny center" style="margin-top:26px;">Version ' + APP_VERSION +
-      ' &middot; ' + (LANGS[currentLang()] || LANGS.sk).name +
+      '<div class="foot center" style="margin-top:24px;">Version ' + APP_VERSION +
+      ' &middot; ' + esc(L.name) +
       ' &middot; ' + DB.vocab.length + ' Wörter, ' + DB.sentences.length + ' Sätze</div>' +
       '<div class="spacer"></div></div></div>' + navbar('profile');
   },
@@ -1317,58 +1351,56 @@ const Profile = {
 const Legal = {
   view() {
     const y = new Date().getFullYear();
-    const block = (t, b) => '<div class="head" style="margin:24px 0 8px;">' + t + '</div>' + b;
+    const block = (t, b) => '<h2 class="head" style="margin:22px 0 8px;">' + t + '</h2>' + b;
     return '<div class="safe-top"></div>' +
-      '<div class="appbar"><button class="iconbtn" data-go="profile">' + ICON.back + '</button>' +
-      '<div class="head">Impressum</div><div style="width:38px;"></div></div>' +
-      '<div class="view"><div class="view-pad" style="padding-top:14px;">' +
-      '<div class="small">Angaben gemäß § 25 Mediengesetz</div>' +
+      '<div class="view">' + pagehead('profile', 'Profil', 'Impressum', 'Angaben gemäß § 25 Mediengesetz') +
+      '<div class="view-pad" style="padding-top:4px;">' +
 
-      block('Medieninhaber', '<div class="card"><div class="body" style="font-weight:600;">Clemens Schleinzer</div>' +
-        '<div class="small" style="margin-top:5px;line-height:1.7;">Enzersdorfer Straße 9/2/2<br>' +
+      block('Medieninhaber', '<div class="card"><div class="head">Clemens Schleinzer</div>' +
+        '<div class="sub" style="margin-top:5px;line-height:1.6;">Enzersdorfer Straße 9/2/2<br>' +
         '2401 Fischamend<br>Österreich</div>' +
-        '<a href="mailto:schleinzer@gmail.com" style="display:block;margin-top:9px;font-size:14px;' +
+        '<a href="mailto:schleinzer@gmail.com" style="display:inline-flex;align-items:center;min-height:44px;' +
         'color:var(--cobalt);text-decoration:none;">schleinzer@gmail.com</a></div>') +
 
-      block('Zweck', '<div class="small">Nicht-kommerzielle Privatanwendung zum Erlernen der ' +
+      block('Zweck', '<div class="sub">Nicht-kommerzielle Privatanwendung zum Erlernen der ' +
         'slowakischen und italienischen Sprache, ohne Erwerbsabsicht.</div>') +
 
       block('Datenschutz',
-        '<div class="small" style="margin-bottom:10px;">Verantwortlicher im Sinne der DSGVO: ' +
+        '<div class="sub" style="margin-bottom:10px;">Verantwortlicher im Sinne der DSGVO: ' +
         'Clemens Schleinzer, Enzersdorfer Straße 9/2/2, 2401 Fischamend, schleinzer@gmail.com</div>' +
-        '<div class="small" style="margin-bottom:10px;">Der Lernfortschritt wird lokal im Browser ' +
+        '<div class="sub" style="margin-bottom:10px;">Der Lernfortschritt wird lokal im Browser ' +
         'gespeichert. Er verlässt das Gerät nur, wenn Sie den Abgleich zwischen Geräten einschalten ' +
         '(siehe unten). Es werden keine Cookies gesetzt, kein Tracking durchgeführt und keine ' +
         'Analysedienste eingesetzt. Die App verwendet weder Mikrofon noch Sprachausgabe.</div>' +
-        '<div class="small">Beim Aufruf der Seite wird Ihre IP-Adresse an den Hosting-Anbieter ' +
+        '<div class="sub">Beim Aufruf der Seite wird Ihre IP-Adresse an den Hosting-Anbieter ' +
         'übertragen. Externe Programmbibliotheken werden nicht geladen.</div>') +
 
       block('Abgleich zwischen Geräten',
-        '<div class="card" style="background:var(--tint);">' +
-        '<div class="small" style="margin-bottom:10px;">Wer den Abgleich einschaltet, überträgt ' +
+        '<div class="card">' +
+        '<div class="sub" style="margin-bottom:10px;">Wer den Abgleich einschaltet, überträgt ' +
         'seinen Lernfortschritt an einen Speicher bei Cloudflare, der zu dieser Seite gehört. ' +
         'Übertragen werden ausschließlich Lernstände — keine Namen, keine Kennungen und keine ' +
         'Inhalte Ihrer Eingaben:</div>' +
-        '<div class="small" style="margin-bottom:10px;">Für jedes Wort und jede Phrase der ' +
+        '<div class="sub" style="margin-bottom:10px;">Für jedes Wort und jede Phrase der ' +
         'Wiederholungskasten, der Termin der nächsten Wiederholung, die erreichte Übungsstufe ' +
         'und der Zeitpunkt der letzten Änderung. Für jede Grammatikregel die Zahl der Antworten ' +
         'und ob die zuletzt gegebenen richtig waren. Für jeden Tag die Zahl der Übungen, der ' +
         'richtigen Antworten, der neuen Wörter und der abgeschlossenen Sitzungen. Dazu das ' +
         'Tagesziel und das Startdatum.</div>' +
-        '<div class="small">Das Codewort wird nicht im Klartext abgelegt, sondern nur als ' +
+        '<div class="sub">Das Codewort wird nicht im Klartext abgelegt, sondern nur als ' +
         'Prüfsumme. Ohne Einschalten verlässt nichts das Gerät.</div></div>') +
 
       block('Hosting',
-        '<div class="small">Cloudflare Pages, betrieben von Cloudflare, Inc., 101 Townsend St, ' +
+        '<div class="sub">Cloudflare Pages, betrieben von Cloudflare, Inc., 101 Townsend St, ' +
         'San Francisco, CA 94107, USA. Beim Seitenaufruf wird die IP-Adresse an Cloudflare ' +
         'übertragen. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert.</div>') +
 
       block('Beschwerderecht',
-        '<div class="small">Sie haben das Recht, Beschwerde bei der österreichischen ' +
-        'Datenschutzbehörde einzulegen: <a href="https://www.dsb.gv.at" target="_blank" ' +
-        'rel="noopener" style="color:var(--cobalt);text-decoration:none;">www.dsb.gv.at</a></div>') +
+        '<div class="sub">Sie haben das Recht, Beschwerde bei der österreichischen ' +
+        'Datenschutzbehörde einzulegen:</div>' +
+        '<a class="textlink" href="https://www.dsb.gv.at" target="_blank" rel="noopener">www.dsb.gv.at</a>') +
 
-      '<div class="tiny center" style="margin-top:28px;">Stand ' + y + ' — Slovenčina</div>' +
-      '<div class="spacer"></div></div></div>';
+      '<div class="foot center" style="margin-top:28px;">Stand ' + y + '</div>' +
+      '<div class="spacer"></div></div></div>' + navbar('profile');
   },
 };

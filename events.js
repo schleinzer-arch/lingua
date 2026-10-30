@@ -1,5 +1,5 @@
 /* ============================================================
-   Slovenčina — Ereignisse
+   lingua — Ereignisse
    ============================================================ */
 'use strict';
 
@@ -42,12 +42,19 @@ function bindAll() {
 
   on('[data-drillpick]', el => Drill.answer(el.getAttribute('data-drillpick')));
   on('[data-quit]', () => {
+    const ziel = Run.practice ? (Run.practice.from || 'library') : 'home';
     if (Run.i > 0 && Run.i < Run.items.length) {
-      if (!confirm((Run.practice ? 'Runde' : 'Session') +
-        ' abbrechen? Der bisherige Fortschritt bleibt gespeichert.')) return;
+      const was = Run.practice ? 'Runde' : 'Session';
+      Ask.open({ title: was + ' beenden?', text: 'Was du bisher geübt hast, bleibt gespeichert.',
+        yes: was + ' beenden', no: 'Weiter üben', onYes: () => App.go(ziel) });
+      return;
     }
-    App.go(Run.practice ? (Run.practice.from || 'library') : 'home');
+    App.go(ziel);
   });
+
+  /* --- Rückfrage-Blatt --- */
+  on('[data-ask-yes]', () => { const q = Ask.q; Ask.q = null; if (q && q.onYes) q.onYes(); else App.render(); });
+  on('[data-ask-no]', () => Ask.close());
 
   /* --- Neue Vokabel / Phrase bestätigen --- */
   on('[data-intro-ok]', () => {
@@ -263,9 +270,6 @@ function bindAll() {
 
   on('[data-next]', () => Run.next());
 
-  /* --- Abzeichen-Overlay schließen --- */
-  on('[data-badges-close]', () => { Run.newBadges = []; App.render(); });
-
   /* --- Sprache wechseln --- */
   on('[data-lang]', el => App.switchLang(el.getAttribute('data-lang')));
 
@@ -273,27 +277,37 @@ function bindAll() {
   on('[data-sync-on]', () => {
     const inp = App.el.querySelector('#synccode');
     const code = inp ? inp.value.trim() : '';
-    if (code.length < 3) { alert('Bitte ein Codewort mit mindestens drei Zeichen eingeben.'); return; }
+    if (code.length < 3) {
+      Profile.syncMsg = 'Bitte ein Codewort mit mindestens drei Zeichen eingeben.';
+      App.render();
+      const f = App.el.querySelector('#synccode');
+      if (f) { f.value = code; f.focus(); }
+      return;
+    }
+    Profile.syncMsg = null;
     Sync.connect(code);
     App.render();
     Sync.run().then(r => {
-      if (!r.ok) alert(syncFehler(r.grund));
-      App.render();
+      Profile.syncMsg = r.ok ? null : syncFehler(r.grund);
+      if (App.screen === 'profile') App.render();
+      if (r.ok) Toast.show('Verbunden und abgeglichen');
     });
   });
 
   on('[data-sync-now]', el => {
     el.textContent = 'Gleiche ab…';
+    el.disabled = true;
     Sync.run().then(r => {
-      if (!r.ok) alert(syncFehler(r.grund));
-      App.render();
+      Profile.syncMsg = r.ok ? null : syncFehler(r.grund);
+      if (App.screen === 'profile') App.render();
+      if (r.ok) Toast.show('Abgeglichen');
     });
   });
 
   on('[data-sync-off]', () => {
-    if (!confirm('Verbindung trennen? Der Lernstand auf diesem Gerät bleibt erhalten.')) return;
-    Sync.disconnect();
-    App.render();
+    Ask.open({ title: 'Verbindung trennen?', text: 'Der Lernstand auf diesem Gerät bleibt erhalten.',
+      yes: 'Trennen', no: 'Verbunden bleiben', danger: true,
+      onYes: () => { Sync.disconnect(); Profile.syncMsg = null; App.render(); } });
   });
 
   /* --- Suche in der Wortliste --- */
@@ -326,11 +340,12 @@ function bindAll() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'slovencina-fortschritt.json';
+    a.download = 'lingua-' + currentLang() + '-fortschritt.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+    Toast.show('Datei wird gespeichert');
   });
 
   on('[data-import]', () => {
@@ -348,10 +363,10 @@ function bindAll() {
           Store.data = d;
           Store.save();
           Store.load();     // räumt alte Felder (etwa die Sprech-Einstellung) weg
-          alert('Fortschritt übernommen.');
           App.go('profile');
+          Toast.show('Fortschritt übernommen');
         } catch (e) {
-          alert('Diese Datei konnte nicht gelesen werden.');
+          Toast.show('Diese Datei konnte nicht gelesen werden');
         }
       };
       r.readAsText(f);
@@ -362,9 +377,11 @@ function bindAll() {
   });
 
   on('[data-reset]', () => {
-    if (!confirm('Wirklich alle Daten löschen? Kästen, Serien und Statistiken gehen verloren.')) return;
-    Store.reset();
-    App.go('home');
+    const name = (LANGS[currentLang()] || LANGS.sk).name;
+    Ask.open({ title: 'Alle Daten löschen?', text: 'Kästen, Serien und Statistiken für ' + name +
+      ' gehen verloren. Das lässt sich nicht rückgängig machen.',
+      yes: 'Alles löschen', no: 'Behalten', danger: true,
+      onYes: () => { Store.reset(); App.go('home'); Toast.show('Daten gelöscht'); } });
   });
 }
 
@@ -380,3 +397,10 @@ function syncFehler(grund) {
 
 /* ---------- Start ---------- */
 document.addEventListener('DOMContentLoaded', () => App.boot());
+
+/* Escape schließt ein offenes Blatt (Tastatur am iPad oder Mac) */
+document.addEventListener('keydown', ev => {
+  if (ev.key !== 'Escape') return;
+  if (Ask.q) { Ask.close(); return; }
+  if (Focus.open) { Focus.open = null; App.render(); }
+});

@@ -686,7 +686,11 @@ const Make = {
   // liesse sich die Aufgabe durch blosses Ausschliessen loesen.
   build(s, DB) {
     const target = s.w.replace(/\s+/g, ' ').trim();
-    const parts = target.split(' ');
+    // Satzzeichen gehören nicht auf die Bausteine: „stole." verrät sonst
+    // das letzte Wort. Die Wertung ignoriert Satzzeichen ohnehin.
+    const parts = target.split(' ')
+      .map(p => p.replace(/^[„"“”'«»(¿¡]+|[.,!?;:…"“”'»)]+$/g, ''))
+      .filter(Boolean);
     const low = target.toLowerCase();
     const kinds = s.words.map(id => DB.byId[id] && DB.byId[id].pos).filter(Boolean);
     let pool = DB.vocab.filter(v =>
@@ -1279,39 +1283,39 @@ function solidChapter(id) {
    Abzeichen auf diesem Gerät schon als „neu" gezeigt wurden, steht lokal
    ausserhalb des Lernstands, genau wie die Sprache. */
 const BADGES = [
-  { id: 'streak-3',    group: 'Serie',      icon: '\u{1F525}', title: '3 Tage in Folge',
+  { id: 'streak-3',    group: 'Serie',       short: '3', title: '3 Tage in Folge',
     check: () => Stats.streak() >= 3 },
-  { id: 'streak-7',    group: 'Serie',      icon: '\u{1F525}', title: 'Eine Woche Serie',
+  { id: 'streak-7',    group: 'Serie',       short: '7', title: 'Eine Woche Serie',
     check: () => Stats.streak() >= 7 },
-  { id: 'streak-30',   group: 'Serie',      icon: '\u{1F525}', title: 'Ein Monat Serie',
+  { id: 'streak-30',   group: 'Serie',       short: '30', title: 'Ein Monat Serie',
     check: () => Stats.streak() >= 30 },
-  { id: 'streak-100',  group: 'Serie',      icon: '\u{1F525}', title: '100 Tage Serie',
+  { id: 'streak-100',  group: 'Serie',       short: '100', title: '100 Tage Serie',
     check: () => Stats.streak() >= 100 },
-  { id: 'streak-365',  group: 'Serie',      icon: '\u{1F525}', title: 'Ein Jahr Serie',
+  { id: 'streak-365',  group: 'Serie',       short: '365', title: 'Ein Jahr Serie',
     check: () => Stats.streak() >= 365 },
 
-  { id: 'words-50',    group: 'Wortschatz', icon: '\u{1F4D8}', title: '50 Wörter gemeistert',
+  { id: 'words-50',    group: 'Wortschatz',  short: '50', title: '50 Wörter gemeistert',
     check: () => Stats.mastered() >= 50 },
-  { id: 'words-100',   group: 'Wortschatz', icon: '\u{1F4D8}', title: '100 Wörter gemeistert',
+  { id: 'words-100',   group: 'Wortschatz',  short: '100', title: '100 Wörter gemeistert',
     check: () => Stats.mastered() >= 100 },
-  { id: 'words-500',   group: 'Wortschatz', icon: '\u{1F4D8}', title: '500 Wörter gemeistert',
+  { id: 'words-500',   group: 'Wortschatz',  short: '500', title: '500 Wörter gemeistert',
     check: () => Stats.mastered() >= 500 },
-  { id: 'words-1200',  group: 'Wortschatz', icon: '\u{1F4D8}', title: '1200 Wörter gemeistert',
+  { id: 'words-1200',  group: 'Wortschatz',  short: '1200', title: '1200 Wörter gemeistert',
     check: () => Stats.mastered() >= 1200 },
 
-  { id: 'level-a1',    group: 'Niveau',     icon: '\u{1F3C5}', title: 'Niveau A1 erreicht',
+  { id: 'level-a1',    group: 'Niveau',      short: 'A1', title: 'Niveau A1 erreicht',
     check: () => Stats.mastered() >= 300 },
-  { id: 'level-a2',    group: 'Niveau',     icon: '\u{1F3C5}', title: 'Niveau A2 erreicht',
+  { id: 'level-a2',    group: 'Niveau',      short: 'A2', title: 'Niveau A2 erreicht',
     check: () => Stats.mastered() >= 800 },
 
-  { id: 'grammar-first', group: 'Grammatik', icon: '✏️', title: 'Erste Regel sicher',
+  { id: 'grammar-first', group: 'Grammatik',  short: '1', title: 'Erste Regel sicher',
     check: (DB) => DB.grammar.some(g => solidChapter(g.id)) },
-  { id: 'grammar-a1',    group: 'Grammatik', icon: '✏️', title: 'Alle A1-Regeln sicher',
+  { id: 'grammar-a1',    group: 'Grammatik',  short: 'A1', title: 'Alle A1-Regeln sicher',
     check: (DB) => grammarLevelDone(DB, 'A1') },
-  { id: 'grammar-a2',    group: 'Grammatik', icon: '✏️', title: 'Alle A2-Regeln sicher',
+  { id: 'grammar-a2',    group: 'Grammatik',  short: 'A2', title: 'Alle A2-Regeln sicher',
     check: (DB) => grammarLevelDone(DB, 'A2') },
 
-  { id: 'both-langs', group: 'Sprachen', icon: '\u{1F30D}', title: 'Beide Sprachen begonnen',
+  { id: 'both-langs', group: 'Sprachen',  short: '2', title: 'Beide Sprachen begonnen',
     check: () => Badges.otherStarted() },
 ];
 
@@ -1350,7 +1354,7 @@ const Badges = {
 
   /* Aktueller Stand aller Abzeichen — für die Anzeige im Profil. */
   list(DB) {
-    return BADGES.map(b => ({ id: b.id, group: b.group, icon: b.icon, title: b.title,
+    return BADGES.map(b => ({ id: b.id, group: b.group, short: b.short, title: b.title,
       earned: !!b.check(DB) }));
   },
 
